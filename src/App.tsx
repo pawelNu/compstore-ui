@@ -1,10 +1,15 @@
 import React from "react";
-import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { MainPage } from "./pages/MainPage/MainPage"
 
 export const App = () => {
     return (
         <div>
-            <h1>CompStore Frontend</h1>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<MainPage />} />
+                </Routes>
+            </BrowserRouter>
         </div>
     );
 };
