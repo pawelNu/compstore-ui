@@ -4,9 +4,6 @@ export const CategoryBar = () => {
     return (
         <nav className="navbar navbar-expand-lg category-bar mt-2">
             <div className="container-fluid">
-                <a className="navbar-brand" href="/">
-                    Categories
-                </a>
                 <button
                     className="navbar-toggler"
                     type="button"

@@ -1,8 +1,8 @@
-import "./../static/styles/CategoryBar.css";
+import "./../static/styles/Navbar.css";
 
 export const Navbar = () => {
     return (
-        <nav className="navbar navbar-expand-lg category-bar mt-2">
+        <nav className="navbar navbar-expand-lg navbar-custom mt-2">
             <div className="container-fluid">
                 <button
                     className="navbar-toggler"
