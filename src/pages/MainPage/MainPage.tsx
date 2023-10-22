@@ -14,9 +14,7 @@ export const MainPage = () => {
                 Welcome to CompStore. The best devices just for you!
             </div>
             <MainPageContentExample />
-            <div>
-                <Footer />
-            </div>
+            <Footer />
         </div>
     );
 };
