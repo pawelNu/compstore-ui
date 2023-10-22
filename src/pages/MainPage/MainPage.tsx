@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { CategoryBar } from "./components/CategoryBar";
 import { Navbar } from "../../layout/Navbar";
 import { MainPageContentExample } from "./components/MainPageContentExample";
+import { Footer } from "../../layout/Footer";
 
 export const MainPage = () => {
     return (
@@ -25,6 +26,9 @@ export const MainPage = () => {
             </div>
             <div>
                 <MainPageContentExample />
+            </div>
+            <div>
+                <Footer />
             </div>
         </div>
     );
