@@ -21,7 +21,7 @@ export const CategoryBar = () => {
                             <li className="nav-item">
                                 <a
                                     className="nav-link active text-red"
-                                    href="/"
+                                    href="/pcs"
                                 >
                                     PCs
                                 </a>
