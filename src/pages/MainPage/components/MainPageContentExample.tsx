@@ -1,0 +1,27 @@
+import { mainPageDataContent } from "../../../data/MainPageDataContent";
+
+export const MainPageContentExample = () => {
+    return (
+        <div className="container p-2 mb-2">
+            <div className="row">
+                {mainPageDataContent.map((data, index) => (
+                <div key={index + 1} className="col-sm-6 mb-2">
+                    <div className="card">
+                        <div className="card-body">
+                            <h5 className="card-title">
+                                {data.cartTitle}
+                            </h5>
+                            <p className="card-text">
+                                {data.cartContent}
+                            </p>
+                            <a href="/" className="btn btn-primary">
+                                {data.buttonName}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                ))}
+            </div>
+        </div>
+    );
+};
