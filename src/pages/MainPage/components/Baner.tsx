@@ -3,7 +3,7 @@ export const Baner = () => {
         <div className="container mt-2">
             <a href="/">
                 <img
-                    src={require("./../../../images/store_logo.png")}
+                    src={require("./../../../static/images/logo/store_logo.png")}
                     alt="Logo"
                     width={300}
                 />
