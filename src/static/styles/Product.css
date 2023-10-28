@@ -1,3 +1,8 @@
 .price-tag {
-    text-align: right;
+    text-align: left;
+}
+
+.product-image {
+    width: 480px;
+    height: 240px;
 }
