@@ -9,18 +9,22 @@ export const Products = () => {
                 {productsPC.map((data) => (
                     <div key={data.id} className="col-sm-6 mb-2">
                         <div className="card">
-                            <h5 className="card-header">{data.name}</h5>
+                            <a href={"pc/" + data.id}>
+                                <h5 className="card-header">{data.name}</h5>
+                            </a>
                             <div className="row g-0">
                                 <div className="col-md-4">
-                                    <img
-                                        src={data.productImage}
-                                        className="img-fluid rounded-start"
-                                        style={{
-                                            width: "480px",
-                                            height: "240px",
-                                        }}
-                                        alt="Product"
-                                    />
+                                    <a href={"pc/" + data.id}>
+                                        <img
+                                            src={data.productImage}
+                                            className="img-fluid rounded-start"
+                                            style={{
+                                                width: "480px",
+                                                height: "240px",
+                                            }}
+                                            alt="Product"
+                                        />
+                                    </a>
                                 </div>
                                 <div className="col-md-5">
                                     <div className="card-body">
