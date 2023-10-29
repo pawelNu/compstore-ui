@@ -1,6 +1,6 @@
 import { productsPC } from "../../data/ProductsPCData";
 import "./../../static/styles/Product.css";
-import { AddToShoppingCart } from "../../layout/components/buttons/AddToShoppingCart";
+import { AddToCartButton } from "../../layout/components/buttons/AddToCartButton";
 
 export const Products = () => {
     return (
@@ -44,7 +44,7 @@ export const Products = () => {
                                         <div className="card-body">
                                             <b>Price: </b>$ {data.price}
                                         </div>
-                                        <AddToShoppingCart />
+                                        <AddToCartButton />
                                     </div>
                                 </div>
                             </div>

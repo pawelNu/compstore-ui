@@ -1,4 +1,4 @@
-export const AddToShoppingCart = () => {
+export const AddToCartButton = () => {
     return (
         <div className="ms-3">
             <a href="/" className="btn btn-primary">
