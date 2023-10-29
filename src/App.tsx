@@ -7,6 +7,7 @@ import { CategoryBar } from "./pages/MainPage/components/CategoryBar";
 import { Footer } from "./layout/Footer";
 import { Products } from "./pages/Products/Products";
 import { ShoppingCartButton } from "./pages/MainPage/components/ShoppingCartButton";
+import { ShoppingCart } from "./pages/ShoppingCart/ShoppingCart";
 
 export const App = () => {
     return (
@@ -23,6 +24,7 @@ export const App = () => {
                 <Routes>
                     <Route path="/" element={<MainPage />} />
                     <Route path="/pcs" element={<Products />} />
+                    <Route path="/shopping-cart" element={<ShoppingCart />} />
                 </Routes>
             </BrowserRouter>
             <Footer />
