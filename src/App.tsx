@@ -6,12 +6,18 @@ import { Baner } from "./pages/MainPage/components/Baner";
 import { CategoryBar } from "./pages/MainPage/components/CategoryBar";
 import { Footer } from "./layout/Footer";
 import { Products } from "./pages/Products/Products";
+import { ShoppingCartButton } from "./pages/MainPage/components/ShoppingCartButton";
 
 export const App = () => {
     return (
         <div className="m-2">
             <Navbar />
-            <Baner />
+            <div className="container px-0">
+                <div className="d-flex justify-content-between">
+                    <Baner />
+                    <ShoppingCartButton />
+                </div>
+            </div>
             <CategoryBar />
             <BrowserRouter>
                 <Routes>
