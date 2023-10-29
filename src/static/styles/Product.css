@@ -1,6 +1,6 @@
 .price-tag {
     text-align: left;
-    font-size: 21px;
+    font-size: 40px;
 }
 
 .product-image {
@@ -11,4 +11,9 @@
 .add-to-shopping-cart {
     width: 30px;
     height: 30px;
+}
+
+.header-link {
+    color: black;
+    text-decoration: none;
 }
