@@ -45,6 +45,10 @@ export const ShoppingCart = () => {
                                         <div className="d-flex justify-content-between">
                                             <div>{data.name}</div>
                                             <div className="d-flex">
+                                                <button className="btn btn-danger">
+                                                    Delete
+                                                </button>
+                                                <div className="col-1 vr mx-2"></div>
                                                 <button
                                                     className="btn btn-primary btn-text"
                                                     onClick={() =>
