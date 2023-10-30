@@ -1,26 +1,38 @@
 import { deliveryMethods } from "../../../data/DeliveryMethodData";
+import "./../../../static/styles/DeliveryMethod.css";
 
 export const DeliveryMethod = () => {
     return (
         <div className="card mb-2">
             <h5 className="card-header">Delivery method</h5>
             <div className="card-body">
-                {deliveryMethods.map((data, index) => (
-                    <div key={index} className="mb-2">
-                        <div className="form-check d-flex align-items-center">
+                <div
+                    className="btn-group-vertical w-100"
+                    role="group"
+                    aria-label="Vertical radio toggle button group"
+                >
+                    {deliveryMethods.map((data, index) => (
+                        <div key={index} className="d-grid w-100 mb-2">
                             <input
-                                className="form-check-input"
                                 type="radio"
+                                className="btn-check"
                                 name="deliveryMethod"
                                 id={`deliveryMethod${index}`}
+                                autoComplete="off"
                             />
                             <label
                                 htmlFor={`deliveryMethod${index}`}
-                                className="form-check-label ms-2 w-100"
+                                className="btn btn-outline-secondary border w-100"
                             >
                                 <div className="card">
-                                    <div className="card-body">
-                                        <h5 className="card-title">
+                                    <div className="card-body text-option">
+                                        <h5
+                                            className={`card-title ${
+                                                index > -1
+                                                    ? "text-secondary"
+                                                    : ""
+                                            }`}
+                                        >
                                             {data.name}
                                         </h5>
                                         <h6 className="card-subtitle mb-2 text-muted">
@@ -33,8 +45,8 @@ export const DeliveryMethod = () => {
                                 </div>
                             </label>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
         </div>
     );
