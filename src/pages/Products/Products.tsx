@@ -41,7 +41,6 @@ export const Products = () => {
                             <div className="col-md-3">
                                 <div className="price-tag">
                                     <div className="card-body">
-                                        <b>Price: </b>
                                         <div>$ {data.price}</div>
                                     </div>
                                     <AddToCartButton />
