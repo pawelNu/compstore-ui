@@ -6,6 +6,7 @@ export type Product = {
     feature: Feature[];
     price: number;
     productImage: string;
+    quantity: number;
 };
 
 type Feature = {
