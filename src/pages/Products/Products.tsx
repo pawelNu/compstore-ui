@@ -1,5 +1,5 @@
 import { productsPC } from "../../data/ProductsPCData";
-import "./../../static/styles/Product.css";
+import "./../../static/styles/Products.css";
 import { AddToCartButton } from "../../layout/components/buttons/AddToCartButton";
 
 export const Products = () => {
@@ -8,7 +8,7 @@ export const Products = () => {
             {productsPC.map((data) => (
                 <div key={data.id} className="col-sm-8 mb-2">
                     <div className="card">
-                        <a className="header-link" href={"pc/" + data.id}>
+                        <a className="products-header-link" href={"pc/" + data.id}>
                             <h5 className="card-header">{data.name}</h5>
                         </a>
                         <div className="row g-0">
@@ -16,11 +16,7 @@ export const Products = () => {
                                 <a href={"pc/" + data.id}>
                                     <img
                                         src={data.productImage}
-                                        className="img-fluid rounded-start"
-                                        style={{
-                                            width: "480px",
-                                            height: "240px",
-                                        }}
+                                        className="img-fluid rounded-start products-product-image"
                                         alt="Product"
                                     />
                                 </a>
@@ -39,7 +35,7 @@ export const Products = () => {
                                 </div>
                             </div>
                             <div className="col-md-3">
-                                <div className="price-tag">
+                                <div className="products-price-tag">
                                     <div className="card-body">
                                         <div>$ {data.price}</div>
                                     </div>

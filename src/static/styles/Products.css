@@ -1,20 +1,15 @@
-.price-tag {
+.products-price-tag {
     text-align: left;
     font-size: 40px;
     font-weight: 700;
 }
 
-.product-image {
+.products-product-image {
     width: 480px;
     height: 240px;
 }
 
-.add-to-shopping-cart {
-    width: 30px;
-    height: 30px;
-}
-
-.header-link {
+.products-header-link {
     color: black;
     text-decoration: none;
 }
