@@ -7,6 +7,7 @@ CompStore web store frontend
     -   [Technology stack](#technology-stack)
     -   [Other used sources](#other-used-sources)
     -   [Repositories](#repositories)
+    -   [CSS class name convention](#css-class-name-convention)
 
 ## Owners
 
@@ -25,7 +26,6 @@ CompStore web store frontend
 
 ## Other used sources
 
--   Source Concept: https://www.euro.com.pl/
 -   Icons: https://iconmonstr.com/
 
 ## Repositories
@@ -43,3 +43,12 @@ Backend: https://github.com/grz55/compstore-api
 - test: Everything related to testing
 - docs: Everything related to documentation
 - chore: Regular code maintenance. [ You can also use emojis to represent commit types]
+
+## CSS class name convention
+
+- lowercase letters separated by dashes
+- css file name + class name
+
+Example:
+
+`Products.css` and CSS class `price-tag` will result in `products-price-tag`.
