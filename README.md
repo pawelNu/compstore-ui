@@ -2,12 +2,14 @@
 
 CompStore web store frontend
 
--   [CompStore UI](#compstore-ui)
-    -   [Owners](#owners)
-    -   [Technology stack](#technology-stack)
-    -   [Other used sources](#other-used-sources)
-    -   [Repositories](#repositories)
-    -   [CSS class name convention](#css-class-name-convention)
+- [CompStore UI](#compstore-ui)
+  - [Owners](#owners)
+  - [Technology stack](#technology-stack)
+  - [Runs on port:](#runs-on-port)
+  - [Other used sources](#other-used-sources)
+  - [Repositories](#repositories)
+  - [Commit prefixes:](#commit-prefixes)
+  - [CSS class name convention](#css-class-name-convention)
 
 ## Owners
 
@@ -36,13 +38,13 @@ Backend: https://github.com/grz55/compstore-api
 
 ## Commit prefixes:
 
-- feat: The new feature you're adding to a particular application
-- fix: A bug fix
-- style: Feature and updates related to styling
-- refactor: Refactoring a specific section of the codebase
-- test: Everything related to testing
-- docs: Everything related to documentation
-- chore: Regular code maintenance. [ You can also use emojis to represent commit types]
+- feat(task_no): The new feature you're adding to a particular application
+- fix(task_no): A bug fix
+- style(task_no): Feature and updates related to styling
+- refactor(task_no): Refactoring a specific section of the codebase
+- test(task_no): Everything related to testing
+- docs(task_no): Everything related to documentation
+- chore(task_no): Regular code maintenance. [ You can also use emojis to represent commit types]
 
 ## CSS class name convention
 
