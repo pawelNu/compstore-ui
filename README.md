@@ -2,14 +2,14 @@
 
 CompStore web store frontend
 
-- [CompStore UI](#compstore-ui)
-  - [Owners](#owners)
-  - [Technology stack](#technology-stack)
-  - [Runs on port:](#runs-on-port)
-  - [Other used sources](#other-used-sources)
-  - [Repositories](#repositories)
-  - [Commit prefixes:](#commit-prefixes)
-  - [CSS class name convention](#css-class-name-convention)
+-   [CompStore UI](#compstore-ui)
+    -   [Owners](#owners)
+    -   [Technology stack](#technology-stack)
+    -   [Runs on port:](#runs-on-port)
+    -   [Other used sources](#other-used-sources)
+    -   [Repositories](#repositories)
+    -   [Commit prefixes:](#commit-prefixes)
+    -   [CSS class name convention](#css-class-name-convention)
 
 ## Owners
 
@@ -24,6 +24,7 @@ CompStore web store frontend
 -   Bootstrap v5.2.3
 
 ## Runs on port:
+
 3000
 
 ## Other used sources
@@ -38,18 +39,18 @@ Backend: https://github.com/grz55/compstore-api
 
 ## Commit prefixes:
 
-- feat(task_no): The new feature you're adding to a particular application
-- fix(task_no): A bug fix
-- style(task_no): Feature and updates related to styling
-- refactor(task_no): Refactoring a specific section of the codebase
-- test(task_no): Everything related to testing
-- docs(task_no): Everything related to documentation
-- chore(task_no): Regular code maintenance. [ You can also use emojis to represent commit types]
+-   feat(task_no): The new feature you're adding to a particular application
+-   fix(task_no): A bug fix
+-   style(task_no): Feature and updates related to styling
+-   refactor(task_no): Refactoring a specific section of the codebase
+-   test(task_no): Everything related to testing
+-   docs(task_no): Everything related to documentation
+-   chore(task_no): Regular code maintenance. [ You can also use emojis to represent commit types]
 
 ## CSS class name convention
 
-- lowercase letters separated by dashes
-- css file name + class name
+-   lowercase letters separated by dashes
+-   css file name + class name
 
 Example:
 
