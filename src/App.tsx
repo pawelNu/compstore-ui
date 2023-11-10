@@ -8,6 +8,7 @@ import { Footer } from "./layout/Footer";
 import { Products } from "./pages/Products/Products";
 import { ShoppingCartButton } from "./pages/MainPage/components/ShoppingCartButton";
 import { ShoppingCart } from "./pages/ShoppingCart/ShoppingCart";
+import { AddNewProductForm } from "./forms/Products/AddNewProductForm";
 import { OneProductDetails } from "./pages/Products/OneProductDetails";
 
 export const App = () => {
@@ -26,6 +27,10 @@ export const App = () => {
                     <Route path="/" element={<MainPage />} />
                     <Route path="/pcs" element={<Products />} />
                     <Route path="/shopping-cart" element={<ShoppingCart />} />
+                    <Route
+                        path="/add-new-product"
+                        element={<AddNewProductForm />}
+                    />
                     <Route path="/pc/:id" element={<OneProductDetails />} />
                 </Routes>
             </BrowserRouter>

@@ -1,4 +1,5 @@
 import "./../static/styles/Navbar.css";
+import { AddNewProductButton } from "./components/buttons/AddNewProductButton";
 
 export const Navbar = () => {
     return (
@@ -44,6 +45,7 @@ export const Navbar = () => {
                         </ul>
                     </div>
                 </div>
+                <AddNewProductButton />
             </div>
         </nav>
     );
