@@ -5,11 +5,11 @@ import { Navbar } from "./layout/Navbar";
 import { Baner } from "./pages/MainPage/components/Baner";
 import { CategoryBar } from "./pages/MainPage/components/CategoryBar";
 import { Footer } from "./layout/Footer";
-import { Products } from "./pages/Products/Products";
 import { ShoppingCartButton } from "./pages/MainPage/components/ShoppingCartButton";
 import { ShoppingCart } from "./pages/ShoppingCart/ShoppingCart";
 import { AddNewProductForm } from "./forms/Products/AddNewProductForm";
 import { OneProductDetails } from "./pages/Products/OneProductDetails";
+import { PCs } from "./pages/Products/PC/PCs";
 
 export const App = () => {
     return (
@@ -25,7 +25,7 @@ export const App = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<MainPage />} />
-                    <Route path="/pcs" element={<Products />} />
+                    <Route path="/pcs" element={<PCs />} />
                     <Route path="/shopping-cart" element={<ShoppingCart />} />
                     <Route
                         path="/add-new-product"
