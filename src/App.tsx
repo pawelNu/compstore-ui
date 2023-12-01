@@ -7,7 +7,7 @@ import { CategoryBar } from "./pages/MainPage/components/CategoryBar";
 import { Footer } from "./layout/Footer";
 import { ShoppingCartButton } from "./pages/MainPage/components/ShoppingCartButton";
 import { ShoppingCart } from "./pages/ShoppingCart/ShoppingCart";
-import { AddNewProductForm } from "./forms/Products/AddNewProductForm";
+import { AddNewProductForm } from "./pages/Products/AddNewProductForm";
 import { OneProductDetails } from "./pages/Products/OneProductDetails";
 import { PCs } from "./pages/Products/PC/PCs";
 
