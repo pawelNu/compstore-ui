@@ -5,7 +5,7 @@ import { NewSmartphone } from "./Smartphone/NewSmartphone";
 import { NewTV } from "./TV/NewTV";
 
 export const AddNewProductForm = () => {
-    const [selectedCategory, setSelectedCategory] = useState<string>("tv");
+    const [selectedCategory, setSelectedCategory] = useState<string>();
 
     const changeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedCategory(e.target.value);
@@ -26,6 +26,8 @@ export const AddNewProductForm = () => {
         }
     };
 
+    // TODO create post method to send new pc to backend
+
     return (
         <div className="container my-2 px-2">
             <div className="card">
@@ -45,6 +47,7 @@ export const AddNewProductForm = () => {
                                 value={selectedCategory}
                                 onChange={changeCategory}
                             >
+                                <option value="">Choose product category</option>
                                 <option value="pc">PC</option>
                                 <option value="laptop">Laptop</option>
                                 <option value="smartphone">Smartphone</option>

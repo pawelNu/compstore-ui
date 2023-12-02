@@ -1,41 +1,39 @@
-import { NewProduct } from "../../../types/NewProduct";
-
 export const NewLaptop: React.FC = () => {
-    const labels: NewProduct[] = [
-        {
-            labelName: "NEW LAPTOP",
-            htmlFor: "processorBrand",
-            type: "text",
-            placeholder: "test",
-        },
-        {
-            labelName: "Price",
-            htmlFor: "price",
-            type: "number",
-            placeholder: "test",
-        },
-    ];
-
     return (
         <>
-            {labels.map((data, index) => (
-                <div key={index} className="row mb-3">
-                    <label
-                        htmlFor={data.htmlFor}
-                        className="col-sm-2 col-form-label"
-                    >
-                        {data.labelName}
-                    </label>
-                    <div className="col-sm-10">
-                        <input
-                            type={data.type}
-                            className="form-control"
-                            id={data.htmlFor}
-                            placeholder={data.placeholder}
-                        />
-                    </div>
+            <div className="row mb-3">
+                <label
+                    htmlFor="processorBrand"
+                    className="col-sm-2 col-form-label"
+                >
+                    Laptop
+                </label>
+                <div className="col-sm-10">
+                    <input
+                        type="text"
+                        className="form-control"
+                        id="processorBrand"
+                        placeholder="test"
+                    />
                 </div>
-            ))}
+            </div>
+
+            <div className="row mb-3">
+                <label
+                    htmlFor="processorName"
+                    className="col-sm-2 col-form-label"
+                >
+                    Price
+                </label>
+                <div className="col-sm-10">
+                    <input
+                        type="number"
+                        className="form-control"
+                        id="processorName"
+                        placeholder="test"
+                    />
+                </div>
+            </div>
         </>
     );
 };
