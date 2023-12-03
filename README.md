@@ -10,6 +10,7 @@ CompStore web store frontend
     -   [Repositories](#repositories)
     -   [Commit prefixes:](#commit-prefixes)
     -   [CSS class name convention](#css-class-name-convention)
+    -   [Code formatting configuration](#code-formatting-configuration)
 
 ## Owners
 
@@ -55,3 +56,22 @@ Backend: https://github.com/grz55/compstore-api
 Example:
 
 `Products.css` and CSS class `price-tag` will result in `products-price-tag`.
+
+## Code formatting configuration
+
+Run `npm install --save-dev prettier husky`
+
+Add to `package.json`
+
+```json
+"scripts": {
+  "format": "prettier --write ."
+},
+"husky": {
+        "hooks": {
+            "pre-commit": "npm run format"
+        }
+    },
+```
+
+To manually format project `npm run format`
