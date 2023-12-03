@@ -63,6 +63,8 @@ Run `npm install --save-dev prettier husky`
 
 Run `npx husky install` it will create `.husky` directory -> husky - Git hooks installed
 
+Run `npx husky add .husky/pre-commit "npm run format"` -> husky - created .husky/pre-commit
+
 Add to `package.json`
 
 ```json
