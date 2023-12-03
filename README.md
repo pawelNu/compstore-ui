@@ -61,6 +61,8 @@ Example:
 
 Run `npm install --save-dev prettier husky`
 
+Run `npx husky install` it will create `.husky` directory -> husky - Git hooks installed
+
 Add to `package.json`
 
 ```json
