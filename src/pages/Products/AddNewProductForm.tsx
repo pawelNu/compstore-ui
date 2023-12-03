@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { NewPC } from "./PC/NewPC";
 import { NewLaptop } from "./Laptop/NewLaptop";
+import { NewPC } from "./PC/NewPC";
 import { NewSmartphone } from "./Smartphone/NewSmartphone";
 import { NewTV } from "./TV/NewTV";
 
@@ -11,7 +11,7 @@ export const AddNewProductForm = () => {
         setSelectedCategory(e.target.value);
     };
 
-    const renderForm = () => {
+    const renderProductForm = () => {
         switch (selectedCategory) {
             case "pc":
                 return <NewPC />;
@@ -25,8 +25,6 @@ export const AddNewProductForm = () => {
                 return null;
         }
     };
-
-    // TODO create post method to send new pc to backend
 
     return (
         <div className="container my-2 px-2">
@@ -47,7 +45,9 @@ export const AddNewProductForm = () => {
                                 value={selectedCategory}
                                 onChange={changeCategory}
                             >
-                                <option value="">Choose product category</option>
+                                <option value="">
+                                    Choose product category
+                                </option>
                                 <option value="pc">PC</option>
                                 <option value="laptop">Laptop</option>
                                 <option value="smartphone">Smartphone</option>
@@ -55,20 +55,7 @@ export const AddNewProductForm = () => {
                             </select>
                         </div>
                     </div>
-                    <form>
-                        {renderForm()}
-                        <div className="d-flex justify-content-center">
-                            <button
-                                type="submit"
-                                className="btn btn-outline-primary"
-                            >
-                                Add product
-                            </button>
-                            <a href="/" className="btn btn-outline-danger mx-2">
-                                Cancel
-                            </a>
-                        </div>
-                    </form>
+                    {renderProductForm()}
                 </div>
             </div>
         </div>
