@@ -8,7 +8,7 @@ import { Footer } from "./layout/Footer";
 import { ShoppingCartButton } from "./pages/MainPage/components/ShoppingCartButton";
 import { ShoppingCart } from "./pages/ShoppingCart/ShoppingCart";
 import { AddNewProductForm } from "./pages/Products/AddNewProductForm";
-import { OneProductDetails } from "./pages/Products/OneProductDetails";
+import { PCDetails } from "./pages/Products/PC/PCDetails";
 import { PCs } from "./pages/Products/PC/PCs";
 
 export const App = () => {
@@ -31,7 +31,7 @@ export const App = () => {
                         path="/add-new-product"
                         element={<AddNewProductForm />}
                     />
-                    <Route path="/pc/:id" element={<OneProductDetails />} />
+                    <Route path="/pc/:id" element={<PCDetails />} />
                 </Routes>
             </BrowserRouter>
             <Footer />
