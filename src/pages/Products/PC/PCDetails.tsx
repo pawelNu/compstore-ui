@@ -25,7 +25,7 @@ export const PCDetails = () => {
 
   const { id } = useParams();
 
-  const getPc = async () => {
+  const getPc = async (id: string | undefined) => {
     try {
       const result = await axios.get(`${hostName}/pcs/${id}`);
       setPc(result.data);
@@ -35,8 +35,8 @@ export const PCDetails = () => {
   };
 
   useEffect(() => {
-    getPc();
-  });
+    getPc(id);
+  }, [id]);
 
   return (
     <div className="container p-2 mb-2">
