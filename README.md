@@ -5,11 +5,13 @@ CompStore web store frontend
 - [CompStore UI](#compstore-ui)
   - [Owners](#owners)
   - [Technology stack](#technology-stack)
-  - [Runs on port:](#runs-on-port)
+  - [Runs on port](#runs-on-port)
   - [Other used sources](#other-used-sources)
   - [Repositories](#repositories)
-  - [Commit prefixes:](#commit-prefixes)
-  - [CSS class name convention](#css-class-name-convention)
+  - [Commit prefixes](#commit-prefixes)
+  - [Name conventions](#name-conventions)
+    - [CSS class](#css-class)
+    - [Types](#types)
   - [Code formatting configuration](#code-formatting-configuration)
 
 ## Owners
@@ -24,7 +26,7 @@ CompStore web store frontend
 - React v18.2.0
 - Bootstrap v5.2.3
 
-## Runs on port:
+## Runs on port
 
 3000
 
@@ -38,7 +40,7 @@ Frontend: https://github.com/pawelNu/compstore-ui
 
 Backend: https://github.com/grz55/compstore-api
 
-## Commit prefixes:
+## Commit prefixes
 
 - feat(task_no): The new feature you're adding to a particular application
 - fix(task_no): A bug fix
@@ -48,7 +50,9 @@ Backend: https://github.com/grz55/compstore-api
 - docs(task_no): Everything related to documentation
 - chore(task_no): Regular code maintenance. [ You can also use emojis to represent commit types]
 
-## CSS class name convention
+## Name conventions
+
+### CSS class
 
 - lowercase letters separated by dashes
 - css file name + class name
@@ -56,6 +60,13 @@ Backend: https://github.com/grz55/compstore-api
 Example:
 
 `Products.css` and CSS class `price-tag` will result in `products-price-tag`.
+
+### Types
+
+- prefix `T`
+- PascalCase, the first letter of each word is a capital letter
+
+Example: type `PCDetails` name will result in `TPCDetails`.
 
 ## Code formatting configuration
 
