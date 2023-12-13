@@ -41,9 +41,9 @@ export const NewPC: React.FC = () => {
     try {
       await axios.post(`${hostName}/pcs`, pc);
       navigate("/pcs");
-      console.log("file: NewPC.tsx:45  onSubmit  pc:", pc);
+      console.log("file: NewPC.tsx  onSubmit  pc:", pc);
     } catch (error: any) {
-      console.log("file: NewPC.tsx:45  onSubmit  error:", error);
+      console.log("file: NewPC.tsx  onSubmit  error:", error);
       if (error.response && error.response.data) {
         setError(error.response.data.toString());
       } else {
@@ -63,9 +63,9 @@ export const NewPC: React.FC = () => {
       const result = await axios.get(`${hostName}/pcs/combo-data`);
       setComboData(result.data);
     } catch (e) {
-      console.log("file: NewPC.tsx:16  getComboData  e:", e);
+      console.log("file: NewPC.tsx  getComboData  e:", e);
       console.error("Error getting combo data: ", e);
-      console.log("file: NewPC.tsx:18  getComboData  error");
+      console.log("file: NewPC.tsx  getComboData  error");
     }
   };
 
