@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { pcDetails } from "../../../data/PCDetailsData";
 import { AddToCartButton } from "../../../layout/components/buttons/AddToCartButton";
 import "./../../../static/styles/OneProductDetails.css";
 import { TPCDetails } from "../../../types/TPCDetails";
