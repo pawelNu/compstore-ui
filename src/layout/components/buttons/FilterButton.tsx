@@ -1,6 +1,6 @@
 export const FilterButton = () => {
-    return(
-        <>
+  return (
+    <div>
       <a href="/" className="btn btn-primary">
         Filter
         <svg
@@ -17,6 +17,6 @@ export const FilterButton = () => {
           />
         </svg>
       </a>
-    </>
-    )
-}
+    </div>
+  );
+};
