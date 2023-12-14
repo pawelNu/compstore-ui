@@ -121,7 +121,7 @@ export const FilterPC = () => {
               id="intelCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckDefault">
-              250 GB
+              256 GB
             </label>
           </div>
           <div className="form-check">
@@ -132,7 +132,7 @@ export const FilterPC = () => {
               id="amdCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckChecked">
-              500 GB
+              512 GB
             </label>
           </div>
           <div className="form-check">
@@ -143,7 +143,7 @@ export const FilterPC = () => {
               id="amdCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckChecked">
-              1 TB
+              1024 GB
             </label>
           </div>
           <div className="form-check">
@@ -154,7 +154,18 @@ export const FilterPC = () => {
               id="amdCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckChecked">
-              2 TB
+              2048 GB
+            </label>
+          </div>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              value=""
+              id="amdCheck"
+            />
+            <label className="form-check-label" htmlFor="flexCheckChecked">
+              4096 GB
             </label>
           </div>
         </li>
