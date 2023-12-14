@@ -2,7 +2,7 @@ export const FilterPC = () => {
   return (
     <div className="card col-2 mt-2">
       <h5 className="card-header">Filters:</h5>
-      <ul className="list-group">
+      <ul className="list-group list-group-flush">
         <li className="list-group-item">
           <h6 className="card-title">Processor brands</h6>
           <div className="form-check">
