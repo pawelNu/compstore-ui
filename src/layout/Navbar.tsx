@@ -1,7 +1,9 @@
 import "./../static/styles/Navbar.css";
 import { AddNewProductButton } from "./components/buttons/AddNewProductButton";
+import { UserRoleButton } from "./components/buttons/UserRoleButton";
+import { TNavbarProps } from "../types/TNavbarProps";
 
-export const Navbar = () => {
+export const Navbar: React.FC<TNavbarProps> = ({ onUserRoleChange }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-custom mt-2">
       <div className="container px-0">
@@ -42,6 +44,7 @@ export const Navbar = () => {
             </ul>
           </div>
         </div>
+        <UserRoleButton onUserRoleChange={onUserRoleChange} />
         <AddNewProductButton />
       </div>
     </nav>

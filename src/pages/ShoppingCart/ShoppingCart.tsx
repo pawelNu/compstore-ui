@@ -9,7 +9,7 @@ export const ShoppingCart = () => {
     "a3d898f3-4eb1-4568-8a40-df7c5fe6089e",
     "be6d4db2-beec-43f7-88b1-49212613e44e",
   ];
-  const initialSelectedPC = productsPC.filter(data =>
+  const initialSelectedPC = productsPC.filter((data) =>
     selectedIds.includes(data.id),
   );
 
@@ -70,7 +70,8 @@ export const ShoppingCart = () => {
                     <div className="component-information">
                       {data.feature
                         .map(
-                          feature => `${feature.featureName} ${feature.value}`,
+                          (feature) =>
+                            `${feature.featureName} ${feature.value}`,
                         )
                         .join(", ")}
                     </div>
