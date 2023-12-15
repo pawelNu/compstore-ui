@@ -67,9 +67,7 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                     <div>$ {data.price}</div>
                   </div>
                   <AddToCartButton />
-                  {userRole.localeCompare("Customer") === 0 ? (
-                    ""
-                  ) : (
+                  {userRole !== "Customer" && (
                     <PCActionsButton deletePc={deletePc} id={data.id} />
                   )}
                 </div>
