@@ -1,4 +1,6 @@
 import { UUID } from "crypto";
+import { useState } from "react";
+import { ConfirmDeleteModal } from "../../../../layout/components/modals/ConfirmDeleteModal";
 
 export const PCActionsButton = ({
   deletePc,
@@ -7,6 +9,16 @@ export const PCActionsButton = ({
   deletePc: (id: UUID) => void;
   id: UUID;
 }) => {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleClose = () => setShowDeleteModal(false);
+  const handleShow = () => setShowDeleteModal(true);
+
+  const confirmDelete = () => {
+    deletePc(id);
+    handleClose();
+  };
+
   return (
     <div className="dropdown ms-3">
       <button
@@ -29,12 +41,18 @@ export const PCActionsButton = ({
         <li>
           <button
             className="dropdown-item bg-danger text-white"
-            onClick={() => deletePc(id)}
+            onClick={handleShow}
           >
             Delete
           </button>
         </li>
       </ul>
+
+      <ConfirmDeleteModal
+        show={showDeleteModal}
+        handleClose={handleClose}
+        handleConfirmDelete={confirmDelete}
+      />
     </div>
   );
 };
