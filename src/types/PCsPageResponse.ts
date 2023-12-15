@@ -1,7 +1,7 @@
-import { PCSimple } from "./PCSimple";
+import { TPCSimple } from "./TPCSimple";
 
 export type PCsPageResponse = {
-  pcs: PCSimple[];
+  pcs: TPCSimple[];
   pagingAndSortingMetadata: PagingAndSortingMetadata;
 };
 

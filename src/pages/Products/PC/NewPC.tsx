@@ -75,7 +75,7 @@ export const NewPC: React.FC = () => {
 
   return (
     <>
-      <form onSubmit={(e) => onSubmit(e)}>
+      <form onSubmit={e => onSubmit(e)}>
         <div className="row mb-3">
           <label htmlFor="processorBrand" className="col-sm-2 col-form-label">
             Processor Brand
