@@ -11,7 +11,7 @@ export const PCs = () => {
       {productPCs.pcs.map((data) => (
         <div key={data.id} className="col-sm-8 mb-2">
           <div className="card">
-            <a className="products-header-link" href={"pc/" + data.id}>
+            <a className="products-header-link" href={"pcs/" + data.id}>
               <h5 className="card-header">
                 PC - {data.processorName} - {data.graphicsCardName} -{" "}
                 {data.ramGBCapacity} GB RAM
@@ -19,7 +19,7 @@ export const PCs = () => {
             </a>
             <div className="row g-0">
               <div className="col-md-3">
-                <a href={"pc/" + data.id}>
+                <a href={"pcs/" + data.id}>
                   <img
                     src={imagePlaceholder}
                     className="img-fluid rounded-start products-product-image"

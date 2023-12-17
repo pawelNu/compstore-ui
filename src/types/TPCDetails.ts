@@ -1,13 +1,14 @@
 import { UUID } from "crypto";
 
-export type AddNewPC = {
-  processorBrand: UUID;
+export type TPCDetails = {
+  id: UUID;
+  processorBrand: string;
   processorName: string;
-  graphicsCardBrand: UUID;
+  graphicsCardBrand: string;
   graphicsCardName: string;
   ramGBCapacity: number;
   driveGBCapacity: number;
   driveType: string;
-  operatingSystem: UUID;
+  operatingSystem: string;
   price: number;
 };

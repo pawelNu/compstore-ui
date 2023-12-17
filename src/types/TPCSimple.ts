@@ -1,6 +1,6 @@
 import { UUID } from "crypto";
 
-export type PCSimple = {
+export type TPCSimple = {
   id: UUID;
   processorName: string;
   graphicsCardName: string;
