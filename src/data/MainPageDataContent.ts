@@ -1,6 +1,6 @@
-import { MainPageDataContent } from "../types/MainPageDataContent";
+import { TMainPageDataContent } from "../types/TMainPageDataContent";
 
-export const mainPageDataContent: MainPageDataContent[] = [
+export const mainPageDataContent: TMainPageDataContent[] = [
   {
     cartTitle: "Example Cart Title",
     cartContent:

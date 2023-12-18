@@ -28,7 +28,7 @@ export const App = () => {
           <Route path="/pcs" element={<PCs />} />
           <Route path="/shopping-cart" element={<ShoppingCart />} />
           <Route path="/add-new-product" element={<AddNewProductForm />} />
-          <Route path="/pc/:id" element={<PCDetails />} />
+          <Route path="/pcs/:id" element={<PCDetails />} />
         </Routes>
       </BrowserRouter>
       <Footer />

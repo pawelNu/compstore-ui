@@ -1,6 +1,6 @@
-import { DeliveryMethod } from "../types/DeliveryMethod";
+import { TDeliveryMethod } from "../types/TDeliveryMethod";
 
-export const deliveryMethods: DeliveryMethod[] = [
+export const deliveryMethods: TDeliveryMethod[] = [
   {
     name: "Delivery man",
     info: "Home delivery",
