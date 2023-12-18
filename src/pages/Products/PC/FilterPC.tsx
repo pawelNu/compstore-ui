@@ -12,7 +12,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="intelCheck"
+              id="intelCpuCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckDefault">
               Intel
@@ -23,7 +23,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="amdCheck"
+              id="amdCpuCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckChecked">
               AMD
@@ -37,7 +37,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="intelCheck"
+              id="nvidiaGpuCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckDefault">
               NVIDIA
@@ -48,7 +48,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="amdCheck"
+              id="amdGpuCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckChecked">
               AMD
@@ -59,7 +59,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="amdCheck"
+              id="intelGpuCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckChecked">
               Intel
@@ -73,7 +73,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="intelCheck"
+              id="8GbRamCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckDefault">
               8 GB
@@ -84,7 +84,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="amdCheck"
+              id="16GbRamCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckChecked">
               16 GB
@@ -95,7 +95,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="amdCheck"
+              id="32GbRamCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckChecked">
               32 GB
@@ -106,7 +106,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="amdCheck"
+              id="64GbRamCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckChecked">
               64 GB
@@ -120,7 +120,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="intelCheck"
+              id="256GbDriveCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckDefault">
               256 GB
@@ -131,7 +131,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="amdCheck"
+              id="512GbDriveCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckChecked">
               512 GB
@@ -142,7 +142,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="amdCheck"
+              id="1024GbDriveCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckChecked">
               1024 GB
@@ -153,7 +153,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="amdCheck"
+              id="2048GbDriveCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckChecked">
               2048 GB
@@ -164,7 +164,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="amdCheck"
+              id="4096GbDriveCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckChecked">
               4096 GB
@@ -178,7 +178,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="intelCheck"
+              id="ssdCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckDefault">
               SSD
@@ -189,7 +189,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="amdCheck"
+              id="hddCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckChecked">
               HDD
@@ -203,7 +203,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="intelCheck"
+              id="windowsCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckDefault">
               Windows
@@ -214,7 +214,7 @@ export const FilterPC = () => {
               className="form-check-input"
               type="checkbox"
               value=""
-              id="amdCheck"
+              id="linuxCheck"
             />
             <label className="form-check-label" htmlFor="flexCheckChecked">
               Linux
