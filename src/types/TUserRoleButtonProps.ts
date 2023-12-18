@@ -1,3 +1,3 @@
 export type TUserRoleButtonProps = {
-  onUserRoleChange: (option: string) => void;
+    onUserRoleChange: (option: string) => void;
 };

@@ -1,3 +1,3 @@
 export type TPCsProps = {
-  userRole: string;
+    userRole: string;
 };

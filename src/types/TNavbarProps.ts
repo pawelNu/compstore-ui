@@ -1,4 +1,4 @@
 export type TNavbarProps = {
-  onUserRoleChange: (role: string) => void;
-  userRole: string;
+    onUserRoleChange: (role: string) => void;
+    userRole: string;
 };
