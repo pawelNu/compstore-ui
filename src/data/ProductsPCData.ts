@@ -1,6 +1,6 @@
-import { Product } from "../types/Product";
+import { TProduct } from "../types/TProduct";
 
-export const productsPC: Product[] = [
+export const productsPC: TProduct[] = [
     {
         id: "a3d898f3-4eb1-4568-8a40-df7c5fe6089e",
         name: "HP Pavilion 590-p0059",

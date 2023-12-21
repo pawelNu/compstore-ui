@@ -1,15 +1,15 @@
 import { UUID } from "crypto";
 
-export type Product = {
+export type TProduct = {
     id: UUID;
     name: string;
-    feature: Feature[];
+    feature: TFeature[];
     price: number;
     productImage: string;
     quantity: number;
 };
 
-type Feature = {
+type TFeature = {
     featureName: string;
     value: string;
 };

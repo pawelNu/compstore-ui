@@ -1,11 +1,11 @@
 import { TPCSimple } from "./TPCSimple";
 
-export type PCsPageResponse = {
+export type TPCsPageResponse = {
     pcs: TPCSimple[];
-    pagingAndSortingMetadata: PagingAndSortingMetadata;
+    pagingAndSortingMetadata: TPagingAndSortingMetadata;
 };
 
-type PagingAndSortingMetadata = {
+type TPagingAndSortingMetadata = {
     pageNumber: number;
     pageSize: number;
     pagesCount: number;
