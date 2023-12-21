@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { MainPage } from "./pages/MainPage/MainPage";
 import { Navbar } from "./layout/Navbar";
@@ -12,26 +12,38 @@ import { PCDetails } from "./pages/Products/PC/PCDetails";
 import { PCs } from "./pages/Products/PC/PCs";
 
 export const App = () => {
-  return (
-    <div className="m-2">
-      <Navbar />
-      <div className="container px-0">
-        <div className="d-flex justify-content-between">
-          <Baner />
-          <ShoppingCartButton />
+    const [userRole, setUserRole] = useState("Customer");
+
+    const handleUserRoleChange = (role: string) => {
+        setUserRole(role);
+    };
+
+    return (
+        <div className="m-2">
+            <Navbar
+                onUserRoleChange={handleUserRoleChange}
+                userRole={userRole}
+            />
+            <div className="container px-0">
+                <div className="d-flex justify-content-between">
+                    <Baner />
+                    <ShoppingCartButton />
+                </div>
+            </div>
+            <CategoryBar />
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<MainPage />} />
+                    <Route path="/pcs" element={<PCs userRole={userRole} />} />
+                    <Route path="/shopping-cart" element={<ShoppingCart />} />
+                    <Route
+                        path="/add-new-product"
+                        element={<AddNewProductForm />}
+                    />
+                    <Route path="/pc/:id" element={<PCDetails />} />
+                </Routes>
+            </BrowserRouter>
+            <Footer />
         </div>
-      </div>
-      <CategoryBar />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/pcs" element={<PCs />} />
-          <Route path="/shopping-cart" element={<ShoppingCart />} />
-          <Route path="/add-new-product" element={<AddNewProductForm />} />
-          <Route path="/pcs/:id" element={<PCDetails />} />
-        </Routes>
-      </BrowserRouter>
-      <Footer />
-    </div>
-  );
+    );
 };

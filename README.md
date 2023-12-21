@@ -2,29 +2,29 @@
 
 CompStore web store frontend
 
-- [CompStore UI](#compstore-ui)
-  - [Owners](#owners)
-  - [Technology stack](#technology-stack)
-  - [Runs on port](#runs-on-port)
-  - [Other used sources](#other-used-sources)
-  - [Repositories](#repositories)
-  - [Commit prefixes](#commit-prefixes)
-  - [Name conventions](#name-conventions)
-    - [CSS class](#css-class)
-    - [Types](#types)
-  - [Code formatting configuration](#code-formatting-configuration)
+-   [CompStore UI](#compstore-ui)
+    -   [Owners](#owners)
+    -   [Technology stack](#technology-stack)
+    -   [Runs on port](#runs-on-port)
+    -   [Other used sources](#other-used-sources)
+    -   [Repositories](#repositories)
+    -   [Commit prefixes](#commit-prefixes)
+    -   [Name conventions](#name-conventions)
+    -   [CSS class](#css-class)
+    -   [Types](#types)
+    -   [Code formatting configuration](#code-formatting-configuration)
 
 ## Owners
 
-- @grz55
-- @pawelNu
+-   @grz55
+-   @pawelNu
 
 ## Technology stack
 
-- Node.js v18.18.0
-- Typescript v5.2.2
-- React v18.2.0
-- Bootstrap v5.2.3
+-   Node.js v18.18.0
+-   Typescript v5.2.2
+-   React v18.2.0
+-   Bootstrap v5.2.3
 
 ## Runs on port
 
@@ -32,7 +32,7 @@ CompStore web store frontend
 
 ## Other used sources
 
-- Icons: https://iconmonstr.com/
+-   Icons: https://iconmonstr.com/
 
 ## Repositories
 
@@ -42,20 +42,20 @@ Backend: https://github.com/grz55/compstore-api
 
 ## Commit prefixes
 
-- feat(task_no): The new feature you're adding to a particular application
-- fix(task_no): A bug fix
-- style(task_no): Feature and updates related to styling
-- refactor(task_no): Refactoring a specific section of the codebase
-- test(task_no): Everything related to testing
-- docs(task_no): Everything related to documentation
-- chore(task_no): Regular code maintenance. [ You can also use emojis to represent commit types]
+-   feat(task_no): The new feature you're adding to a particular application
+-   fix(task_no): A bug fix
+-   style(task_no): Feature and updates related to styling
+-   refactor(task_no): Refactoring a specific section of the codebase
+-   test(task_no): Everything related to testing
+-   docs(task_no): Everything related to documentation
+-   chore(task_no): Regular code maintenance. [ You can also use emojis to represent commit types]
 
 ## Name conventions
 
 ### CSS class
 
-- lowercase letters separated by dashes
-- css file name + class name
+-   lowercase letters separated by dashes
+-   css file name + class name
 
 Example:
 
@@ -63,8 +63,8 @@ Example:
 
 ### Types
 
-- prefix `T`
-- PascalCase, the first letter of each word is a capital letter
+-   prefix `T`
+-   PascalCase, the first letter of each word is a capital letter
 
 Example: type `PCDetails` name will result in `TPCDetails`.
 
