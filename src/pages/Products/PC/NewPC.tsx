@@ -47,7 +47,9 @@ export const NewPC: React.FC = () => {
             if (error.response && error.response.data) {
                 setError(error.response.data.toString());
             } else {
-                setError("file: NewPC.tsx -> An error occurred while creating the new PC!");
+                setError(
+                    "file: NewPC.tsx -> An error occurred while creating the new PC!",
+                );
             }
         }
     };

@@ -1,6 +1,13 @@
 import "./../../../static/styles/CategoryBar.css";
 
 export const CategoryBar = () => {
+    const categories: { name: string; link: string }[] = [
+        { name: "PCs", link: "/pcs" },
+        { name: "Laptops", link: "/laptops" },
+        { name: "Smartphones", link: "/smartphones" },
+        { name: "TVs", link: "/tvs" },
+    ];
+
     return (
         <nav className="navbar navbar-expand-lg category-bar mt-2">
             <div className="container px-0">
@@ -18,29 +25,16 @@ export const CategoryBar = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="categoryBar">
                         <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <a
-                                    className="nav-link active text-red"
-                                    href="/pcs"
-                                >
-                                    PCs
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link active" href="/">
-                                    Laptops
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link active" href="/">
-                                    Smartphones
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link active" href="/">
-                                    TVs
-                                </a>
-                            </li>
+                            {categories.map((category, index) => (
+                                <li key={index} className="nav-item">
+                                    <a
+                                        className="nav-link active text-red"
+                                        href={category.link}
+                                    >
+                                        {category.name}
+                                    </a>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>

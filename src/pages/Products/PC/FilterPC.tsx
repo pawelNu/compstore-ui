@@ -25,7 +25,8 @@ export const FilterPC = () => {
                             />
                             <label
                                 className="form-check-label"
-                                htmlFor={`${cpu}Cpu`}>
+                                htmlFor={`${cpu}Cpu`}
+                            >
                                 {cpu}
                             </label>
                         </div>
@@ -43,7 +44,8 @@ export const FilterPC = () => {
                             />
                             <label
                                 className="form-check-label"
-                                htmlFor={`${gpu}Gpu`}>
+                                htmlFor={`${gpu}Gpu`}
+                            >
                                 {gpu}
                             </label>
                         </div>
@@ -61,7 +63,8 @@ export const FilterPC = () => {
                             />
                             <label
                                 className="form-check-label"
-                                htmlFor={`${ram}RAM`}>
+                                htmlFor={`${ram}RAM`}
+                            >
                                 {ram} GB
                             </label>
                         </div>
@@ -79,7 +82,8 @@ export const FilterPC = () => {
                             />
                             <label
                                 className="form-check-label"
-                                htmlFor={`${drive}Drive`}>
+                                htmlFor={`${drive}Drive`}
+                            >
                                 {drive} GB
                             </label>
                         </div>
@@ -97,7 +101,8 @@ export const FilterPC = () => {
                             />
                             <label
                                 className="form-check-label"
-                                htmlFor={`${drive}Drive`}>
+                                htmlFor={`${drive}Drive`}
+                            >
                                 {drive}
                             </label>
                         </div>
@@ -115,7 +120,8 @@ export const FilterPC = () => {
                             />
                             <label
                                 className="form-check-label"
-                                htmlFor={`${system}System`}>
+                                htmlFor={`${system}System`}
+                            >
                                 {system}
                             </label>
                         </div>
@@ -125,14 +131,14 @@ export const FilterPC = () => {
                     <h6 className="card-title">Price</h6>
                     {price.map((range, index) => (
                         <div key={index} className="form-floating mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            id={`price${range}`}
-                            placeholder={range}
-                        />
-                        <label htmlFor={`price${range}`}>{range}</label>
-                    </div>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id={`price${range}`}
+                                placeholder={range}
+                            />
+                            <label htmlFor={`price${range}`}>{range}</label>
+                        </div>
                     ))}
                 </li>
                 <li className="list-group-item">

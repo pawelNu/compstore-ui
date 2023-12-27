@@ -1,17 +1,33 @@
-import { productPCs } from "../../../data/PCsData";
 import "./../../../static/styles/Products.css";
 import { AddToCartButton } from "../../../layout/components/buttons/AddToCartButton";
 import { FilterPC } from "./FilterPC";
 import { PCActionsButton } from "./components/PCActionsButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TPCSimple } from "../../../types/TPCSimple";
 import hostName from "../../../config/config";
 import axios from "axios";
 import { UUID } from "crypto";
 import { TPCsProps } from "../../../types/TPCsProps";
 
+// TODO add pagination
+// TODO add sorting
+
 export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pcs, setPcs] = useState<TPCSimple[]>([]);
+
+    const imagePlaceholder =
+        "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
+
+    const getPCs = async () => {
+        const url = `${hostName}/pcs/search`;
+        const emptyJson = {};
+        try {
+            const result = await axios.post(url, emptyJson);
+            setPcs(result.data.pcs);
+        } catch (error: any) {
+            console.log("file: CategoryBar.tsx  handleClick  error:", error);
+        }
+    };
 
     const deletePc = async (id: UUID) => {
         try {
@@ -22,14 +38,15 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
         }
     };
 
-    const imagePlaceholder =
-        "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
+    useEffect(() => {
+        getPCs();
+    }, []);
 
     return (
         <div className="container d-flex justify-content-between p-2 mb-2">
             <FilterPC />
             <div className="container col-10 p-2 mb-2">
-                {productPCs.pcs.map((data) => (
+                {pcs.map((data) => (
                     <div key={data.id} className="mb-2">
                         <div className="card">
                             <a
