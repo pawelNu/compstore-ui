@@ -47,7 +47,7 @@ export const NewPC: React.FC = () => {
             if (error.response && error.response.data) {
                 setError(error.response.data.toString());
             } else {
-                setError("An error occurred while crating the new PC!");
+                setError("file: NewPC.tsx -> An error occurred while creating the new PC!");
             }
         }
     };
@@ -64,8 +64,6 @@ export const NewPC: React.FC = () => {
             setComboData(result.data);
         } catch (e) {
             console.log("file: NewPC.tsx  getComboData  e:", e);
-            console.error("Error getting combo data: ", e);
-            console.log("file: NewPC.tsx  getComboData  error");
         }
     };
 
