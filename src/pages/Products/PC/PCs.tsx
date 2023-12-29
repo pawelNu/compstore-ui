@@ -13,17 +13,19 @@ import { TPCsProps } from "../../../types/TPCsProps";
 // TODO add sorting
 
 export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
-    const [pcs, setPcs] = useState<TPCSimple[]>([]);
+    const [pcs, setPCs] = useState<TPCSimple[]>([]);
 
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
     const getPCs = async () => {
         const url = `${hostName}/pcs/search`;
+        // TODO add checking if filter is empty
+        // TODO connect post request from filter with PC
         const emptyJson = {};
         try {
             const result = await axios.post(url, emptyJson);
-            setPcs(result.data.pcs);
+            setPCs(result.data.pcs);
         } catch (error: any) {
             console.log("file: CategoryBar.tsx  handleClick  error:", error);
         }
@@ -32,7 +34,7 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const deletePc = async (id: UUID) => {
         try {
             await axios.delete(`${hostName}/pcs/${id}`);
-            setPcs((prevPcs) => prevPcs.filter((pc) => pc.id !== id));
+            setPCs((prevPcs) => prevPcs.filter((pc) => pc.id !== id));
         } catch (e) {
             console.log("Error deleting pc -> file: PCs.tsx  deletePc  e:", e);
         }

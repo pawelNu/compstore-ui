@@ -1,7 +1,7 @@
 export const FilterButton = () => {
     return (
         <div>
-            <a href="/" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary">
                 Filter
                 <svg
                     className="ms-2"
@@ -16,7 +16,7 @@ export const FilterButton = () => {
                         fill="white"
                     />
                 </svg>
-            </a>
+            </button>
         </div>
     );
 };
