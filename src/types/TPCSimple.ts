@@ -4,6 +4,6 @@ export type TPCSimple = {
     id: UUID;
     processorName: string;
     graphicsCardName: string;
-    ramGBCapacity: number;
+    ramCapacity: number;
     price: number;
 };
