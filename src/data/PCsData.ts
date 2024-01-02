@@ -1,4 +1,4 @@
-import { TPCsPageResponse } from "../types/TPCsPageResponse";
+import { TPCsPageResponse } from "../types/PC/TPCsPageResponse";
 
 export const productPCs: TPCsPageResponse = {
     pcs: [

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AddToCartButton } from "../../../layout/components/buttons/AddToCartButton";
 import "./../../../static/styles/OneProductDetails.css";
-import { TPCDetails } from "../../../types/TPCDetails";
+import { TPCDetails } from "../../../types/PC/TPCDetails";
 import axios from "axios";
 import hostName from "../../../config/config";
 import { useParams } from "react-router-dom";

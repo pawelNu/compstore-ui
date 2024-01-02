@@ -3,11 +3,11 @@ import { AddToCartButton } from "../../../layout/components/buttons/AddToCartBut
 import { FilterPC } from "./FilterPC";
 import { PCActionsButton } from "./components/PCActionsButton";
 import { useEffect, useState } from "react";
-import { TPCSimple } from "../../../types/TPCSimple";
+import { TPCSimple } from "../../../types/PC/TPCSimple";
 import hostName from "../../../config/config";
 import axios from "axios";
 import { UUID } from "crypto";
-import { TPCsProps } from "../../../types/TPCsProps";
+import { TPCsProps } from "../../../types/PC/TPCsProps";
 
 // TODO add pagination
 // TODO add sorting
@@ -53,8 +53,7 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                         <div className="card">
                             <a
                                 className="products-header-link"
-                                href={"pc/" + pc.id}
-                            >
+                                href={"pc/" + pc.id}>
                                 <h5 className="card-header">
                                     PC - {pc.processorName} -{" "}
                                     {pc.graphicsCardName} - {pc.ramCapacity} RAM

@@ -1,4 +1,4 @@
-import { TPCDetails } from "../types/TPCDetails";
+import { TPCDetails } from "../types/PC/TPCDetails";
 
 export const pcDetails: TPCDetails = {
     id: "83305d70-4a77-4811-a365-eeda3aa5f5fd",

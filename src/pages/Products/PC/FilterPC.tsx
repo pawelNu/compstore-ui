@@ -1,197 +1,158 @@
-import { useNavigate } from "react-router-dom";
 import { FilterButton } from "../../../layout/components/buttons/FilterButton";
 import axios from "axios";
 import hostName from "../../../config/config";
 import { useEffect, useState } from "react";
-import { TPCSimple } from "../../../types/TPCSimple";
-import { TPCComboData } from "../../../types/TPCComboData";
+import { TPCComboData } from "../../../types/PC/TPCComboData";
+import { TPCPageRequest } from "../../../types/PC/TPCPageRequest";
+import { Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { CheckboxIDName } from "./components/CheckboxIDName";
+import { CheckboxName } from "./components/CheckboxName";
 
 export const FilterPC = () => {
-    const [pcs, setPCs] = useState<TPCSimple[]>([]);
-    const [comboData, setComboData] = useState<TPCComboData>();
-    const [priceFrom, setPriceFrom] = useState<number | string>("");
-    const [priceTo, setPriceTo] = useState<number | string>("");
+    const {
+        handleSubmit,
+        control,
+        setValue,
+        formState: { errors },
+    } = useForm<TPCPageRequest>();
 
-    let navigate = useNavigate();
+    const [comboData, setComboData] = useState<TPCComboData | null>(null);
 
-    const getPCs = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        console.log("Filter button clicked");
+    const onSubmit = async (data: TPCPageRequest) => {
         const url = `${hostName}/pcs/search`;
-        // TODO add checking if filter is empty
-        // TODO connect post request from filter with PC
-        const emptyJson = {};
+
         try {
-            const result = await axios.post(url, emptyJson);
-            setPCs(result.data.pcs);
+            const result = await axios.post(url, data);
+            // Ustaw wyniki w stanie komponentu lub przekieruj do innej ścieżki
+            console.log(result.data.pcs);
         } catch (error: any) {
-            console.log("file: CategoryBar.tsx  handleClick  error:", error);
+            console.log("Error:", error);
         }
     };
 
+    // TODO The 'getComboData' function makes the dependencies 
+    // of useEffect Hook (at line 65) change on every render. 
+    // Move it inside the useEffect callback. Alternatively, 
+    // wrap the definition of 'getComboData' in its own useCallback() Hook.
     const getComboData = async () => {
         try {
             const result = await axios.get(`${hostName}/pcs/combo-data`);
-            setComboData(result.data);
-        } catch (e) {
-            console.log("file: NewPC.tsx  getComboData  e:", e);
-        }
-    };
+            const comboData: TPCComboData = result.data;
 
-    const onInputChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    ) => {
-        setPCs({ ...pcs, [e.target.name]: e.target.value });
+            // Ustaw dane początkowe za pomocą setValue
+            setValue(
+                "processorBrands",
+                comboData.processorBrands.map((brand) => brand.id),
+            );
+            setValue(
+                "graphicsCardBrands",
+                comboData.graphicsCardBrands.map((brand) => brand.id),
+            );
+            setValue("ramCapacities", comboData.ramCapacities);
+            setValue("driveCapacities", comboData.driveCapacities);
+            setValue("driveTypes", comboData.driveTypes);
+            setValue(
+                "operatingSystems",
+                comboData.operatingSystems.map((system) => system.id),
+            );
+            // Ustaw inne dane podobnie
+            setComboData(comboData);
+        } catch (e) {
+            console.log("Error fetching combo data:", e);
+        }
     };
 
     useEffect(() => {
         getComboData();
-    }, []);
+    }, [getComboData, setValue]);
 
     return (
         <div className="card col-2 mt-2">
-            <form onSubmit={(e) => getPCs(e)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <h5 className="card-header">Filters:</h5>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">
                         <h6 className="card-title">Processor brands</h6>
-                        {comboData?.processorBrands.map((cpu, index) => (
-                            <div key={index} className="form-check">
-                                <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    value={cpu.id}
-                                    id={`${cpu.name}Cpu`}
-                                />
-                                <label
-                                    className="form-check-label"
-                                    htmlFor={`${cpu.name}Cpu`}
-                                >
-                                    {cpu.name}
-                                </label>
-                            </div>
-                        ))}
+                        <CheckboxIDName
+                            name="processorBrands"
+                            control={control}
+                            options={comboData?.processorBrands}
+                        />
                     </li>
                     <li className="list-group-item">
                         <h6 className="card-title">Graphics card brands</h6>
-                        {comboData?.graphicsCardBrands.map((gpu, index) => (
-                            <div key={index} className="form-check">
-                                <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    value={gpu.id}
-                                    id={`${gpu.name}Gpu`}
-                                />
-                                <label
-                                    className="form-check-label"
-                                    htmlFor={`${gpu.name}Gpu`}
-                                >
-                                    {gpu.name}
-                                </label>
-                            </div>
-                        ))}
+                        <CheckboxIDName
+                            name="graphicsCardBrands"
+                            control={control}
+                            options={comboData?.graphicsCardBrands}
+                        />
                     </li>
                     <li className="list-group-item">
                         <h6 className="card-title">RAM Capacity</h6>
-                        {/* TODO add to combo-data */}
-                        {comboData?.ramCapacities.map((ram, index) => (
-                            <div key={index} className="form-check">
-                                <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    value=""
-                                    id={`${ram.replace(" ", "")}`}
-                                />
-                                <label
-                                    className="form-check-label"
-                                    htmlFor={`${ram.replace(" ", "")}`}
-                                >
-                                    {ram}
-                                </label>
-                            </div>
-                        ))}
+                        <CheckboxName
+                            name="ramCapacities"
+                            control={control}
+                            options={comboData?.ramCapacities}
+                        />
                     </li>
                     <li className="list-group-item">
                         <h6 className="card-title">Drive Capacity</h6>
-                        {/* TODO add to combo-data */}
-                        {comboData?.driveCapacities.map((drive, index) => (
-                            <div key={index} className="form-check">
-                                <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    value=""
-                                    id={`${drive.replace(" ", "")}`}
-                                />
-                                <label
-                                    className="form-check-label"
-                                    htmlFor={`${drive.replace(" ", "")}`}
-                                >
-                                    {drive}
-                                </label>
-                            </div>
-                        ))}
+                        <CheckboxName
+                            name="driveCapacities"
+                            control={control}
+                            options={comboData?.driveCapacities}
+                        />
                     </li>
                     <li className="list-group-item">
                         <h6 className="card-title">Drive Types</h6>
-                        {comboData?.driveTypes.map((drive, index) => (
-                            <div key={index} className="form-check">
-                                <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    value={drive}
-                                    id={`${drive}Drive`}
-                                />
-                                <label
-                                    className="form-check-label"
-                                    htmlFor={`${drive}Drive`}
-                                >
-                                    {drive}
-                                </label>
-                            </div>
-                        ))}
+                        <CheckboxName
+                            name="driveTypes"
+                            control={control}
+                            options={comboData?.driveTypes}
+                        />
                     </li>
                     <li className="list-group-item">
                         <h6 className="card-title">Operating Systems</h6>
-                        {comboData?.operatingSystems.map((system, index) => (
-                            <div key={index} className="form-check">
-                                <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    value={system.id}
-                                    id={`${system.name}System`}
-                                />
-                                <label
-                                    className="form-check-label"
-                                    htmlFor={`${system.name}System`}
-                                >
-                                    {system.name}
-                                </label>
-                            </div>
-                        ))}
+                        <CheckboxIDName
+                            name="operatingSystems"
+                            control={control}
+                            options={comboData?.operatingSystems}
+                        />
                     </li>
                     <li className="list-group-item">
                         <h6 className="card-title">Price</h6>
                         <div className="form-floating mb-3">
-                            <input
-                                type="number"
-                                className="form-control"
-                                id="priceFrom"
-                                value={priceFrom}
-                                onChange={onInputChange}
-                                placeholder="From"
+                            <Controller
+                                name="priceFrom"
+                                control={control}
+                                render={({ field }) => (
+                                    <input
+                                        {...field}
+                                        id="priceFrom"
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="From"
+                                    />
+                                )}
                             />
                             <label htmlFor="priceFrom">From</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <input
-                                type="number"
-                                className="form-control"
-                                id="priceTo"
-                                value={priceTo}
-                                onChange={onInputChange}
-                                placeholder="To"
+                            <Controller
+                                name="priceTo"
+                                control={control}
+                                render={({ field }) => (
+                                    <input
+                                        {...field}
+                                        id="priceTo"
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="To"
+                                    />
+                                )}
                             />
-                            <label htmlFor="priceFrom">To</label>
+                            <label htmlFor="priceTo">To</label>
                         </div>
                     </li>
                     <li className="list-group-item">
