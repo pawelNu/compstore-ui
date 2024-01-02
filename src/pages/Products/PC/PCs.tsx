@@ -48,22 +48,21 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
         <div className="container d-flex justify-content-between p-2 mb-2">
             <FilterPC />
             <div className="container col-10 p-2 mb-2">
-                {pcs.map((data) => (
-                    <div key={data.id} className="mb-2">
+                {pcs.map((pc) => (
+                    <div key={pc.id} className="mb-2">
                         <div className="card">
                             <a
                                 className="products-header-link"
-                                href={"pc/" + data.id}
+                                href={"pc/" + pc.id}
                             >
                                 <h5 className="card-header">
-                                    PC - {data.processorName} -{" "}
-                                    {data.graphicsCardName} -{" "}
-                                    {data.ramGBCapacity} GB RAM
+                                    PC - {pc.processorName} -{" "}
+                                    {pc.graphicsCardName} - {pc.ramCapacity} RAM
                                 </h5>
                             </a>
                             <div className="row g-0">
                                 <div className="col-3">
-                                    <a href={"pc/" + data.id}>
+                                    <a href={"pc/" + pc.id}>
                                         <img
                                             src={imagePlaceholder}
                                             className="img-fluid rounded-start products-product-image"
@@ -75,28 +74,28 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                                     <div className="card-body">
                                         <p className="card-text">
                                             <b>Processor: </b>
-                                            {data.processorName}
+                                            {pc.processorName}
                                         </p>
                                         <p className="card-text">
                                             <b>GPU: </b>
-                                            {data.graphicsCardName}
+                                            {pc.graphicsCardName}
                                         </p>
                                         <p className="card-text">
                                             <b>RAM: </b>
-                                            {data.ramGBCapacity} GB
+                                            {pc.ramCapacity}
                                         </p>
                                     </div>
                                 </div>
                                 <div className="col-3">
                                     <div className="products-price-tag">
                                         <div className="card-body">
-                                            <div>$ {data.price}</div>
+                                            <div>$ {pc.price}</div>
                                         </div>
                                         <AddToCartButton />
                                         {userRole !== "Customer" && (
                                             <PCActionsButton
                                                 deletePc={deletePc}
-                                                id={data.id}
+                                                id={pc.id}
                                             />
                                         )}
                                     </div>

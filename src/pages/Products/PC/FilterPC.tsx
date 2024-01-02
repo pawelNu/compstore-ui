@@ -9,11 +9,8 @@ import { TPCComboData } from "../../../types/TPCComboData";
 export const FilterPC = () => {
     const [pcs, setPCs] = useState<TPCSimple[]>([]);
     const [comboData, setComboData] = useState<TPCComboData>();
-
-    const rams = [8, 16, 32, 64];
-    const driveCapacities = [256, 512, 1024, 2048];
-    const driveTypes = ["SSD", "HDD"];
-    const price = ["From", "To"];
+    const [priceFrom, setPriceFrom] = useState<number | string>("");
+    const [priceTo, setPriceTo] = useState<number | string>("");
 
     let navigate = useNavigate();
 
@@ -38,8 +35,6 @@ export const FilterPC = () => {
             setComboData(result.data);
         } catch (e) {
             console.log("file: NewPC.tsx  getComboData  e:", e);
-            console.error("Error getting combo data: ", e);
-            console.log("file: NewPC.tsx  getComboData  error");
         }
     };
 
@@ -99,19 +94,19 @@ export const FilterPC = () => {
                     <li className="list-group-item">
                         <h6 className="card-title">RAM Capacity</h6>
                         {/* TODO add to combo-data */}
-                        {rams.map((ram, index) => (
+                        {comboData?.ramCapacities.map((ram, index) => (
                             <div key={index} className="form-check">
                                 <input
                                     className="form-check-input"
                                     type="checkbox"
                                     value=""
-                                    id={`${ram}RAM`}
+                                    id={`${ram.replace(" ", "")}`}
                                 />
                                 <label
                                     className="form-check-label"
-                                    htmlFor={`${ram}RAM`}
+                                    htmlFor={`${ram.replace(" ", "")}`}
                                 >
-                                    {ram} GB
+                                    {ram}
                                 </label>
                             </div>
                         ))}
@@ -119,19 +114,19 @@ export const FilterPC = () => {
                     <li className="list-group-item">
                         <h6 className="card-title">Drive Capacity</h6>
                         {/* TODO add to combo-data */}
-                        {driveCapacities.map((drive, index) => (
+                        {comboData?.driveCapacities.map((drive, index) => (
                             <div key={index} className="form-check">
                                 <input
                                     className="form-check-input"
                                     type="checkbox"
                                     value=""
-                                    id={`${drive}Drive`}
+                                    id={`${drive.replace(" ", "")}`}
                                 />
                                 <label
                                     className="form-check-label"
-                                    htmlFor={`${drive}Drive`}
+                                    htmlFor={`${drive.replace(" ", "")}`}
                                 >
-                                    {drive} GB
+                                    {drive}
                                 </label>
                             </div>
                         ))}
@@ -176,21 +171,28 @@ export const FilterPC = () => {
                     </li>
                     <li className="list-group-item">
                         <h6 className="card-title">Price</h6>
-                        {price.map((range, index) => (
-                            <div key={index} className="form-floating mb-3">
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    id={`price${range}`}
-                                    // TODO value from value disappears
-                                    // TODO fix it
-                                    value={`price${range}`}
-                                    onChange={onInputChange}
-                                    placeholder={range}
-                                />
-                                <label htmlFor={`price${range}`}>{range}</label>
-                            </div>
-                        ))}
+                        <div className="form-floating mb-3">
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="priceFrom"
+                                value={priceFrom}
+                                onChange={onInputChange}
+                                placeholder="From"
+                            />
+                            <label htmlFor="priceFrom">From</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="priceTo"
+                                value={priceTo}
+                                onChange={onInputChange}
+                                placeholder="To"
+                            />
+                            <label htmlFor="priceFrom">To</label>
+                        </div>
                     </li>
                     <li className="list-group-item">
                         <div className="d-flex justify-content-center">
