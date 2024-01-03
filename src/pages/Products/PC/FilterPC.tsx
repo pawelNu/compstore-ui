@@ -1,13 +1,14 @@
 import { FilterButton } from "../../../layout/components/buttons/FilterButton";
 import axios from "axios";
 import hostName from "../../../config/config";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { TPCComboData } from "../../../types/PC/TPCComboData";
 import { TPCPageRequest } from "../../../types/PC/TPCPageRequest";
 import { Controller } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { CheckboxIDName } from "./components/CheckboxIDName";
 import { CheckboxName } from "./components/CheckboxName";
+import { FilterPCStyles } from "../../../static/styles/FilterPC";
 
 export const FilterPC = () => {
     const {
@@ -31,16 +32,12 @@ export const FilterPC = () => {
         }
     };
 
-    // TODO The 'getComboData' function makes the dependencies 
-    // of useEffect Hook (at line 65) change on every render. 
-    // Move it inside the useEffect callback. Alternatively, 
-    // wrap the definition of 'getComboData' in its own useCallback() Hook.
-    const getComboData = async () => {
+    const getComboData = useCallback(async () => {
+        // console.log("Calling getComboData");
         try {
             const result = await axios.get(`${hostName}/pcs/combo-data`);
             const comboData: TPCComboData = result.data;
 
-            // Ustaw dane początkowe za pomocą setValue
             setValue(
                 "processorBrands",
                 comboData.processorBrands.map((brand) => brand.id),
@@ -49,26 +46,20 @@ export const FilterPC = () => {
                 "graphicsCardBrands",
                 comboData.graphicsCardBrands.map((brand) => brand.id),
             );
-            setValue("ramCapacities", comboData.ramCapacities);
-            setValue("driveCapacities", comboData.driveCapacities);
-            setValue("driveTypes", comboData.driveTypes);
-            setValue(
-                "operatingSystems",
-                comboData.operatingSystems.map((system) => system.id),
-            );
-            // Ustaw inne dane podobnie
+            // Set other values similarly
             setComboData(comboData);
         } catch (e) {
             console.log("Error fetching combo data:", e);
         }
-    };
+    }, [setValue]);
 
     useEffect(() => {
+        // console.log("Calling useEffect");
         getComboData();
-    }, [getComboData, setValue]);
+    }, [getComboData]);
 
     return (
-        <div className="card col-2 mt-2">
+        <div className="card col-2 mt-2" style={FilterPCStyles.card}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <h5 className="card-header">Filters:</h5>
                 <ul className="list-group list-group-flush">

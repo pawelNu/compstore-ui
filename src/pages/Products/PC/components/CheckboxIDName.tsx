@@ -33,7 +33,8 @@ export const CheckboxIDName: React.FC<TCheckboxIDName> = ({
                     />
                     <label
                         className="form-check-label"
-                        htmlFor={`${option.name}-${name}`}>
+                        htmlFor={`${option.name}-${name}`}
+                    >
                         {option.name}
                     </label>
                 </div>
