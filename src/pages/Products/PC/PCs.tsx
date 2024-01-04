@@ -9,18 +9,32 @@ import axios from "axios";
 import { UUID } from "crypto";
 import { TPCsProps } from "../../../types/PC/TPCsProps";
 import { PagePagination } from "../../../layout/components/pagination/PagePagination";
+import { TFilterPC } from "../../../types/PC/TFilterPC";
 
 // TODO add pagination
-// TODO pagination still don't working
 // TODO add sorting
+// TODO add filter values from <FilterPC />
 
 export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pcs, setPCs] = useState<TPCSimple[]>([]);
     const [pageNumber, setPageNumber] = useState<number>(0);
-    // console.log("file: PCs.tsx  setPageNumber:", setPageNumber)
-    // console.log("file: PCs.tsx  pageNumber:", pageNumber)
     const [pageSize, setPageSize] = useState<number>(10);
     const [pagesCount, setPagesCount] = useState<number>(0);
+    const [filter, setFilter] = useState<TFilterPC>({
+        processorBrands: [],
+        graphicsCardBrands: [],
+        ramCapacities: [],
+        driveCapacities: [],
+        driveTypes: [],
+        operatingSystems: [],
+        priceFrom: 0,
+        priceTo: null,
+        pagingAndSortingRequest: {
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+            ascendingFlag: null,
+        },
+    });
 
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
@@ -29,14 +43,9 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
         const url = `${hostName}/pcs/search`;
         // TODO add checking if filter is empty
         // TODO connect post request from filter with PC
-        const requestData = {
-            pageSize: pageSize,
-            pageNumber: pageNumber,
-            // TODO: Add sorting information if needed
-        };
         const emptyJson = {};
         try {
-            const result = await axios.post(url, requestData);
+            const result = await axios.post(url, filter);
             console.log("file: PCs.tsx:39  getPCs  result:", result.data.pcs);
             setPCs(result.data.pcs);
             const pagingMetadata = result.data.pagingAndSortingMetadata;
@@ -48,7 +57,7 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
         } catch (error: any) {
             console.log("file: PCs.tsx  getPCs  error:", error);
         }
-    }, [pageNumber, pageSize]);
+    }, [filter]);
 
     const deletePc = async (id: UUID) => {
         try {
@@ -64,8 +73,15 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     }, [getPCs]);
 
     const handlePageChange = (selectedPage: number) => {
-        // console.log("file: PCs.tsx  handlePageChange  selectedPage:", selectedPage);
-        setPageNumber(selectedPage - 1); // Adjust for 0-based indexing
+        const updatedFilter = {
+            ...filter,
+            pagingAndSortingRequest: {
+                ...filter.pagingAndSortingRequest,
+                pageNumber: selectedPage - 1,
+            },
+        };
+
+        setFilter(updatedFilter);
     };
 
     return (

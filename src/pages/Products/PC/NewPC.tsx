@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import hostName from "../../../config/config";
-import { TAddNewPC } from "../../../types/PC/TNewPC";
+import { TAddNewPC } from "../../../types/PC/TAddNewPC";
 import { TPCComboData } from "../../../types/PC/TPCComboData";
 
 export const NewPC: React.FC = () => {

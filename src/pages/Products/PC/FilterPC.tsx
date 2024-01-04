@@ -25,7 +25,6 @@ export const FilterPC = () => {
 
         try {
             const result = await axios.post(url, data);
-            // Ustaw wyniki w stanie komponentu lub przekieruj do innej ścieżki
             console.log(result.data.pcs);
         } catch (error: any) {
             console.log("Error:", error);
@@ -33,7 +32,6 @@ export const FilterPC = () => {
     };
 
     const getComboData = useCallback(async () => {
-        // console.log("Calling getComboData");
         try {
             const result = await axios.get(`${hostName}/pcs/combo-data`);
             const comboData: TPCComboData = result.data;
@@ -46,7 +44,6 @@ export const FilterPC = () => {
                 "graphicsCardBrands",
                 comboData.graphicsCardBrands.map((brand) => brand.id),
             );
-            // Set other values similarly
             setComboData(comboData);
         } catch (e) {
             console.log("Error fetching combo data:", e);
@@ -54,7 +51,6 @@ export const FilterPC = () => {
     }, [setValue]);
 
     useEffect(() => {
-        // console.log("Calling useEffect");
         getComboData();
     }, [getComboData]);
 

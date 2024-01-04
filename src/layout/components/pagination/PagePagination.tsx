@@ -26,11 +26,15 @@ export const PagePagination: React.FC<TPagePagination> = ({
     return (
         <Pagination style={PagePaginationStyles.pagination}>
             <Pagination.First onClick={() => handlePageClick(1)} />
+            {/* TODO prev not working */}
             <Pagination.Prev
                 onClick={() => handlePageClick(Math.max(1, pageNumber))}
             />
             {renderPageItems()}
+            {/* TODO add pagination spacing */}
+            {/* TODO add active page number */}
             <Pagination.Ellipsis />
+            {/* TODO next not working */}
             <Pagination.Next
                 onClick={() =>
                     handlePageClick(Math.min(pageCount, pageNumber + 1))
