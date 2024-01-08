@@ -22,6 +22,15 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
         }
     };
 
+    const editPc = async (id: UUID) => {
+        try {
+            await axios.delete(`${hostName}/pcs/${id}`);
+            setPcs((prevPcs) => prevPcs.filter((pc) => pc.id !== id));
+        } catch (e) {
+            console.log("Error deleting pc -> file: PCs.tsx  deletePc  e:", e);
+        }
+    };
+
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
@@ -77,6 +86,7 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                                         {userRole !== "Customer" && (
                                             <PCActionsButton
                                                 deletePc={deletePc}
+                                                editPc={editPc}
                                                 id={data.id}
                                             />
                                         )}
