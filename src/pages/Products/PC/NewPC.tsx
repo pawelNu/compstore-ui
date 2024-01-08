@@ -14,8 +14,8 @@ export const NewPC: React.FC = () => {
         processorName: "",
         graphicsCardBrand: "string-string-string-string-string",
         graphicsCardName: "",
-        ramGBCapacity: 0,
-        driveGBCapacity: 0,
+        ramCapacity: "",
+        driveCapacity: "",
         driveType: "",
         operatingSystem: "string-string-string-string-string",
         price: 0,
@@ -28,8 +28,8 @@ export const NewPC: React.FC = () => {
         processorName,
         graphicsCardBrand,
         graphicsCardName,
-        ramGBCapacity,
-        driveGBCapacity,
+        ramCapacity,
+        driveCapacity,
         driveType,
         operatingSystem,
         price,
@@ -79,8 +79,7 @@ export const NewPC: React.FC = () => {
                 <div className="row mb-3">
                     <label
                         htmlFor="processorBrand"
-                        className="col-sm-2 col-form-label"
-                    >
+                        className="col-sm-2 col-form-label">
                         Processor Brand
                     </label>
                     <div className="col-sm-10">
@@ -89,8 +88,7 @@ export const NewPC: React.FC = () => {
                             id="processorBrand"
                             name="processorBrand"
                             value={processorBrand}
-                            onChange={onInputChange}
-                        >
+                            onChange={onInputChange}>
                             <option value="">Choose Processor Brand</option>
                             {comboData?.processorBrands.map((data, index) => (
                                 <option key={index} value={data.id}>
@@ -105,8 +103,7 @@ export const NewPC: React.FC = () => {
                 <div className="row mb-3">
                     <label
                         htmlFor="processorName"
-                        className="col-sm-2 col-form-label"
-                    >
+                        className="col-sm-2 col-form-label">
                         Processor Name
                     </label>
                     <div className="col-sm-10">
@@ -126,8 +123,7 @@ export const NewPC: React.FC = () => {
                 <div className="row mb-3">
                     <label
                         htmlFor="graphicsCardBrand"
-                        className="col-sm-2 col-form-label"
-                    >
+                        className="col-sm-2 col-form-label">
                         Graphics Card Brand
                     </label>
                     <div className="col-sm-10">
@@ -136,8 +132,7 @@ export const NewPC: React.FC = () => {
                             id="graphicsCardBrand"
                             name="graphicsCardBrand"
                             value={graphicsCardBrand}
-                            onChange={onInputChange}
-                        >
+                            onChange={onInputChange}>
                             <option value="">Choose Graphics Card Brand</option>
                             {comboData?.graphicsCardBrands.map(
                                 (data, index) => (
@@ -154,8 +149,7 @@ export const NewPC: React.FC = () => {
                 <div className="row mb-3">
                     <label
                         htmlFor="graphicsCardName"
-                        className="col-sm-2 col-form-label"
-                    >
+                        className="col-sm-2 col-form-label">
                         Graphics Card Name
                     </label>
                     <div className="col-sm-10">
@@ -173,43 +167,49 @@ export const NewPC: React.FC = () => {
                 </div>
 
                 <div className="row mb-3">
-                    <label
-                        htmlFor="ramGBCapacity"
-                        className="col-sm-2 col-form-label"
-                    >
+                <label
+                        htmlFor="ramCapacity"
+                        className="col-sm-2 col-form-label">
                         RAM GB Capacity
                     </label>
                     <div className="col-sm-10">
-                        <input
-                            type="number"
-                            className="form-control"
-                            id="ramGBCapacity"
-                            name="ramGBCapacity"
-                            value={ramGBCapacity}
-                            onChange={onInputChange}
-                            placeholder="test"
-                        />
+                        <select
+                            className="form-select col-sm-10"
+                            id="ramCapacity"
+                            name="ramCapacity"
+                            value={ramCapacity}
+                            onChange={onInputChange}>
+                            <option value="">Choose RAM Capacity</option>
+                            {comboData?.ramCapacities.map((data, index) => (
+                                <option key={index} value={data}>
+                                    {data}
+                                </option>
+                            ))}
+                        </select>
                         {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
 
                 <div className="row mb-3">
-                    <label
-                        htmlFor="driveGBCapacity"
-                        className="col-sm-2 col-form-label"
-                    >
+                <label
+                        htmlFor="driveCapacity"
+                        className="col-sm-2 col-form-label">
                         Drive GB Capacity
                     </label>
                     <div className="col-sm-10">
-                        <input
-                            type="number"
-                            className="form-control"
-                            id="driveGBCapacity"
-                            name="driveGBCapacity"
-                            value={driveGBCapacity}
-                            onChange={onInputChange}
-                            placeholder="test"
-                        />
+                        <select
+                            className="form-select col-sm-10"
+                            id="driveCapacity"
+                            name="driveCapacity"
+                            value={driveCapacity}
+                            onChange={onInputChange}>
+                            <option value="">Choose Drive Capacity</option>
+                            {comboData?.driveCapacities.map((data, index) => (
+                                <option key={index} value={data}>
+                                    {data}
+                                </option>
+                            ))}
+                        </select>
                         {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
@@ -217,8 +217,7 @@ export const NewPC: React.FC = () => {
                 <div className="row mb-3">
                     <label
                         htmlFor="driveType"
-                        className="col-sm-2 col-form-label"
-                    >
+                        className="col-sm-2 col-form-label">
                         Drive Type
                     </label>
                     <div className="col-sm-10">
@@ -227,8 +226,7 @@ export const NewPC: React.FC = () => {
                             id="driveType"
                             name="driveType"
                             value={driveType}
-                            onChange={onInputChange}
-                        >
+                            onChange={onInputChange}>
                             <option value="">Choose Drive Type</option>
                             {comboData?.driveTypes.map((data, index) => (
                                 <option key={index} value={data}>
@@ -243,8 +241,7 @@ export const NewPC: React.FC = () => {
                 <div className="row mb-3">
                     <label
                         htmlFor="operatingSystem"
-                        className="col-sm-2 col-form-label"
-                    >
+                        className="col-sm-2 col-form-label">
                         Operating System
                     </label>
                     <div className="col-sm-10">
@@ -253,8 +250,7 @@ export const NewPC: React.FC = () => {
                             id="operatingSystem"
                             name="operatingSystem"
                             value={operatingSystem}
-                            onChange={onInputChange}
-                        >
+                            onChange={onInputChange}>
                             <option value="">Choose Operating System</option>
                             {comboData?.operatingSystems.map((data, index) => (
                                 <option key={index} value={data.id}>

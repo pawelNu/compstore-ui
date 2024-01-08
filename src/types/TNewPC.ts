@@ -5,8 +5,8 @@ export type TAddNewPC = {
     processorName: string;
     graphicsCardBrand: UUID;
     graphicsCardName: string;
-    ramGBCapacity: number;
-    driveGBCapacity: number;
+    ramCapacity: string;
+    driveCapacity: string;
     driveType: string;
     operatingSystem: UUID;
     price: number;
