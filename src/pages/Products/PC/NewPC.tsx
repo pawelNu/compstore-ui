@@ -63,9 +63,7 @@ export const NewPC: React.FC = () => {
             const result = await axios.get(`${hostName}/pcs/combo-data`);
             setComboData(result.data);
         } catch (e) {
-            console.log("file: NewPC.tsx  getComboData  e:", e);
-            console.error("Error getting combo data: ", e);
-            console.log("file: NewPC.tsx  getComboData  error");
+            console.log("file: NewPC.tsx:  getComboData  e:", e);
         }
     };
 

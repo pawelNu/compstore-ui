@@ -6,8 +6,8 @@ export type TPCDetails = {
     processorName: string;
     graphicsCardBrand: string;
     graphicsCardName: string;
-    ramGBCapacity: number;
-    driveGBCapacity: number;
+    ramCapacity: string;
+    driveCapacity: string;
     driveType: string;
     operatingSystem: string;
     price: number;

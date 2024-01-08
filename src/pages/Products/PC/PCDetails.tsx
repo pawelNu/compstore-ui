@@ -16,8 +16,8 @@ export const PCDetails = () => {
         processorName: "",
         graphicsCardBrand: "",
         graphicsCardName: "",
-        ramGBCapacity: 0,
-        driveGBCapacity: 0,
+        ramCapacity: "",
+        driveCapacity: "",
         driveType: "",
         operatingSystem: "",
         price: 0,
@@ -46,7 +46,7 @@ export const PCDetails = () => {
             <div key={pc.id} className="card">
                 <h5 className="card-header">
                     PC - {pc.processorName} - {pc.graphicsCardName} -{" "}
-                    {pc.ramGBCapacity} GB RAM
+                    {pc.ramCapacity} GB RAM
                 </h5>
                 <div className="card-body">
                     <div className="row mb-3">
@@ -84,11 +84,11 @@ export const PCDetails = () => {
                                 </p>
                                 <p className="card-text">
                                     <b>RAM: </b>
-                                    {pc.ramGBCapacity} GB
+                                    {pc.ramCapacity} GB
                                 </p>
                                 <p className="card-text">
                                     <b>Storage drive: </b>
-                                    {pc.driveType} {pc.driveGBCapacity} GB
+                                    {pc.driveType} {pc.driveCapacity} GB
                                 </p>
                                 <p className="card-text">
                                     <b>Operating system: </b>
