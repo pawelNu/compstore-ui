@@ -1,6 +1,6 @@
 import { UUID } from "crypto";
 
-export type TEditPC = {
+export type TPCEdit = {
     id: UUID;
     processorBrand: UUID;
     processorName: string;

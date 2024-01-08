@@ -4,11 +4,9 @@ import { ConfirmDeleteModal } from "../../../../layout/components/modals/Confirm
 
 export const PCActionsButton = ({
     deletePc,
-    editPc,
     id,
 }: {
     deletePc: (id: UUID) => void;
-    editPc: (id: UUID) => void;
     id: UUID;
 }) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -19,11 +17,6 @@ export const PCActionsButton = ({
     const confirmDelete = () => {
         deletePc(id);
         handleClose();
-    };
-
-    const handleEditClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-        event.preventDefault();
-        editPc(id);
     };
 
     return (
@@ -38,11 +31,7 @@ export const PCActionsButton = ({
             </button>
             <ul className="dropdown-menu">
                 <li>
-                    <a
-                        className="dropdown-item"
-                        href={`/edit-product/${id}`}
-                        onClick={handleEditClick}
-                    >
+                    <a className="dropdown-item" href={`/pc-edit/${id}`}>
                         Edit
                     </a>
                 </li>

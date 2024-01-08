@@ -1,7 +1,7 @@
 import { productPCs } from "../../../data/PCsData";
 import "./../../../static/styles/Products.css";
 import { AddToCartButton } from "../../../layout/components/buttons/AddToCartButton";
-import { FilterPC } from "./FilterPC";
+import { PCFilter } from "./PCFilter";
 import { PCActionsButton } from "./components/PCActionsButton";
 import { useState } from "react";
 import { TPCSimple } from "../../../types/TPCSimple";
@@ -27,7 +27,7 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
 
     return (
         <div className="container d-flex justify-content-between p-2 mb-2">
-            <FilterPC />
+            <PCFilter />
             <div className="container col-10 p-2 mb-2">
                 {productPCs.pcs.map((pc) => (
                     <div key={pc.id} className="mb-2">
@@ -38,8 +38,8 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                             >
                                 <h5 className="card-header">
                                     PC - {pc.processorName} -{" "}
-                                    {pc.graphicsCardName} -{" "}
-                                    {pc.ramGBCapacity} GB RAM
+                                    {pc.graphicsCardName} - {pc.ramGBCapacity}{" "}
+                                    GB RAM
                                 </h5>
                             </a>
                             <div className="row g-0">
