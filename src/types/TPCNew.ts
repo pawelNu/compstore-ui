@@ -1,6 +1,6 @@
 import { UUID } from "crypto";
 
-export type TAddNewPC = {
+export type TPCNew = {
     processorBrand: UUID;
     processorName: string;
     graphicsCardBrand: UUID;

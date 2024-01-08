@@ -2,14 +2,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import hostName from "../../../config/config";
-import { TAddNewPC } from "../../../types/TNewPC";
 import { TPCComboData } from "../../../types/TPCComboData";
+import { TEditPC } from "../../../types/TEditPC";
 
-export const NewPC: React.FC = () => {
+export const PCEdit: React.FC = () => {
     let navigate = useNavigate();
 
     const [comboData, setComboData] = useState<TPCComboData>();
-    const [pc, setPc] = useState<TAddNewPC>({
+    const [pc, setPc] = useState<TEditPC>({
+        id: "string-string-string-string-string",
         processorBrand: "string-string-string-string-string",
         processorName: "",
         graphicsCardBrand: "string-string-string-string-string",
@@ -24,6 +25,7 @@ export const NewPC: React.FC = () => {
     const [error, setError] = useState<String>("");
 
     const {
+        id,
         processorBrand,
         processorName,
         graphicsCardBrand,
@@ -36,18 +38,15 @@ export const NewPC: React.FC = () => {
     } = pc;
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
         try {
-            await axios.post(`${hostName}/pcs`, pc);
+            e.preventDefault();
+            await axios.put(`${hostName}/pcs/${id}`, pc);
             navigate("/pcs");
-            console.log("file: NewPC.tsx  onSubmit  pc:", pc);
         } catch (error: any) {
-            console.log("file: NewPC.tsx  onSubmit  error:", error);
             if (error.response && error.response.data) {
                 setError(error.response.data.toString());
             } else {
-                setError("An error occurred while crating the new PC!");
+                setError("An error occurred while updating the project!");
             }
         }
     };
@@ -58,12 +57,18 @@ export const NewPC: React.FC = () => {
         setPc({ ...pc, [e.target.name]: e.target.value });
     };
 
+    const onFinishedChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    ) => {
+        setPc({ ...pc, [e.target.name]: e.target.value });
+    };
+
     const getComboData = async () => {
         try {
             const result = await axios.get(`${hostName}/pcs/combo-data`);
             setComboData(result.data);
         } catch (e) {
-            console.log("file: NewPC.tsx:  getComboData  e:", e);
+            console.log("file: EditPC.tsx:  getComboData  e:", e);
         }
     };
 
@@ -77,8 +82,7 @@ export const NewPC: React.FC = () => {
                 <div className="row mb-3">
                     <label
                         htmlFor="processorBrand"
-                        className="col-sm-2 col-form-label"
-                    >
+                        className="col-sm-2 col-form-label">
                         Processor Brand
                     </label>
                     <div className="col-sm-10">
@@ -87,8 +91,7 @@ export const NewPC: React.FC = () => {
                             id="processorBrand"
                             name="processorBrand"
                             value={processorBrand}
-                            onChange={onInputChange}
-                        >
+                            onChange={onInputChange}>
                             <option value="">Choose Processor Brand</option>
                             {comboData?.processorBrands.map((data, index) => (
                                 <option key={index} value={data.id}>
@@ -103,8 +106,7 @@ export const NewPC: React.FC = () => {
                 <div className="row mb-3">
                     <label
                         htmlFor="processorName"
-                        className="col-sm-2 col-form-label"
-                    >
+                        className="col-sm-2 col-form-label">
                         Processor Name
                     </label>
                     <div className="col-sm-10">
@@ -124,8 +126,7 @@ export const NewPC: React.FC = () => {
                 <div className="row mb-3">
                     <label
                         htmlFor="graphicsCardBrand"
-                        className="col-sm-2 col-form-label"
-                    >
+                        className="col-sm-2 col-form-label">
                         Graphics Card Brand
                     </label>
                     <div className="col-sm-10">
@@ -134,8 +135,7 @@ export const NewPC: React.FC = () => {
                             id="graphicsCardBrand"
                             name="graphicsCardBrand"
                             value={graphicsCardBrand}
-                            onChange={onInputChange}
-                        >
+                            onChange={onInputChange}>
                             <option value="">Choose Graphics Card Brand</option>
                             {comboData?.graphicsCardBrands.map(
                                 (data, index) => (
@@ -152,8 +152,7 @@ export const NewPC: React.FC = () => {
                 <div className="row mb-3">
                     <label
                         htmlFor="graphicsCardName"
-                        className="col-sm-2 col-form-label"
-                    >
+                        className="col-sm-2 col-form-label">
                         Graphics Card Name
                     </label>
                     <div className="col-sm-10">
@@ -173,8 +172,7 @@ export const NewPC: React.FC = () => {
                 <div className="row mb-3">
                     <label
                         htmlFor="ramCapacity"
-                        className="col-sm-2 col-form-label"
-                    >
+                        className="col-sm-2 col-form-label">
                         RAM GB Capacity
                     </label>
                     <div className="col-sm-10">
@@ -183,8 +181,7 @@ export const NewPC: React.FC = () => {
                             id="ramCapacity"
                             name="ramCapacity"
                             value={ramCapacity}
-                            onChange={onInputChange}
-                        >
+                            onChange={onInputChange}>
                             <option value="">Choose RAM Capacity</option>
                             {comboData?.ramCapacities.map((data, index) => (
                                 <option key={index} value={data}>
@@ -199,8 +196,7 @@ export const NewPC: React.FC = () => {
                 <div className="row mb-3">
                     <label
                         htmlFor="driveCapacity"
-                        className="col-sm-2 col-form-label"
-                    >
+                        className="col-sm-2 col-form-label">
                         Drive GB Capacity
                     </label>
                     <div className="col-sm-10">
@@ -209,8 +205,7 @@ export const NewPC: React.FC = () => {
                             id="driveCapacity"
                             name="driveCapacity"
                             value={driveCapacity}
-                            onChange={onInputChange}
-                        >
+                            onChange={onInputChange}>
                             <option value="">Choose Drive Capacity</option>
                             {comboData?.driveCapacities.map((data, index) => (
                                 <option key={index} value={data}>
@@ -225,8 +220,7 @@ export const NewPC: React.FC = () => {
                 <div className="row mb-3">
                     <label
                         htmlFor="driveType"
-                        className="col-sm-2 col-form-label"
-                    >
+                        className="col-sm-2 col-form-label">
                         Drive Type
                     </label>
                     <div className="col-sm-10">
@@ -235,8 +229,7 @@ export const NewPC: React.FC = () => {
                             id="driveType"
                             name="driveType"
                             value={driveType}
-                            onChange={onInputChange}
-                        >
+                            onChange={onInputChange}>
                             <option value="">Choose Drive Type</option>
                             {comboData?.driveTypes.map((data, index) => (
                                 <option key={index} value={data}>
@@ -251,8 +244,7 @@ export const NewPC: React.FC = () => {
                 <div className="row mb-3">
                     <label
                         htmlFor="operatingSystem"
-                        className="col-sm-2 col-form-label"
-                    >
+                        className="col-sm-2 col-form-label">
                         Operating System
                     </label>
                     <div className="col-sm-10">
@@ -261,8 +253,7 @@ export const NewPC: React.FC = () => {
                             id="operatingSystem"
                             name="operatingSystem"
                             value={operatingSystem}
-                            onChange={onInputChange}
-                        >
+                            onChange={onInputChange}>
                             <option value="">Choose Operating System</option>
                             {comboData?.operatingSystems.map((data, index) => (
                                 <option key={index} value={data.id}>

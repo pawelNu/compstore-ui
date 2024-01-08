@@ -1,6 +1,6 @@
 import { FilterButton } from "../../../layout/components/buttons/FilterButton";
 
-export const FilterPC = () => {
+export const PCFilter = () => {
     return (
         <div className="card col-2 mt-2">
             <h5 className="card-header">Filters:</h5>
@@ -16,8 +16,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckDefault"
-                        >
+                            htmlFor="flexCheckDefault">
                             Intel
                         </label>
                     </div>
@@ -30,8 +29,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
+                            htmlFor="flexCheckChecked">
                             AMD
                         </label>
                     </div>
@@ -47,8 +45,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckDefault"
-                        >
+                            htmlFor="flexCheckDefault">
                             NVIDIA
                         </label>
                     </div>
@@ -61,8 +58,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
+                            htmlFor="flexCheckChecked">
                             AMD
                         </label>
                     </div>
@@ -75,8 +71,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
+                            htmlFor="flexCheckChecked">
                             Intel
                         </label>
                     </div>
@@ -92,8 +87,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckDefault"
-                        >
+                            htmlFor="flexCheckDefault">
                             8 GB
                         </label>
                     </div>
@@ -106,8 +100,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
+                            htmlFor="flexCheckChecked">
                             16 GB
                         </label>
                     </div>
@@ -120,8 +113,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
+                            htmlFor="flexCheckChecked">
                             32 GB
                         </label>
                     </div>
@@ -134,8 +126,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
+                            htmlFor="flexCheckChecked">
                             64 GB
                         </label>
                     </div>
@@ -151,8 +142,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckDefault"
-                        >
+                            htmlFor="flexCheckDefault">
                             256 GB
                         </label>
                     </div>
@@ -165,8 +155,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
+                            htmlFor="flexCheckChecked">
                             512 GB
                         </label>
                     </div>
@@ -179,8 +168,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
+                            htmlFor="flexCheckChecked">
                             1024 GB
                         </label>
                     </div>
@@ -193,8 +181,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
+                            htmlFor="flexCheckChecked">
                             2048 GB
                         </label>
                     </div>
@@ -207,8 +194,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
+                            htmlFor="flexCheckChecked">
                             4096 GB
                         </label>
                     </div>
@@ -224,8 +210,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckDefault"
-                        >
+                            htmlFor="flexCheckDefault">
                             SSD
                         </label>
                     </div>
@@ -238,8 +223,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
+                            htmlFor="flexCheckChecked">
                             HDD
                         </label>
                     </div>
@@ -255,8 +239,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckDefault"
-                        >
+                            htmlFor="flexCheckDefault">
                             Windows
                         </label>
                     </div>
@@ -269,8 +252,7 @@ export const FilterPC = () => {
                         />
                         <label
                             className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
+                            htmlFor="flexCheckChecked">
                             Linux
                         </label>
                     </div>
