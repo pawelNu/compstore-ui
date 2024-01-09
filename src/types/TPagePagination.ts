@@ -1,5 +1,6 @@
 export type TPagePagination = {
     pageCount: number;
     pageNumber: number;
-    onPageChange: (selectedPage: number) => void;
+    pageSize: number;
+    onChangePage: (pageNumber: number, pageSize: number) => void;
 };

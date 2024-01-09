@@ -10,8 +10,8 @@ import { UUID } from "crypto";
 import { TPCsProps } from "../../../types/PC/TPCsProps";
 import { PagePagination } from "../../../layout/components/pagination/PagePagination";
 import { TFilterPC } from "../../../types/PC/TFilterPC";
+import { PageSizeButton } from "../../../layout/components/pagination/PageSizeButton";
 
-// TODO add pagination
 // TODO add sorting
 // TODO add filter values from <FilterPC />
 
@@ -41,12 +41,10 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
 
     const getPCs = useCallback(async () => {
         const url = `${hostName}/pcs/search`;
-        // TODO add checking if filter is empty
         // TODO connect post request from filter with PC
-        const emptyJson = {};
         try {
             const result = await axios.post(url, filter);
-            console.log("file: PCs.tsx:39  getPCs  result:", result.data.pcs);
+            console.log("getPCs  filter:", filter.pagingAndSortingRequest);
             setPCs(result.data.pcs);
             const pagingMetadata = result.data.pagingAndSortingMetadata;
             console.log(
@@ -72,25 +70,40 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
         getPCs();
     }, [getPCs]);
 
-    const handlePageChange = (selectedPage: number) => {
-        const updatedFilter = {
-            ...filter,
-            pagingAndSortingRequest: {
-                ...filter.pagingAndSortingRequest,
-                pageNumber: selectedPage - 1,
-            },
-        };
+    const handleChangePage = useCallback(
+        (pageNumber: number, pageSize: number) => {
+            setPageNumber(pageNumber);
+            setPageSize(pageSize);
 
-        setFilter(updatedFilter);
-    };
+            const updatedFilter = {
+                ...filter,
+                pagingAndSortingRequest: {
+                    ...filter.pagingAndSortingRequest,
+                    pageNumber: pageNumber,
+                    pageSize: pageSize,
+                },
+            };
+
+            setFilter(updatedFilter);
+        },
+        [filter],
+    );
 
     return (
         <div className="p-2 mt-2">
             <div className="d-flex justify-content-center">
+                {/* TODO move pagination components into one pagination component */}
                 <PagePagination
                     pageCount={pagesCount}
                     pageNumber={pageNumber}
-                    onPageChange={handlePageChange}
+                    pageSize={pageSize}
+                    onChangePage={handleChangePage}
+                />
+                <PageSizeButton
+                    pageCount={pagesCount}
+                    pageNumber={pageNumber}
+                    pageSize={pageSize}
+                    onChangePage={handleChangePage}
                 />
             </div>
             <div className="container d-flex justify-content-between p-2 mb-2">

@@ -1,46 +1,50 @@
-import Pagination from "react-bootstrap/Pagination";
-import { PagePaginationStyles } from "../../../static/styles/PagePagination";
+import { Pagination } from "react-bootstrap";
 import { TPagePagination } from "../../../types/TPagePagination";
+import { PagePaginationStyles } from "../../../static/styles/PagePagination";
 
 export const PagePagination: React.FC<TPagePagination> = ({
     pageCount,
     pageNumber,
-    onPageChange,
+    pageSize,
+    onChangePage,
 }) => {
-    const handlePageClick = (selectedPage: number) => {
-        onPageChange(selectedPage);
-    };
+    let items = [];
 
-    const renderPageItems = () => {
-        const pages = [];
-        for (let i = 1; i <= pageCount; i++) {
-            pages.push(
-                <Pagination.Item key={i} onClick={() => handlePageClick(i)}>
-                    {i}
-                </Pagination.Item>,
-            );
-        }
-        return pages;
-    };
+    if (pageNumber > 0) {
+        items.push(
+            <Pagination.Prev
+                key="prev"
+                onClick={() => onChangePage(pageNumber - 1, pageSize)}
+            />,
+        );
+    }
+
+    for (let page: number = 1; page <= pageCount; page++) {
+        items.push(
+            <Pagination.Item
+                key={page}
+                data-page={page}
+                active={page === pageNumber + 1}
+                onClick={() => {
+                    console.log("PagePagination - clicked page:", page);
+                    onChangePage(page - 1, pageSize);
+                }}
+            >
+                {page}
+            </Pagination.Item>,
+        );
+    }
+
+    if (pageNumber + 1 < pageCount) {
+        items.push(
+            <Pagination.Next
+                key="next"
+                onClick={() => onChangePage(pageNumber + 1, pageSize)}
+            />,
+        );
+    }
 
     return (
-        <Pagination style={PagePaginationStyles.pagination}>
-            <Pagination.First onClick={() => handlePageClick(1)} />
-            {/* TODO prev not working */}
-            <Pagination.Prev
-                onClick={() => handlePageClick(Math.max(1, pageNumber))}
-            />
-            {renderPageItems()}
-            {/* TODO add pagination spacing */}
-            {/* TODO add active page number */}
-            <Pagination.Ellipsis />
-            {/* TODO next not working */}
-            <Pagination.Next
-                onClick={() =>
-                    handlePageClick(Math.min(pageCount, pageNumber + 1))
-                }
-            />
-            <Pagination.Last onClick={() => handlePageClick(pageCount)} />
-        </Pagination>
+        <Pagination style={PagePaginationStyles.pagination}>{items}</Pagination>
     );
 };

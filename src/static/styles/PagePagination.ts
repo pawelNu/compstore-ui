@@ -1,5 +1,8 @@
 export const PagePaginationStyles = {
     pagination: {
-        marginBottom: "0px",
+        marginBottom: 0,
+    },
+    pageSize: {
+        marginLeft: 10,
     },
 };
