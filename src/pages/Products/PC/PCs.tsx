@@ -11,6 +11,7 @@ import { TPCsProps } from "../../../types/PC/TPCsProps";
 import { PagePagination } from "../../../layout/components/pagination/PagePagination";
 import { TFilterPC } from "../../../types/PC/TFilterPC";
 import { PageSizeButton } from "../../../layout/components/pagination/PageSizeButton";
+import { PaginationComponent } from "../../../layout/components/pagination/PaginationComponent";
 
 // TODO add sorting
 // TODO add filter values from <FilterPC />
@@ -91,21 +92,12 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
 
     return (
         <div className="p-2 mt-2">
-            <div className="d-flex justify-content-center">
-                {/* TODO move pagination components into one pagination component */}
-                <PagePagination
-                    pageCount={pagesCount}
-                    pageNumber={pageNumber}
-                    pageSize={pageSize}
-                    onChangePage={handleChangePage}
-                />
-                <PageSizeButton
-                    pageCount={pagesCount}
-                    pageNumber={pageNumber}
-                    pageSize={pageSize}
-                    onChangePage={handleChangePage}
-                />
-            </div>
+            <PaginationComponent
+                pagesCount={pagesCount}
+                pageNumber={pageNumber}
+                pageSize={pageSize}
+                onChangePage={handleChangePage}
+            />
             <div className="container d-flex justify-content-between p-2 mb-2">
                 <FilterPC />
                 <div className="container col-10 p-2 mb-2">

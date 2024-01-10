@@ -3,7 +3,7 @@ import { TPagePagination } from "../../../types/TPagePagination";
 import { PagePaginationStyles } from "../../../static/styles/PagePagination";
 
 export const PagePagination: React.FC<TPagePagination> = ({
-    pageCount,
+    pagesCount: pageCount,
     pageNumber,
     pageSize,
     onChangePage,

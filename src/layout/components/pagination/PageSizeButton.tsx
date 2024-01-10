@@ -11,14 +11,14 @@ export const PageSizeButton: React.FC<TPagePagination> = ({
     return (
         <Dropdown style={PagePaginationStyles.pageSize}>
             <Dropdown.Toggle variant="outline-primary" id="page-size">
-                {pageSize}
+                Items on page: {pageSize}
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
                 {pageSizes.map((size, index) => (
                     <Dropdown.Item
                         key={index}
-                        onClick={() => onChangePage(pageNumber, size)}
+                        onClick={() => onChangePage(0, size)}
                     >
                         {size}
                     </Dropdown.Item>
