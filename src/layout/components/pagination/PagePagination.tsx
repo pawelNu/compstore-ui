@@ -3,23 +3,22 @@ import { TPagePagination } from "../../../types/TPagePagination";
 import { PagePaginationStyles } from "../../../static/styles/PagePagination";
 
 export const PagePagination: React.FC<TPagePagination> = ({
-    pagesCount: pageCount,
+    pagesCount,
     pageNumber,
     pageSize,
     onChangePage,
 }) => {
     let items = [];
 
-    if (pageNumber > 0) {
-        items.push(
-            <Pagination.Prev
-                key="prev"
-                onClick={() => onChangePage(pageNumber - 1, pageSize)}
-            />,
-        );
-    }
+    items.push(
+        <Pagination.Prev
+            key="prev"
+            className={pageNumber > 0 ? "" : "disabled"}
+            onClick={() => onChangePage(pageNumber - 1, pageSize)}
+        />,
+    );
 
-    for (let page: number = 1; page <= pageCount; page++) {
+    for (let page: number = 1; page <= pagesCount; page++) {
         items.push(
             <Pagination.Item
                 key={page}
@@ -35,14 +34,13 @@ export const PagePagination: React.FC<TPagePagination> = ({
         );
     }
 
-    if (pageNumber + 1 < pageCount) {
-        items.push(
-            <Pagination.Next
-                key="next"
-                onClick={() => onChangePage(pageNumber + 1, pageSize)}
-            />,
-        );
-    }
+    items.push(
+        <Pagination.Next
+            key="next"
+            className={pageNumber + 1 < pagesCount ? "" : "disabled"}
+            onClick={() => onChangePage(pageNumber + 1, pageSize)}
+        />,
+    );
 
     return (
         <Pagination style={PagePaginationStyles.pagination}>{items}</Pagination>
