@@ -98,9 +98,9 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                 pageSize={pageSize}
                 onChangePage={handleChangePage}
             />
-            <div className="container d-flex justify-content-between p-2 mb-2">
+            <div className="container d-flex justify-content-between pt-2">
                 <FilterPC />
-                <div className="container col-10 p-2 mb-2">
+                <div className="container col-10 p-2">
                     {pcs.map((pc) => (
                         <div key={pc.id} className="mb-2">
                             <div className="card">
@@ -160,6 +160,12 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                     ))}
                 </div>
             </div>
+            <PaginationComponent
+                pagesCount={pagesCount}
+                pageNumber={pageNumber}
+                pageSize={pageSize}
+                onChangePage={handleChangePage}
+            />
         </div>
     );
 };
