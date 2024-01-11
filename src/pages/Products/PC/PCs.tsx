@@ -10,6 +10,7 @@ import { UUID } from "crypto";
 import { TPCsProps } from "../../../types/PC/TPCsProps";
 import { TFilterPC } from "../../../types/PC/TFilterPC";
 import { PaginationComponent } from "../../../layout/components/pagination/PaginationComponent";
+import { SortingButton } from "../../../layout/components/buttons/SortingButton";
 
 // TODO add sorting
 // TODO add filter values from <FilterPC />
@@ -19,6 +20,7 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pageNumber, setPageNumber] = useState<number>(0);
     const [pageSize, setPageSize] = useState<number>(10);
     const [pagesCount, setPagesCount] = useState<number>(0);
+    const [ascendingFlag, setAscendingFlag] = useState<boolean | null>(null);
     const [filter, setFilter] = useState<TFilterPC>({
         processorBrands: [],
         graphicsCardBrands: [],
@@ -90,12 +92,19 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
 
     return (
         <div className="p-2 mt-2">
-            <PaginationComponent
-                pagesCount={pagesCount}
-                pageNumber={pageNumber}
-                pageSize={pageSize}
-                onChangePage={handleChangePage}
-            />
+            <div className="container d-flex justify-content-center">
+                <div className="container-fluid px-0">
+                    <PaginationComponent
+                        pagesCount={pagesCount}
+                        pageNumber={pageNumber}
+                        pageSize={pageSize}
+                        onChangePage={handleChangePage}
+                    />
+                </div>
+                <div className="me-2">
+                    <SortingButton />
+                </div>
+            </div>
             <div className="container d-flex justify-content-between pt-2">
                 <FilterPC />
                 <div className="container col-10 p-2">
