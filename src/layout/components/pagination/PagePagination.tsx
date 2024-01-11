@@ -1,4 +1,4 @@
-import { Pagination } from "react-bootstrap";
+import { Dropdown, Pagination } from "react-bootstrap";
 import { TPagePagination } from "../../../types/TPagePagination";
 import { PagePaginationStyles } from "../../../static/styles/PagePagination";
 
@@ -8,41 +8,54 @@ export const PagePagination: React.FC<TPagePagination> = ({
     pageSize,
     onChangePage,
 }) => {
-    let items = [];
-
-    items.push(
-        <Pagination.Prev
-            key="prev"
-            className={pageNumber > 0 ? "" : "disabled"}
-            onClick={() => onChangePage(pageNumber - 1, pageSize)}
-        />,
-    );
-
-    for (let page: number = 1; page <= pagesCount; page++) {
-        items.push(
-            <Pagination.Item
-                key={page}
-                data-page={page}
-                active={page === pageNumber + 1}
-                onClick={() => {
-                    console.log("PagePagination - clicked page:", page);
-                    onChangePage(page - 1, pageSize);
-                }}
-            >
-                {page}
-            </Pagination.Item>,
-        );
-    }
-
-    items.push(
-        <Pagination.Next
-            key="next"
-            className={pageNumber + 1 < pagesCount ? "" : "disabled"}
-            onClick={() => onChangePage(pageNumber + 1, pageSize)}
-        />,
-    );
-
     return (
-        <Pagination style={PagePaginationStyles.pagination}>{items}</Pagination>
+        <Pagination style={PagePaginationStyles.pagination}>
+            <Pagination.First
+                key="first"
+                className={pageNumber > 0 ? "" : "disabled"}
+                onClick={() => onChangePage(0, pageSize)}
+            />
+
+            <Pagination.Prev
+                key="prev"
+                className={pageNumber > 0 ? "" : "disabled"}
+                onClick={() => onChangePage(pageNumber - 1, pageSize)}
+            />
+
+            <Dropdown style={PagePaginationStyles.dropMargin}>
+                <Dropdown.Toggle
+                    variant="outline-primary"
+                    id="page-size"
+                    style={PagePaginationStyles.dropQuadrature}
+                >
+                    Page: {pageNumber + 1}
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                    {Array.from({ length: pagesCount }, (_, i) => i + 1).map(
+                        (page) => (
+                            <Dropdown.Item
+                                key={page}
+                                onClick={() => onChangePage(page - 1, pageSize)}
+                            >
+                                Page {page}
+                            </Dropdown.Item>
+                        ),
+                    )}
+                </Dropdown.Menu>
+            </Dropdown>
+
+            <Pagination.Next
+                key="next"
+                className={pageNumber + 1 < pagesCount ? "" : "disabled"}
+                onClick={() => onChangePage(pageNumber + 1, pageSize)}
+            />
+
+            <Pagination.Last
+                key="last"
+                className={pageNumber + 1 < pagesCount ? "" : "disabled"}
+                onClick={() => onChangePage(pagesCount - 1, pageSize)}
+            />
+        </Pagination>
     );
 };

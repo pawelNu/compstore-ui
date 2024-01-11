@@ -161,12 +161,13 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                     ))}
                 </div>
             </div>
-            {/* <PaginationComponent
+            <PaginationComponent
                 pagesCount={pagesCount}
                 pageNumber={pageNumber}
                 pageSize={pageSize}
+                elementsCount={elementsCount}
                 onChangePage={handleChangePage}
-            /> */}
+            />
         </div>
     );
 };
