@@ -4,3 +4,5 @@ export type TPagePagination = {
     pageSize: number;
     onChangePage: (pageNumber: number, pageSize: number) => void;
 };
+
+export type TPageSize = Omit<TPagePagination, "pageNumber">;

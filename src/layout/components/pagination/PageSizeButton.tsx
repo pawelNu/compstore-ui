@@ -1,9 +1,8 @@
 import { PagePaginationStyles } from "../../../static/styles/PagePagination";
-import { TPagePagination } from "../../../types/TPagePagination";
+import { TPageSize } from "../../../types/TPagePagination";
 import Dropdown from "react-bootstrap/Dropdown";
 
-export const PageSizeButton: React.FC<TPagePagination> = ({
-    pageNumber,
+export const PageSizeButton: React.FC<TPageSize> = ({
     pageSize,
     onChangePage,
 }) => {

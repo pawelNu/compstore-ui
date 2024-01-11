@@ -18,7 +18,6 @@ export const PaginationComponent: React.FC<TPagePagination> = ({
             />
             <PageSizeButton
                 pagesCount={pagesCount}
-                pageNumber={pageNumber}
                 pageSize={pageSize}
                 onChangePage={onChangePage}
             />
