@@ -6,7 +6,6 @@ export const PaginationComponent: React.FC<TPagePagination> = ({
     pagesCount,
     pageNumber,
     pageSize,
-    elementsCount,
     onChangePage,
 }) => {
     return (
@@ -16,14 +15,12 @@ export const PaginationComponent: React.FC<TPagePagination> = ({
                 pageNumber={pageNumber}
                 pageSize={pageSize}
                 onChangePage={onChangePage}
-                elementsCount={0}
             />
             <PageSizeButton
                 pagesCount={pagesCount}
                 pageNumber={pageNumber}
                 pageSize={pageSize}
                 onChangePage={onChangePage}
-                elementsCount={0}
             />
         </div>
     );

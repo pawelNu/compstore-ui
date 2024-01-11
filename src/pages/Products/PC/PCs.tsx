@@ -19,7 +19,6 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pageNumber, setPageNumber] = useState<number>(0);
     const [pageSize, setPageSize] = useState<number>(10);
     const [pagesCount, setPagesCount] = useState<number>(0);
-    const [elementsCount, setElementsCount] = useState<number>(0);
     const [filter, setFilter] = useState<TFilterPC>({
         processorBrands: [],
         graphicsCardBrands: [],
@@ -51,7 +50,6 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                 "file: PCs.tsx:41  getPCs  pagingMetadata:",
                 pagingMetadata,
             );
-            setElementsCount(pagingMetadata.elementsCount);
             setPagesCount(pagingMetadata.pagesCount);
         } catch (error: any) {
             console.log("file: PCs.tsx  getPCs  error:", error);
@@ -96,7 +94,6 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                 pagesCount={pagesCount}
                 pageNumber={pageNumber}
                 pageSize={pageSize}
-                elementsCount={elementsCount}
                 onChangePage={handleChangePage}
             />
             <div className="container d-flex justify-content-between pt-2">
@@ -165,7 +162,6 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                 pagesCount={pagesCount}
                 pageNumber={pageNumber}
                 pageSize={pageSize}
-                elementsCount={elementsCount}
                 onChangePage={handleChangePage}
             />
         </div>
