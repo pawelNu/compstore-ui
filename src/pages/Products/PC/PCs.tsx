@@ -8,11 +8,10 @@ import hostName from "../../../config/config";
 import axios from "axios";
 import { UUID } from "crypto";
 import { TPCsProps } from "../../../types/PC/TPCsProps";
-import { TFilterPC } from "../../../types/PC/TFilterPC";
+import { TPCFilter } from "../../../types/PC/TPCFilter";
 import { PaginationComponent } from "../../../layout/components/pagination/PaginationComponent";
 import { SortingButton } from "../../../layout/components/buttons/SortingButton";
 
-// TODO add sorting
 // TODO add filter values from <FilterPC />
 
 export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
@@ -21,7 +20,7 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pageSize, setPageSize] = useState<number>(10);
     const [pagesCount, setPagesCount] = useState<number>(0);
     const [ascendingFlag, setAscendingFlag] = useState<boolean | null>(null);
-    const [filter, setFilter] = useState<TFilterPC>({
+    const [filter, setFilter] = useState<TPCFilter>({
         processorBrands: [],
         graphicsCardBrands: [],
         ramCapacities: [],
@@ -80,8 +79,25 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                 ...filter,
                 pagingAndSortingRequest: {
                     ...filter.pagingAndSortingRequest,
-                    pageNumber: pageNumber,
-                    pageSize: pageSize,
+                    pageNumber,
+                    pageSize,
+                },
+            };
+
+            setFilter(updatedFilter);
+        },
+        [filter],
+    );
+
+    const handleChangeSorting = useCallback(
+        (ascendingFlag: boolean | null) => {
+            setAscendingFlag(ascendingFlag);
+
+            const updatedFilter = {
+                ...filter,
+                pagingAndSortingRequest: {
+                    ...filter.pagingAndSortingRequest,
+                    ascendingFlag,
                 },
             };
 
@@ -102,7 +118,10 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                     />
                 </div>
                 <div className="me-2">
-                    <SortingButton />
+                    <SortingButton
+                        ascendingFlag={ascendingFlag}
+                        onChangeSorting={handleChangeSorting}
+                    />
                 </div>
             </div>
             <div className="container d-flex justify-content-between pt-2">

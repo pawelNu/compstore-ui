@@ -1,20 +1,41 @@
 import { Dropdown } from "react-bootstrap";
 import { arrowDown, arrowUp } from "../../../config/symbols";
+import { TSortingButton } from "../../../types/TSortingButton";
 
-export const SortingButton = () => {
+export const SortingButton: React.FC<TSortingButton> = ({
+    ascendingFlag,
+    onChangeSorting,
+}) => {
+    const sortingConfig = new Map([
+        ["ascending", true],
+        ["descending", false],
+    ]);
+
+    let sortedBy = "Sorted by price";
+
+    if (ascendingFlag === true) {
+        sortedBy += ` ascending ${arrowUp}`;
+    } else if (ascendingFlag === false) {
+        sortedBy += ` descending ${arrowDown}`;
+    } else {
+        sortedBy = "Not sorted";
+    }
+
     return (
         <Dropdown>
             <Dropdown.Toggle variant="outline-primary" id="page-size">
-                {/* TODO add changeable showed text */}
-                Sorted by price {arrowDown}
+                {sortedBy}
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-                {/* TODO add sorting options */}
-                <Dropdown.Item key={1}>
-                    {arrowDown} Price descending
-                </Dropdown.Item>
-                <Dropdown.Item key={2}>{arrowUp} Price ascending</Dropdown.Item>
+                {Array.from(sortingConfig.entries()).map(([key, value]) => (
+                    <Dropdown.Item
+                        key={key}
+                        onClick={() => onChangeSorting(value)}
+                    >
+                        {value === true ? arrowUp : arrowDown} Price {key}
+                    </Dropdown.Item>
+                ))}
             </Dropdown.Menu>
         </Dropdown>
     );
