@@ -1,6 +1,6 @@
 import { UUID } from "crypto";
 
-export type TFilterPC = {
+export type TPCFilter = {
     processorBrands: UUID[];
     graphicsCardBrands: UUID[];
     ramCapacities: string[];
