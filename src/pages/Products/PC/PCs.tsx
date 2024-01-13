@@ -44,7 +44,7 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
         // TODO connect post request from filter with PC
         try {
             const result = await axios.post(url, filter);
-            console.log("getPCs  filter:", filter.pagingAndSortingRequest);
+            console.log("getPCs  filter:", filter);
             setPCs(result.data.pcs);
             const pagingMetadata = result.data.pagingAndSortingMetadata;
             console.log(
@@ -106,6 +106,10 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
         [filter],
     );
 
+    const handleSetFilter = (filter: TPCFilter) => {
+        setFilter(filter);
+    };
+
     return (
         <div className="p-2 mt-2">
             <div className="container d-flex justify-content-center">
@@ -123,9 +127,10 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                         onChangeSorting={handleChangeSorting}
                     />
                 </div>
+                ECheckboxForm
             </div>
             <div className="container d-flex justify-content-between pt-2">
-                <FilterPC />
+                <FilterPC setFilter={handleSetFilter} />
                 <div className="container col-10 p-2">
                     {pcs.map((pc) => (
                         <div key={pc.id} className="mb-2">

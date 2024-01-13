@@ -9,8 +9,9 @@ import { useForm } from "react-hook-form";
 import { CheckboxIDName } from "./components/CheckboxIDName";
 import { CheckboxName } from "./components/CheckboxName";
 import { FilterPCStyles } from "../../../static/styles/FilterPC";
+import { TPCFilterProps } from "../../../types/PC/TPCFilter";
 
-export const FilterPC = () => {
+export const FilterPC: React.FC<TPCFilterProps> = ({ setFilter }) => {
     const {
         handleSubmit,
         control,
@@ -21,34 +22,33 @@ export const FilterPC = () => {
     const [comboData, setComboData] = useState<TPCComboData | null>(null);
 
     const onSubmit = async (data: TPCPageRequest) => {
-        const url = `${hostName}/pcs/search`;
-
-        try {
-            const result = await axios.post(url, data);
-            console.log(result.data.pcs);
-        } catch (error: any) {
-            console.log("Error:", error);
-        }
+        const filterValues = {
+            processorBrands: data.processorBrands,
+            graphicsCardBrands: data.graphicsCardBrands,
+            ramCapacities: data.ramCapacities,
+            driveCapacities: data.driveCapacities,
+            driveTypes: data.driveTypes,
+            operatingSystems: data.operatingSystems,
+            priceFrom: data.priceFrom || 0,
+            priceTo: data.priceTo,
+            pagingAndSortingRequest: {
+                pageNumber: 0,
+                pageSize: 10,
+                ascendingFlag: null,
+            },
+        };
+        setFilter(filterValues);
     };
 
     const getComboData = useCallback(async () => {
         try {
             const result = await axios.get(`${hostName}/pcs/combo-data`);
             const comboData: TPCComboData = result.data;
-
-            setValue(
-                "processorBrands",
-                comboData.processorBrands.map((brand) => brand.id),
-            );
-            setValue(
-                "graphicsCardBrands",
-                comboData.graphicsCardBrands.map((brand) => brand.id),
-            );
             setComboData(comboData);
         } catch (e) {
             console.log("Error fetching combo data:", e);
         }
-    }, [setValue]);
+    }, []);
 
     useEffect(() => {
         getComboData();

@@ -24,8 +24,8 @@ export const CheckboxName: React.FC<TCheckboxName> = ({
             {options?.map((option, index) => (
                 <div key={index} className="form-check">
                     <input
-                        onChange={() => handleCheckboxChange(option)}
-                        checked={selectedValues.includes(option)}
+                        onChange={(e) => handleCheckboxChange(option)}
+                        // checked={control?.[option]}
                         className="form-check-input"
                         type="checkbox"
                         value={option}

@@ -15,5 +15,5 @@ export type TPCPageRequest = {
 type TPagingAndSortingRequest = {
     pageNumber: number;
     pageSize: number;
-    ascendingFlag: boolean;
+    ascendingFlag: boolean | null;
 };

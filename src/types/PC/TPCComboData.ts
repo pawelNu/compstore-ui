@@ -9,7 +9,7 @@ export type TPCComboData = {
     operatingSystems: TIDNameType[];
 };
 
-type TIDNameType = {
+export type TIDNameType = {
     id: UUID;
     name: string;
 };
