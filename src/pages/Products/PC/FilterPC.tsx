@@ -1,4 +1,4 @@
-import { Form, Formik } from "formik";
+import { Field, FieldInputProps, Form, Formik } from "formik";
 import { CheckboxIDName } from "./components/CheckboxIDName";
 import axios from "axios";
 import { useState, useCallback, useEffect } from "react";
@@ -10,8 +10,6 @@ import { CheckboxName } from "./components/CheckboxName";
 import { FilterPCStyles } from "../../../static/styles/FilterPC";
 import { FilterButton } from "../../../layout/components/buttons/FilterButton";
 
-// TODO add field price from
-// TODO add field price to
 // TODO add clearing filter groups
 // TODO add clearing all filters
 // TODO add displaying tags with filters
@@ -26,7 +24,7 @@ export const FilterPC: React.FC<TPCFilterProps> = ({ setFilter }) => {
         driveCapacities: [],
         driveTypes: [],
         operatingSystems: [],
-        priceFrom: 0,
+        priceFrom: undefined,
         priceTo: undefined,
         pagingAndSortingRequest: {
             pageNumber: 0,
@@ -60,7 +58,8 @@ export const FilterPC: React.FC<TPCFilterProps> = ({ setFilter }) => {
                     initialValues={initValues}
                     onSubmit={onSubmit}
                     enableReinitialize
-                    submitForm={null}>
+                    submitForm={null}
+                >
                     <Form>
                         <h5 className="card-header">Filters:</h5>
                         <ul className="list-group list-group-flush">
@@ -110,6 +109,53 @@ export const FilterPC: React.FC<TPCFilterProps> = ({ setFilter }) => {
                                     options={comboData?.operatingSystems}
                                 />
                             </li>
+
+                            {/* TODO fix console.js:213 Warning: 
+A component is changing an uncontrolled input to be controlled. 
+This is likely caused by the value changing from undefined to a defined value, 
+which should not happen. Decide between using a controlled 
+or uncontrolled input element for the lifetime of the component. 
+More info: https://reactjs.org/link/controlled-components */}
+                            <li className="list-group-item">
+                                <h6 className="card-title">Price</h6>
+                                <div className="form-floating mb-3">
+                                    <Field name="priceFrom">
+                                        {({
+                                            field,
+                                        }: {
+                                            field: FieldInputProps<number>;
+                                        }) => (
+                                            <input
+                                                {...field}
+                                                id="priceFrom"
+                                                type="number"
+                                                className="form-control"
+                                                placeholder="From"
+                                            />
+                                        )}
+                                    </Field>
+                                    <label htmlFor="priceFrom">From</label>
+                                </div>
+                                <div className="form-floating mb-3">
+                                    <Field name="priceTo">
+                                        {({
+                                            field,
+                                        }: {
+                                            field: FieldInputProps<number>;
+                                        }) => (
+                                            <input
+                                                {...field}
+                                                id="priceTo"
+                                                type="number"
+                                                className="form-control"
+                                                placeholder="To"
+                                            />
+                                        )}
+                                    </Field>
+                                    <label htmlFor="priceTo">To</label>
+                                </div>
+                            </li>
+
                             <li className="list-group-item">
                                 <div className="d-flex justify-content-center">
                                     <FilterButton />

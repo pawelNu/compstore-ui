@@ -7,7 +7,7 @@ export type TPCPageRequest = {
     driveCapacities: string[];
     driveTypes: string[];
     operatingSystems: UUID[];
-    priceFrom: number;
+    priceFrom: number | undefined;
     priceTo: number | undefined;
     pagingAndSortingRequest: TPagingAndSortingRequest;
 };
