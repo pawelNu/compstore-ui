@@ -31,7 +31,7 @@ export const PagePagination: React.FC<TPagePagination> = ({
                     Page: {pageNumber + 1}
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
+                <Dropdown.Menu style={PagePaginationStyles.limitDropdown}>
                     {Array.from({ length: pagesCount }, (_, i) => i + 1).map(
                         (page) => (
                             <Dropdown.Item

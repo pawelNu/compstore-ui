@@ -11,4 +11,8 @@ export const PagePaginationStyles = {
     dropQuadrature: {
         borderRadius: 0,
     },
+    limitDropdown: {
+        maxHeight: "200px",
+        overflowY: "auto" as const,
+    }
 };
