@@ -20,5 +20,5 @@ type TPagingAndSortingRequest = {
 };
 
 export type TPCFilterProps = {
-    setFilter: (filter: TPCPageRequest) => void;
+    setFilter: (filterValues: any) => void;
 };

@@ -4,6 +4,6 @@ import { TIDNameType } from "./TPCComboData";
 
 export type TCheckboxIDName = {
     name: string;
-    control: Control<TPCPageRequest>;
+    control?: Control<TPCPageRequest>;
     options?: TIDNameType[] | null;
 };

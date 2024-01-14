@@ -1,22 +1,25 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { TCheckboxIDName } from "../../../../types/PC/TCheckboxIDName";
+import React from "react";
+import { useField, useFormikContext } from "formik";
+import { TIDNameType } from "../../../../types/PC/TPCComboData";
 
-export const CheckboxIDName: React.FC<TCheckboxIDName> = ({
+type TCheckboxIDNameProps = {
+    name: string;
+    options?: TIDNameType[] | null;
+};
+
+export const CheckboxIDName: React.FC<TCheckboxIDNameProps> = ({
     name,
-    control,
     options,
 }) => {
-    const [selectedValues, setSelectedValues] = useState<string[]>([]);
-    const { setValue } = useForm();
+    const { setFieldValue } = useFormikContext();
+    const [field] = useField<string[]>(name);
 
     const handleCheckboxChange = (value: string) => {
-        const updatedValues = selectedValues.includes(value)
-            ? selectedValues.filter((v) => v !== value)
-            : [...selectedValues, value];
+        const updatedValues = field.value.includes(value)
+            ? field.value.filter((v: string) => v !== value)
+            : [...field.value, value];
 
-        setSelectedValues(updatedValues);
-        setValue(name, updatedValues);
+        setFieldValue(name, updatedValues);
     };
 
     return (
@@ -25,11 +28,11 @@ export const CheckboxIDName: React.FC<TCheckboxIDName> = ({
                 <div key={index} className="form-check">
                     <input
                         onChange={() => handleCheckboxChange(option.id)}
-                        checked={selectedValues.includes(option.id)}
+                        checked={field.value.includes(option.id)}
                         className="form-check-input"
+                        id={`${option.name}-${name}`}
                         type="checkbox"
                         value={option.id}
-                        id={`${option.name}-${name}`}
                     />
                     <label
                         className="form-check-label"

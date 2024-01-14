@@ -14,5 +14,5 @@ export const PagePaginationStyles = {
     limitDropdown: {
         maxHeight: "200px",
         overflowY: "auto" as const,
-    }
+    },
 };

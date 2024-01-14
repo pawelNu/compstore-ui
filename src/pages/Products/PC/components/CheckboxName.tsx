@@ -1,22 +1,24 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { TCheckboxName } from "../../../../types/PC/TCheckboxName";
+import React from "react";
+import { useField, useFormikContext } from "formik";
 
-export const CheckboxName: React.FC<TCheckboxName> = ({
+type TCheckboxNameProps = {
+    name: string;
+    options?: string[] | null;
+};
+
+export const CheckboxName: React.FC<TCheckboxNameProps> = ({
     name,
-    control,
     options,
 }) => {
-    const [selectedValues, setSelectedValues] = useState<string[]>([]);
-    const { setValue } = useForm();
+    const { setFieldValue } = useFormikContext();
+    const [field] = useField<string[]>(name);
 
     const handleCheckboxChange = (value: string) => {
-        const updatedValues = selectedValues.includes(value)
-            ? selectedValues.filter((v) => v !== value)
-            : [...selectedValues, value];
+        const updatedValues = field.value.includes(value)
+            ? field.value.filter((v: string) => v !== value)
+            : [...field.value, value];
 
-        setSelectedValues(updatedValues);
-        setValue(name, updatedValues);
+        setFieldValue(name, updatedValues);
     };
 
     return (
@@ -24,8 +26,8 @@ export const CheckboxName: React.FC<TCheckboxName> = ({
             {options?.map((option, index) => (
                 <div key={index} className="form-check">
                     <input
-                        onChange={(e) => handleCheckboxChange(option)}
-                        // checked={control?.[option]}
+                        onChange={() => handleCheckboxChange(option)}
+                        checked={field.value.includes(option)}
                         className="form-check-input"
                         type="checkbox"
                         value={option}

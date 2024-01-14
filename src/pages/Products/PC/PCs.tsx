@@ -1,6 +1,5 @@
 import "./../../../static/styles/Products.css";
 import { AddToCartButton } from "../../../layout/components/buttons/AddToCartButton";
-import { FilterPC } from "./FilterPC";
 import { PCActionsButton } from "./components/PCActionsButton";
 import { useCallback, useEffect, useState } from "react";
 import { TPCSimple } from "../../../types/PC/TPCSimple";
@@ -11,8 +10,7 @@ import { TPCsProps } from "../../../types/PC/TPCsProps";
 import { TPCFilter } from "../../../types/PC/TPCFilter";
 import { PaginationComponent } from "../../../layout/components/pagination/PaginationComponent";
 import { SortingButton } from "../../../layout/components/buttons/SortingButton";
-
-// TODO add filter values from <FilterPC />
+import { FilterPC } from "./FilterPC";
 
 export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pcs, setPCs] = useState<TPCSimple[]>([]);
@@ -41,7 +39,6 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
 
     const getPCs = useCallback(async () => {
         const url = `${hostName}/pcs/search`;
-        // TODO connect post request from filter with PC
         try {
             const result = await axios.post(url, filter);
             console.log("getPCs  filter:", filter);
@@ -106,10 +103,6 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
         [filter],
     );
 
-    const handleSetFilter = (filter: TPCFilter) => {
-        setFilter(filter);
-    };
-
     return (
         <div className="p-2 mt-2">
             <div className="container d-flex justify-content-center">
@@ -127,10 +120,9 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                         onChangeSorting={handleChangeSorting}
                     />
                 </div>
-                ECheckboxForm
             </div>
             <div className="container d-flex justify-content-between pt-2">
-                <FilterPC setFilter={handleSetFilter} />
+                <FilterPC setFilter={setFilter} />
                 <div className="container col-10 p-2">
                     {pcs.map((pc) => (
                         <div key={pc.id} className="mb-2">
