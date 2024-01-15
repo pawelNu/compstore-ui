@@ -11,6 +11,9 @@ import { FilterPCStyles } from "../../../static/styles/FilterPC";
 import { FilterButton } from "../../../layout/components/buttons/FilterButton";
 import { InputField } from "./components/InputField";
 import { FilterSection } from "./components/FilterSection";
+import { FilterButtonSection } from "./components/FilterButtonSection";
+import { FilterGroup } from "./components/FilterGroup";
+import { FilterCard } from "./components/FilterCard";
 
 // TODO add clearing filter groups
 // TODO add clearing all filters
@@ -55,11 +58,10 @@ export const FilterPC: React.FC<TPCFilterProps> = ({ setFilter }) => {
 
     return (
         <>
-            <div className="card col-2 mt-2" style={FilterPCStyles.card}>
+            <FilterCard style={FilterPCStyles.card}>
                 <Formik initialValues={initValues} onSubmit={onSubmit}>
                     <Form>
-                        <h5 className="card-header">Filters:</h5>
-                        <ul className="list-group list-group-flush">
+                        <FilterGroup title="Filters:">
                             <FilterSection title="Processor brands">
                                 <CheckboxIDName
                                     name="processorBrands"
@@ -117,15 +119,13 @@ export const FilterPC: React.FC<TPCFilterProps> = ({ setFilter }) => {
                                 />
                             </FilterSection>
 
-                            <li className="list-group-item">
-                                <div className="d-flex justify-content-center">
-                                    <FilterButton />
-                                </div>
-                            </li>
-                        </ul>
+                            <FilterButtonSection>
+                                <FilterButton />
+                            </FilterButtonSection>
+                        </FilterGroup>
                     </Form>
                 </Formik>
-            </div>
+            </FilterCard>
         </>
     );
 };
