@@ -1,4 +1,4 @@
-import { Field, FieldInputProps, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { CheckboxIDName } from "./components/CheckboxIDName";
 import axios from "axios";
 import { useState, useCallback, useEffect } from "react";
@@ -9,6 +9,8 @@ import { TPCFilterProps } from "../../../types/PC/TPCFilter";
 import { CheckboxName } from "./components/CheckboxName";
 import { FilterPCStyles } from "../../../static/styles/FilterPC";
 import { FilterButton } from "../../../layout/components/buttons/FilterButton";
+import { InputField } from "./components/InputField";
+import { FilterSection } from "./components/FilterSection";
 
 // TODO add clearing filter groups
 // TODO add clearing all filters
@@ -54,101 +56,66 @@ export const FilterPC: React.FC<TPCFilterProps> = ({ setFilter }) => {
     return (
         <>
             <div className="card col-2 mt-2" style={FilterPCStyles.card}>
-                <Formik
-                    initialValues={initValues}
-                    onSubmit={onSubmit}
-                    enableReinitialize
-                    submitForm={null}
-                >
+                <Formik initialValues={initValues} onSubmit={onSubmit}>
                     <Form>
                         <h5 className="card-header">Filters:</h5>
                         <ul className="list-group list-group-flush">
-                            <li className="list-group-item">
-                                <h6 className="card-title">Processor brands</h6>
+                            <FilterSection title="Processor brands">
                                 <CheckboxIDName
                                     name="processorBrands"
                                     options={comboData?.processorBrands}
                                 />
-                            </li>
-                            <li className="list-group-item">
-                                <h6 className="card-title">
-                                    Graphics card brands
-                                </h6>
+                            </FilterSection>
+
+                            <FilterSection title="Graphics card brands">
                                 <CheckboxIDName
                                     name="graphicsCardBrands"
                                     options={comboData?.graphicsCardBrands}
                                 />
-                            </li>
-                            <li className="list-group-item">
-                                <h6 className="card-title">RAM Capacity</h6>
+                            </FilterSection>
+
+                            <FilterSection title="RAM Capacity">
                                 <CheckboxName
                                     name="ramCapacities"
                                     options={comboData?.ramCapacities}
                                 />
-                            </li>
-                            <li className="list-group-item">
-                                <h6 className="card-title">Drive Capacity</h6>
+                            </FilterSection>
+
+                            <FilterSection title="Drive Capacity">
                                 <CheckboxName
                                     name="driveCapacities"
                                     options={comboData?.driveCapacities}
                                 />
-                            </li>
-                            <li className="list-group-item">
-                                <h6 className="card-title">Drive Types</h6>
+                            </FilterSection>
+
+                            <FilterSection title="Drive Types">
                                 <CheckboxName
                                     name="driveTypes"
                                     options={comboData?.driveTypes}
                                 />
-                            </li>
-                            <li className="list-group-item">
-                                <h6 className="card-title">
-                                    Operating Systems
-                                </h6>
+                            </FilterSection>
+
+                            <FilterSection title="Operating Systems">
                                 <CheckboxIDName
                                     name="operatingSystems"
                                     options={comboData?.operatingSystems}
                                 />
-                            </li>
+                            </FilterSection>
 
-                            <li className="list-group-item">
-                                <h6 className="card-title">Price</h6>
-                                <div className="form-floating mb-3">
-                                    <Field name="priceFrom">
-                                        {({
-                                            field,
-                                        }: {
-                                            field: FieldInputProps<number>;
-                                        }) => (
-                                            <input
-                                                {...field}
-                                                id="priceFrom"
-                                                type="number"
-                                                className="form-control"
-                                                placeholder="From"
-                                            />
-                                        )}
-                                    </Field>
-                                    <label htmlFor="priceFrom">From</label>
-                                </div>
-                                <div className="form-floating mb-3">
-                                    <Field name="priceTo">
-                                        {({
-                                            field,
-                                        }: {
-                                            field: FieldInputProps<number>;
-                                        }) => (
-                                            <input
-                                                {...field}
-                                                id="priceTo"
-                                                type="number"
-                                                className="form-control"
-                                                placeholder="To"
-                                            />
-                                        )}
-                                    </Field>
-                                    <label htmlFor="priceTo">To</label>
-                                </div>
-                            </li>
+                            <FilterSection title="Price">
+                                <InputField
+                                    label="From"
+                                    id="priceFrom"
+                                    name="priceFrom"
+                                    type="number"
+                                />
+                                <InputField
+                                    label="To"
+                                    id="priceTo"
+                                    name="priceTo"
+                                    type="number"
+                                />
+                            </FilterSection>
 
                             <li className="list-group-item">
                                 <div className="d-flex justify-content-center">
