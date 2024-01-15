@@ -24,8 +24,8 @@ export const FilterPC: React.FC<TPCFilterProps> = ({ setFilter }) => {
         driveCapacities: [],
         driveTypes: [],
         operatingSystems: [],
-        priceFrom: undefined,
-        priceTo: undefined,
+        priceFrom: "",
+        priceTo: "",
         pagingAndSortingRequest: {
             pageNumber: 0,
             pageSize: 10,
@@ -110,12 +110,6 @@ export const FilterPC: React.FC<TPCFilterProps> = ({ setFilter }) => {
                                 />
                             </li>
 
-                            {/* TODO fix console.js:213 Warning: 
-A component is changing an uncontrolled input to be controlled. 
-This is likely caused by the value changing from undefined to a defined value, 
-which should not happen. Decide between using a controlled 
-or uncontrolled input element for the lifetime of the component. 
-More info: https://reactjs.org/link/controlled-components */}
                             <li className="list-group-item">
                                 <h6 className="card-title">Price</h6>
                                 <div className="form-floating mb-3">
