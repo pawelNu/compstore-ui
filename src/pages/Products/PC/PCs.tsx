@@ -11,6 +11,7 @@ import { TPCFilter } from "../../../types/PC/TPCFilter";
 import { PaginationComponent } from "../../../layout/components/pagination/PaginationComponent";
 import { SortingButton } from "../../../layout/components/buttons/SortingButton";
 import { FilterPC } from "./FilterPC";
+import { ActiveFiltersBox } from "./components/ActiveFiltersBox";
 
 export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pcs, setPCs] = useState<TPCSimple[]>([]);
@@ -34,6 +35,8 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
         },
     });
 
+    const [activeFilters, setActiveFilters] = useState<string[]>([]);
+
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
@@ -49,6 +52,23 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                 pagingMetadata,
             );
             setPagesCount(pagingMetadata.pagesCount);
+
+            const newActiveFilters = Object.entries(filter)
+                .filter(([key, value]) => {
+                    if (Array.isArray(value)) {
+                        return value.length > 0;
+                    }
+                    return false;
+                })
+                .map(([key, value]) => {
+                    if (Array.isArray(value)) {
+                        return `${key}: ${value.join(", ")}`;
+                    } else {
+                        // Obsłuż przypadki, gdzie 'value' nie jest tablicą
+                        return `${key}: ${value}`;
+                    }
+                });
+            setActiveFilters(newActiveFilters);
         } catch (error: any) {
             console.log("file: PCs.tsx  getPCs  error:", error);
         }
@@ -103,6 +123,29 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
         [filter],
     );
 
+    const handleRemoveFilter = (filterName: string) => {
+        // TODO add removing checbox mark from filters
+        setFilter((prevFilter: TPCFilter) => {
+            console.log("PCs.tsx handleRemoveFilter filterName:", filterName);
+            console.log("PCs.tsx handleRemoveFilter prevFilter:", prevFilter);
+
+            const [filterKey, filterValue] = filterName
+                .split(":")
+                .map((part) => part.trim());
+
+            const updatedFilter: TPCFilter = {
+                ...prevFilter,
+                [filterKey]: [],
+            };
+
+            console.log(
+                "PCs.tsx handleRemoveFilter updatedFilter:",
+                updatedFilter,
+            );
+            return updatedFilter;
+        });
+    };
+
     return (
         <div className="p-2 mt-2">
             <div className="container d-flex justify-content-center">
@@ -123,7 +166,12 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
             </div>
             <div className="container d-flex justify-content-between pt-2">
                 <FilterPC setFilter={setFilter} />
+
                 <div className="container col-10 p-2">
+                    <ActiveFiltersBox
+                        activeFilters={activeFilters}
+                        onRemoveFilter={handleRemoveFilter}
+                    />
                     {pcs.map((pc) => (
                         <div key={pc.id} className="mb-2">
                             <div className="card">

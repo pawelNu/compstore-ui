@@ -1,5 +1,4 @@
 import { UUID } from "crypto";
-import { TPCPageRequest } from "./TPCPageRequest";
 
 export type TPCFilter = {
     processorBrands: UUID[];
@@ -17,8 +16,4 @@ type TPagingAndSortingRequest = {
     pageNumber: number;
     pageSize: number;
     ascendingFlag: boolean | null;
-};
-
-export type TPCFilterProps = {
-    setFilter: (filterValues: any) => void;
 };

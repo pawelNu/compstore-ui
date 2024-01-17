@@ -5,7 +5,6 @@ import { useState, useCallback, useEffect } from "react";
 import hostName from "../../../config/config";
 import { TPCComboData } from "../../../types/PC/TPCComboData";
 import { TPCPageRequest } from "../../../types/PC/TPCPageRequest";
-import { TPCFilterProps } from "../../../types/PC/TPCFilter";
 import { CheckboxName } from "./components/CheckboxName";
 import { FilterPCStyles } from "../../../static/styles/FilterPC";
 import { FilterButton } from "../../../layout/components/buttons/FilterButton";
@@ -18,6 +17,10 @@ import { FilterCard } from "./components/FilterCard";
 // TODO add clearing filter groups
 // TODO add clearing all filters
 // TODO add displaying tags with filters
+
+type TPCFilterProps = {
+    setFilter: (filterValues: any) => void;
+};
 
 export const FilterPC: React.FC<TPCFilterProps> = ({ setFilter }) => {
     const [comboData, setComboData] = useState<TPCComboData | null>(null);
