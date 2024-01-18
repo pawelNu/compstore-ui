@@ -3,15 +3,18 @@ import { AddToCartButton } from "../../../layout/components/buttons/AddToCartBut
 import { PCActionsButton } from "./components/PCActionsButton";
 import { useCallback, useEffect, useState } from "react";
 import { TPCSimple } from "../../../types/PC/TPCSimple";
-import hostName from "../../../config/config";
-import axios from "axios";
 import { UUID } from "crypto";
 import { TPCsProps } from "../../../types/PC/TPCsProps";
 import { TPCFilter } from "../../../types/PC/TPCFilter";
 import { PaginationComponent } from "../../../layout/components/pagination/PaginationComponent";
 import { SortingButton } from "../../../layout/components/buttons/SortingButton";
 import { FilterPC } from "./FilterPC";
-import { ActiveFiltersBox } from "./components/ActiveFiltersBox";
+import {
+    changePageHandler,
+    deletePcHandler,
+    getPcsHandler,
+    sortingHandler,
+} from "./components/PCHandlers";
 
 export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pcs, setPCs] = useState<TPCSimple[]>([]);
@@ -34,116 +37,35 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
             ascendingFlag: null,
         },
     });
-
-    const [activeFilters, setActiveFilters] = useState<string[]>([]);
-
+    
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
     const getPCs = useCallback(async () => {
-        const url = `${hostName}/pcs/search`;
-        try {
-            const result = await axios.post(url, filter);
-            console.log("getPCs  filter:", filter);
-            setPCs(result.data.pcs);
-            const pagingMetadata = result.data.pagingAndSortingMetadata;
-            console.log(
-                "file: PCs.tsx:41  getPCs  pagingMetadata:",
-                pagingMetadata,
-            );
-            setPagesCount(pagingMetadata.pagesCount);
-
-            const newActiveFilters = Object.entries(filter)
-                .filter(([key, value]) => {
-                    if (Array.isArray(value)) {
-                        return value.length > 0;
-                    }
-                    return false;
-                })
-                .map(([key, value]) => {
-                    if (Array.isArray(value)) {
-                        return `${key}: ${value.join(", ")}`;
-                    } else {
-                        // Obsłuż przypadki, gdzie 'value' nie jest tablicą
-                        return `${key}: ${value}`;
-                    }
-                });
-            setActiveFilters(newActiveFilters);
-        } catch (error: any) {
-            console.log("file: PCs.tsx  getPCs  error:", error);
-        }
-    }, [filter]);
+        await getPcsHandler(filter, setPCs, setPagesCount);
+    }, [filter, setPCs, setPagesCount]);
 
     const deletePc = async (id: UUID) => {
-        try {
-            await axios.delete(`${hostName}/pcs/${id}`);
-            setPCs((prevPcs) => prevPcs.filter((pc) => pc.id !== id));
-        } catch (e) {
-            console.log("Error deleting pc -> file: PCs.tsx  deletePc  e:", e);
-        }
+        await deletePcHandler(id, setPCs);
     };
 
     useEffect(() => {
         getPCs();
     }, [getPCs]);
 
-    const handleChangePage = useCallback(
-        (pageNumber: number, pageSize: number) => {
-            setPageNumber(pageNumber);
-            setPageSize(pageSize);
+    const handleChangePage = (pageNumber: number, pageSize: number) => {
+        changePageHandler(
+            filter,
+            setPageNumber,
+            setPageSize,
+            setFilter,
+            pageNumber,
+            pageSize,
+        );
+    };
 
-            const updatedFilter = {
-                ...filter,
-                pagingAndSortingRequest: {
-                    ...filter.pagingAndSortingRequest,
-                    pageNumber,
-                    pageSize,
-                },
-            };
-
-            setFilter(updatedFilter);
-        },
-        [filter],
-    );
-
-    const handleChangeSorting = useCallback(
-        (ascendingFlag: boolean | null) => {
-            setAscendingFlag(ascendingFlag);
-
-            const updatedFilter = {
-                ...filter,
-                pagingAndSortingRequest: {
-                    ...filter.pagingAndSortingRequest,
-                    ascendingFlag,
-                },
-            };
-
-            setFilter(updatedFilter);
-        },
-        [filter],
-    );
-
-    const handleRemoveFilter = (filterName: string) => {
-        // TODO add removing checbox mark from filters
-        setFilter((prevFilter: TPCFilter) => {
-            console.log("PCs.tsx handleRemoveFilter filterName:", filterName);
-            console.log("PCs.tsx handleRemoveFilter prevFilter:", prevFilter);
-
-            const [filterKey, filterValue] = filterName
-                .split(":")
-                .map((part) => part.trim());
-
-            const updatedFilter: TPCFilter = {
-                ...prevFilter,
-                [filterKey]: [],
-            };
-
-            console.log(
-                "PCs.tsx handleRemoveFilter updatedFilter:",
-                updatedFilter,
-            );
-            return updatedFilter;
-        });
+    const handleChangeSorting = (ascendingFlag: boolean | null) => {
+        sortingHandler(filter, setAscendingFlag, setFilter, ascendingFlag);
     };
 
     return (
@@ -168,10 +90,6 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                 <FilterPC setFilter={setFilter} />
 
                 <div className="container col-10 p-2">
-                    <ActiveFiltersBox
-                        activeFilters={activeFilters}
-                        onRemoveFilter={handleRemoveFilter}
-                    />
                     {pcs.map((pc) => (
                         <div key={pc.id} className="mb-2">
                             <div className="card">
