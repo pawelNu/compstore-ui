@@ -37,7 +37,7 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
             ascendingFlag: null,
         },
     });
-    
+
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 

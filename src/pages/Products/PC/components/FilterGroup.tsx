@@ -5,9 +5,11 @@ type TFilterGroup = {
     children: React.ReactNode;
 };
 
-export const FilterGroup: React.FC<TFilterGroup> = ({ title, children }) => (
-    <>
-        <h5 className="card-header">{title}</h5>
-        <ul className="list-group list-group-flush">{children}</ul>
-    </>
-);
+export const FilterGroup: React.FC<TFilterGroup> = ({ title, children }) => {
+    return (
+        <>
+            <h5 className="card-header">{title}</h5>
+            <ul className="list-group list-group-flush">{children}</ul>
+        </>
+    );
+};

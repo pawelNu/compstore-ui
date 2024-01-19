@@ -14,10 +14,6 @@ import { FilterButtonSection } from "./components/FilterButtonSection";
 import { FilterGroup } from "./components/FilterGroup";
 import { FilterCard } from "./components/FilterCard";
 
-// TODO add clearing filter groups
-// TODO add clearing all filters
-// TODO add displaying tags with filters
-
 type TPCFilterProps = {
     setFilter: (filterValues: any) => void;
 };
