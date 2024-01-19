@@ -13,14 +13,9 @@ export const getPcsHandler = async (
     const url = `${hostName}/pcs/search`;
     try {
         const result = await axios.post(url, filter);
-        console.log("getPCs  filter:", filter);
         setPCs(result.data.pcs);
         const pagingMetadata: { pagesCount: number } =
             result.data.pagingAndSortingMetadata;
-        console.log(
-            "file: PCs.tsx:41  getPCs  pagingMetadata:",
-            pagingMetadata,
-        );
         setPagesCount(pagingMetadata.pagesCount);
 
         // const newActiveFilters = generateActiveFilters(filter);
