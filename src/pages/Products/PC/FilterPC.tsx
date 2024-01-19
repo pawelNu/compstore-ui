@@ -12,6 +12,7 @@ import { FilterGroup } from "./components/FilterGroup";
 import { FilterCard } from "./components/FilterCard";
 import { TPCComboData, TPCPageRequest } from "../../../types/PC/TPC";
 import { FilterButton } from "../../../components/buttons/FilterButton";
+import { Button } from "react-bootstrap";
 
 type TPCFilterProps = {
     setFilter: (filterValues: any) => void;
@@ -119,6 +120,11 @@ export const FilterPC: React.FC<TPCFilterProps> = ({ setFilter }) => {
 
                             <FilterButtonSection>
                                 <FilterButton />
+                            </FilterButtonSection>
+                            <FilterButtonSection>
+                                <Button href="/pcs" variant="outline-danger">
+                                    Clear filters
+                                </Button>
                             </FilterButtonSection>
                         </FilterGroup>
                     </Form>
