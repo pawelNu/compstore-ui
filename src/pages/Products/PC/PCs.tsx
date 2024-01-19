@@ -1,13 +1,7 @@
 import "./../../../static/styles/Products.css";
-import { AddToCartButton } from "../../../layout/components/buttons/AddToCartButton";
 import { PCActionsButton } from "./components/PCActionsButton";
 import { useCallback, useEffect, useState } from "react";
-import { TPCSimple } from "../../../types/PC/TPCSimple";
 import { UUID } from "crypto";
-import { TPCsProps } from "../../../types/PC/TPCsProps";
-import { TPCFilter } from "../../../types/PC/TPCFilter";
-import { PaginationComponent } from "../../../layout/components/pagination/PaginationComponent";
-import { SortingButton } from "../../../layout/components/buttons/SortingButton";
 import { FilterPC } from "./FilterPC";
 import {
     changePageHandler,
@@ -15,6 +9,10 @@ import {
     getPcsHandler,
     sortingHandler,
 } from "./components/PCHandlers";
+import { TPCsProps, TPCSimple, TPCFilter } from "../../../types/PC/TPC";
+import { AddToCartButton } from "../../../components/buttons/AddToCartButton";
+import { SortingButton } from "../../../components/buttons/SortingButton";
+import { PaginationComponent } from "../../../components/pagination/PaginationComponent";
 
 export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pcs, setPCs] = useState<TPCSimple[]>([]);

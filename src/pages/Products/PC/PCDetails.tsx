@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { AddToCartButton } from "../../../layout/components/buttons/AddToCartButton";
 import "./../../../static/styles/OneProductDetails.css";
-import { TPCDetails } from "../../../types/PC/TPCDetails";
 import axios from "axios";
 import hostName from "../../../config/config";
 import { useParams } from "react-router-dom";
+import { TPCDetails } from "../../../types/PC/TPC";
+import { AddToCartButton } from "../../../components/buttons/AddToCartButton";
 
 export const PCDetails = () => {
     const imagePlaceholder =
@@ -16,8 +16,8 @@ export const PCDetails = () => {
         processorName: "",
         graphicsCardBrand: "",
         graphicsCardName: "",
-        ramGBCapacity: 0,
-        driveGBCapacity: 0,
+        ramCapacity: 0,
+        driveCapacity: 0,
         driveType: "",
         operatingSystem: "",
         price: 0,
@@ -46,7 +46,7 @@ export const PCDetails = () => {
             <div key={pc.id} className="card">
                 <h5 className="card-header">
                     PC - {pc.processorName} - {pc.graphicsCardName} -{" "}
-                    {pc.ramGBCapacity} GB RAM
+                    {pc.ramCapacity} RAM
                 </h5>
                 <div className="card-body">
                     <div className="row mb-3">
@@ -84,11 +84,11 @@ export const PCDetails = () => {
                                 </p>
                                 <p className="card-text">
                                     <b>RAM: </b>
-                                    {pc.ramGBCapacity} GB
+                                    {pc.ramCapacity}
                                 </p>
                                 <p className="card-text">
                                     <b>Storage drive: </b>
-                                    {pc.driveType} {pc.driveGBCapacity} GB
+                                    {pc.driveType} {pc.driveCapacity}
                                 </p>
                                 <p className="card-text">
                                     <b>Operating system: </b>

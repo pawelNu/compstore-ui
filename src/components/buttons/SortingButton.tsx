@@ -1,6 +1,6 @@
 import { Dropdown } from "react-bootstrap";
-import { arrowDown, arrowUp } from "../../../config/symbols";
-import { TSortingButton } from "../../../types/TSortingButton";
+import { TSortingButton } from "../../types/TSortingButton";
+import { arrowUp, arrowDown } from "../../config/symbols";
 
 export const SortingButton: React.FC<TSortingButton> = ({
     ascendingFlag,

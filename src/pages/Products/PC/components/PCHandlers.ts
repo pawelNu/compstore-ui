@@ -1,9 +1,8 @@
 import { UUID } from "crypto";
-import { TPCFilter } from "../../../../types/PC/TPCFilter";
 import hostName from "../../../../config/config";
 import axios from "axios";
-import { TPCSimple } from "../../../../types/PC/TPCSimple";
 import { Dispatch, SetStateAction } from "react";
+import { TPCFilter, TPCSimple } from "../../../../types/PC/TPC";
 
 export const getPcsHandler = async (
     filter: TPCFilter,

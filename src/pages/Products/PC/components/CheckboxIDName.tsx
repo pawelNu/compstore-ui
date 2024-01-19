@@ -1,6 +1,6 @@
 import React from "react";
 import { useField, useFormikContext } from "formik";
-import { TIDNameType } from "../../../../types/PC/TPCComboData";
+import { TIDNameType } from "../../../../types/PC/TPC";
 
 type TCheckboxIDNameProps = {
     name: string;

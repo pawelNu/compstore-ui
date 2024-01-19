@@ -1,5 +1,4 @@
-import { TPagePagination } from "../../../types/TPagePagination";
-import { PagePagination } from "./PagePagination";
+import { PagePagination, TPagePagination } from "./PagePagination";
 import { PageSizeButton } from "./PageSizeButton";
 
 export const PaginationComponent: React.FC<TPagePagination> = ({

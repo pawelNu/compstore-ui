@@ -3,16 +3,15 @@ import { CheckboxIDName } from "./components/CheckboxIDName";
 import axios from "axios";
 import { useState, useCallback, useEffect } from "react";
 import hostName from "../../../config/config";
-import { TPCComboData } from "../../../types/PC/TPCComboData";
-import { TPCPageRequest } from "../../../types/PC/TPCPageRequest";
 import { CheckboxName } from "./components/CheckboxName";
 import { FilterPCStyles } from "../../../static/styles/FilterPC";
-import { FilterButton } from "../../../layout/components/buttons/FilterButton";
 import { InputField } from "./components/InputField";
 import { FilterSection } from "./components/FilterSection";
 import { FilterButtonSection } from "./components/FilterButtonSection";
 import { FilterGroup } from "./components/FilterGroup";
 import { FilterCard } from "./components/FilterCard";
+import { TPCComboData, TPCPageRequest } from "../../../types/PC/TPC";
+import { FilterButton } from "../../../components/buttons/FilterButton";
 
 type TPCFilterProps = {
     setFilter: (filterValues: any) => void;

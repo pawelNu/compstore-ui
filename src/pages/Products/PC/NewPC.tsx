@@ -2,8 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import hostName from "../../../config/config";
-import { TAddNewPC } from "../../../types/PC/TAddNewPC";
-import { TPCComboData } from "../../../types/PC/TPCComboData";
+import { TAddNewPC, TPCComboData } from "../../../types/PC/TPC";
 
 export const NewPC: React.FC = () => {
     let navigate = useNavigate();
