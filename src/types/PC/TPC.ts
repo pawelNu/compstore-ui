@@ -14,9 +14,9 @@ export type TAddNewPC = {
 
 export type TPCDetails = {
     id: UUID;
-    processorBrand: string;
+    processorBrand: TIDNameType;
     processorName: string;
-    graphicsCardBrand: string;
+    graphicsCardBrand: TIDNameType;
     graphicsCardName: string;
     ramCapacity: number;
     driveCapacity: number;

@@ -12,9 +12,15 @@ export const PCDetails = () => {
 
     const [pc, setPc] = useState<TPCDetails>({
         id: "string-string-string-string-string",
-        processorBrand: "",
+        processorBrand: {
+            id: "string-string-string-string-string",
+            name: ""
+        },
         processorName: "",
-        graphicsCardBrand: "",
+        graphicsCardBrand: {
+            id: "string-string-string-string-string",
+            name: ""
+        },
         graphicsCardName: "",
         ramCapacity: 0,
         driveCapacity: 0,
@@ -29,6 +35,7 @@ export const PCDetails = () => {
         try {
             const result = await axios.get(`${hostName}/pcs/${id}`);
             setPc(result.data);
+            console.log("file: PCDetails.tsx:32   getPc   result:", result.data)
         } catch (e) {
             console.log(
                 "Error getting pc -> file: PCDetails.tsx  getPc  e:",
