@@ -1,6 +1,6 @@
 import { UUID } from "crypto";
 import { useState } from "react";
-import { ConfirmDeleteModal } from "../../../../layout/components/modals/ConfirmDeleteModal";
+import { ConfirmDeleteModal } from "../../../../components/modals/ConfirmDeleteModal";
 
 export const PCActionsButton = ({
     deletePc,

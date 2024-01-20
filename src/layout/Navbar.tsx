@@ -1,8 +1,9 @@
 import "./../static/styles/Navbar.css";
-import { AddNewProductButton } from "./components/buttons/AddNewProductButton";
-import { UserRoleButton } from "./components/buttons/UserRoleButton";
+
 import { TNavbarProps } from "../types/TNavbarProps";
 import { useState } from "react";
+import { AddNewProductButton } from "../components/buttons/AddNewProductButton";
+import { UserRoleButton } from "../components/buttons/UserRoleButton";
 
 export const Navbar: React.FC<TNavbarProps> = ({ onUserRoleChange }) => {
     const [userRole, setUserRole] = useState("Customer");
