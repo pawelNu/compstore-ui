@@ -14,12 +14,12 @@ export const PCDetails = () => {
         id: "string-string-string-string-string",
         processorBrand: {
             id: "string-string-string-string-string",
-            name: ""
+            name: "",
         },
         processorName: "",
         graphicsCardBrand: {
             id: "string-string-string-string-string",
-            name: ""
+            name: "",
         },
         graphicsCardName: "",
         ramCapacity: 0,
@@ -35,7 +35,10 @@ export const PCDetails = () => {
         try {
             const result = await axios.get(`${hostName}/pcs/${id}`);
             setPc(result.data);
-            console.log("file: PCDetails.tsx:32   getPc   result:", result.data)
+            console.log(
+                "file: PCDetails.tsx:32   getPc   result:",
+                result.data,
+            );
         } catch (e) {
             console.log(
                 "Error getting pc -> file: PCDetails.tsx  getPc  e:",
