@@ -8,7 +8,6 @@ export const getPcsHandler = async (
     filter: TPCFilter,
     setPCs: Dispatch<SetStateAction<TPCSimple[]>>,
     setPagesCount: Dispatch<SetStateAction<number>>,
-    // setActiveFilters: Dispatch<SetStateAction<string[]>>,
 ) => {
     const url = `${hostName}/pcs/search`;
     try {
@@ -17,30 +16,10 @@ export const getPcsHandler = async (
         const pagingMetadata: { pagesCount: number } =
             result.data.pagingAndSortingMetadata;
         setPagesCount(pagingMetadata.pagesCount);
-
-        // const newActiveFilters = generateActiveFilters(filter);
-        // setActiveFilters(newActiveFilters);
     } catch (error: any) {
         console.log("file: PCs.tsx  getPCs  error:", error);
     }
 };
-
-// const generateActiveFilters = (filter: TPCFilter): string[] => {
-//     return Object.entries(filter)
-//         .filter(([key, value]) => {
-//             if (Array.isArray(value)) {
-//                 return value.length > 0;
-//             }
-//             return false;
-//         })
-//         .map(([key, value]) => {
-//             if (Array.isArray(value)) {
-//                 return `${key}: ${value.join(", ")}`;
-//             } else {
-//                 return `${key}: ${value}`;
-//             }
-//         });
-// };
 
 export const deletePcHandler = async (
     id: UUID,
