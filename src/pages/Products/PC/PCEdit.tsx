@@ -2,25 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import hostName from "../../../config/config";
-import { TPCComboData } from "../../../types/TPCComboData";
-import { TPCEdit } from "../../../types/TPCEdit";
+import { TPCComboData, TPCDetails } from "../../../types/PC/TPC";
+import { initialPCDetails } from "./components/initialValues";
 
 export const PCEdit: React.FC = () => {
     let navigate = useNavigate();
 
     const [comboData, setComboData] = useState<TPCComboData>();
-    const [pc, setPc] = useState<TPCEdit>({
-        id: "string-string-string-string-string",
-        processorBrand: "string-string-string-string-string",
-        processorName: "",
-        graphicsCardBrand: "string-string-string-string-string",
-        graphicsCardName: "",
-        ramCapacity: "",
-        driveCapacity: "",
-        driveType: "",
-        operatingSystem: "string-string-string-string-string",
-        price: 0,
-    });
+    const [pc, setPc] = useState<TPCDetails>(initialPCDetails);
 
     const { id } = useParams();
 
@@ -85,7 +74,7 @@ export const PCEdit: React.FC = () => {
     return (
         <div className="container my-2 px-2">
             <div className="card">
-                <h5 className="card-header">Add new product</h5>
+                <h5 className="card-header">Edit product</h5>
                 <div className="card-body">
                     <div className="row mb-3">
                         <form onSubmit={(e) => onSubmit(e)}>
@@ -94,7 +83,6 @@ export const PCEdit: React.FC = () => {
                                     htmlFor="processorBrand"
                                     className="col-sm-2 col-form-label"
                                 >
-                                    {/* TODO value is not setting correctly */}
                                     Processor Brand
                                 </label>
                                 <div className="col-sm-10">
@@ -102,7 +90,7 @@ export const PCEdit: React.FC = () => {
                                         className="form-select col-sm-10"
                                         id="processorBrand"
                                         name="processorBrand"
-                                        value={processorBrand}
+                                        value={processorBrand.id}
                                         onChange={onInputChange}
                                     >
                                         <option value="">
@@ -153,7 +141,6 @@ export const PCEdit: React.FC = () => {
                                     htmlFor="graphicsCardBrand"
                                     className="col-sm-2 col-form-label"
                                 >
-                                    {/* TODO value is not setting correctly */}
                                     Graphics Card Brand
                                 </label>
                                 <div className="col-sm-10">
@@ -161,7 +148,7 @@ export const PCEdit: React.FC = () => {
                                         className="form-select col-sm-10"
                                         id="graphicsCardBrand"
                                         name="graphicsCardBrand"
-                                        value={graphicsCardBrand}
+                                        value={graphicsCardBrand.id}
                                         onChange={onInputChange}
                                     >
                                         <option value="">

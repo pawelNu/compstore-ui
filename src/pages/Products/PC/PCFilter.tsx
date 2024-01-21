@@ -1,307 +1,135 @@
-import { FilterButton } from "../../../layout/components/buttons/FilterButton";
+import { Form, Formik } from "formik";
+import { CheckboxIDName } from "./components/CheckboxIDName";
+import axios from "axios";
+import { useState, useCallback, useEffect } from "react";
+import hostName from "../../../config/config";
+import { CheckboxName } from "./components/CheckboxName";
+import { FilterPCStyles } from "../../../static/styles/FilterPC";
+import { InputField } from "./components/InputField";
+import { FilterSection } from "./components/FilterSection";
+import { FilterButtonSection } from "./components/FilterButtonSection";
+import { FilterGroup } from "./components/FilterGroup";
+import { FilterCard } from "./components/FilterCard";
+import { TPCComboData, TPCPageRequest } from "../../../types/PC/TPC";
+import { FilterButton } from "../../../components/buttons/FilterButton";
+import { Button } from "react-bootstrap";
 
-export const PCFilter = () => {
+type TPCFilterProps = {
+    setFilter: (filterValues: any) => void;
+};
+
+export const PCFilter: React.FC<TPCFilterProps> = ({ setFilter }) => {
+    const [comboData, setComboData] = useState<TPCComboData | null>(null);
+
+    const initValues: TPCPageRequest = {
+        processorBrands: [],
+        graphicsCardBrands: [],
+        ramCapacities: [],
+        driveCapacities: [],
+        driveTypes: [],
+        operatingSystems: [],
+        priceFrom: "",
+        priceTo: "",
+        pagingAndSortingRequest: {
+            pageNumber: 0,
+            pageSize: 10,
+            ascendingFlag: null,
+        },
+    };
+
+    const onSubmit = async (values: TPCPageRequest) => {
+        setFilter(values);
+    };
+
+    const getComboData = useCallback(async () => {
+        try {
+            const result = await axios.get(`${hostName}/pcs/combo-data`);
+            const comboData: TPCComboData = result.data;
+            setComboData(comboData);
+        } catch (e) {
+            console.log("Error fetching combo data:", e);
+        }
+    }, []);
+
+    useEffect(() => {
+        getComboData();
+    }, [getComboData]);
+
     return (
-        <div className="card col-2 mt-2">
-            <h5 className="card-header">Filters:</h5>
-            <ul className="list-group list-group-flush">
-                <li className="list-group-item">
-                    <h6 className="card-title">Processor brands</h6>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="intelCpuCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckDefault"
-                        >
-                            Intel
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="amdCpuCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
-                            AMD
-                        </label>
-                    </div>
-                </li>
-                <li className="list-group-item">
-                    <h6 className="card-title">Graphics card brands</h6>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="nvidiaGpuCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckDefault"
-                        >
-                            NVIDIA
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="amdGpuCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
-                            AMD
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="intelGpuCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
-                            Intel
-                        </label>
-                    </div>
-                </li>
-                <li className="list-group-item">
-                    <h6 className="card-title">RAM Capacity</h6>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="8GbRamCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckDefault"
-                        >
-                            8 GB
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="16GbRamCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
-                            16 GB
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="32GbRamCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
-                            32 GB
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="64GbRamCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
-                            64 GB
-                        </label>
-                    </div>
-                </li>
-                <li className="list-group-item">
-                    <h6 className="card-title">Drive Capacity</h6>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="256GbDriveCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckDefault"
-                        >
-                            256 GB
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="512GbDriveCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
-                            512 GB
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="1024GbDriveCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
-                            1024 GB
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="2048GbDriveCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
-                            2048 GB
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="4096GbDriveCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
-                            4096 GB
-                        </label>
-                    </div>
-                </li>
-                <li className="list-group-item">
-                    <h6 className="card-title">Drive Types</h6>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="ssdCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckDefault"
-                        >
-                            SSD
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="hddCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
-                            HDD
-                        </label>
-                    </div>
-                </li>
-                <li className="list-group-item">
-                    <h6 className="card-title">Operating Systems</h6>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="windowsCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckDefault"
-                        >
-                            Windows
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="linuxCheck"
-                        />
-                        <label
-                            className="form-check-label"
-                            htmlFor="flexCheckChecked"
-                        >
-                            Linux
-                        </label>
-                    </div>
-                </li>
-                <li className="list-group-item">
-                    <h6 className="card-title">Price</h6>
-                    <div className="form-floating mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="floatingInput"
-                            placeholder="name@example.com"
-                        />
-                        <label htmlFor="floatingInput">From</label>
-                    </div>
-                    <div className="form-floating mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="floatingInput"
-                            placeholder="name@example.com"
-                        />
-                        <label htmlFor="floatingInput">To</label>
-                    </div>
-                </li>
-                <li className="list-group-item">
-                    <div className="d-flex justify-content-center">
-                        <FilterButton />
-                    </div>
-                </li>
-            </ul>
-        </div>
+        <>
+            <FilterCard style={FilterPCStyles.card}>
+                <Formik initialValues={initValues} onSubmit={onSubmit}>
+                    <Form>
+                        <FilterGroup title="Filters:">
+                            <FilterSection title="Processor brands">
+                                <CheckboxIDName
+                                    name="processorBrands"
+                                    options={comboData?.processorBrands}
+                                />
+                            </FilterSection>
+
+                            <FilterSection title="Graphics card brands">
+                                <CheckboxIDName
+                                    name="graphicsCardBrands"
+                                    options={comboData?.graphicsCardBrands}
+                                />
+                            </FilterSection>
+
+                            <FilterSection title="RAM Capacity">
+                                <CheckboxName
+                                    name="ramCapacities"
+                                    options={comboData?.ramCapacities}
+                                />
+                            </FilterSection>
+
+                            <FilterSection title="Drive Capacity">
+                                <CheckboxName
+                                    name="driveCapacities"
+                                    options={comboData?.driveCapacities}
+                                />
+                            </FilterSection>
+
+                            <FilterSection title="Drive Types">
+                                <CheckboxName
+                                    name="driveTypes"
+                                    options={comboData?.driveTypes}
+                                />
+                            </FilterSection>
+
+                            <FilterSection title="Operating Systems">
+                                <CheckboxIDName
+                                    name="operatingSystems"
+                                    options={comboData?.operatingSystems}
+                                />
+                            </FilterSection>
+
+                            <FilterSection title="Price">
+                                <InputField
+                                    label="From"
+                                    id="priceFrom"
+                                    name="priceFrom"
+                                    type="number"
+                                />
+                                <InputField
+                                    label="To"
+                                    id="priceTo"
+                                    name="priceTo"
+                                    type="number"
+                                />
+                            </FilterSection>
+
+                            <FilterButtonSection>
+                                <FilterButton />
+                            </FilterButtonSection>
+                            <FilterButtonSection>
+                                <Button href="/pcs" variant="outline-danger">
+                                    Clear filters
+                                </Button>
+                            </FilterButtonSection>
+                        </FilterGroup>
+                    </Form>
+                </Formik>
+            </FilterCard>
+        </>
     );
 };

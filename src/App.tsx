@@ -41,7 +41,7 @@ export const App = () => {
                         path="/add-new-product"
                         element={<AddNewProductForm />}
                     />
-                    <Route path="/pc/:id" element={<PCDetails />} />
+                    <Route path="/pcs/:id" element={<PCDetails />} />
                     <Route path="/pc-edit/:id" element={<PCEdit />} />
                 </Routes>
             </BrowserRouter>

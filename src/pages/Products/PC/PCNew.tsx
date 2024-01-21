@@ -2,8 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import hostName from "../../../config/config";
-import { TPCNew } from "../../../types/TPCNew";
-import { TPCComboData } from "../../../types/TPCComboData";
+import { TPCComboData, TPCNew } from "../../../types/PC/TPC";
 
 export const PCNew: React.FC = () => {
     let navigate = useNavigate();

@@ -5,29 +5,13 @@ import hostName from "../../../config/config";
 import { useParams } from "react-router-dom";
 import { TPCDetails } from "../../../types/PC/TPC";
 import { AddToCartButton } from "../../../components/buttons/AddToCartButton";
+import { initialPCDetails } from "./components/initialValues";
 
 export const PCDetails = () => {
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
-    const [pc, setPc] = useState<TPCDetails>({
-        id: "string-string-string-string-string",
-        processorBrand: {
-            id: "string-string-string-string-string",
-            name: "",
-        },
-        processorName: "",
-        graphicsCardBrand: {
-            id: "string-string-string-string-string",
-            name: "",
-        },
-        graphicsCardName: "",
-        ramCapacity: "",
-        driveCapacity: "",
-        driveType: "",
-        operatingSystem: "",
-        price: 0,
-    });
+    const [pc, setPc] = useState<TPCDetails>(initialPCDetails);
 
     const { id } = useParams();
 

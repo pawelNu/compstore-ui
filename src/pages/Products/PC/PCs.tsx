@@ -1,10 +1,7 @@
 import "./../../../static/styles/Products.css";
-import { AddToCartButton } from "../../../layout/components/buttons/AddToCartButton";
-import { PCFilter } from "./PCFilter";
 import { PCActionsButton } from "./components/PCActionsButton";
 import { useCallback, useEffect, useState } from "react";
 import { UUID } from "crypto";
-import { FilterPC } from "./FilterPC";
 import {
     changePageHandler,
     deletePcHandler,
@@ -15,6 +12,7 @@ import { TPCsProps, TPCSimple, TPCFilter } from "../../../types/PC/TPC";
 import { AddToCartButton } from "../../../components/buttons/AddToCartButton";
 import { SortingButton } from "../../../components/buttons/SortingButton";
 import { PaginationComponent } from "../../../components/pagination/PaginationComponent";
+import { PCFilter } from "./PCFilter";
 
 export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pcs, setPCs] = useState<TPCSimple[]>([]);
@@ -87,15 +85,14 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                 </div>
             </div>
             <div className="container d-flex justify-content-between pt-2">
-                <FilterPC setFilter={setFilter} />
-
+                <PCFilter setFilter={setFilter} />
                 <div className="container col-10 p-2">
                     {pcs.map((pc) => (
                         <div key={pc.id} className="mb-2">
                             <div className="card">
                                 <a
                                     className="products-header-link"
-                                    href={"pc/" + pc.id}
+                                    href={"pcs/" + pc.id}
                                 >
                                     <h5 className="card-header">
                                         PC - {pc.processorName} -{" "}
@@ -105,7 +102,7 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                                 </a>
                                 <div className="row g-0">
                                     <div className="col-3">
-                                        <a href={"pc/" + pc.id}>
+                                        <a href={"pcs/" + pc.id}>
                                             <img
                                                 src={imagePlaceholder}
                                                 className="img-fluid rounded-start products-product-image"
