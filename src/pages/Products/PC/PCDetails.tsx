@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { AddToCartButton } from "../../../layout/components/buttons/AddToCartButton";
 import "./../../../static/styles/OneProductDetails.css";
-import { TPCDetails } from "../../../types/TPCDetails";
 import axios from "axios";
 import hostName from "../../../config/config";
 import { useParams } from "react-router-dom";
+import { TPCDetails } from "../../../types/PC/TPC";
+import { AddToCartButton } from "../../../components/buttons/AddToCartButton";
 
 export const PCDetails = () => {
     const imagePlaceholder =
@@ -12,9 +12,15 @@ export const PCDetails = () => {
 
     const [pc, setPc] = useState<TPCDetails>({
         id: "string-string-string-string-string",
-        processorBrand: "",
+        processorBrand: {
+            id: "string-string-string-string-string",
+            name: "",
+        },
         processorName: "",
-        graphicsCardBrand: "",
+        graphicsCardBrand: {
+            id: "string-string-string-string-string",
+            name: "",
+        },
         graphicsCardName: "",
         ramCapacity: "",
         driveCapacity: "",
@@ -29,6 +35,10 @@ export const PCDetails = () => {
         try {
             const result = await axios.get(`${hostName}/pcs/${id}`);
             setPc(result.data);
+            console.log(
+                "file: PCDetails.tsx:32   getPc   result:",
+                result.data,
+            );
         } catch (e) {
             console.log(
                 "Error getting pc -> file: PCDetails.tsx  getPc  e:",
@@ -46,7 +56,7 @@ export const PCDetails = () => {
             <div key={pc.id} className="card">
                 <h5 className="card-header">
                     PC - {pc.processorName} - {pc.graphicsCardName} -{" "}
-                    {pc.ramCapacity} GB RAM
+                    {pc.ramCapacity} RAM
                 </h5>
                 <div className="card-body">
                     <div className="row mb-3">
@@ -84,11 +94,11 @@ export const PCDetails = () => {
                                 </p>
                                 <p className="card-text">
                                     <b>RAM: </b>
-                                    {pc.ramCapacity} GB
+                                    {pc.ramCapacity}
                                 </p>
                                 <p className="card-text">
                                     <b>Storage drive: </b>
-                                    {pc.driveType} {pc.driveCapacity} GB
+                                    {pc.driveType} {pc.driveCapacity}
                                 </p>
                                 <p className="card-text">
                                     <b>Operating system: </b>

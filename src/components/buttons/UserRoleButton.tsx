@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TUserRoleButtonProps } from "../../../types/TUserRoleButtonProps";
+import { TUserRoleButtonProps } from "../../types/TUserRoleButtonProps";
 
 export const UserRoleButton: React.FC<TUserRoleButtonProps> = ({
     onUserRoleChange,
