@@ -44,7 +44,7 @@ export const PCNew: React.FC = () => {
         } catch (error: any) {
             console.log("file: NewPC.tsx  onSubmit  error:", error);
             if (error.response && error.response.data) {
-                setError(error.response.data.toString());
+                setError(error.response.data.message.toString());
             } else {
                 setError("An error occurred while crating the new PC!");
             }

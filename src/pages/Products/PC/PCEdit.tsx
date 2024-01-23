@@ -41,9 +41,9 @@ export const PCEdit: React.FC = () => {
             e.preventDefault();
             await axios.put(`${hostName}/pcs/${id}`, pc);
             navigate("/pcs");
-        } catch (error: any) {
-            if (error.response && error.response.data) {
-                setError(error.response.data.toString());
+        } catch (e: any) {
+            if (e.response && e.response.data) {
+                setError(e.response.data.message.toString());
             } else {
                 console.log("file: PCEdit.tsx:  onSubmit  else");
                 setError("An error occurred while updating the pc!");
@@ -74,7 +74,7 @@ export const PCEdit: React.FC = () => {
     return (
         <div className="container my-2 px-2">
             <div className="card">
-                <h5 className="card-header">Edit product</h5>
+                <h5 className="card-header">Edit PC</h5>
                 <div className="card-body">
                     <div className="row mb-3">
                         <form onSubmit={(e) => onSubmit(e)}>
