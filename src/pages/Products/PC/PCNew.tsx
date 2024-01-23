@@ -95,7 +95,6 @@ export const PCNew: React.FC = () => {
                                 </option>
                             ))}
                         </select>
-                        {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
 
@@ -116,7 +115,6 @@ export const PCNew: React.FC = () => {
                             onChange={onInputChange}
                             placeholder="test"
                         />
-                        {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
 
@@ -144,7 +142,6 @@ export const PCNew: React.FC = () => {
                                 ),
                             )}
                         </select>
-                        {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
 
@@ -165,7 +162,6 @@ export const PCNew: React.FC = () => {
                             onChange={onInputChange}
                             placeholder="test"
                         />
-                        {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
 
@@ -191,7 +187,6 @@ export const PCNew: React.FC = () => {
                                 </option>
                             ))}
                         </select>
-                        {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
 
@@ -217,7 +212,6 @@ export const PCNew: React.FC = () => {
                                 </option>
                             ))}
                         </select>
-                        {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
 
@@ -243,7 +237,6 @@ export const PCNew: React.FC = () => {
                                 </option>
                             ))}
                         </select>
-                        {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
 
@@ -269,7 +262,6 @@ export const PCNew: React.FC = () => {
                                 </option>
                             ))}
                         </select>
-                        {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
 
@@ -287,17 +279,21 @@ export const PCNew: React.FC = () => {
                             onChange={onInputChange}
                             placeholder="test"
                         />
-                        {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
-
-                <div className="d-flex justify-content-center">
-                    <button type="submit" className="btn btn-outline-primary">
-                        Add product
-                    </button>
-                    <a href="/" className="btn btn-outline-danger mx-2">
-                        Cancel
-                    </a>
+                <div className="d-flex flex-column align-items-center">
+                    <div>{error && <p className="text-danger">{error}</p>}</div>
+                    <div className="d-flex justify-content-center">
+                        <button
+                            type="submit"
+                            className="btn btn-outline-primary"
+                        >
+                            Add product
+                        </button>
+                        <a href="/" className="btn btn-outline-danger mx-2">
+                            Cancel
+                        </a>
+                    </div>
                 </div>
             </form>
         </>

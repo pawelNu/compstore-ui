@@ -107,9 +107,6 @@ export const PCEdit: React.FC = () => {
                                             ),
                                         )}
                                     </select>
-                                    {error && (
-                                        <p className="text-danger">{error}</p>
-                                    )}
                                 </div>
                             </div>
 
@@ -130,9 +127,6 @@ export const PCEdit: React.FC = () => {
                                         onChange={onInputChange}
                                         placeholder="test"
                                     />
-                                    {error && (
-                                        <p className="text-danger">{error}</p>
-                                    )}
                                 </div>
                             </div>
 
@@ -165,9 +159,6 @@ export const PCEdit: React.FC = () => {
                                             ),
                                         )}
                                     </select>
-                                    {error && (
-                                        <p className="text-danger">{error}</p>
-                                    )}
                                 </div>
                             </div>
 
@@ -188,9 +179,6 @@ export const PCEdit: React.FC = () => {
                                         onChange={onInputChange}
                                         placeholder="test"
                                     />
-                                    {error && (
-                                        <p className="text-danger">{error}</p>
-                                    )}
                                 </div>
                             </div>
 
@@ -223,9 +211,6 @@ export const PCEdit: React.FC = () => {
                                             ),
                                         )}
                                     </select>
-                                    {error && (
-                                        <p className="text-danger">{error}</p>
-                                    )}
                                 </div>
                             </div>
 
@@ -258,9 +243,6 @@ export const PCEdit: React.FC = () => {
                                             ),
                                         )}
                                     </select>
-                                    {error && (
-                                        <p className="text-danger">{error}</p>
-                                    )}
                                 </div>
                             </div>
 
@@ -293,9 +275,6 @@ export const PCEdit: React.FC = () => {
                                             ),
                                         )}
                                     </select>
-                                    {error && (
-                                        <p className="text-danger">{error}</p>
-                                    )}
                                 </div>
                             </div>
 
@@ -304,7 +283,6 @@ export const PCEdit: React.FC = () => {
                                     htmlFor="operatingSystem"
                                     className="col-sm-2 col-form-label"
                                 >
-                                    {/* TODO value is not setting correctly */}
                                     Operating System
                                 </label>
                                 <div className="col-sm-10">
@@ -329,9 +307,6 @@ export const PCEdit: React.FC = () => {
                                             ),
                                         )}
                                     </select>
-                                    {error && (
-                                        <p className="text-danger">{error}</p>
-                                    )}
                                 </div>
                             </div>
 
@@ -352,25 +327,29 @@ export const PCEdit: React.FC = () => {
                                         onChange={onInputChange}
                                         placeholder="test"
                                     />
+                                </div>
+                            </div>
+
+                            <div className="d-flex flex-column align-items-center">
+                                <div>
                                     {error && (
                                         <p className="text-danger">{error}</p>
                                     )}
                                 </div>
-                            </div>
-
-                            <div className="d-flex justify-content-center">
-                                <button
-                                    type="submit"
-                                    className="btn btn-outline-primary"
-                                >
-                                    Save
-                                </button>
-                                <a
-                                    href="/"
-                                    className="btn btn-outline-danger mx-2"
-                                >
-                                    Cancel
-                                </a>
+                                <div className="d-flex justify-content-center">
+                                    <button
+                                        type="submit"
+                                        className="btn btn-outline-primary"
+                                    >
+                                        Save
+                                    </button>
+                                    <a
+                                        href="/"
+                                        className="btn btn-outline-danger mx-2"
+                                    >
+                                        Cancel
+                                    </a>
+                                </div>
                             </div>
                         </form>
                     </div>
