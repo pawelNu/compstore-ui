@@ -21,7 +21,7 @@ export type TPCDetails = {
     ramCapacity: string;
     driveCapacity: string;
     driveType: string;
-    operatingSystem: string;
+    operatingSystem: TIDNameType;
     price: number;
 };
 

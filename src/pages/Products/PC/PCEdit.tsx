@@ -312,7 +312,7 @@ export const PCEdit: React.FC = () => {
                                         className="form-select col-sm-10"
                                         id="operatingSystem"
                                         name="operatingSystem"
-                                        value={operatingSystem}
+                                        value={operatingSystem.id}
                                         onChange={onInputChange}
                                     >
                                         <option value="">

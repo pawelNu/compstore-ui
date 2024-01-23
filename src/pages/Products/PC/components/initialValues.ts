@@ -15,6 +15,9 @@ export const initialPCDetails: TPCDetails = {
     ramCapacity: "",
     driveCapacity: "",
     driveType: "",
-    operatingSystem: "",
+    operatingSystem: {
+        id: "string-string-string-string-string",
+        name: "",
+    },
     price: 0,
 };

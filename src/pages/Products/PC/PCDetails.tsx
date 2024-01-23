@@ -86,7 +86,7 @@ export const PCDetails = () => {
                                 </p>
                                 <p className="card-text">
                                     <b>Operating system: </b>
-                                    {pc.operatingSystem}
+                                    {pc.operatingSystem.name}
                                 </p>
                             </div>
                         </div>
