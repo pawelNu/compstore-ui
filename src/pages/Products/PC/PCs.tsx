@@ -40,8 +40,14 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
     const getPCs = useCallback(async () => {
-        await getPcsHandler(filter, setPCs, setPagesCount);
-    }, [filter, setPCs, setPagesCount]);
+        await getPcsHandler(
+            filter,
+            setPCs,
+            setPagesCount,
+            setPageNumber,
+            setPageSize,
+        );
+    }, [filter, setPCs, setPagesCount, setPageNumber, setPageSize]);
 
     const deletePc = async (id: UUID) => {
         await deletePcHandler(id, setPCs);

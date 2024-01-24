@@ -1,4 +1,4 @@
-import { TPCDetails } from "../../../../types/PC/TPC";
+import { TPCDetails, TPCPageRequest } from "../../../../types/PC/TPC";
 
 export const initialPCDetails: TPCDetails = {
     id: "string-string-string-string-string",
@@ -20,4 +20,20 @@ export const initialPCDetails: TPCDetails = {
         name: "",
     },
     price: 0,
+};
+
+export const initialValuesFilter: TPCPageRequest = {
+    processorBrands: [],
+    graphicsCardBrands: [],
+    ramCapacities: [],
+    driveCapacities: [],
+    driveTypes: [],
+    operatingSystems: [],
+    priceFrom: "",
+    priceTo: "",
+    pagingAndSortingRequest: {
+        pageNumber: 0,
+        pageSize: 10,
+        ascendingFlag: null,
+    },
 };

@@ -13,6 +13,7 @@ import { FilterCard } from "./components/FilterCard";
 import { TPCComboData, TPCPageRequest } from "../../../types/PC/TPC";
 import { FilterButton } from "../../../components/buttons/FilterButton";
 import { Button } from "react-bootstrap";
+import { initialValuesFilter } from "./components/initialValues";
 
 type TPCFilterProps = {
     setFilter: (filterValues: any) => void;
@@ -21,21 +22,7 @@ type TPCFilterProps = {
 export const PCFilter: React.FC<TPCFilterProps> = ({ setFilter }) => {
     const [comboData, setComboData] = useState<TPCComboData | null>(null);
 
-    const initValues: TPCPageRequest = {
-        processorBrands: [],
-        graphicsCardBrands: [],
-        ramCapacities: [],
-        driveCapacities: [],
-        driveTypes: [],
-        operatingSystems: [],
-        priceFrom: "",
-        priceTo: "",
-        pagingAndSortingRequest: {
-            pageNumber: 0,
-            pageSize: 10,
-            ascendingFlag: null,
-        },
-    };
+    const initValues: TPCPageRequest = initialValuesFilter;
 
     const onSubmit = async (values: TPCPageRequest) => {
         setFilter(values);
