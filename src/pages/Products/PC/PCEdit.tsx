@@ -72,7 +72,7 @@ export const PCEdit: React.FC = () => {
             if (/^\d*\.?\d{0,2}$/.test(value) || value === "") {
                 setPc({ ...pc, [e.target.name]: e.target.value });
             } else {
-                setError("Price can have a maximum of two decimal places!")
+                setError("Price can have a maximum of two decimal places!");
             }
         } else {
             setPc({ ...pc, [e.target.name]: e.target.value });

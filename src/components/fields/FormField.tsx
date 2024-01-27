@@ -1,16 +1,15 @@
 import React from "react";
-import { Field, ErrorMessage } from "formik";
+import { Field, ErrorMessage, useFormikContext } from "formik";
+import { TIDNameType } from "../../types/PC/TPC";
+import { UUID } from "crypto";
 
 type TFormFieldProps = {
     label: string;
     fieldType: string;
     id: string;
     name: string;
-    value: string | number;
-    options?: Array<{ id: string; name: string }> | string[];
-    onChange: (
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    ) => void;
+    value: string | number | UUID;
+    options?: TIDNameType[] | string[];
 };
 
 export const FormField: React.FC<TFormFieldProps> = ({
@@ -20,32 +19,42 @@ export const FormField: React.FC<TFormFieldProps> = ({
     name,
     value,
     options,
-    onChange,
 }) => {
+    const { values, setFieldValue } = useFormikContext<{
+        [key: string]: string | number | UUID;
+    }>();
+    value = values[name];
+
+    const handleInputChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    ) => {
+        setFieldValue(name, e.target.value);
+    };
+
     return (
         <div className="row mb-3">
             <label htmlFor={id} className="col-sm-2 col-form-label">
                 {label}
             </label>
             <div className="col-sm-10">
-                {fieldType === "select" && Array.isArray(options) ? (
+                {fieldType === "select" ? (
                     <Field
                         as="select"
                         className="form-select col-sm-10"
                         id={id}
                         name={name}
                         value={value}
-                        onChange={onChange}
+                        onChange={handleInputChange}
                     >
                         <option value="">{`Choose ${label}`}</option>
-                        {options.map((data, index) => (
+                        {options?.map((data, index) => (
                             <option
                                 key={index}
                                 value={
-                                    typeof data === "object" ? data.id : data
+                                    typeof data === "string" ? data : data.id
                                 }
                             >
-                                {typeof data === "object" ? data.name : data}
+                                {typeof data === "string" ? data : data.name}
                             </option>
                         ))}
                     </Field>
@@ -56,7 +65,7 @@ export const FormField: React.FC<TFormFieldProps> = ({
                         id={id}
                         name={name}
                         value={value}
-                        onChange={onChange}
+                        onChange={handleInputChange}
                     />
                 )}
                 <ErrorMessage
