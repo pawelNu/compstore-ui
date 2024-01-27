@@ -1,10 +1,4 @@
-type LabelType = {
-    label: string;
-    fieldType: string;
-    id: string;
-};
-
-export const labels: Record<string, LabelType> = {
+export const labels = {
     processorBrand: {
         label: "Processor Brand",
         fieldType: "select",

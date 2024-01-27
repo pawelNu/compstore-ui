@@ -25,6 +25,18 @@ export type TPCDetails = {
     price: number;
 };
 
+export type TPCUpdated = {
+    processorBrand: UUID;
+    processorName: string;
+    graphicsCardBrand: UUID;
+    graphicsCardName: string;
+    ramCapacity: string;
+    driveCapacity: string;
+    driveType: string;
+    operatingSystem: UUID;
+    price: number;
+};
+
 export type TPCSimple = {
     id: UUID;
     processorName: string;
