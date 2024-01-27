@@ -2,16 +2,16 @@
 
 CompStore web store frontend
 
-- [CompStore UI](#compstore-ui)
-  - [Owners](#owners)
-  - [Technology stack](#technology-stack)
-  - [Runs on port](#runs-on-port)
-  - [Other used sources](#other-used-sources)
-  - [Repositories](#repositories)
-  - [Commit prefixes](#commit-prefixes)
-  - [Name conventions](#name-conventions)
-    - [Types](#types)
-  - [Code formatting configuration](#code-formatting-configuration)
+-   [CompStore UI](#compstore-ui)
+    -   [Owners](#owners)
+    -   [Technology stack](#technology-stack)
+    -   [Runs on port](#runs-on-port)
+    -   [Other used sources](#other-used-sources)
+    -   [Repositories](#repositories)
+    -   [Commit prefixes](#commit-prefixes)
+    -   [Name conventions](#name-conventions)
+        -   [Types](#types)
+    -   [Code formatting configuration](#code-formatting-configuration)
 
 ## Owners
 
