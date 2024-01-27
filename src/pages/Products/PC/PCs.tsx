@@ -1,4 +1,3 @@
-import "./../../../static/styles/Products.css";
 import { PCActionsButton } from "./components/PCActionsButton";
 import { useCallback, useEffect, useState } from "react";
 import { UUID } from "crypto";
@@ -13,6 +12,7 @@ import { AddToCartButton } from "../../../components/buttons/AddToCartButton";
 import { SortingButton } from "../../../components/buttons/SortingButton";
 import { PaginationComponent } from "../../../components/pagination/PaginationComponent";
 import { PCFilter } from "./PCFilter";
+import { productStyles } from "../../../static/styles/Products";
 
 export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pcs, setPCs] = useState<TPCSimple[]>([]);
@@ -97,7 +97,7 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                         <div key={pc.id} className="mb-2">
                             <div className="card">
                                 <a
-                                    className="products-header-link"
+                                    style={productStyles.headerLink}
                                     href={"pcs/" + pc.id}
                                 >
                                     <h5 className="card-header">
@@ -111,7 +111,10 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                                         <a href={"pcs/" + pc.id}>
                                             <img
                                                 src={imagePlaceholder}
-                                                className="img-fluid rounded-start products-product-image"
+                                                className="img-fluid rounded-start"
+                                                style={
+                                                    productStyles.productImage
+                                                }
                                                 alt="Product"
                                             />
                                         </a>
@@ -133,7 +136,10 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                                         </div>
                                     </div>
                                     <div className="col-3">
-                                        <div className="products-price-tag">
+                                        <div
+                                            style={productStyles.priceTag}
+                                            // style={{textAlign: "left"}}
+                                        >
                                             <div className="card-body">
                                                 <div>$ {pc.price}</div>
                                             </div>

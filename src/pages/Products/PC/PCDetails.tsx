@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import "./../../../static/styles/OneProductDetails.css";
+import "../../../static/styles/OneProductDetails.js";
 import axios from "axios";
 import hostName from "../../../config/config";
 import { useParams } from "react-router-dom";
 import { TPCDetails } from "../../../types/PC/TPC";
 import { AddToCartButton } from "../../../components/buttons/AddToCartButton";
 import { initialPCDetails } from "./components/initialValues";
+import { oneProductStyle } from "../../../static/styles/OneProductDetails.js";
 
 export const PCDetails = () => {
     const imagePlaceholder =
@@ -47,17 +48,18 @@ export const PCDetails = () => {
                         <div className="col-md-4">
                             <img
                                 src={imagePlaceholder}
-                                className="img-fluid rounded-start one-product-details-product-image"
+                                className="img-fluid rounded-start"
+                                style={oneProductStyle.productImage}
                                 alt="Product"
                             />
                         </div>
                         <div className="col-md-8">
                             <div className="card">
                                 <div className="card-body d-flex flex-column align-items-center">
-                                    <div className="one-product-details-price-tag">
+                                    <div style={oneProductStyle.priceTag}>
                                         $ {pc.price}
                                     </div>
-                                    <div className="one-product-details-button mt-3">
+                                    <div className="mt-3">
                                         <AddToCartButton />
                                     </div>
                                 </div>

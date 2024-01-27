@@ -2,17 +2,16 @@
 
 CompStore web store frontend
 
--   [CompStore UI](#compstore-ui)
-    -   [Owners](#owners)
-    -   [Technology stack](#technology-stack)
-    -   [Runs on port](#runs-on-port)
-    -   [Other used sources](#other-used-sources)
-    -   [Repositories](#repositories)
-    -   [Commit prefixes](#commit-prefixes)
-    -   [Name conventions](#name-conventions)
-    -   [CSS class](#css-class)
-    -   [Types](#types)
-    -   [Code formatting configuration](#code-formatting-configuration)
+- [CompStore UI](#compstore-ui)
+  - [Owners](#owners)
+  - [Technology stack](#technology-stack)
+  - [Runs on port](#runs-on-port)
+  - [Other used sources](#other-used-sources)
+  - [Repositories](#repositories)
+  - [Commit prefixes](#commit-prefixes)
+  - [Name conventions](#name-conventions)
+    - [Types](#types)
+  - [Code formatting configuration](#code-formatting-configuration)
 
 ## Owners
 
@@ -51,15 +50,6 @@ Backend: https://github.com/grz55/compstore-api
 -   chore(task_no): Regular code maintenance. [ You can also use emojis to represent commit types]
 
 ## Name conventions
-
-### CSS class
-
--   lowercase letters separated by dashes
--   css file name + class name
-
-Example:
-
-`Products.css` and CSS class `price-tag` will result in `products-price-tag`.
 
 ### Types
 

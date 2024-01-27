@@ -1,5 +1,5 @@
 import Dropdown from "react-bootstrap/Dropdown";
-import { PagePaginationStyles } from "../../static/styles/PagePagination";
+import { pagePaginationStyles } from "../../static/styles/PagePagination";
 
 export type TPageSize = {
     pagesCount: number;
@@ -13,7 +13,7 @@ export const PageSizeButton: React.FC<TPageSize> = ({
 }) => {
     const pageSizes = [10, 25, 50];
     return (
-        <Dropdown style={PagePaginationStyles.pageSize}>
+        <Dropdown style={pagePaginationStyles.pageSize}>
             <Dropdown.Toggle variant="outline-primary" id="page-size">
                 Items on page: {pageSize}
             </Dropdown.Toggle>

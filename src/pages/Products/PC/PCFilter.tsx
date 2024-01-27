@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState, useCallback, useEffect } from "react";
 import hostName from "../../../config/config";
 import { CheckboxName } from "./components/CheckboxName";
-import { FilterPCStyles } from "../../../static/styles/FilterPC";
+import { filterPCStyles } from "../../../static/styles/FilterPC";
 import { InputField } from "./components/InputField";
 import { FilterSection } from "./components/FilterSection";
 import { FilterButtonSection } from "./components/FilterButtonSection";
@@ -44,7 +44,7 @@ export const PCFilter: React.FC<TPCFilterProps> = ({ setFilter }) => {
 
     return (
         <>
-            <FilterCard style={FilterPCStyles.card}>
+            <FilterCard style={filterPCStyles.card}>
                 <Formik initialValues={initValues} onSubmit={onSubmit}>
                     <Form>
                         <FilterGroup title="Filters:">

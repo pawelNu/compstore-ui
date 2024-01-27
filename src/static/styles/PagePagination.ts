@@ -1,4 +1,4 @@
-export const PagePaginationStyles = {
+export const pagePaginationStyles = {
     pagination: {
         marginBottom: 0,
     },
