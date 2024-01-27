@@ -1,18 +1,33 @@
+import React from "react";
+import { Formik, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import hostName from "../../../config/config";
 import { TPCComboData, TPCDetails } from "../../../types/PC/TPC";
 import { initialPCDetails } from "./components/initialValues";
+import { FormField } from "../../../components/fields/FormField";
+import { labels } from "./config";
+
+const validationSchema = Yup.object().shape({
+    processorBrand: Yup.string().required("Processor Brand is required"),
+    processorName: Yup.string().required("Processor Name is required"),
+    graphicsCardBrand: Yup.string().required("Graphics Card Brand is required"),
+    graphicsCardName: Yup.string().required("Graphics Card Name is required"),
+    ramCapacity: Yup.string().required("RAM Capacity is required"),
+    driveCapacity: Yup.string().required("Drive Capacity is required"),
+    driveType: Yup.string().required("Drive Type is required"),
+    operatingSystem: Yup.string().required("Operating System is required"),
+    price: Yup.number().required("Price is required"),
+});
 
 export const PCEdit: React.FC = () => {
     let navigate = useNavigate();
 
     const [comboData, setComboData] = useState<TPCComboData>();
     const [pc, setPc] = useState<TPCDetails>(initialPCDetails);
-
     const { id } = useParams();
-
     const [error, setError] = useState<String>("");
 
     const {
@@ -32,20 +47,19 @@ export const PCEdit: React.FC = () => {
             const result = await axios.get(`${hostName}/pcs/${id}`);
             setPc(result.data);
         } catch (e) {
-            console.log("file: PCEdit.tsx:  getPc  error:", e);
+            console.log("file: PCEdit.tsx: getPc error:", e);
         }
     };
 
-    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (values: TPCDetails) => {
         try {
-            e.preventDefault();
-            await axios.put(`${hostName}/pcs/${id}`, pc);
+            await axios.put(`${hostName}/pcs/${id}`, values);
             navigate("/pcs");
         } catch (e: any) {
             if (e.response && e.response.data) {
                 setError(e.response.data.message.toString());
             } else {
-                console.log("file: PCEdit.tsx:  onSubmit  else");
+                console.log("file: PCEdit.tsx: onSubmit else");
                 setError("An error occurred while updating the pc!");
             }
         }
@@ -54,6 +68,7 @@ export const PCEdit: React.FC = () => {
     const onInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     ) => {
+        console.log("PCEdit.tsx onInputChange:", e.target.name, e.target.value);
         setPc({ ...pc, [e.target.name]: e.target.value });
     };
 
@@ -62,7 +77,7 @@ export const PCEdit: React.FC = () => {
             const result = await axios.get(`${hostName}/pcs/combo-data`);
             setComboData(result.data);
         } catch (e) {
-            console.log("file: EditPC.tsx:  getComboData  e:", e);
+            console.log("file: EditPC.tsx: getComboData e:", e);
         }
     };
 
@@ -76,265 +91,106 @@ export const PCEdit: React.FC = () => {
             <div className="card">
                 <h5 className="card-header">Edit PC</h5>
                 <div className="card-body">
-                    <div className="row mb-3">
-                        <form onSubmit={(e) => onSubmit(e)}>
-                            <div className="row mb-3">
-                                <label
-                                    htmlFor="processorBrand"
-                                    className="col-sm-2 col-form-label"
-                                >
-                                    Processor Brand
-                                </label>
-                                <div className="col-sm-10">
-                                    <select
-                                        className="form-select col-sm-10"
-                                        id="processorBrand"
-                                        name="processorBrand"
-                                        value={processorBrand.id}
-                                        onChange={onInputChange}
-                                    >
-                                        <option value="">
-                                            Choose Processor Brand
-                                        </option>
-                                        {comboData?.processorBrands.map(
-                                            (data, index) => (
-                                                <option
-                                                    key={index}
-                                                    value={data.id}
-                                                >
-                                                    {data.name}
-                                                </option>
-                                            ),
-                                        )}
-                                    </select>
-                                </div>
-                            </div>
+                    <Formik
+                        initialValues={pc}
+                        validationSchema={validationSchema}
+                        onSubmit={onSubmit}
+                    >
+                        <Form>
+                            <FormField
+                                label={labels.processorBrand.label}
+                                fieldType={labels.processorBrand.fieldType}
+                                id={labels.processorBrand.id}
+                                name={labels.processorBrand.id}
+                                value={processorBrand.id}
+                                options={comboData?.processorBrands}
+                                onChange={onInputChange}
+                            />
 
-                            <div className="row mb-3">
-                                <label
-                                    htmlFor="processorName"
-                                    className="col-sm-2 col-form-label"
-                                >
-                                    Processor Name
-                                </label>
-                                <div className="col-sm-10">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="processorName"
-                                        name="processorName"
-                                        value={processorName}
-                                        onChange={onInputChange}
-                                        placeholder="test"
-                                    />
-                                </div>
-                            </div>
+                            <FormField
+                                label={labels.processorName.label}
+                                fieldType={labels.processorName.fieldType}
+                                id={labels.processorName.id}
+                                name={labels.processorName.id}
+                                value={processorName}
+                                onChange={onInputChange}
+                            />
 
-                            <div className="row mb-3">
-                                <label
-                                    htmlFor="graphicsCardBrand"
-                                    className="col-sm-2 col-form-label"
-                                >
-                                    Graphics Card Brand
-                                </label>
-                                <div className="col-sm-10">
-                                    <select
-                                        className="form-select col-sm-10"
-                                        id="graphicsCardBrand"
-                                        name="graphicsCardBrand"
-                                        value={graphicsCardBrand.id}
-                                        onChange={onInputChange}
-                                    >
-                                        <option value="">
-                                            Choose Graphics Card Brand
-                                        </option>
-                                        {comboData?.graphicsCardBrands.map(
-                                            (data, index) => (
-                                                <option
-                                                    key={index}
-                                                    value={data.id}
-                                                >
-                                                    {data.name}
-                                                </option>
-                                            ),
-                                        )}
-                                    </select>
-                                </div>
-                            </div>
+                            <FormField
+                                label={labels.graphicsCardBrand.label}
+                                fieldType={labels.graphicsCardBrand.fieldType}
+                                id={labels.graphicsCardBrand.id}
+                                name={labels.graphicsCardBrand.id}
+                                value={graphicsCardBrand.id}
+                                options={comboData?.graphicsCardBrands}
+                                onChange={onInputChange}
+                            />
 
-                            <div className="row mb-3">
-                                <label
-                                    htmlFor="graphicsCardName"
-                                    className="col-sm-2 col-form-label"
-                                >
-                                    Graphics Card Name
-                                </label>
-                                <div className="col-sm-10">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="graphicsCardName"
-                                        name="graphicsCardName"
-                                        value={graphicsCardName}
-                                        onChange={onInputChange}
-                                        placeholder="test"
-                                    />
-                                </div>
-                            </div>
+                            <FormField
+                                label={labels.graphicsCardName.label}
+                                fieldType={labels.graphicsCardName.fieldType}
+                                id={labels.graphicsCardName.id}
+                                name={labels.graphicsCardName.id}
+                                value={graphicsCardName}
+                                onChange={onInputChange}
+                            />
 
-                            <div className="row mb-3">
-                                <label
-                                    htmlFor="ramCapacity"
-                                    className="col-sm-2 col-form-label"
-                                >
-                                    RAM GB Capacity
-                                </label>
-                                <div className="col-sm-10">
-                                    <select
-                                        className="form-select col-sm-10"
-                                        id="ramCapacity"
-                                        name="ramCapacity"
-                                        value={ramCapacity}
-                                        onChange={onInputChange}
-                                    >
-                                        <option value="">
-                                            Choose RAM Capacity
-                                        </option>
-                                        {comboData?.ramCapacities.map(
-                                            (data, index) => (
-                                                <option
-                                                    key={index}
-                                                    value={data}
-                                                >
-                                                    {data}
-                                                </option>
-                                            ),
-                                        )}
-                                    </select>
-                                </div>
-                            </div>
+                            <FormField
+                                label={labels.ramCapacity.label}
+                                fieldType={labels.ramCapacity.fieldType}
+                                id={labels.ramCapacity.id}
+                                name={labels.ramCapacity.id}
+                                value={ramCapacity}
+                                options={comboData?.ramCapacities}
+                                onChange={onInputChange}
+                            />
 
-                            <div className="row mb-3">
-                                <label
-                                    htmlFor="driveCapacity"
-                                    className="col-sm-2 col-form-label"
-                                >
-                                    Drive GB Capacity
-                                </label>
-                                <div className="col-sm-10">
-                                    <select
-                                        className="form-select col-sm-10"
-                                        id="driveCapacity"
-                                        name="driveCapacity"
-                                        value={driveCapacity}
-                                        onChange={onInputChange}
-                                    >
-                                        <option value="">
-                                            Choose Drive Capacity
-                                        </option>
-                                        {comboData?.driveCapacities.map(
-                                            (data, index) => (
-                                                <option
-                                                    key={index}
-                                                    value={data}
-                                                >
-                                                    {data}
-                                                </option>
-                                            ),
-                                        )}
-                                    </select>
-                                </div>
-                            </div>
+                            <FormField
+                                label={labels.driveCapacity.label}
+                                fieldType={labels.driveCapacity.fieldType}
+                                id={labels.driveCapacity.id}
+                                name={labels.driveCapacity.id}
+                                value={driveCapacity}
+                                options={comboData?.driveCapacities}
+                                onChange={onInputChange}
+                            />
 
-                            <div className="row mb-3">
-                                <label
-                                    htmlFor="driveType"
-                                    className="col-sm-2 col-form-label"
-                                >
-                                    Drive Type
-                                </label>
-                                <div className="col-sm-10">
-                                    <select
-                                        className="form-select col-sm-10"
-                                        id="driveType"
-                                        name="driveType"
-                                        value={driveType}
-                                        onChange={onInputChange}
-                                    >
-                                        <option value="">
-                                            Choose Drive Type
-                                        </option>
-                                        {comboData?.driveTypes.map(
-                                            (data, index) => (
-                                                <option
-                                                    key={index}
-                                                    value={data}
-                                                >
-                                                    {data}
-                                                </option>
-                                            ),
-                                        )}
-                                    </select>
-                                </div>
-                            </div>
+                            <FormField
+                                label={labels.driveType.label}
+                                fieldType={labels.driveType.fieldType}
+                                id={labels.driveType.id}
+                                name={labels.driveType.id}
+                                value={driveType}
+                                options={comboData?.driveTypes}
+                                onChange={onInputChange}
+                            />
 
-                            <div className="row mb-3">
-                                <label
-                                    htmlFor="operatingSystem"
-                                    className="col-sm-2 col-form-label"
-                                >
-                                    Operating System
-                                </label>
-                                <div className="col-sm-10">
-                                    <select
-                                        className="form-select col-sm-10"
-                                        id="operatingSystem"
-                                        name="operatingSystem"
-                                        value={operatingSystem.id}
-                                        onChange={onInputChange}
-                                    >
-                                        <option value="">
-                                            Choose Operating System
-                                        </option>
-                                        {comboData?.operatingSystems.map(
-                                            (data, index) => (
-                                                <option
-                                                    key={index}
-                                                    value={data.id}
-                                                >
-                                                    {data.name}
-                                                </option>
-                                            ),
-                                        )}
-                                    </select>
-                                </div>
-                            </div>
+                            <FormField
+                                label={labels.operatingSystem.label}
+                                fieldType={labels.operatingSystem.fieldType}
+                                id={labels.operatingSystem.id}
+                                name={labels.operatingSystem.id}
+                                value={operatingSystem.id}
+                                options={comboData?.operatingSystems}
+                                onChange={onInputChange}
+                            />
 
-                            <div className="row mb-3">
-                                <label
-                                    htmlFor="price"
-                                    className="col-sm-2 col-form-label"
-                                >
-                                    Price
-                                </label>
-                                <div className="col-sm-10">
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        id="price"
-                                        name="price"
-                                        value={price}
-                                        onChange={onInputChange}
-                                        placeholder="test"
-                                    />
-                                </div>
-                            </div>
+                            <FormField
+                                label={labels.price.label}
+                                fieldType={labels.price.fieldType}
+                                id={labels.price.id}
+                                name={labels.price.id}
+                                value={price}
+                                onChange={onInputChange}
+                            />
 
                             <div className="d-flex flex-column align-items-center">
                                 <div>
-                                    {error && (
-                                        <p className="text-danger">{error}</p>
-                                    )}
+                                    <ErrorMessage
+                                        name="error"
+                                        component="p"
+                                        className="text-danger"
+                                    />
                                 </div>
                                 <div className="d-flex justify-content-center">
                                     <button
@@ -344,15 +200,15 @@ export const PCEdit: React.FC = () => {
                                         Save
                                     </button>
                                     <a
-                                        href="/"
+                                        href="/pcs"
                                         className="btn btn-outline-danger mx-2"
                                     >
                                         Cancel
                                     </a>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        </Form>
+                    </Formik>
                 </div>
             </div>
         </div>
