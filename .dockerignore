@@ -1,0 +1,14 @@
+.git/
+.github/
+.husky/
+.vscode/
+.docs/
+.gitignore
+.idea/
+*.iml
+*.iws
+*.ipr
+*.log
+.DS_Store
+Thumbs.db
+react-README.md
