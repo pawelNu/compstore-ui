@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import { MainPage } from "./pages/MainPage/MainPage";
-import { Navbar } from "./layout/Navbar";
+import { NavbarStore } from "./layout/NavbarStore";
 import { Baner } from "./pages/MainPage/components/Baner";
 import { CategoryBar } from "./pages/MainPage/components/CategoryBar";
 import { Footer } from "./layout/Footer";
@@ -20,7 +20,7 @@ export const App = () => {
 
     return (
         <div className="m-2">
-            <Navbar
+            <NavbarStore
                 onUserRoleChange={handleUserRoleChange}
                 userRole={userRole}
             />
@@ -31,18 +31,18 @@ export const App = () => {
                 </div>
             </div>
             <CategoryBar />
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<MainPage />} />
-                    <Route path="/pcs" element={<PCs userRole={userRole} />} />
-                    <Route path="/shopping-cart" element={<ShoppingCart />} />
-                    <Route
-                        path="/add-new-product"
-                        element={<AddNewProductForm />}
-                    />
-                    <Route path="/pc/:id" element={<PCDetails />} />
-                </Routes>
-            </BrowserRouter>
+
+            <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route path="/pcs" element={<PCs userRole={userRole} />} />
+                <Route path="/shopping-cart" element={<ShoppingCart />} />
+                <Route
+                    path="/add-new-product"
+                    element={<AddNewProductForm />}
+                />
+                <Route path="/pc/:id" element={<PCDetails />} />
+            </Routes>
+
             <Footer />
         </div>
     );

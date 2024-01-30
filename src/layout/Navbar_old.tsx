@@ -1,9 +1,8 @@
-import "./../static/styles/Navbar.css";
-
 import { TNavbarProps } from "../types/TNavbarProps";
 import { useState } from "react";
 import { AddNewProductButton } from "../components/buttons/AddNewProductButton";
 import { UserRoleButton } from "../components/buttons/UserRoleButton";
+import { navbarStyles } from "../static/styles/Navbar.js";
 
 export const Navbar: React.FC<TNavbarProps> = ({ onUserRoleChange }) => {
     const [userRole, setUserRole] = useState("Customer");
@@ -14,7 +13,7 @@ export const Navbar: React.FC<TNavbarProps> = ({ onUserRoleChange }) => {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-custom mt-2">
+        <nav className="navbar navbar-expand-lg mt-2" style={navbarStyles}>
             <div className="container px-0">
                 <div className="container-fluid px-0">
                     <button
