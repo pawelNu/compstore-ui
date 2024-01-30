@@ -1,16 +1,26 @@
-import { TNavbarProps } from "../types/TNavbarProps";
 import { useState } from "react";
-import { UserRoleButton } from "../components/buttons/UserRoleButton";
+import { UserRoleButton } from "../../components/buttons/UserRoleButton";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { navbarStyles } from "../static/styles/Navbar";
+import { navbarStyles } from "../../static/styles/Navbar";
 import { navbarElements } from "./navbarConfig";
+import { SideCanvas } from "../sidebar/components/SideCanvas";
+
+type TNavbarProps = {
+    onUserRoleChange: (role: string) => void;
+    userRole: string;
+};
 
 export const NavbarStore: React.FC<TNavbarProps> = ({ onUserRoleChange }) => {
     const [userRole, setUserRole] = useState("Customer");
+    const [showSideCanvas, setShowSideCanvas] = useState(false);
 
     const handleUserRoleChange = (role: string) => {
         setUserRole(role);
         onUserRoleChange(role);
+    };
+
+    const handleAdminPanelClick = () => {
+        setShowSideCanvas(true);
     };
 
     return (
@@ -25,7 +35,11 @@ export const NavbarStore: React.FC<TNavbarProps> = ({ onUserRoleChange }) => {
                             </Nav.Link>
                         ))}
                         {userRole !== "Customer" && (
-                            <Nav.Link active href="/admin-panel">
+                            <Nav.Link
+                                type="button"
+                                active
+                                onClick={handleAdminPanelClick}
+                            >
                                 Admin panel
                             </Nav.Link>
                         )}
@@ -33,6 +47,10 @@ export const NavbarStore: React.FC<TNavbarProps> = ({ onUserRoleChange }) => {
                 </Navbar.Collapse>
                 <UserRoleButton onUserRoleChange={handleUserRoleChange} />
             </Container>
+            <SideCanvas
+                show={showSideCanvas}
+                onClose={() => setShowSideCanvas(false)}
+            />
         </Navbar>
     );
 };

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { MainPage } from "./pages/MainPage/MainPage";
-import { NavbarStore } from "./layout/NavbarStore";
+import { NavbarStore } from "./layout/navbar/NavbarStore";
 import { Baner } from "./pages/MainPage/components/Baner";
 import { CategoryBar } from "./pages/MainPage/components/CategoryBar";
 import { Footer } from "./layout/Footer";
