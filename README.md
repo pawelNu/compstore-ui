@@ -10,9 +10,10 @@ CompStore web store frontend
     -   [Repositories](#repositories)
     -   [Commit prefixes](#commit-prefixes)
     -   [Name conventions](#name-conventions)
-    -   [CSS class](#css-class)
-    -   [Types](#types)
+        -   [CSS class](#css-class)
+        -   [Types](#types)
     -   [Code formatting configuration](#code-formatting-configuration)
+    -   [Useful commands](#useful-commands)
 
 ## Owners
 
@@ -73,3 +74,8 @@ Example: type `PCDetails` name will result in `TPCDetails`.
 In `.husky` directory Git hook `pre-commit` will format project code during commit.
 
 To manually format project: `npm run format`.
+
+## Useful commands
+
+-   Building docker image locally: `docker build -t compstore-ui .`
+-   Running docker image locally: `docker run --name compstore-ui -p 3000:80 compstore-ui`
