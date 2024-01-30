@@ -1,4 +1,5 @@
 import { Offcanvas } from "react-bootstrap";
+import { SidebarStore } from "../SidebarStore";
 
 type TSideCanvasProps = {
     show: boolean;
@@ -10,11 +11,10 @@ export const SideCanvas: React.FC<TSideCanvasProps> = ({ show, onClose }) => {
         <div>
             <Offcanvas show={show} onHide={onClose}>
                 <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+                    <Offcanvas.Title>Admin panel</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    Some text as placeholder. In real life you can have the
-                    elements you have chosen. Like, text, images, lists, etc.
+                    <SidebarStore />
                 </Offcanvas.Body>
             </Offcanvas>
         </div>
