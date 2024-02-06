@@ -1,8 +1,6 @@
-import "./../../../static/styles/Products.css";
 import { PCActionsButton } from "./components/PCActionsButton";
 import { useCallback, useEffect, useState } from "react";
 import { UUID } from "crypto";
-import { FilterPC } from "./FilterPC";
 import {
     changePageHandler,
     deletePcHandler,
@@ -13,6 +11,8 @@ import { TPCsProps, TPCSimple, TPCFilter } from "../../../types/PC/TPC";
 import { AddToCartButton } from "../../../components/buttons/AddToCartButton";
 import { SortingButton } from "../../../components/buttons/SortingButton";
 import { PaginationComponent } from "../../../components/pagination/PaginationComponent";
+import { PCFilter } from "./PCFilter";
+import { productStyles } from "../../../static/styles/Products";
 
 export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pcs, setPCs] = useState<TPCSimple[]>([]);
@@ -40,8 +40,14 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
     const getPCs = useCallback(async () => {
-        await getPcsHandler(filter, setPCs, setPagesCount);
-    }, [filter, setPCs, setPagesCount]);
+        await getPcsHandler(
+            filter,
+            setPCs,
+            setPagesCount,
+            setPageNumber,
+            setPageSize,
+        );
+    }, [filter, setPCs, setPagesCount, setPageNumber, setPageSize]);
 
     const deletePc = async (id: UUID) => {
         await deletePcHandler(id, setPCs);
@@ -85,15 +91,14 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                 </div>
             </div>
             <div className="container d-flex justify-content-between pt-2">
-                <FilterPC setFilter={setFilter} />
-
+                <PCFilter setFilter={setFilter} />
                 <div className="container col-10 p-2">
                     {pcs.map((pc) => (
                         <div key={pc.id} className="mb-2">
                             <div className="card">
                                 <a
-                                    className="products-header-link"
-                                    href={"pc/" + pc.id}
+                                    style={productStyles.headerLink}
+                                    href={"pcs/" + pc.id}
                                 >
                                     <h5 className="card-header">
                                         PC - {pc.processorName} -{" "}
@@ -103,10 +108,13 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                                 </a>
                                 <div className="row g-0">
                                     <div className="col-3">
-                                        <a href={"pc/" + pc.id}>
+                                        <a href={"pcs/" + pc.id}>
                                             <img
                                                 src={imagePlaceholder}
-                                                className="img-fluid rounded-start products-product-image"
+                                                className="img-fluid rounded-start"
+                                                style={
+                                                    productStyles.productImage
+                                                }
                                                 alt="Product"
                                             />
                                         </a>
@@ -128,7 +136,10 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                                         </div>
                                     </div>
                                     <div className="col-3">
-                                        <div className="products-price-tag">
+                                        <div
+                                            style={productStyles.priceTag}
+                                            // style={{textAlign: "left"}}
+                                        >
                                             <div className="card-body">
                                                 <div>$ {pc.price}</div>
                                             </div>

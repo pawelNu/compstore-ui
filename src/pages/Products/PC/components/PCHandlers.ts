@@ -8,14 +8,21 @@ export const getPcsHandler = async (
     filter: TPCFilter,
     setPCs: Dispatch<SetStateAction<TPCSimple[]>>,
     setPagesCount: Dispatch<SetStateAction<number>>,
+    setPageNumber: Dispatch<SetStateAction<number>>,
+    setPageSize: Dispatch<SetStateAction<number>>,
 ) => {
     const url = `${hostName}/pcs/search`;
     try {
         const result = await axios.post(url, filter);
         setPCs(result.data.pcs);
-        const pagingMetadata: { pagesCount: number } =
-            result.data.pagingAndSortingMetadata;
+        const pagingMetadata: {
+            pagesCount: number;
+            pageNumber: number;
+            pageSize: number;
+        } = result.data.pagingAndSortingMetadata;
         setPagesCount(pagingMetadata.pagesCount);
+        setPageNumber(pagingMetadata.pageNumber);
+        setPageSize(pagingMetadata.pageSize);
     } catch (error: any) {
         console.log("file: PCs.tsx  getPCs  error:", error);
     }
@@ -73,20 +80,4 @@ export const sortingHandler = (
     };
 
     setFilter(updatedFilter);
-};
-
-export const RemoveFilterHandler = (
-    filterName: string,
-    setFilter: React.Dispatch<React.SetStateAction<TPCFilter>>,
-) => {
-    setFilter((prevFilter) => {
-        const [filterKey] = filterName.split(":").map((part) => part.trim());
-
-        const updatedFilter: TPCFilter = {
-            ...prevFilter,
-            [filterKey]: [],
-        };
-
-        return updatedFilter;
-    });
 };

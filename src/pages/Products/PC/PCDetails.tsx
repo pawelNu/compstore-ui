@@ -1,33 +1,18 @@
 import { useEffect, useState } from "react";
-import "./../../../static/styles/OneProductDetails.css";
+import "../../../static/styles/OneProductDetails.js";
 import axios from "axios";
 import hostName from "../../../config/config";
 import { useParams } from "react-router-dom";
 import { TPCDetails } from "../../../types/PC/TPC";
 import { AddToCartButton } from "../../../components/buttons/AddToCartButton";
+import { initialPCDetails } from "./components/initialValues";
+import { oneProductStyle } from "../../../static/styles/OneProductDetails.js";
 
 export const PCDetails = () => {
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
-    const [pc, setPc] = useState<TPCDetails>({
-        id: "string-string-string-string-string",
-        processorBrand: {
-            id: "string-string-string-string-string",
-            name: "",
-        },
-        processorName: "",
-        graphicsCardBrand: {
-            id: "string-string-string-string-string",
-            name: "",
-        },
-        graphicsCardName: "",
-        ramCapacity: 0,
-        driveCapacity: 0,
-        driveType: "",
-        operatingSystem: "",
-        price: 0,
-    });
+    const [pc, setPc] = useState<TPCDetails>(initialPCDetails);
 
     const { id } = useParams();
 
@@ -63,17 +48,18 @@ export const PCDetails = () => {
                         <div className="col-md-4">
                             <img
                                 src={imagePlaceholder}
-                                className="img-fluid rounded-start one-product-details-product-image"
+                                className="img-fluid rounded-start"
+                                style={oneProductStyle.productImage}
                                 alt="Product"
                             />
                         </div>
                         <div className="col-md-8">
                             <div className="card">
                                 <div className="card-body d-flex flex-column align-items-center">
-                                    <div className="one-product-details-price-tag">
+                                    <div style={oneProductStyle.priceTag}>
                                         $ {pc.price}
                                     </div>
-                                    <div className="one-product-details-button mt-3">
+                                    <div className="mt-3">
                                         <AddToCartButton />
                                     </div>
                                 </div>
@@ -102,7 +88,7 @@ export const PCDetails = () => {
                                 </p>
                                 <p className="card-text">
                                     <b>Operating system: </b>
-                                    {pc.operatingSystem}
+                                    {pc.operatingSystem.name}
                                 </p>
                             </div>
                         </div>
