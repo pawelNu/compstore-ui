@@ -10,6 +10,7 @@ import { ShoppingCart } from "./pages/ShoppingCart/ShoppingCart";
 import { AddNewProductForm } from "./pages/Products/AddNewProductForm";
 import { PCDetails } from "./pages/Products/PC/PCDetails";
 import { PCs } from "./pages/Products/PC/PCs";
+import { PCEdit } from "./pages/Products/PC/PCEdit";
 
 export const App = () => {
     const [userRole, setUserRole] = useState("Customer");

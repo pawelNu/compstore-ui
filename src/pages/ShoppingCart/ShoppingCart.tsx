@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { productsPC } from "../../data/ProductsPCData";
-import "./../../static/styles/ShoppingCart.css";
 import { DeliveryAddressForm } from "./components/DeliveryAddressForm";
 import { DeliveryMethod } from "./components/DeliveryMethod";
+import { shoppingCartStyles } from "../../static/styles/ShoppingCart";
 
 export const ShoppingCart = () => {
     const selectedIds = [
@@ -50,7 +50,10 @@ export const ShoppingCart = () => {
                                                 </button>
                                                 <div className="col-1 vr mx-2"></div>
                                                 <button
-                                                    className="btn btn-primary btn-text"
+                                                    className="btn btn-primary"
+                                                    style={
+                                                        shoppingCartStyles.btnText
+                                                    }
                                                     onClick={() =>
                                                         handleDecrement(index)
                                                     }
@@ -58,13 +61,19 @@ export const ShoppingCart = () => {
                                                     -
                                                 </button>
                                                 <input
-                                                    className="form-control input-field"
+                                                    className="form-control"
+                                                    style={
+                                                        shoppingCartStyles.inputField
+                                                    }
                                                     type="number"
                                                     value={data.quantity}
                                                     readOnly
                                                 />
                                                 <button
-                                                    className="btn btn-primary btn-text"
+                                                    className="btn btn-primary"
+                                                    style={
+                                                        shoppingCartStyles.btnText
+                                                    }
                                                     onClick={() =>
                                                         handleIncrement(index)
                                                     }
@@ -73,7 +82,9 @@ export const ShoppingCart = () => {
                                                 </button>
                                             </div>
                                         </div>
-                                        <div className="component-information">
+                                        <div
+                                            style={shoppingCartStyles.component}
+                                        >
                                             {data.feature
                                                 .map(
                                                     (feature) =>
@@ -83,10 +94,16 @@ export const ShoppingCart = () => {
                                         </div>
                                     </li>
                                     <div>
-                                        <div className="quantity-and-price">
+                                        <div
+                                            style={
+                                                shoppingCartStyles.quantityAndPrice
+                                            }
+                                        >
                                             {data.quantity} x $ {data.price}
                                         </div>
-                                        <div className="price-tag">
+                                        <div
+                                            style={shoppingCartStyles.priceTag}
+                                        >
                                             $ {data.price * data.quantity}
                                         </div>
                                     </div>
@@ -95,7 +112,10 @@ export const ShoppingCart = () => {
                         </div>
                     ))}
                     <div className="card mb-2">
-                        <div className="card-body price-tag">
+                        <div
+                            className="card-body"
+                            style={shoppingCartStyles.priceTag}
+                        >
                             <div>Total: $ {totalPrice}</div>
                         </div>
                     </div>

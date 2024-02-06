@@ -1,4 +1,5 @@
-import "./../../../static/styles/CategoryBar.css";
+import "../../../static/styles/CategoryBar.js";
+import { categoryBarStyles } from "../../../static/styles/CategoryBar.js";
 
 export const CategoryBar = () => {
     const categories: { name: string; link: string }[] = [
@@ -9,7 +10,7 @@ export const CategoryBar = () => {
     ];
 
     return (
-        <nav className="navbar navbar-expand-lg category-bar mt-2">
+        <nav className="navbar navbar-expand-lg mt-2" style={categoryBarStyles}>
             <div className="container px-0">
                 <div className="container-fluid px-0">
                     <button

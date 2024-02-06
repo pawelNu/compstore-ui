@@ -31,8 +31,8 @@ export const PCActionsButton = ({
             </button>
             <ul className="dropdown-menu">
                 <li>
-                    <a className="dropdown-item" href="/">
-                        Update
+                    <a className="dropdown-item" href={`/pc-edit/${id}`}>
+                        Edit
                     </a>
                 </li>
                 <li>

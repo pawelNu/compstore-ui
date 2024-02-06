@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NewLaptop } from "./Laptop/NewLaptop";
-import { NewPC } from "./PC/NewPC";
+import { PCNew } from "./PC/PCNew";
 import { NewSmartphone } from "./Smartphone/NewSmartphone";
 import { NewTV } from "./TV/NewTV";
 
@@ -14,7 +14,7 @@ export const AddNewProductForm = () => {
     const renderProductForm = () => {
         switch (selectedCategory) {
             case "pc":
-                return <NewPC />;
+                return <PCNew />;
             case "laptop":
                 return <NewLaptop />;
             case "smartphone":

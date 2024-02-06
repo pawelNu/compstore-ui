@@ -10,7 +10,6 @@ CompStore web store frontend
     -   [Repositories](#repositories)
     -   [Commit prefixes](#commit-prefixes)
     -   [Name conventions](#name-conventions)
-        -   [CSS class](#css-class)
         -   [Types](#types)
     -   [Code formatting configuration](#code-formatting-configuration)
     -   [Useful commands](#useful-commands)
@@ -52,15 +51,6 @@ Backend: https://github.com/grz55/compstore-api
 -   chore(task_no): Regular code maintenance. [ You can also use emojis to represent commit types]
 
 ## Name conventions
-
-### CSS class
-
--   lowercase letters separated by dashes
--   css file name + class name
-
-Example:
-
-`Products.css` and CSS class `price-tag` will result in `products-price-tag`.
 
 ### Types
 

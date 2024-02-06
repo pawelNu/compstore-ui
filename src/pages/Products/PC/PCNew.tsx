@@ -2,19 +2,19 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import hostName from "../../../config/config";
-import { TAddNewPC, TPCComboData } from "../../../types/PC/TPC";
+import { TPCComboData, TPCNew } from "../../../types/PC/TPC";
 
-export const NewPC: React.FC = () => {
+export const PCNew: React.FC = () => {
     let navigate = useNavigate();
 
     const [comboData, setComboData] = useState<TPCComboData>();
-    const [pc, setPc] = useState<TAddNewPC>({
+    const [pc, setPc] = useState<TPCNew>({
         processorBrand: "string-string-string-string-string",
         processorName: "",
         graphicsCardBrand: "string-string-string-string-string",
         graphicsCardName: "",
-        ramGBCapacity: 0,
-        driveGBCapacity: 0,
+        ramCapacity: "",
+        driveCapacity: "",
         driveType: "",
         operatingSystem: "string-string-string-string-string",
         price: 0,
@@ -27,8 +27,8 @@ export const NewPC: React.FC = () => {
         processorName,
         graphicsCardBrand,
         graphicsCardName,
-        ramGBCapacity,
-        driveGBCapacity,
+        ramCapacity,
+        driveCapacity,
         driveType,
         operatingSystem,
         price,
@@ -44,11 +44,9 @@ export const NewPC: React.FC = () => {
         } catch (error: any) {
             console.log("file: NewPC.tsx  onSubmit  error:", error);
             if (error.response && error.response.data) {
-                setError(error.response.data.toString());
+                setError(error.response.data.message.toString());
             } else {
-                setError(
-                    "file: NewPC.tsx -> An error occurred while creating the new PC!",
-                );
+                setError("An error occurred while crating the new PC!");
             }
         }
     };
@@ -64,7 +62,7 @@ export const NewPC: React.FC = () => {
             const result = await axios.get(`${hostName}/pcs/combo-data`);
             setComboData(result.data);
         } catch (e) {
-            console.log("file: NewPC.tsx  getComboData  e:", e);
+            console.log("file: NewPC.tsx:  getComboData  e:", e);
         }
     };
 
@@ -97,7 +95,6 @@ export const NewPC: React.FC = () => {
                                 </option>
                             ))}
                         </select>
-                        {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
 
@@ -118,7 +115,6 @@ export const NewPC: React.FC = () => {
                             onChange={onInputChange}
                             placeholder="test"
                         />
-                        {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
 
@@ -146,7 +142,6 @@ export const NewPC: React.FC = () => {
                                 ),
                             )}
                         </select>
-                        {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
 
@@ -167,49 +162,56 @@ export const NewPC: React.FC = () => {
                             onChange={onInputChange}
                             placeholder="test"
                         />
-                        {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
 
                 <div className="row mb-3">
                     <label
-                        htmlFor="ramGBCapacity"
+                        htmlFor="ramCapacity"
                         className="col-sm-2 col-form-label"
                     >
                         RAM GB Capacity
                     </label>
                     <div className="col-sm-10">
-                        <input
-                            type="number"
-                            className="form-control"
-                            id="ramGBCapacity"
-                            name="ramGBCapacity"
-                            value={ramGBCapacity}
+                        <select
+                            className="form-select col-sm-10"
+                            id="ramCapacity"
+                            name="ramCapacity"
+                            value={ramCapacity}
                             onChange={onInputChange}
-                            placeholder="test"
-                        />
-                        {error && <p className="text-danger">{error}</p>}
+                        >
+                            <option value="">Choose RAM Capacity</option>
+                            {comboData?.ramCapacities.map((data, index) => (
+                                <option key={index} value={data}>
+                                    {data}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                 </div>
 
                 <div className="row mb-3">
                     <label
-                        htmlFor="driveGBCapacity"
+                        htmlFor="driveCapacity"
                         className="col-sm-2 col-form-label"
                     >
                         Drive GB Capacity
                     </label>
                     <div className="col-sm-10">
-                        <input
-                            type="number"
-                            className="form-control"
-                            id="driveGBCapacity"
-                            name="driveGBCapacity"
-                            value={driveGBCapacity}
+                        <select
+                            className="form-select col-sm-10"
+                            id="driveCapacity"
+                            name="driveCapacity"
+                            value={driveCapacity}
                             onChange={onInputChange}
-                            placeholder="test"
-                        />
-                        {error && <p className="text-danger">{error}</p>}
+                        >
+                            <option value="">Choose Drive Capacity</option>
+                            {comboData?.driveCapacities.map((data, index) => (
+                                <option key={index} value={data}>
+                                    {data}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                 </div>
 
@@ -235,7 +237,6 @@ export const NewPC: React.FC = () => {
                                 </option>
                             ))}
                         </select>
-                        {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
 
@@ -261,7 +262,6 @@ export const NewPC: React.FC = () => {
                                 </option>
                             ))}
                         </select>
-                        {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
 
@@ -279,17 +279,21 @@ export const NewPC: React.FC = () => {
                             onChange={onInputChange}
                             placeholder="test"
                         />
-                        {error && <p className="text-danger">{error}</p>}
                     </div>
                 </div>
-
-                <div className="d-flex justify-content-center">
-                    <button type="submit" className="btn btn-outline-primary">
-                        Add product
-                    </button>
-                    <a href="/" className="btn btn-outline-danger mx-2">
-                        Cancel
-                    </a>
+                <div className="d-flex flex-column align-items-center">
+                    <div>{error && <p className="text-danger">{error}</p>}</div>
+                    <div className="d-flex justify-content-center">
+                        <button
+                            type="submit"
+                            className="btn btn-outline-primary"
+                        >
+                            Add product
+                        </button>
+                        <a href="/" className="btn btn-outline-danger mx-2">
+                            Cancel
+                        </a>
+                    </div>
                 </div>
             </form>
         </>

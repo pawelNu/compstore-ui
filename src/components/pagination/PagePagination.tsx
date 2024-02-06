@@ -1,5 +1,5 @@
 import { Dropdown, Pagination } from "react-bootstrap";
-import { PagePaginationStyles } from "../../static/styles/PagePagination";
+import { pagePaginationStyles } from "../../static/styles/PagePagination";
 
 export type TPagePagination = {
     pagesCount: number;
@@ -15,7 +15,7 @@ export const PagePagination: React.FC<TPagePagination> = ({
     onChangePage,
 }) => {
     return (
-        <Pagination style={PagePaginationStyles.pagination}>
+        <Pagination style={pagePaginationStyles.pagination}>
             <Pagination.First
                 key="first"
                 className={pageNumber > 0 ? "" : "disabled"}
@@ -28,16 +28,16 @@ export const PagePagination: React.FC<TPagePagination> = ({
                 onClick={() => onChangePage(pageNumber - 1, pageSize)}
             />
 
-            <Dropdown style={PagePaginationStyles.dropMargin}>
+            <Dropdown style={pagePaginationStyles.dropMargin}>
                 <Dropdown.Toggle
                     variant="outline-primary"
                     id="page-size"
-                    style={PagePaginationStyles.dropQuadrature}
+                    style={pagePaginationStyles.dropQuadrature}
                 >
                     Page: {pageNumber + 1}
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu style={PagePaginationStyles.limitDropdown}>
+                <Dropdown.Menu style={pagePaginationStyles.limitDropdown}>
                     {Array.from({ length: pagesCount }, (_, i) => i + 1).map(
                         (page) => (
                             <Dropdown.Item
