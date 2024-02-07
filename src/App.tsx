@@ -11,6 +11,9 @@ import { AddNewProductForm } from "./pages/Products/AddNewProductForm";
 import { PCDetails } from "./pages/Products/PC/PCDetails";
 import { PCs } from "./pages/Products/PC/PCs";
 import { PCEdit } from "./pages/Products/PC/PCEdit";
+import { ProcessorBrands } from "./pages/ComboData/ProcessorBrands";
+import { ProcessorBrandsEdit } from "./pages/ComboData/ProcessorBrandsEdit";
+import { links } from "./config/links";
 
 export const App = () => {
     const [userRole, setUserRole] = useState("Customer");
@@ -34,16 +37,18 @@ export const App = () => {
             <CategoryBar />
 
             <Routes>
-                <Route path="/" element={<MainPage />} />
-                <Route path="/pcs" element={<PCs userRole={userRole} />} />
-                <Route path="/shopping-cart" element={<ShoppingCart />} />
+                <Route path={links.mainPage} element={<MainPage />} />
+                <Route path={links.pcs} element={<PCs userRole={userRole} />} />
+                <Route path={`${links.pcDetails}:id`} element={<PCDetails />} />
+                <Route path={`${links.pcEdit}:id`} element={<PCEdit />} />
+                <Route path={links.shoppingCart} element={<ShoppingCart />} />
                 <Route
-                    path="/add-new-product"
+                    path={links.addNewProduct}
                     element={<AddNewProductForm />}
                 />
-                <Route path="/pc/:id" element={<PCDetails />} />
+                <Route path={links.processorBrands} element={<ProcessorBrands />} />
+                <Route path={`${links.processorBrandsEdit}:id`} element={<ProcessorBrandsEdit />} />
             </Routes>
-
             <Footer />
         </div>
     );
