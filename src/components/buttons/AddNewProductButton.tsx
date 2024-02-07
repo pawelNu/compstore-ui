@@ -1,9 +1,11 @@
+import { links } from "../../config/links";
+
 export const AddNewProductButton = () => {
     return (
         <div className="me-2">
             <a
                 className="btn btn-outline-secondary"
-                href="/add-new-product"
+                href={links.addNewProduct}
                 role="button"
             >
                 Add new product

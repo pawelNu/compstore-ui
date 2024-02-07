@@ -14,6 +14,7 @@ import { TPCComboData, TPCPageRequest } from "../../../types/PC/TPC";
 import { FilterButton } from "../../../components/buttons/FilterButton";
 import { Button } from "react-bootstrap";
 import { initialValuesFilter } from "./components/initialValues";
+import { endpoints, links } from "../../../config/links";
 
 type TPCFilterProps = {
     setFilter: (filterValues: any) => void;
@@ -30,7 +31,7 @@ export const PCFilter: React.FC<TPCFilterProps> = ({ setFilter }) => {
 
     const getComboData = useCallback(async () => {
         try {
-            const result = await axios.get(`${hostName}/pcs/combo-data`);
+            const result = await axios.get(endpoints.pcs.comboData);
             const comboData: TPCComboData = result.data;
             setComboData(comboData);
         } catch (e) {
@@ -109,7 +110,10 @@ export const PCFilter: React.FC<TPCFilterProps> = ({ setFilter }) => {
                                 <FilterButton />
                             </FilterButtonSection>
                             <FilterButtonSection>
-                                <Button href="/pcs" variant="outline-danger">
+                                <Button
+                                    href={links.pcs}
+                                    variant="outline-danger"
+                                >
                                     Clear filters
                                 </Button>
                             </FilterButtonSection>

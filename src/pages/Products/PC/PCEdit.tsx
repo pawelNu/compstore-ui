@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import hostName from "../../../config/config";
 import { TPCComboData, TPCDetails, TPCUpdated } from "../../../types/PC/TPC";
 import { initialPCDetails } from "./components/initialValues";
+import { endpoints, links } from "../../../config/links";
 
 export const PCEdit: React.FC = () => {
     let navigate = useNavigate();
@@ -41,7 +42,7 @@ export const PCEdit: React.FC = () => {
 
     const getPc = async (id: string | undefined) => {
         try {
-            const result = await axios.get(`${hostName}/pcs/${id}`);
+            const result = await axios.get(endpoints.pcs.byId + id);
             setPc(result.data);
         } catch (e) {
             console.log("file: PCEdit.tsx:  getPc  error:", e);
@@ -51,8 +52,8 @@ export const PCEdit: React.FC = () => {
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         try {
             e.preventDefault();
-            await axios.put(`${hostName}/pcs/${id}`, updatedPc);
-            navigate("/pcs");
+            await axios.put(endpoints.pcs.byId + id, updatedPc);
+            navigate(links.pcs);
         } catch (e: any) {
             if (e.response && e.response.data) {
                 setError(e.response.data.message.toString());
@@ -81,7 +82,7 @@ export const PCEdit: React.FC = () => {
 
     const getComboData = async () => {
         try {
-            const result = await axios.get(`${hostName}/pcs/combo-data`);
+            const result = await axios.get(endpoints.pcs.comboData);
             setComboData(result.data);
         } catch (e) {
             console.log("file: EditPC.tsx:  getComboData  e:", e);
@@ -366,7 +367,7 @@ export const PCEdit: React.FC = () => {
                                         Save
                                     </button>
                                     <a
-                                        href="/"
+                                        href={links.mainPage}
                                         className="btn btn-outline-danger mx-2"
                                     >
                                         Cancel

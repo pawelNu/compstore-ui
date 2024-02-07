@@ -3,6 +3,7 @@ import { productsPC } from "../../data/ProductsPCData";
 import { DeliveryAddressForm } from "./components/DeliveryAddressForm";
 import { DeliveryMethod } from "./components/DeliveryMethod";
 import { shoppingCartStyles } from "../../static/styles/ShoppingCart";
+import { links } from "../../config/links";
 
 export const ShoppingCart = () => {
     const selectedIds = [
@@ -125,7 +126,7 @@ export const ShoppingCart = () => {
                 <div className="d-flex justify-content-center mb-3">
                     <a
                         className="btn btn-outline-danger"
-                        href="/pcs"
+                        href={links.pcs}
                         role="button"
                     >
                         Back to shopping

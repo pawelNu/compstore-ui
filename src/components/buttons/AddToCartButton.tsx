@@ -1,7 +1,9 @@
+import { links } from "../../config/links";
+
 export const AddToCartButton = () => {
     return (
         <div className="ms-3">
-            <a href="/" className="btn btn-primary">
+            <a href={links.mainPage} className="btn btn-primary">
                 Add to cart
                 <svg
                     className="ms-2"

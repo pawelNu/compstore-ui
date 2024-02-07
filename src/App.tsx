@@ -46,8 +46,14 @@ export const App = () => {
                     path={links.addNewProduct}
                     element={<AddNewProductForm />}
                 />
-                <Route path={links.processorBrands} element={<ProcessorBrands />} />
-                <Route path={`${links.processorBrandsEdit}:id`} element={<ProcessorBrandsEdit />} />
+                <Route
+                    path={links.processorBrands}
+                    element={<ProcessorBrands />}
+                />
+                <Route
+                    path={`${links.processorBrandsEdit}:id`}
+                    element={<ProcessorBrandsEdit />}
+                />
             </Routes>
             <Footer />
         </div>

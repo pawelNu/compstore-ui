@@ -1,3 +1,4 @@
+import { links } from "../../../config/links";
 import { mainPageDataContent } from "../../../data/MainPageDataContent";
 
 export const MainPageContentExample = () => {
@@ -13,7 +14,10 @@ export const MainPageContentExample = () => {
                             <div className="card-body">
                                 <h5 className="card-title">{data.cartTitle}</h5>
                                 <p className="card-text">{data.cartContent}</p>
-                                <a href="/" className="btn btn-primary">
+                                <a
+                                    href={links.mainPage}
+                                    className="btn btn-primary"
+                                >
                                     {data.buttonName}
                                 </a>
                             </div>

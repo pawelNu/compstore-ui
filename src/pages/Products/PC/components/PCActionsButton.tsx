@@ -1,6 +1,7 @@
 import { UUID } from "crypto";
 import { useState } from "react";
 import { ConfirmDeleteModal } from "../../../../components/modals/ConfirmDeleteModal";
+import { links } from "../../../../config/links";
 
 export const PCActionsButton = ({
     deletePc,
@@ -31,7 +32,7 @@ export const PCActionsButton = ({
             </button>
             <ul className="dropdown-menu">
                 <li>
-                    <a className="dropdown-item" href={`/pc-edit/${id}`}>
+                    <a className="dropdown-item" href={links.pcEdit + id}>
                         Edit
                     </a>
                 </li>

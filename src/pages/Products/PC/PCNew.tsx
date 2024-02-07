@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import hostName from "../../../config/config";
 import { TPCComboData, TPCNew } from "../../../types/PC/TPC";
+import { endpoints, links } from "../../../config/links";
 
 export const PCNew: React.FC = () => {
     let navigate = useNavigate();
@@ -38,8 +39,8 @@ export const PCNew: React.FC = () => {
         e.preventDefault();
 
         try {
-            await axios.post(`${hostName}/pcs`, pc);
-            navigate("/pcs");
+            await axios.post(endpoints.pcs.getAll, pc);
+            navigate(links.pcs);
             console.log("file: NewPC.tsx  onSubmit  pc:", pc);
         } catch (error: any) {
             console.log("file: NewPC.tsx  onSubmit  error:", error);
@@ -59,7 +60,7 @@ export const PCNew: React.FC = () => {
 
     const getComboData = async () => {
         try {
-            const result = await axios.get(`${hostName}/pcs/combo-data`);
+            const result = await axios.get(endpoints.pcs.comboData);
             setComboData(result.data);
         } catch (e) {
             console.log("file: NewPC.tsx:  getComboData  e:", e);
@@ -290,7 +291,10 @@ export const PCNew: React.FC = () => {
                         >
                             Add product
                         </button>
-                        <a href="/" className="btn btn-outline-danger mx-2">
+                        <a
+                            href={links.mainPage}
+                            className="btn btn-outline-danger mx-2"
+                        >
                             Cancel
                         </a>
                     </div>

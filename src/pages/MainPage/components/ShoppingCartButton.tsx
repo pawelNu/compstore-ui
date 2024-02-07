@@ -1,7 +1,9 @@
+import { links } from "../../../config/links";
+
 export const ShoppingCartButton = () => {
     return (
         <div className="d-flex align-items-center justify-content-center pe-2">
-            <a href="/shopping-cart" className="btn btn-primary btn-lg">
+            <a href={links.shoppingCart} className="btn btn-primary btn-lg">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

@@ -3,6 +3,7 @@ import hostName from "../../../../config/config";
 import axios from "axios";
 import { Dispatch, SetStateAction } from "react";
 import { TPCFilter, TPCSimple } from "../../../../types/PC/TPC";
+import { endpoints } from "../../../../config/links";
 
 export const getPcsHandler = async (
     filter: TPCFilter,
@@ -11,9 +12,8 @@ export const getPcsHandler = async (
     setPageNumber: Dispatch<SetStateAction<number>>,
     setPageSize: Dispatch<SetStateAction<number>>,
 ) => {
-    const url = `${hostName}/pcs/search`;
     try {
-        const result = await axios.post(url, filter);
+        const result = await axios.post(endpoints.pcs.getAll, filter);
         setPCs(result.data.pcs);
         const pagingMetadata: {
             pagesCount: number;
@@ -33,7 +33,7 @@ export const deletePcHandler = async (
     setPCs: React.Dispatch<React.SetStateAction<TPCSimple[]>>,
 ) => {
     try {
-        await axios.delete(`${hostName}/pcs/${id}`);
+        await axios.delete(endpoints.pcs.byId + id);
         setPCs((prevPcs) => prevPcs.filter((pc) => pc.id !== id));
     } catch (e) {
         console.log("Error deleting pc -> file: PCs.tsx  deletePc  e:", e);

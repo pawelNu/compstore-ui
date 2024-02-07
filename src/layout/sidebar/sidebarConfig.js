@@ -15,14 +15,6 @@ export const sidebarElements = [
                 name: "Show processor brands",
                 link: "/processor-brands",
             },
-            {
-                name: "Add new processor brand",
-                link: "/add-new-processor-brand",
-            },
-            {
-                name: "Edit processor brand",
-                link: "/edit-processor-brand",
-            },
         ],
     },
 ];
