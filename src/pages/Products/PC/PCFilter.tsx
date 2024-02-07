@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState, useCallback, useEffect } from "react";
 import hostName from "../../../config/config";
 import { CheckboxName } from "./components/CheckboxName";
-import { FilterPCStyles } from "../../../static/styles/FilterPC";
+import { filterPCStyles } from "../../../static/styles/FilterPC";
 import { InputField } from "./components/InputField";
 import { FilterSection } from "./components/FilterSection";
 import { FilterButtonSection } from "./components/FilterButtonSection";
@@ -13,29 +13,16 @@ import { FilterCard } from "./components/FilterCard";
 import { TPCComboData, TPCPageRequest } from "../../../types/PC/TPC";
 import { FilterButton } from "../../../components/buttons/FilterButton";
 import { Button } from "react-bootstrap";
+import { initialValuesFilter } from "./components/initialValues";
 
 type TPCFilterProps = {
     setFilter: (filterValues: any) => void;
 };
 
-export const FilterPC: React.FC<TPCFilterProps> = ({ setFilter }) => {
+export const PCFilter: React.FC<TPCFilterProps> = ({ setFilter }) => {
     const [comboData, setComboData] = useState<TPCComboData | null>(null);
 
-    const initValues: TPCPageRequest = {
-        processorBrands: [],
-        graphicsCardBrands: [],
-        ramCapacities: [],
-        driveCapacities: [],
-        driveTypes: [],
-        operatingSystems: [],
-        priceFrom: "",
-        priceTo: "",
-        pagingAndSortingRequest: {
-            pageNumber: 0,
-            pageSize: 10,
-            ascendingFlag: null,
-        },
-    };
+    const initValues: TPCPageRequest = initialValuesFilter;
 
     const onSubmit = async (values: TPCPageRequest) => {
         setFilter(values);
@@ -57,7 +44,7 @@ export const FilterPC: React.FC<TPCFilterProps> = ({ setFilter }) => {
 
     return (
         <>
-            <FilterCard style={FilterPCStyles.card}>
+            <FilterCard style={filterPCStyles.card}>
                 <Formik initialValues={initValues} onSubmit={onSubmit}>
                     <Form>
                         <FilterGroup title="Filters:">
