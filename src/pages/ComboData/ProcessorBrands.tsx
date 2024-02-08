@@ -5,6 +5,8 @@ import { ActionsButton } from "../../components/buttons/ActionsButton";
 import { endpoints, links } from "../../config/links";
 import { UUID } from "crypto";
 import axios from "axios";
+import { Card, Table } from "react-bootstrap";
+import { AddNewButton } from "./components/AddNewButton";
 
 export const ProcessorBrands = () => {
     const [processorBrands, setProcessorBrands] = useState<TProcessorBrands[]>(
@@ -36,10 +38,11 @@ export const ProcessorBrands = () => {
 
     return (
         <div className="container my-2 px-2">
-            <div className="card">
-                <h5 className="card-header">Processor Brands</h5>
-                <div className="card-body">
-                    <table className="table table-bordered table-hover table-sm border">
+            <Card>
+                <Card.Header as="h5">Processor Brands</Card.Header>
+                <Card.Body>
+                    <AddNewButton className="mb-3" />
+                    <Table bordered hover responsive="sm">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -65,9 +68,9 @@ export const ProcessorBrands = () => {
                                 </tr>
                             ))}
                         </tbody>
-                    </table>
-                </div>
-            </div>
+                    </Table>
+                </Card.Body>
+            </Card>
         </div>
     );
 };

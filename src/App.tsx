@@ -14,6 +14,7 @@ import { PCEdit } from "./pages/Products/PC/PCEdit";
 import { ProcessorBrands } from "./pages/ComboData/ProcessorBrands";
 import { ProcessorBrandsEdit } from "./pages/ComboData/ProcessorBrandsEdit";
 import { links } from "./config/links";
+import { ProcessorBrandNew } from "./pages/ComboData/ProcessorBrandNew";
 
 export const App = () => {
     const [userRole, setUserRole] = useState("Customer");
@@ -53,6 +54,10 @@ export const App = () => {
                 <Route
                     path={`${links.processorBrandsEdit}:id`}
                     element={<ProcessorBrandsEdit />}
+                />
+                <Route
+                    path={links.processorBrandsNew}
+                    element={<ProcessorBrandNew />}
                 />
             </Routes>
             <Footer />

@@ -9,6 +9,7 @@ export const links = {
     addNewProduct: "/add-new-product",
     processorBrands: "/processor-brands",
     processorBrandsEdit: "/processor-brands/edit/",
+    processorBrandsNew: "/processor-brands/new",
 };
 
 export const endpoints = {

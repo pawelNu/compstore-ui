@@ -1,10 +1,16 @@
+import { Button } from "react-bootstrap";
 import { links } from "../../../config/links";
 
 export const ShoppingCartButton = () => {
     return (
         <div className="d-flex align-items-center justify-content-center pe-2">
-            <a href={links.shoppingCart} className="btn btn-primary btn-lg">
+            <Button
+                href={links.shoppingCart}
+                className="btn btn-primary btn-lg d-inline-flex align-items-center"
+            >
+                Cart
                 <svg
+                    className="ms-2"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -15,7 +21,7 @@ export const ShoppingCartButton = () => {
                         fill="white"
                     />
                 </svg>
-            </a>
+            </Button>
         </div>
     );
 };

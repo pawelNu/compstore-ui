@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import hostName from "../../../config/config";
 import { TPCComboData, TPCNew } from "../../../types/PC/TPC";
 import { endpoints, links } from "../../../config/links";
 
@@ -39,7 +38,7 @@ export const PCNew: React.FC = () => {
         e.preventDefault();
 
         try {
-            await axios.post(endpoints.pcs.getAll, pc);
+            await axios.post(endpoints.pcs.addNew, pc);
             navigate(links.pcs);
             console.log("file: NewPC.tsx  onSubmit  pc:", pc);
         } catch (error: any) {
