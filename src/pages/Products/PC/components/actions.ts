@@ -1,5 +1,3 @@
-import { UUID } from "crypto";
-import hostName from "../../../../config/config";
 import axios from "axios";
 import { Dispatch, SetStateAction } from "react";
 import { TPCFilter, TPCSimple } from "../../../../types/PC/TPC";
@@ -25,18 +23,6 @@ export const getPcsHandler = async (
         setPageSize(pagingMetadata.pageSize);
     } catch (error: any) {
         console.log("file: PCs.tsx  getPCs  error:", error);
-    }
-};
-
-export const deletePcHandler = async (
-    id: UUID,
-    setPCs: React.Dispatch<React.SetStateAction<TPCSimple[]>>,
-) => {
-    try {
-        await axios.delete(endpoints.pcs.byId + id);
-        setPCs((prevPcs) => prevPcs.filter((pc) => pc.id !== id));
-    } catch (e) {
-        console.log("Error deleting pc -> file: PCs.tsx  deletePc  e:", e);
     }
 };
 
