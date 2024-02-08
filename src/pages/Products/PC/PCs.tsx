@@ -1,9 +1,7 @@
-import { PCActionsButton } from "./components/PCActionsButton";
 import { useCallback, useEffect, useState } from "react";
 import { UUID } from "crypto";
 import {
     changePageHandler,
-    deletePcHandler,
     getPcsHandler,
     sortingHandler,
 } from "./components/actions";
@@ -13,7 +11,9 @@ import { SortingButton } from "../../../components/buttons/SortingButton";
 import { PaginationComponent } from "../../../components/pagination/PaginationComponent";
 import { PCFilter } from "./PCFilter";
 import { productStyles } from "../../../static/styles/Products";
-import { links } from "../../../config/links";
+import { endpoints, links } from "../../../config/links";
+import { ActionsButton } from "../../../components/buttons/ActionsButton";
+import axios from "axios";
 
 export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pcs, setPCs] = useState<TPCSimple[]>([]);
@@ -50,8 +50,17 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
         );
     }, [filter, setPCs, setPagesCount, setPageNumber, setPageSize]);
 
-    const deletePc = async (id: UUID) => {
-        await deletePcHandler(id, setPCs);
+    const deletePc = async (
+        id: UUID,
+    ): Promise<{ success: boolean; error?: string }> => {
+        try {
+            await axios.delete(endpoints.pcs.byId + id);
+            setPCs((prevPcs) => prevPcs.filter((pc) => pc.id !== id));
+            return { success: true };
+        } catch (e: any) {
+            console.log("file: PCs.tsx   e:", e);
+            return { success: false, error: e.response.data.message };
+        }
     };
 
     useEffect(() => {
@@ -143,9 +152,10 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                                             </div>
                                             <AddToCartButton />
                                             {userRole !== "Customer" && (
-                                                <PCActionsButton
-                                                    deletePc={deletePc}
+                                                <ActionsButton
                                                     id={pc.id}
+                                                    editLink={links.pcEdit}
+                                                    deleteItem={deletePc}
                                                 />
                                             )}
                                         </div>
