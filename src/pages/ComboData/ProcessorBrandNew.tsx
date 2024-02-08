@@ -3,21 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { endpoints, links } from "../../config/links";
 import axios from "axios";
 import { Card } from "react-bootstrap";
-
-type TProcessorBrand = {
-    name: string;
-    processorBrandDeviceType: string;
-};
-
-type TComboData = {
-    processorBrandDeviceTypes: string[];
-};
+import {
+    TPBComboData,
+    TProcessorBrandNew,
+} from "../../types/ComboData/TProcessorBrands";
 
 export const ProcessorBrandNew = () => {
     let navigate = useNavigate();
 
-    const [comboData, setComboData] = useState<TComboData>();
-    const [brand, setBrand] = useState<TProcessorBrand>({
+    const [comboData, setComboData] = useState<TPBComboData>();
+    const [brand, setBrand] = useState<TProcessorBrandNew>({
         name: "",
         processorBrandDeviceType: "",
     });
@@ -72,8 +67,7 @@ export const ProcessorBrandNew = () => {
                             <div className="row mb-3">
                                 <label
                                     htmlFor="name"
-                                    className="col-sm-2 col-form-label"
-                                >
+                                    className="col-sm-2 col-form-label">
                                     Processor Brand Name
                                 </label>
                                 <div className="col-sm-10">
@@ -92,8 +86,7 @@ export const ProcessorBrandNew = () => {
                             <div className="row mb-3">
                                 <label
                                     htmlFor="processorBrandDeviceType"
-                                    className="col-sm-2 col-form-label"
-                                >
+                                    className="col-sm-2 col-form-label">
                                     Processor Brand Device Type
                                 </label>
                                 <div className="col-sm-10">
@@ -102,8 +95,7 @@ export const ProcessorBrandNew = () => {
                                         id="processorBrandDeviceType"
                                         name="processorBrandDeviceType"
                                         value={processorBrandDeviceType}
-                                        onChange={onInputChange}
-                                    >
+                                        onChange={onInputChange}>
                                         <option value="">
                                             Choose Brand Device Type
                                         </option>
@@ -111,8 +103,7 @@ export const ProcessorBrandNew = () => {
                                             (data, index) => (
                                                 <option
                                                     key={index}
-                                                    value={data}
-                                                >
+                                                    value={data}>
                                                     {data}
                                                 </option>
                                             ),
@@ -130,14 +121,12 @@ export const ProcessorBrandNew = () => {
                                 <div className="d-flex justify-content-center">
                                     <button
                                         type="submit"
-                                        className="btn btn-outline-primary"
-                                    >
+                                        className="btn btn-outline-primary">
                                         Add processor brand
                                     </button>
                                     <a
                                         href={links.processorBrands}
-                                        className="btn btn-outline-danger mx-2"
-                                    >
+                                        className="btn btn-outline-danger mx-2">
                                         Cancel
                                     </a>
                                 </div>

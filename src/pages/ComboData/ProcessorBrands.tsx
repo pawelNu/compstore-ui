@@ -60,7 +60,6 @@ export const ProcessorBrands = () => {
                                     <td>
                                         <ActionsButton
                                             id={brand.id}
-                                            // TODO create edit form
                                             editLink={links.processorBrandsEdit}
                                             deleteItem={deleteBrand}
                                         />

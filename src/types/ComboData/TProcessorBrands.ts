@@ -5,3 +5,17 @@ export type TProcessorBrands = {
     name: string;
     processorBrandDeviceType: string;
 };
+
+export type TProcessorBrandNew = {
+    name: string;
+    processorBrandDeviceType: string;
+};
+
+export type TPBComboData = {
+    processorBrandDeviceTypes: string[];
+};
+
+export type TPBUpdated = {
+    name: string;
+    processorBrandDeviceType: string;
+};
