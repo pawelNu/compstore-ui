@@ -88,7 +88,8 @@ export const ProcessorBrandsEdit = () => {
                             <div className="row mb-3">
                                 <label
                                     htmlFor="name"
-                                    className="col-sm-2 col-form-label">
+                                    className="col-sm-2 col-form-label"
+                                >
                                     Processor Brand Name
                                 </label>
                                 <div className="col-sm-10">
@@ -107,7 +108,8 @@ export const ProcessorBrandsEdit = () => {
                             <div className="row mb-3">
                                 <label
                                     htmlFor="processorBrandDeviceType"
-                                    className="col-sm-2 col-form-label">
+                                    className="col-sm-2 col-form-label"
+                                >
                                     Processor Brand Device Type
                                 </label>
                                 <div className="col-sm-10">
@@ -116,7 +118,8 @@ export const ProcessorBrandsEdit = () => {
                                         id="processorBrandDeviceType"
                                         name="processorBrandDeviceType"
                                         value={processorBrandDeviceType}
-                                        onChange={onInputChange}>
+                                        onChange={onInputChange}
+                                    >
                                         <option value="">
                                             Choose Brand Device Type
                                         </option>
@@ -124,7 +127,8 @@ export const ProcessorBrandsEdit = () => {
                                             (data, index) => (
                                                 <option
                                                     key={index}
-                                                    value={data}>
+                                                    value={data}
+                                                >
                                                     {data}
                                                 </option>
                                             ),
@@ -142,12 +146,14 @@ export const ProcessorBrandsEdit = () => {
                                 <div className="d-flex justify-content-center">
                                     <button
                                         type="submit"
-                                        className="btn btn-outline-primary">
+                                        className="btn btn-outline-primary"
+                                    >
                                         Save
                                     </button>
                                     <a
                                         href={links.processorBrands}
-                                        className="btn btn-outline-danger mx-2">
+                                        className="btn btn-outline-danger mx-2"
+                                    >
                                         Cancel
                                     </a>
                                 </div>

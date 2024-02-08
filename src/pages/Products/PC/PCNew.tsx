@@ -54,7 +54,17 @@ export const PCNew: React.FC = () => {
     const onInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     ) => {
-        setPc({ ...pc, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+
+        if (name === "price") {
+            if (/^\d*\.?\d{0,2}$/.test(value) || value === "") {
+                setPc({ ...pc, [e.target.name]: e.target.value });
+            } else {
+                setError("Price can have a maximum of two decimal places!");
+            }
+        } else {
+            setPc({ ...pc, [e.target.name]: e.target.value });
+        }
     };
 
     const getComboData = async () => {

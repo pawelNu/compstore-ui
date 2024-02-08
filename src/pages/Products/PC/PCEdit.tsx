@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import hostName from "../../../config/config";
 import { TPCComboData, TPCDetails, TPCUpdated } from "../../../types/PC/TPC";
 import { initialPCDetails } from "./components/initialValues";
 import { endpoints, links } from "../../../config/links";
