@@ -9,9 +9,6 @@ import {
 } from "../../types/ComboData/TProcessorBrands";
 import { Card } from "react-bootstrap";
 
-// TODO not working because endpoint for processor brand by id not exists
-// http://localhost:8080/processor-brands/29696b06-94af-4d9a-9309-7a720b7654e2
-
 export const ProcessorBrandsEdit = () => {
     let navigate = useNavigate();
 

@@ -6,7 +6,8 @@ import { endpoints, links } from "../../config/links";
 import { UUID } from "crypto";
 import axios from "axios";
 import { Card, Table } from "react-bootstrap";
-import { AddNewButton } from "./components/AddNewButton";
+import { ButtonWithIcon } from "../../components/buttons/ButtonWithIcon";
+import { buttons } from "./components/config";
 
 export const ProcessorBrands = () => {
     const [processorBrands, setProcessorBrands] = useState<TProcessorBrands[]>(
@@ -41,7 +42,7 @@ export const ProcessorBrands = () => {
             <Card>
                 <Card.Header as="h5">Processor Brands</Card.Header>
                 <Card.Body>
-                    <AddNewButton className="mb-3" />
+                    <ButtonWithIcon config={buttons.addNewProcessorBrand} />
                     <Table bordered hover responsive="sm">
                         <thead>
                             <tr>
