@@ -1,7 +1,6 @@
 import "../static/styles/Navbar.js";
 
 import { useState } from "react";
-import { AddNewProductButton } from "../components/buttons/AddNewProductButton";
 import { UserRoleButton } from "../components/buttons/UserRoleButton";
 import { navbarStyles } from "../static/styles/Navbar.js";
 import { TNavbarProps } from "../types/TNavbarProps";
@@ -68,7 +67,6 @@ export const Navbar: React.FC<TNavbarProps> = ({ onUserRoleChange }) => {
                     </div>
                 </div>
                 <UserRoleButton onUserRoleChange={handleUserRoleChange} />
-                {userRole !== "Customer" && <AddNewProductButton />}
             </div>
         </nav>
     );

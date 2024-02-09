@@ -2,7 +2,6 @@ import { Form, Formik } from "formik";
 import { CheckboxIDName } from "./components/CheckboxIDName";
 import axios from "axios";
 import { useState, useCallback, useEffect } from "react";
-import hostName from "../../../config/config";
 import { CheckboxName } from "./components/CheckboxName";
 import { filterPCStyles } from "../../../static/styles/FilterPC";
 import { InputField } from "./components/InputField";
@@ -11,10 +10,11 @@ import { FilterButtonSection } from "./components/FilterButtonSection";
 import { FilterGroup } from "./components/FilterGroup";
 import { FilterCard } from "./components/FilterCard";
 import { TPCComboData, TPCPageRequest } from "../../../types/PC/TPC";
-import { FilterButton } from "../../../components/buttons/FilterButton";
 import { Button } from "react-bootstrap";
 import { initialValuesFilter } from "./components/initialValues";
 import { endpoints, links } from "../../../config/links";
+import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
+import { buttons } from "../../../config/buttonsConfig";
 
 type TPCFilterProps = {
     setFilter: (filterValues: any) => void;
@@ -107,7 +107,7 @@ export const PCFilter: React.FC<TPCFilterProps> = ({ setFilter }) => {
                             </FilterSection>
 
                             <FilterButtonSection>
-                                <FilterButton />
+                                <ButtonWithIcon config={buttons.filterPC} />
                             </FilterButtonSection>
                             <FilterButtonSection>
                                 <Button

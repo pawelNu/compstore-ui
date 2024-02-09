@@ -3,10 +3,11 @@ import "../../../static/styles/OneProductDetails.js";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { TPCDetails } from "../../../types/PC/TPC";
-import { AddToCartButton } from "../../../components/buttons/AddToCartButton";
 import { initialPCDetails } from "./components/initialValues";
 import { oneProductStyle } from "../../../static/styles/OneProductDetails.js";
 import { endpoints } from "../../../config/links.js";
+import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
+import { buttons } from "../../../config/buttonsConfig";
 
 export const PCDetails = () => {
     const imagePlaceholder =
@@ -57,7 +58,9 @@ export const PCDetails = () => {
                                         $ {pc.price}
                                     </div>
                                     <div className="mt-3">
-                                        <AddToCartButton />
+                                        <ButtonWithIcon
+                                            config={buttons.addToCart}
+                                        />
                                     </div>
                                 </div>
                             </div>

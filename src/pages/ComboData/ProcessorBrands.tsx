@@ -7,7 +7,7 @@ import { UUID } from "crypto";
 import axios from "axios";
 import { Card, Table } from "react-bootstrap";
 import { ButtonWithIcon } from "../../components/buttons/ButtonWithIcon";
-import { buttons } from "./components/config";
+import { buttons } from "../../config/buttonsConfig";
 
 export const ProcessorBrands = () => {
     const [processorBrands, setProcessorBrands] = useState<TProcessorBrands[]>(

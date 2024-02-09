@@ -6,7 +6,6 @@ import {
     sortingHandler,
 } from "./components/actions";
 import { TPCsProps, TPCSimple, TPCFilter } from "../../../types/PC/TPC";
-import { AddToCartButton } from "../../../components/buttons/AddToCartButton";
 import { SortingButton } from "../../../components/buttons/SortingButton";
 import { PaginationComponent } from "../../../components/pagination/PaginationComponent";
 import { PCFilter } from "./PCFilter";
@@ -14,6 +13,8 @@ import { productStyles } from "../../../static/styles/Products";
 import { endpoints, links } from "../../../config/links";
 import { ActionsButton } from "../../../components/buttons/ActionsButton";
 import axios from "axios";
+import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
+import { buttons } from "../../../config/buttonsConfig";
 
 export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pcs, setPCs] = useState<TPCSimple[]>([]);
@@ -150,7 +151,9 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                                             <div className="card-body">
                                                 <div>$ {pc.price}</div>
                                             </div>
-                                            <AddToCartButton />
+                                            <ButtonWithIcon
+                                                config={buttons.addToCart}
+                                            />
                                             {userRole !== "Customer" && (
                                                 <ActionsButton
                                                     id={pc.id}

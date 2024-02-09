@@ -5,7 +5,6 @@ import { NavbarStore } from "./layout/navbar/NavbarStore";
 import { Baner } from "./pages/MainPage/components/Baner";
 import { CategoryBar } from "./pages/MainPage/components/CategoryBar";
 import { Footer } from "./layout/Footer";
-import { ShoppingCartButton } from "./pages/MainPage/components/ShoppingCartButton";
 import { ShoppingCart } from "./pages/ShoppingCart/ShoppingCart";
 import { AddNewProductForm } from "./pages/Products/AddNewProductForm";
 import { PCDetails } from "./pages/Products/PC/PCDetails";
@@ -15,6 +14,8 @@ import { ProcessorBrands } from "./pages/ComboData/ProcessorBrands";
 import { ProcessorBrandsEdit } from "./pages/ComboData/ProcessorBrandsEdit";
 import { links } from "./config/links";
 import { ProcessorBrandNew } from "./pages/ComboData/ProcessorBrandNew";
+import { ButtonWithIcon } from "./components/buttons/ButtonWithIcon";
+import { buttons } from "./config/buttonsConfig";
 
 export const App = () => {
     const [userRole, setUserRole] = useState("Customer");
@@ -32,7 +33,7 @@ export const App = () => {
             <div className="container px-0">
                 <div className="d-flex justify-content-between">
                     <Baner />
-                    <ShoppingCartButton />
+                    <ButtonWithIcon config={buttons.shoppingCart} />
                 </div>
             </div>
             <CategoryBar />
