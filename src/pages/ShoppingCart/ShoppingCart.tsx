@@ -4,8 +4,16 @@ import { DeliveryAddressForm } from "./components/DeliveryAddressForm";
 import { DeliveryMethod } from "./components/DeliveryMethod";
 import { shoppingCartStyles } from "../../static/styles/ShoppingCart";
 import { links } from "../../config/links";
+import { Button } from "react-bootstrap";
+import { useShoppingCart } from "../../redux/ShoppingCartProvider";
 
 export const ShoppingCart = () => {
+    const { list, clearCart } = useShoppingCart();
+
+    const handleClearCart = () => {
+        clearCart();
+    };
+
     const selectedIds = [
         "a3d898f3-4eb1-4568-8a40-df7c5fe6089e",
         "be6d4db2-beec-43f7-88b1-49212613e44e",
@@ -57,8 +65,7 @@ export const ShoppingCart = () => {
                                                     }
                                                     onClick={() =>
                                                         handleDecrement(index)
-                                                    }
-                                                >
+                                                    }>
                                                     -
                                                 </button>
                                                 <input
@@ -77,15 +84,15 @@ export const ShoppingCart = () => {
                                                     }
                                                     onClick={() =>
                                                         handleIncrement(index)
-                                                    }
-                                                >
+                                                    }>
                                                     +
                                                 </button>
                                             </div>
                                         </div>
                                         <div
-                                            style={shoppingCartStyles.component}
-                                        >
+                                            style={
+                                                shoppingCartStyles.component
+                                            }>
                                             {data.feature
                                                 .map(
                                                     (feature) =>
@@ -98,13 +105,11 @@ export const ShoppingCart = () => {
                                         <div
                                             style={
                                                 shoppingCartStyles.quantityAndPrice
-                                            }
-                                        >
+                                            }>
                                             {data.quantity} x $ {data.price}
                                         </div>
                                         <div
-                                            style={shoppingCartStyles.priceTag}
-                                        >
+                                            style={shoppingCartStyles.priceTag}>
                                             $ {data.price * data.quantity}
                                         </div>
                                     </div>
@@ -115,11 +120,24 @@ export const ShoppingCart = () => {
                     <div className="card mb-2">
                         <div
                             className="card-body"
-                            style={shoppingCartStyles.priceTag}
-                        >
+                            style={shoppingCartStyles.priceTag}>
                             <div>Total: $ {totalPrice}</div>
                         </div>
                     </div>
+                    <div>
+                        <div>
+                            <h2>Shopping Cart</h2>
+                            <ul>
+                                {list.map((item) => (
+                                    <li key={item}>{item}</li>
+                                ))}
+                            </ul>
+                        </div>
+                        <Button variant="danger" className="mb-2" onClick={handleClearCart}>
+                            Clear shopping cart
+                        </Button>
+                    </div>
+
                     <DeliveryMethod />
                     <DeliveryAddressForm />
                 </div>
@@ -127,8 +145,7 @@ export const ShoppingCart = () => {
                     <a
                         className="btn btn-outline-danger"
                         href={links.pcs}
-                        role="button"
-                    >
+                        role="button">
                         Back to shopping
                     </a>
                 </div>

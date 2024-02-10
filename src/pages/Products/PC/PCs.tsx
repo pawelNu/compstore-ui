@@ -15,6 +15,7 @@ import { ActionsButton } from "../../../components/buttons/ActionsButton";
 import axios from "axios";
 import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
 import { buttons } from "../../../config/buttonsConfig";
+import { useShoppingCart } from "../../../redux/ShoppingCartProvider";
 
 export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pcs, setPCs] = useState<TPCSimple[]>([]);
@@ -37,6 +38,12 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
             ascendingFlag: null,
         },
     });
+
+    const { addToCart } = useShoppingCart();
+
+    const handleAddToCart = (id: UUID) => {
+        addToCart(id);
+    };
 
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
@@ -153,12 +160,14 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                                             </div>
                                             <ButtonWithIcon
                                                 config={buttons.addToCart}
+                                                onClick={() => handleAddToCart(pc.id)}
                                             />
                                             {userRole !== "Customer" && (
                                                 <ActionsButton
                                                     id={pc.id}
                                                     editLink={links.pcEdit}
                                                     deleteItem={deletePc}
+                                                    
                                                 />
                                             )}
                                         </div>
