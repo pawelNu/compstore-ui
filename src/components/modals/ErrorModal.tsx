@@ -2,28 +2,21 @@ import Button from "react-bootstrap/esm/Button";
 import Modal from "react-bootstrap/esm/Modal";
 
 type Props = {
+    message: any;
     show: boolean;
     handleClose: () => void;
-    handleConfirmDelete: () => void;
 };
 
-export const ConfirmDeleteModal: React.FC<Props> = ({
-    show,
-    handleClose,
-    handleConfirmDelete,
-}) => {
+export const InfoModal: React.FC<Props> = ({ message, show, handleClose }) => {
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Delete Confirmation</Modal.Title>
+                <Modal.Title>Info Message</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Are you sure you want to delete this item?</Modal.Body>
+            <Modal.Body>{message}</Modal.Body>
             <Modal.Footer>
-                <Button variant="danger" onClick={handleConfirmDelete}>
-                    Confirm Delete
-                </Button>
                 <Button variant="secondary" onClick={handleClose}>
-                    Cancel
+                    OK
                 </Button>
             </Modal.Footer>
         </Modal>

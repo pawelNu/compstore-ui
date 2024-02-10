@@ -1,10 +1,10 @@
 import "../static/styles/Navbar.js";
 
-import { TNavbarProps } from "../types/TNavbarProps";
 import { useState } from "react";
-import { AddNewProductButton } from "../components/buttons/AddNewProductButton";
 import { UserRoleButton } from "../components/buttons/UserRoleButton";
 import { navbarStyles } from "../static/styles/Navbar.js";
+import { TNavbarProps } from "../types/TNavbarProps";
+import { links } from "../config/links.js";
 
 export const Navbar: React.FC<TNavbarProps> = ({ onUserRoleChange }) => {
     const [userRole, setUserRole] = useState("Customer");
@@ -34,23 +34,32 @@ export const Navbar: React.FC<TNavbarProps> = ({ onUserRoleChange }) => {
                             <li className="nav-item">
                                 <a
                                     className="nav-link active text-red"
-                                    href="/"
+                                    href={links.mainPage}
                                 >
                                     Promotions and more
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link active" href="/">
+                                <a
+                                    className="nav-link active"
+                                    href={links.mainPage}
+                                >
                                     Loan installment
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link active" href="/">
+                                <a
+                                    className="nav-link active"
+                                    href={links.mainPage}
+                                >
                                     Returns and complaints
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link active" href="/">
+                                <a
+                                    className="nav-link active"
+                                    href={links.mainPage}
+                                >
                                     Contact
                                 </a>
                             </li>
@@ -58,7 +67,6 @@ export const Navbar: React.FC<TNavbarProps> = ({ onUserRoleChange }) => {
                     </div>
                 </div>
                 <UserRoleButton onUserRoleChange={handleUserRoleChange} />
-                {userRole !== "Customer" && <AddNewProductButton />}
             </div>
         </nav>
     );

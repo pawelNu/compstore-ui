@@ -10,6 +10,7 @@ import { initialPCDetails } from "./components/initialValues";
 import { FormField } from "../../../components/fields/FormField";
 import { labels } from "./config";
 import { Button } from "react-bootstrap";
+import { endpoints, links } from "../../../config/links";
 
 const validationSchema = Yup.object().shape({
     processorBrand: Yup.string().required("Processor Brand is required"),
@@ -45,7 +46,7 @@ export const PCEdit: React.FC = () => {
 
     const getPc = async (id: string | undefined) => {
         try {
-            const result = await axios.get(`${hostName}/pcs/${id}`);
+            const result = await axios.get(endpoints.pcs.byId + id);
             setPc(result.data);
         } catch (e) {
             console.log("file: PCEdit.tsx: getPc error:", e);
@@ -70,8 +71,8 @@ export const PCEdit: React.FC = () => {
         );
 
         try {
-            await axios.put(`${hostName}/pcs/${id}`, updatedPc);
-            navigate("/pcs");
+            await axios.put(endpoints.pcs.byId + id, updatedPc);
+            navigate(links.pcs);
         } catch (e: any) {
             if (e.response && e.response.data) {
                 setError(e.response.data.message.toString());
@@ -91,7 +92,7 @@ export const PCEdit: React.FC = () => {
 
     const getComboData = async () => {
         try {
-            const result = await axios.get(`${hostName}/pcs/combo-data`);
+            const result = await axios.get(endpoints.pcs.comboData);
             setComboData(result.data);
         } catch (e) {
             console.log("file: EditPC.tsx: getComboData e:", e);
@@ -194,7 +195,6 @@ export const PCEdit: React.FC = () => {
 
                             <div className="d-flex flex-column align-items-center">
                                 <div>
-                                    {/* TODO fix error messages with shows below all fields*/}
                                     <ErrorMessage
                                         name="error"
                                         component="p"
@@ -210,7 +210,7 @@ export const PCEdit: React.FC = () => {
                                     </Button>
                                     <Link
                                         type="button"
-                                        to={"/pcs"}
+                                        to={links.pcs}
                                         className="btn btn-outline-danger mx-2"
                                     >
                                         Cancel

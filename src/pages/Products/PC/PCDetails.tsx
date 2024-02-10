@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import "../../../static/styles/OneProductDetails.js";
 import axios from "axios";
-import hostName from "../../../config/config";
 import { useParams } from "react-router-dom";
 import { TPCDetails } from "../../../types/PC/TPC";
-import { AddToCartButton } from "../../../components/buttons/AddToCartButton";
 import { initialPCDetails } from "./components/initialValues";
 import { oneProductStyle } from "../../../static/styles/OneProductDetails.js";
+import { endpoints } from "../../../config/links.js";
+import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
+import { buttons } from "../../../config/buttonsConfig";
 
 export const PCDetails = () => {
     const imagePlaceholder =
@@ -18,12 +19,9 @@ export const PCDetails = () => {
 
     const getPc = async (id: string | undefined) => {
         try {
-            const result = await axios.get(`${hostName}/pcs/${id}`);
+            const result = await axios.get(endpoints.pcs.byId + id);
             setPc(result.data);
-            console.log(
-                "file: PCDetails.tsx:32   getPc   result:",
-                result.data,
-            );
+            console.log("file: PCDetails.tsx  getPc   result:", result.data);
         } catch (e) {
             console.log(
                 "Error getting pc -> file: PCDetails.tsx  getPc  e:",
@@ -60,7 +58,9 @@ export const PCDetails = () => {
                                         $ {pc.price}
                                     </div>
                                     <div className="mt-3">
-                                        <AddToCartButton />
+                                        <ButtonWithIcon
+                                            config={buttons.addToCart}
+                                        />
                                     </div>
                                 </div>
                             </div>

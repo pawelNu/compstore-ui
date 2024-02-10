@@ -1,16 +1,21 @@
-import React, { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import { MainPage } from "./pages/MainPage/MainPage";
-import { Navbar } from "./layout/Navbar";
+import { NavbarStore } from "./layout/navbar/NavbarStore";
 import { Baner } from "./pages/MainPage/components/Baner";
 import { CategoryBar } from "./pages/MainPage/components/CategoryBar";
 import { Footer } from "./layout/Footer";
-import { ShoppingCartButton } from "./pages/MainPage/components/ShoppingCartButton";
 import { ShoppingCart } from "./pages/ShoppingCart/ShoppingCart";
 import { AddNewProductForm } from "./pages/Products/AddNewProductForm";
 import { PCDetails } from "./pages/Products/PC/PCDetails";
 import { PCs } from "./pages/Products/PC/PCs";
 import { PCEdit } from "./pages/Products/PC/PCEdit";
+import { ProcessorBrands } from "./pages/ComboData/ProcessorBrands";
+import { ProcessorBrandsEdit } from "./pages/ComboData/ProcessorBrandsEdit";
+import { links } from "./config/links";
+import { ProcessorBrandNew } from "./pages/ComboData/ProcessorBrandNew";
+import { ButtonWithIcon } from "./components/buttons/ButtonWithIcon";
+import { buttons } from "./config/buttonsConfig";
 
 export const App = () => {
     const [userRole, setUserRole] = useState("Customer");
@@ -21,30 +26,41 @@ export const App = () => {
 
     return (
         <div className="m-2">
-            <Navbar
+            <NavbarStore
                 onUserRoleChange={handleUserRoleChange}
                 userRole={userRole}
             />
             <div className="container px-0">
                 <div className="d-flex justify-content-between">
                     <Baner />
-                    <ShoppingCartButton />
+                    <ButtonWithIcon config={buttons.shoppingCart} />
                 </div>
             </div>
             <CategoryBar />
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<MainPage />} />
-                    <Route path="/pcs" element={<PCs userRole={userRole} />} />
-                    <Route path="/shopping-cart" element={<ShoppingCart />} />
-                    <Route
-                        path="/add-new-product"
-                        element={<AddNewProductForm />}
-                    />
-                    <Route path="/pcs/:id" element={<PCDetails />} />
-                    <Route path="/pc-edit/:id" element={<PCEdit />} />
-                </Routes>
-            </BrowserRouter>
+
+            <Routes>
+                <Route path={links.mainPage} element={<MainPage />} />
+                <Route path={links.pcs} element={<PCs userRole={userRole} />} />
+                <Route path={`${links.pcDetails}:id`} element={<PCDetails />} />
+                <Route path={`${links.pcEdit}:id`} element={<PCEdit />} />
+                <Route path={links.shoppingCart} element={<ShoppingCart />} />
+                <Route
+                    path={links.addNewProduct}
+                    element={<AddNewProductForm />}
+                />
+                <Route
+                    path={links.processorBrands}
+                    element={<ProcessorBrands />}
+                />
+                <Route
+                    path={`${links.processorBrandsEdit}:id`}
+                    element={<ProcessorBrandsEdit />}
+                />
+                <Route
+                    path={links.processorBrandsNew}
+                    element={<ProcessorBrandNew />}
+                />
+            </Routes>
             <Footer />
         </div>
     );

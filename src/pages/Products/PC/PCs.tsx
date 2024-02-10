@@ -1,18 +1,20 @@
-import { PCActionsButton } from "./components/PCActionsButton";
 import { useCallback, useEffect, useState } from "react";
 import { UUID } from "crypto";
 import {
     changePageHandler,
-    deletePcHandler,
     getPcsHandler,
     sortingHandler,
-} from "./components/PCHandlers";
+} from "./components/actions";
 import { TPCsProps, TPCSimple, TPCFilter } from "../../../types/PC/TPC";
-import { AddToCartButton } from "../../../components/buttons/AddToCartButton";
 import { SortingButton } from "../../../components/buttons/SortingButton";
 import { PaginationComponent } from "../../../components/pagination/PaginationComponent";
 import { PCFilter } from "./PCFilter";
 import { productStyles } from "../../../static/styles/Products";
+import { endpoints, links } from "../../../config/links";
+import { ActionsButton } from "../../../components/buttons/ActionsButton";
+import axios from "axios";
+import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
+import { buttons } from "../../../config/buttonsConfig";
 
 export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pcs, setPCs] = useState<TPCSimple[]>([]);
@@ -49,8 +51,17 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
         );
     }, [filter, setPCs, setPagesCount, setPageNumber, setPageSize]);
 
-    const deletePc = async (id: UUID) => {
-        await deletePcHandler(id, setPCs);
+    const deletePc = async (
+        id: UUID,
+    ): Promise<{ success: boolean; error?: string }> => {
+        try {
+            await axios.delete(endpoints.pcs.byId + id);
+            setPCs((prevPcs) => prevPcs.filter((pc) => pc.id !== id));
+            return { success: true };
+        } catch (e: any) {
+            console.log("file: PCs.tsx   e:", e);
+            return { success: false, error: e.response.data.message };
+        }
     };
 
     useEffect(() => {
@@ -98,7 +109,7 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                             <div className="card">
                                 <a
                                     style={productStyles.headerLink}
-                                    href={"pcs/" + pc.id}
+                                    href={links.pcDetails + pc.id}
                                 >
                                     <h5 className="card-header">
                                         PC - {pc.processorName} -{" "}
@@ -108,7 +119,7 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                                 </a>
                                 <div className="row g-0">
                                     <div className="col-3">
-                                        <a href={"pcs/" + pc.id}>
+                                        <a href={links.pcDetails + pc.id}>
                                             <img
                                                 src={imagePlaceholder}
                                                 className="img-fluid rounded-start"
@@ -136,18 +147,18 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                                         </div>
                                     </div>
                                     <div className="col-3">
-                                        <div
-                                            style={productStyles.priceTag}
-                                            // style={{textAlign: "left"}}
-                                        >
+                                        <div style={productStyles.priceTag}>
                                             <div className="card-body">
                                                 <div>$ {pc.price}</div>
                                             </div>
-                                            <AddToCartButton />
+                                            <ButtonWithIcon
+                                                config={buttons.addToCart}
+                                            />
                                             {userRole !== "Customer" && (
-                                                <PCActionsButton
-                                                    deletePc={deletePc}
+                                                <ActionsButton
                                                     id={pc.id}
+                                                    editLink={links.pcEdit}
+                                                    deleteItem={deletePc}
                                                 />
                                             )}
                                         </div>

@@ -1,3 +1,5 @@
+import { links } from "../../../config/links";
+
 export const NewLaptop: React.FC = () => {
     return (
         <>
@@ -39,7 +41,10 @@ export const NewLaptop: React.FC = () => {
                     <button type="submit" className="btn btn-outline-primary">
                         Add product
                     </button>
-                    <a href="/" className="btn btn-outline-danger mx-2">
+                    <a
+                        href={links.mainPage}
+                        className="btn btn-outline-danger mx-2"
+                    >
                         Cancel
                     </a>
                 </div>
