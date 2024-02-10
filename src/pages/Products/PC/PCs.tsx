@@ -160,14 +160,15 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                                             </div>
                                             <ButtonWithIcon
                                                 config={buttons.addToCart}
-                                                onClick={() => handleAddToCart(pc.id)}
+                                                onClick={() =>
+                                                    handleAddToCart(pc.id)
+                                                }
                                             />
                                             {userRole !== "Customer" && (
                                                 <ActionsButton
                                                     id={pc.id}
                                                     editLink={links.pcEdit}
                                                     deleteItem={deletePc}
-                                                    
                                                 />
                                             )}
                                         </div>

@@ -65,7 +65,8 @@ export const ShoppingCart = () => {
                                                     }
                                                     onClick={() =>
                                                         handleDecrement(index)
-                                                    }>
+                                                    }
+                                                >
                                                     -
                                                 </button>
                                                 <input
@@ -84,15 +85,15 @@ export const ShoppingCart = () => {
                                                     }
                                                     onClick={() =>
                                                         handleIncrement(index)
-                                                    }>
+                                                    }
+                                                >
                                                     +
                                                 </button>
                                             </div>
                                         </div>
                                         <div
-                                            style={
-                                                shoppingCartStyles.component
-                                            }>
+                                            style={shoppingCartStyles.component}
+                                        >
                                             {data.feature
                                                 .map(
                                                     (feature) =>
@@ -105,11 +106,13 @@ export const ShoppingCart = () => {
                                         <div
                                             style={
                                                 shoppingCartStyles.quantityAndPrice
-                                            }>
+                                            }
+                                        >
                                             {data.quantity} x $ {data.price}
                                         </div>
                                         <div
-                                            style={shoppingCartStyles.priceTag}>
+                                            style={shoppingCartStyles.priceTag}
+                                        >
                                             $ {data.price * data.quantity}
                                         </div>
                                     </div>
@@ -120,7 +123,8 @@ export const ShoppingCart = () => {
                     <div className="card mb-2">
                         <div
                             className="card-body"
-                            style={shoppingCartStyles.priceTag}>
+                            style={shoppingCartStyles.priceTag}
+                        >
                             <div>Total: $ {totalPrice}</div>
                         </div>
                     </div>
@@ -133,7 +137,11 @@ export const ShoppingCart = () => {
                                 ))}
                             </ul>
                         </div>
-                        <Button variant="danger" className="mb-2" onClick={handleClearCart}>
+                        <Button
+                            variant="danger"
+                            className="mb-2"
+                            onClick={handleClearCart}
+                        >
                             Clear shopping cart
                         </Button>
                     </div>
@@ -145,7 +153,8 @@ export const ShoppingCart = () => {
                     <a
                         className="btn btn-outline-danger"
                         href={links.pcs}
-                        role="button">
+                        role="button"
+                    >
                         Back to shopping
                     </a>
                 </div>

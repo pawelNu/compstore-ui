@@ -1,12 +1,6 @@
 import { UUID } from "crypto";
 import React, { useEffect } from "react";
-import {
-    createContext,
-    useState,
-    useContext,
-    FC,
-    ReactNode,
-} from "react";
+import { createContext, useState, useContext, FC, ReactNode } from "react";
 
 type ShoppingCartContextType = {
     list: UUID[];
@@ -24,14 +18,16 @@ export const useShoppingCart = (): ShoppingCartContextType => {
     return context;
 };
 
-export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
+    children,
+}) => {
     const [list, setList] = React.useState<UUID[]>(() => {
         // Sprawdź, czy istnieją informacje o koszyku w lokalnym magazynie
         const storedList = localStorage.getItem("shoppingCart");
         return storedList ? JSON.parse(storedList) : [];
     });
 
-    console.log("file: ShoppingCartProvider.tsx:35   list:", list)
+    console.log("file: ShoppingCartProvider.tsx:35   list:", list);
 
     useEffect(() => {
         // Zapisz aktualną listę do lokalnego magazynu po zmianie
@@ -47,7 +43,7 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
 
     return (
-        <ShoppingCartContext.Provider value={{ list, addToCart, clearCart}}>
+        <ShoppingCartContext.Provider value={{ list, addToCart, clearCart }}>
             {children}
         </ShoppingCartContext.Provider>
     );
