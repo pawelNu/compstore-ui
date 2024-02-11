@@ -14,6 +14,7 @@ export type TCartItem = {
     driveType: string;
     operatingSystem: TIDNameType;
     price: number;
+    quantity: number;
 };
 
 type ShoppingCartContextType = {
@@ -51,7 +52,25 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
     }, [shoppingCartList]);
 
     const addToCart = (product: TCartItem) => {
-        setShoppingCartList((prevList) => [...prevList, product]);
+        const existingProductIndex = shoppingCartList.findIndex(
+            (item) => item.id === product.id,
+        );
+
+        if (existingProductIndex === -1) {
+            setShoppingCartList((prevList) => [
+                ...prevList,
+                { ...product, quantity: 1 },
+            ]);
+            console.log("Added product to shopping cart: ", product);
+        } else {
+            const updatedList = [...shoppingCartList];
+            updatedList[existingProductIndex].quantity += 1;
+            setShoppingCartList(updatedList);
+            console.log(
+                "Added product QUANTITY + 1 to shopping cart: ",
+                product,
+            );
+        }
     };
 
     const clearCart = () => {
