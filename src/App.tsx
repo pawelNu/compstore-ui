@@ -37,6 +37,7 @@ export const App = () => {
                     <div className="container px-0">
                         <div className="d-flex justify-content-between">
                             <Baner />
+                            {/* TODO add product count in shopping cart */}
                             <ButtonWithIcon config={buttons.shoppingCart} />
                         </div>
                     </div>

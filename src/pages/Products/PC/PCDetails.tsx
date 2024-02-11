@@ -8,6 +8,8 @@ import { oneProductStyle } from "../../../static/styles/OneProductDetails.js";
 import { endpoints } from "../../../config/links.js";
 import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
 import { buttons } from "../../../config/buttonsConfig";
+import { useShoppingCart } from "../../../redux/ShoppingCartProvider";
+import { UUID } from "crypto";
 
 export const PCDetails = () => {
     const imagePlaceholder =
@@ -21,12 +23,22 @@ export const PCDetails = () => {
         try {
             const result = await axios.get(endpoints.pcs.byId + id);
             setPc(result.data);
-            console.log("file: PCDetails.tsx  getPc   result:", result.data);
         } catch (e) {
             console.log(
                 "Error getting pc -> file: PCDetails.tsx  getPc  e:",
                 e,
             );
+        }
+    };
+
+    const { addToCart } = useShoppingCart();
+
+    const handleAddToCart = async (id: UUID) => {
+        try {
+            const result = await axios.get(endpoints.pcs.byId + id);
+            addToCart(result.data);
+        } catch (e) {
+            console.log("file: PCDetails.tsx:   handleAddToCart   e:", e);
         }
     };
 
@@ -60,6 +72,9 @@ export const PCDetails = () => {
                                     <div className="mt-3">
                                         <ButtonWithIcon
                                             config={buttons.addToCart}
+                                            onClick={() =>
+                                                handleAddToCart(pc.id)
+                                            }
                                         />
                                     </div>
                                 </div>

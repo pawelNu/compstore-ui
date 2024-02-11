@@ -1,149 +1,162 @@
-import { useState } from "react";
-import { productsPC } from "../../data/ProductsPCData";
 import { DeliveryAddressForm } from "./components/DeliveryAddressForm";
 import { DeliveryMethod } from "./components/DeliveryMethod";
 import { shoppingCartStyles } from "../../static/styles/ShoppingCart";
 import { links } from "../../config/links";
-import { Button, Card, CardBody, CardHeader } from "react-bootstrap";
+import { Button, Card, CardBody, CardHeader, ListGroup } from "react-bootstrap";
 import { useShoppingCart } from "../../redux/ShoppingCartProvider";
+import { Link } from "react-router-dom";
 
 export const ShoppingCart = () => {
-    const { shoppingCartList, clearCart } = useShoppingCart();
+    const {
+        shoppingCartList,
+        clearCart,
+        reduceProductQuantity,
+        increaseProductQuantity,
+    } = useShoppingCart();
 
-    const handleClearCart = () => {
-        clearCart();
-    };
+    const totalPrice = shoppingCartList
+        .reduce((total, product) => {
+            const productTotal = product.price * product.quantity;
+            return total + productTotal;
+        }, 0)
+        .toFixed(2);
 
-    const selectedIds = [
-        "a3d898f3-4eb1-4568-8a40-df7c5fe6089e",
-        "be6d4db2-beec-43f7-88b1-49212613e44e",
-    ];
-    const initialSelectedPC = productsPC.filter((data) =>
-        selectedIds.includes(data.id),
-    );
-
-    const [selectedPC, setSelectedPC] = useState(initialSelectedPC);
-
-    const handleIncrement = (index: number) => {
-        const updatedPC = [...selectedPC];
-        updatedPC[index].quantity += 1;
-        setSelectedPC(updatedPC);
-    };
-
-    const handleDecrement = (index: number) => {
-        const updatedPC = [...selectedPC];
-        updatedPC[index].quantity = Math.max(0, updatedPC[index].quantity - 1);
-        setSelectedPC(updatedPC);
-    };
-
-    const totalPrice = selectedPC.reduce(
-        (total, product) => total + product.quantity * product.price,
-        0,
-    );
+    const imagePlaceholder =
+        "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
     return (
         <div className="container p-2 mb-2">
             <Card>
                 <CardHeader as="h5">Shopping Cart</CardHeader>
                 <CardBody>
-                    {selectedPC.map((data, index) => (
-                        <div key={data.id} className="card mb-2">
-                            <div className="card-body">
-                                <ul className="list-group list-group-flush">
-                                    <li className="list-group-item">
-                                        <div className="d-flex justify-content-between">
-                                            <div>{data.name}</div>
-                                            <div className="d-flex">
-                                                <button className="btn btn-danger">
-                                                    Delete
-                                                </button>
-                                                <div className="col-1 vr mx-2"></div>
-                                                <button
-                                                    className="btn btn-primary"
-                                                    style={
-                                                        shoppingCartStyles.btnText
-                                                    }
-                                                    onClick={() =>
-                                                        handleDecrement(index)
-                                                    }
-                                                >
-                                                    -
-                                                </button>
-                                                <div
-                                                    className="d-flex justify-content-center align-items-center border border-primary rounded-3 mx-1"
-                                                    style={
-                                                        shoppingCartStyles.quantity
-                                                    }
-                                                >
-                                                    {data.quantity}
-                                                </div>
-                                                <button
-                                                    className="btn btn-primary"
-                                                    style={
-                                                        shoppingCartStyles.btnText
-                                                    }
-                                                    onClick={() =>
-                                                        handleIncrement(index)
-                                                    }
-                                                >
-                                                    +
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div
-                                            style={shoppingCartStyles.component}
-                                        >
-                                            {data.feature
-                                                .map(
-                                                    (feature) =>
-                                                        `${feature.featureName} ${feature.value}`,
-                                                )
-                                                .join(", ")}
-                                        </div>
-                                    </li>
+                    {shoppingCartList.map((product) => (
+                        <Card key={product.id} className="mb-2">
+                            <CardBody>
+                                <div className="d-flex">
                                     <div>
-                                        <div
-                                            style={
-                                                shoppingCartStyles.quantityAndPrice
-                                            }
-                                        >
-                                            {data.quantity} x $ {data.price}
-                                        </div>
-                                        <div
-                                            style={shoppingCartStyles.priceTag}
-                                        >
-                                            $ {data.price * data.quantity}
-                                        </div>
+                                        <Link to={links.pcDetails + product.id}>
+                                            <img
+                                                src={imagePlaceholder}
+                                                className="img-fluid rounded-start"
+                                                style={
+                                                    shoppingCartStyles.productImage
+                                                }
+                                                alt="Product"
+                                            />
+                                        </Link>
                                     </div>
-                                </ul>
-                            </div>
-                        </div>
+                                    <ListGroup variant="flush w-100">
+                                        <ListGroup.Item>
+                                            <div className="d-flex justify-content-between">
+                                                <Link
+                                                    to={
+                                                        links.pcDetails +
+                                                        product.id
+                                                    }
+                                                    style={
+                                                        shoppingCartStyles.component
+                                                    }
+                                                >
+                                                    PC - {product.processorName}{" "}
+                                                    - {product.graphicsCardName}{" "}
+                                                    System:{" "}
+                                                    {
+                                                        product.operatingSystem
+                                                            .name
+                                                    }
+                                                    , RAM: {product.ramCapacity}
+                                                    , Drive:{" "}
+                                                    {product.driveCapacity}{" "}
+                                                    {product.driveType}
+                                                </Link>
+                                                <div className="d-flex">
+                                                    {/* TODO create function for delete product from shopping cart */}
+                                                    <Button variant="danger">
+                                                        Delete
+                                                    </Button>
+                                                    <div className="col-1 vr mx-2"></div>
+                                                    <Button
+                                                        variant="primary"
+                                                        style={
+                                                            shoppingCartStyles.btnText
+                                                        }
+                                                        onClick={() =>
+                                                            reduceProductQuantity(
+                                                                product.id,
+                                                            )
+                                                        }
+                                                    >
+                                                        -
+                                                    </Button>
+                                                    <div
+                                                        className="d-flex justify-content-center align-items-center border border-primary rounded-3 mx-1"
+                                                        style={
+                                                            shoppingCartStyles.quantity
+                                                        }
+                                                    >
+                                                        {product.quantity}
+                                                    </div>
+                                                    <Button
+                                                        variant="primary"
+                                                        style={
+                                                            shoppingCartStyles.btnText
+                                                        }
+                                                        onClick={() =>
+                                                            increaseProductQuantity(
+                                                                product.id,
+                                                            )
+                                                        }
+                                                    >
+                                                        +
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        </ListGroup.Item>
+                                        <ListGroup.Item>
+                                            <div>
+                                                <div
+                                                    style={
+                                                        shoppingCartStyles.quantityAndPrice
+                                                    }
+                                                >
+                                                    {product.quantity} x ${" "}
+                                                    {product.price}
+                                                </div>
+                                                <div
+                                                    style={
+                                                        shoppingCartStyles.priceTag
+                                                    }
+                                                >
+                                                    ${" "}
+                                                    {(
+                                                        product.price *
+                                                        product.quantity
+                                                    ).toFixed(2)}
+                                                </div>
+                                            </div>
+                                        </ListGroup.Item>
+                                    </ListGroup>
+                                </div>
+                            </CardBody>
+                        </Card>
                     ))}
-                    <div className="card mb-2">
-                        <div
-                            className="card-body"
-                            style={shoppingCartStyles.priceTag}
-                        >
-                            <div>Total: $ {totalPrice}</div>
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <h2>Shopping Cart</h2>
-                            <ul>
-                                {shoppingCartList.map((product, index) => (
-                                    <li key={index}>{product.processorName}</li>
-                                ))}
-                            </ul>
-                        </div>
-                        <Button
-                            variant="danger"
-                            className="mb-2"
-                            onClick={handleClearCart}
-                        >
-                            Clear shopping cart
-                        </Button>
-                    </div>
+                    <Button
+                        variant="danger"
+                        className="mb-2"
+                        onClick={clearCart}
+                    >
+                        Clear shopping cart
+                    </Button>
+                    <Card className="mb-2">
+                        <CardBody>
+                            <div
+                                className="me-3"
+                                style={shoppingCartStyles.priceTag}
+                            >
+                                Total: $ {totalPrice}
+                            </div>
+                        </CardBody>
+                    </Card>
 
                     <DeliveryMethod />
                     <DeliveryAddressForm />

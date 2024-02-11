@@ -1,10 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import { UUID } from "crypto";
-import {
-    changePageHandler,
-    getPcsHandler,
-    sortingHandler,
-} from "./components/actions";
 import { TPCsProps, TPCSimple, TPCFilter } from "../../../types/PC/TPC";
 import { SortingButton } from "../../../components/buttons/SortingButton";
 import { PaginationComponent } from "../../../components/pagination/PaginationComponent";
@@ -16,6 +11,11 @@ import axios from "axios";
 import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
 import { buttons } from "../../../config/buttonsConfig";
 import { useShoppingCart } from "../../../redux/ShoppingCartProvider";
+import {
+    changePageHandler,
+    getPcsHandler,
+    sortingHandler,
+} from "./components/PCactions";
 
 export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
     const [pcs, setPCs] = useState<TPCSimple[]>([]);
