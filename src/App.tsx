@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { MainPage } from "./pages/MainPage/MainPage";
 import { NavbarStore } from "./layout/navbar/NavbarStore";
 import { Baner } from "./pages/MainPage/components/Baner";
@@ -16,8 +16,10 @@ import { links } from "./config/links";
 import { ProcessorBrandNew } from "./pages/ComboData/ProcessorBrandNew";
 import { ButtonWithIcon } from "./components/buttons/ButtonWithIcon";
 import { buttons } from "./config/buttonsConfig";
+import { ShoppingCartProvider } from "./redux/ShoppingCartProvider";
 
 export const App = () => {
+    // TODO add userRole to global variables
     const [userRole, setUserRole] = useState("Customer");
 
     const handleUserRoleChange = (role: string) => {
@@ -25,43 +27,63 @@ export const App = () => {
     };
 
     return (
-        <div className="m-2">
-            <NavbarStore
-                onUserRoleChange={handleUserRoleChange}
-                userRole={userRole}
-            />
-            <div className="container px-0">
-                <div className="d-flex justify-content-between">
-                    <Baner />
-                    <ButtonWithIcon config={buttons.shoppingCart} />
-                </div>
-            </div>
-            <CategoryBar />
+        <BrowserRouter>
+            <ShoppingCartProvider>
+                <div className="m-2">
+                    <NavbarStore
+                        onUserRoleChange={handleUserRoleChange}
+                        userRole={userRole}
+                    />
+                    <div className="container px-0">
+                        <div className="d-flex justify-content-between">
+                            <Baner />
+                            <ButtonWithIcon config={buttons.shoppingCart} />
+                        </div>
+                    </div>
+                    <CategoryBar />
 
-            <Routes>
-                <Route path={links.mainPage} element={<MainPage />} />
-                <Route path={links.pcs} element={<PCs userRole={userRole} />} />
-                <Route path={`${links.pcDetails}:id`} element={<PCDetails />} />
-                <Route path={`${links.pcEdit}:id`} element={<PCEdit />} />
-                <Route path={links.shoppingCart} element={<ShoppingCart />} />
-                <Route
-                    path={links.addNewProduct}
-                    element={<AddNewProductForm />}
-                />
-                <Route
-                    path={links.processorBrands}
-                    element={<ProcessorBrands />}
-                />
-                <Route
-                    path={`${links.processorBrandsEdit}:id`}
-                    element={<ProcessorBrandsEdit />}
-                />
-                <Route
-                    path={links.processorBrandsNew}
-                    element={<ProcessorBrandNew />}
-                />
-            </Routes>
-            <Footer />
-        </div>
+                    <Routes>
+                        {/* TODO create pages with routes 
+                        for each products separate component
+                        PCPage, LaptopPages, TVPages, ProcessorBrandPages, AdminPages
+                        */}
+                        <Route path={links.mainPage} element={<MainPage />} />
+                        <Route
+                            path={links.pcs}
+                            element={<PCs userRole={userRole} />}
+                        />
+                        <Route
+                            path={`${links.pcDetails}:id`}
+                            element={<PCDetails />}
+                        />
+                        <Route
+                            path={`${links.pcEdit}:id`}
+                            element={<PCEdit />}
+                        />
+                        <Route
+                            path={links.shoppingCart}
+                            element={<ShoppingCart />}
+                        />
+                        <Route
+                            path={links.addNewProduct}
+                            element={<AddNewProductForm />}
+                        />
+                        <Route
+                            path={links.processorBrands}
+                            element={<ProcessorBrands />}
+                        />
+                        <Route
+                            path={`${links.processorBrandsEdit}:id`}
+                            element={<ProcessorBrandsEdit />}
+                        />
+                        <Route
+                            path={links.processorBrandsNew}
+                            element={<ProcessorBrandNew />}
+                        />
+                    </Routes>
+                    <Footer />
+                </div>
+            </ShoppingCartProvider>
+        </BrowserRouter>
     );
 };
