@@ -4,11 +4,11 @@ import { DeliveryAddressForm } from "./components/DeliveryAddressForm";
 import { DeliveryMethod } from "./components/DeliveryMethod";
 import { shoppingCartStyles } from "../../static/styles/ShoppingCart";
 import { links } from "../../config/links";
-import { Button } from "react-bootstrap";
+import { Button, Card, CardBody, CardHeader } from "react-bootstrap";
 import { useShoppingCart } from "../../redux/ShoppingCartProvider";
 
 export const ShoppingCart = () => {
-    const { list, clearCart } = useShoppingCart();
+    const { shoppingCartList, clearCart } = useShoppingCart();
 
     const handleClearCart = () => {
         clearCart();
@@ -43,9 +43,9 @@ export const ShoppingCart = () => {
 
     return (
         <div className="container p-2 mb-2">
-            <div className="card">
-                <h5 className="card-header">Shopping Cart</h5>
-                <div className="card-body">
+            <Card>
+                <CardHeader as="h5">Shopping Cart</CardHeader>
+                <CardBody>
                     {selectedPC.map((data, index) => (
                         <div key={data.id} className="card mb-2">
                             <div className="card-body">
@@ -69,15 +69,14 @@ export const ShoppingCart = () => {
                                                 >
                                                     -
                                                 </button>
-                                                <input
-                                                    className="form-control"
+                                                <div
+                                                    className="d-flex justify-content-center align-items-center border border-primary rounded-3 mx-1"
                                                     style={
-                                                        shoppingCartStyles.inputField
+                                                        shoppingCartStyles.quantity
                                                     }
-                                                    type="number"
-                                                    value={data.quantity}
-                                                    readOnly
-                                                />
+                                                >
+                                                    {data.quantity}
+                                                </div>
                                                 <button
                                                     className="btn btn-primary"
                                                     style={
@@ -132,8 +131,8 @@ export const ShoppingCart = () => {
                         <div>
                             <h2>Shopping Cart</h2>
                             <ul>
-                                {list.map((item) => (
-                                    <li key={item}>{item}</li>
+                                {shoppingCartList.map((product, index) => (
+                                    <li key={index}>{product.processorName}</li>
                                 ))}
                             </ul>
                         </div>
@@ -148,17 +147,17 @@ export const ShoppingCart = () => {
 
                     <DeliveryMethod />
                     <DeliveryAddressForm />
-                </div>
+                </CardBody>
                 <div className="d-flex justify-content-center mb-3">
                     <a
-                        className="btn btn-outline-danger"
+                        className="btn btn-outline-secondary"
                         href={links.pcs}
                         role="button"
                     >
                         Back to shopping
                     </a>
                 </div>
-            </div>
+            </Card>
         </div>
     );
 };

@@ -41,8 +41,17 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
 
     const { addToCart } = useShoppingCart();
 
-    const handleAddToCart = (id: UUID) => {
-        addToCart(id);
+    const handleAddToCart = async (id: UUID) => {
+        try {
+            const result = await axios.get(endpoints.pcs.byId + id);
+            console.log(
+                "file: PCs.tsx   handleAddToCart   result:",
+                result.data,
+            );
+            addToCart(result.data);
+        } catch (e) {
+            console.log("file: PCs.tsx   handleAddToCart   e:", e);
+        }
     };
 
     const imagePlaceholder =

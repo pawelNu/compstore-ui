@@ -82,7 +82,7 @@ export const DeliveryAddressForm = () => {
                     <div className="d-flex justify-content-center">
                         <button
                             type="submit"
-                            className="btn btn-outline-primary"
+                            className="btn btn-outline-success"
                         >
                             Buy and pay
                         </button>

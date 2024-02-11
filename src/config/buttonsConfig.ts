@@ -31,7 +31,6 @@ export const buttons: AllButtons = {
         title: "Add to cart",
         variant: "primary",
         divClassName: "ms-3",
-        // link: links.mainPage,
         icon: AddToCartIcon(),
     },
     filterPC: {

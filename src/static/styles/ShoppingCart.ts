@@ -10,10 +10,11 @@ export const shoppingCartStyles = {
     quantityAndPrice: {
         textAlign: "right" as const,
     },
-    inputField: {
+    quantity: {
         width: "50px",
     },
     btnText: {
+        width: "50px",
         fontSize: "20px",
         fontWeight: "bold",
     },
