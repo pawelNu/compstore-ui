@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { endpoints, links } from "../../config/links";
 import axios from "axios";
 import { Card } from "react-bootstrap";
 import {
     TPBComboData,
     TProcessorBrandNew,
-} from "../../types/ComboData/TProcessorBrands";
+} from "../../../types/ComboData/TProcessorBrands";
+import { endpoints, links } from "../../../config/links";
 
 export const ProcessorBrandNew = () => {
     let navigate = useNavigate();

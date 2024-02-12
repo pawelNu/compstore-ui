@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { getProcessorBrandsComboData } from "./components/actions";
-import { TProcessorBrands } from "../../types/ComboData/TProcessorBrands";
-import { ActionsButton } from "../../components/buttons/ActionsButton";
-import { endpoints, links } from "../../config/links";
 import { UUID } from "crypto";
 import axios from "axios";
 import { Card, Table } from "react-bootstrap";
-import { ButtonWithIcon } from "../../components/buttons/ButtonWithIcon";
-import { buttons } from "../../config/buttonsConfig";
+import { ActionsButton } from "../../../components/buttons/ActionsButton";
+import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
+import { buttons } from "../../../config/buttonsConfig";
+import { endpoints, links } from "../../../config/links";
+import { TProcessorBrands } from "../../../types/ComboData/TProcessorBrands";
 
 export const ProcessorBrands = () => {
     const [processorBrands, setProcessorBrands] = useState<TProcessorBrands[]>(

@@ -1,7 +1,7 @@
 import axios from "axios";
-import { TProcessorBrands } from "../../../types/ComboData/TProcessorBrands";
 import { Dispatch, SetStateAction } from "react";
-import { endpoints } from "../../../config/links";
+import { endpoints } from "../../../../config/links";
+import { TProcessorBrands } from "../../../../types/ComboData/TProcessorBrands";
 
 export const getProcessorBrandsComboData = async (
     setProcessorBrands: Dispatch<SetStateAction<TProcessorBrands[]>>,

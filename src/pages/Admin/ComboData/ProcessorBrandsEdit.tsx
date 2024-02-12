@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { endpoints, links } from "../../config/links";
+import { Card } from "react-bootstrap";
+import { endpoints, links } from "../../../config/links";
 import {
     TPBComboData,
-    TPBUpdated,
     TProcessorBrandNew,
-} from "../../types/ComboData/TProcessorBrands";
-import { Card } from "react-bootstrap";
+    TPBUpdated,
+} from "../../../types/ComboData/TProcessorBrands";
 
 export const ProcessorBrandsEdit = () => {
     let navigate = useNavigate();
