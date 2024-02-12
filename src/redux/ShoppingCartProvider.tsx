@@ -3,10 +3,9 @@ import { createContext, useContext } from "react";
 import { TIDNameType } from "../types/PC/TPC";
 import { UUID } from "crypto";
 
-export type TCartItem = {
-    // TODO add product type
-    // TODO how in one shopping list store 4 different types of products?
+type TPCItem = {
     id: UUID;
+    productType: string;
     processorBrand: TIDNameType;
     processorName: string;
     graphicsCardBrand: TIDNameType;
@@ -19,10 +18,27 @@ export type TCartItem = {
     quantity: number;
 };
 
+type TLaptopItem = {
+    id: UUID;
+    productType: string;
+    processorBrand: TIDNameType;
+    processorName: string;
+    graphicsCardBrand: TIDNameType;
+    graphicsCardName: string;
+    ramCapacity: string;
+    driveCapacity: string;
+    driveType: string;
+    operatingSystem: TIDNameType;
+    price: number;
+    quantity: number;
+};
+
+type TShoppingCartList = (TPCItem | TLaptopItem)[];
+
 type ShoppingCartContextType = {
-    shoppingCartList: TCartItem[];
+    shoppingCartList: TShoppingCartList;
     shoppingListCount: number;
-    addToCart: (product: TCartItem) => void;
+    addToCart: (product: TPCItem) => void;
     deleteFromCart: (id: UUID) => void;
     clearCart: () => void;
     reduceProductQuantity: (id: UUID) => void;
@@ -44,12 +60,11 @@ export const useShoppingCart = (): ShoppingCartContextType => {
 export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
     children,
 }) => {
-    const [shoppingCartList, setShoppingCartList] = React.useState<TCartItem[]>(
-        () => {
+    const [shoppingCartList, setShoppingCartList] =
+        React.useState<TShoppingCartList>(() => {
             const storedList = localStorage.getItem("shoppingCart");
             return storedList ? JSON.parse(storedList) : [];
-        },
-    );
+        });
 
     useEffect(() => {
         localStorage.setItem("shoppingCart", JSON.stringify(shoppingCartList));
@@ -64,7 +79,7 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const shoppingListCount = shoppingCartList.length;
 
-    const addToCart = (product: TCartItem) => {
+    const addToCart = (product: TPCItem | TLaptopItem) => {
         const productIndex = checkProductIndex(product.id);
 
         if (productIndex === -1) {
