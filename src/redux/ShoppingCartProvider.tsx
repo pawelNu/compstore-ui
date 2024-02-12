@@ -21,7 +21,9 @@ export type TCartItem = {
 
 type ShoppingCartContextType = {
     shoppingCartList: TCartItem[];
+    shoppingListCount: number;
     addToCart: (product: TCartItem) => void;
+    deleteFromCart: (id: UUID) => void;
     clearCart: () => void;
     reduceProductQuantity: (id: UUID) => void;
     increaseProductQuantity: (id: UUID) => void;
@@ -62,6 +64,8 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
         return productIndex;
     };
 
+    const shoppingListCount = shoppingCartList.length;
+
     const addToCart = (product: TCartItem) => {
         const productIndex = checkProductIndex(product.id);
 
@@ -80,6 +84,27 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
             console.log(
                 "Added product QUANTITY + 1 to shopping cart: ",
                 product,
+            );
+        }
+    };
+
+    const deleteFromCart = (id: UUID) => {
+        const productIndex = checkProductIndex(id);
+
+        if (productIndex !== -1) {
+            const updatedList = [...shoppingCartList];
+            updatedList.splice(productIndex, 1);
+            setShoppingCartList(updatedList);
+            // TODO add message info when adding product to shopping cart
+            console.log(
+                "Deleted product from shopping cart: ",
+                shoppingCartList[productIndex],
+            );
+        } else {
+            // TODO add message info when incrementing product in shopping cart
+            console.log(
+                "Not found product in shopping cart! ",
+                shoppingCartList[productIndex],
             );
         }
     };
@@ -115,7 +140,9 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
         <ShoppingCartContext.Provider
             value={{
                 shoppingCartList,
+                shoppingListCount,
                 addToCart,
+                deleteFromCart,
                 clearCart,
                 reduceProductQuantity,
                 increaseProductQuantity,

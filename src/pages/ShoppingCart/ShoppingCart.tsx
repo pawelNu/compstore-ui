@@ -12,6 +12,7 @@ export const ShoppingCart = () => {
         clearCart,
         reduceProductQuantity,
         increaseProductQuantity,
+        deleteFromCart,
     } = useShoppingCart();
 
     const totalPrice = shoppingCartList
@@ -70,8 +71,14 @@ export const ShoppingCart = () => {
                                                     {product.driveType}
                                                 </Link>
                                                 <div className="d-flex">
-                                                    {/* TODO create function for delete product from shopping cart */}
-                                                    <Button variant="danger">
+                                                    <Button
+                                                        variant="danger"
+                                                        onClick={() =>
+                                                            deleteFromCart(
+                                                                product.id,
+                                                            )
+                                                        }
+                                                    >
                                                         Delete
                                                     </Button>
                                                     <div className="col-1 vr mx-2"></div>
