@@ -51,8 +51,6 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
         },
     );
 
-    console.log("file: ShoppingCartProvider.tsx:35   list:", shoppingCartList);
-
     useEffect(() => {
         localStorage.setItem("shoppingCart", JSON.stringify(shoppingCartList));
     }, [shoppingCartList]);

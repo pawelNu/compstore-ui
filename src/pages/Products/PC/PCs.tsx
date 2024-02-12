@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { UUID } from "crypto";
-import { TPCsProps, TPCSimple, TPCFilter } from "../../../types/PC/TPC";
+import { TPCSimple, TPCFilter } from "../../../types/PC/TPC";
 import { SortingButton } from "../../../components/buttons/SortingButton";
 import { PaginationComponent } from "../../../components/pagination/PaginationComponent";
 import { PCFilter } from "./PCFilter";
@@ -16,8 +16,10 @@ import {
     getPcsHandler,
     sortingHandler,
 } from "./components/PCactions";
+import { useUser } from "../../../redux/UserProvider";
 
-export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
+export const PCs = () => {
+    const { userRole } = useUser();
     const [pcs, setPCs] = useState<TPCSimple[]>([]);
     const [pageNumber, setPageNumber] = useState<number>(0);
     const [pageSize, setPageSize] = useState<number>(10);

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { MainPage } from "./pages/MainPage/MainPage";
 import { NavbarStore } from "./layout/navbar/NavbarStore";
@@ -19,20 +18,11 @@ import { buttons } from "./config/buttonsConfig";
 import { useShoppingCart } from "./redux/ShoppingCartProvider";
 
 export const App = () => {
-    // TODO add userRole to global variables
-    const [userRole, setUserRole] = useState("Customer");
     const { shoppingListCount } = useShoppingCart();
-
-    const handleUserRoleChange = (role: string) => {
-        setUserRole(role);
-    };
 
     return (
         <div className="m-2">
-            <NavbarStore
-                onUserRoleChange={handleUserRoleChange}
-                userRole={userRole}
-            />
+            <NavbarStore />
             <div className="container px-0">
                 <div className="d-flex justify-content-between">
                     <Baner />
@@ -51,7 +41,7 @@ export const App = () => {
                         PCPage, LaptopPages, TVPages, ProcessorBrandPages, AdminPages
                         */}
                 <Route path={links.mainPage} element={<MainPage />} />
-                <Route path={links.pcs} element={<PCs userRole={userRole} />} />
+                <Route path={links.pcs} element={<PCs />} />
                 <Route path={`${links.pcDetails}:id`} element={<PCDetails />} />
                 <Route path={`${links.pcEdit}:id`} element={<PCEdit />} />
                 <Route path={links.shoppingCart} element={<ShoppingCart />} />
