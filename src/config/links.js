@@ -12,6 +12,13 @@ export const links = {
     processorBrandsNew: "/processor-brands/new",
 };
 
+export const links2 = {
+    mainPage: "/",
+    shoppingCart: "shopping-cart",
+    pcs: "pcs",
+    processorBrands: "processor-brands",
+};
+
 export const endpoints = {
     pcs: {
         byId: hostName + "/pcs/",

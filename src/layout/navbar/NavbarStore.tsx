@@ -6,19 +6,12 @@ import { navbarElements } from "./navbarConfig";
 import { SideCanvas } from "../sidebar/components/SideCanvas";
 import { useUser } from "../../redux/UserProvider";
 
-// type TNavbarProps = {
-//     onUserRoleChange: (role: string) => void;
-//     userRole: string;
-// };
-
 export const NavbarStore = () => {
-    // const [userRole, setUserRole] = useState("Customer");
     const { userRole, userRoleChange } = useUser();
     const [showSideCanvas, setShowSideCanvas] = useState(false);
 
     const handleUserRoleChange = (role: string) => {
         userRoleChange(role);
-        // onUserRoleChange(role);
     };
 
     const handleAdminPanelClick = () => {

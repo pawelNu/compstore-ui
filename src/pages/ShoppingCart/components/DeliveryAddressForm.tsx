@@ -1,5 +1,8 @@
 import { Button } from "react-bootstrap";
-
+// TODO create a form so that when selecting home delivery,
+// it displays the name, surname and address,
+// and when selecting InPost, it displays frogs so that
+// only the address of the premises or place can be entered
 export const DeliveryAddressForm = () => {
     return (
         <div className="card mb-2">

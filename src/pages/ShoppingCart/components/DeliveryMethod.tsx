@@ -1,5 +1,5 @@
 import { deliveryMethods } from "../../../data/DeliveryMethodData";
-
+// TODO make it so that the address to be selected is displayed only when a specific element is selected
 export const DeliveryMethod = () => {
     return (
         <div className="card mb-2">
