@@ -1,3 +1,5 @@
+import { Button } from "react-bootstrap";
+
 export const DeliveryAddressForm = () => {
     return (
         <div className="card mb-2">
@@ -80,12 +82,10 @@ export const DeliveryAddressForm = () => {
                         </div>
                     </div>
                     <div className="d-flex justify-content-center">
-                        <button
-                            type="submit"
-                            className="btn btn-outline-success"
-                        >
+                        {/* TODO add a page informing about the number of products purchased and its price and confirming the purchase  */}
+                        <Button variant="outline-success" type="submit">
                             Buy and pay
-                        </button>
+                        </Button>
                     </div>
                 </form>
             </div>

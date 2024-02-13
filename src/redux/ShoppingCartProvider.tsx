@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { createContext, useContext } from "react";
 import { TIDNameType } from "../types/PC/TPC";
 import { UUID } from "crypto";
+import { renderAlert } from "../components/alerts/ConfirmAlert";
+import { alerts } from "../config/alertsConfig";
 
 type TPCItem = {
     id: UUID;
@@ -87,17 +89,12 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
                 ...prevList,
                 { ...product, quantity: 1 },
             ]);
-            // TODO add message info when adding product to shopping cart
-            console.log("Added product to shopping cart: ", product);
+            renderAlert(alerts.addToShoppingCart);
         } else {
             const updatedList = [...shoppingCartList];
             updatedList[productIndex].quantity += 1;
             setShoppingCartList(updatedList);
-            // TODO add message info when incrementing product in shopping cart
-            console.log(
-                "Added product QUANTITY + 1 to shopping cart: ",
-                product,
-            );
+            renderAlert(alerts.addQuantityToShoppingCart);
         }
     };
 
@@ -108,13 +105,8 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
             const updatedList = [...shoppingCartList];
             updatedList.splice(productIndex, 1);
             setShoppingCartList(updatedList);
-            // TODO add message info when adding product to shopping cart
-            console.log(
-                "Deleted product from shopping cart: ",
-                shoppingCartList[productIndex],
-            );
+            renderAlert(alerts.deleteFromShoppingCart);
         } else {
-            // TODO add message info when incrementing product in shopping cart
             console.log(
                 "Not found product in shopping cart! ",
                 shoppingCartList[productIndex],
@@ -147,6 +139,7 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const clearCart = () => {
         setShoppingCartList([]);
+        renderAlert(alerts.clearShoppingCart);
     };
 
     return (
