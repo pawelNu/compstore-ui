@@ -12,6 +12,7 @@ import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
 import { buttons } from "../../../config/buttonsConfig";
 import { useShoppingCart } from "../../../redux/ShoppingCartProvider";
 import {
+    addToCartHandler,
     changePageHandler,
     getPcsHandler,
     sortingHandler,
@@ -44,16 +45,7 @@ export const PCs = () => {
     const { addToCart } = useShoppingCart();
 
     const handleAddToCart = async (id: UUID) => {
-        try {
-            const result = await axios.get(endpoints.pcs.byId + id);
-            console.log(
-                "file: PCs.tsx   handleAddToCart   result:",
-                result.data,
-            );
-            addToCart(result.data);
-        } catch (e) {
-            console.log("file: PCs.tsx   handleAddToCart   e:", e);
-        }
+        addToCartHandler(id, addToCart);
     };
 
     const imagePlaceholder =

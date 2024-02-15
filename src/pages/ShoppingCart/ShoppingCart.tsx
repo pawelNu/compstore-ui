@@ -49,7 +49,7 @@ export const ShoppingCart = () => {
                                     <ListGroup variant="flush w-100">
                                         <ListGroup.Item>
                                             <div className="d-flex justify-content-between">
-                                                <Link
+                                                {/* <Link
                                                     to={
                                                         links.pcDetails +
                                                         product.id
@@ -69,7 +69,7 @@ export const ShoppingCart = () => {
                                                     , Drive:{" "}
                                                     {product.driveCapacity}{" "}
                                                     {product.driveType}
-                                                </Link>
+                                                </Link> */}
                                                 <div className="d-flex">
                                                     <Button
                                                         variant="danger"

@@ -5,42 +5,20 @@ import { UUID } from "crypto";
 import { renderAlert } from "../components/alerts/ConfirmAlert";
 import { alerts } from "../config/alertsConfig";
 
-type TPCItem = {
+// TODO change attributes to string
+export type TCartItem = {
     id: UUID;
-    productType: string;
-    processorBrand: TIDNameType;
-    processorName: string;
-    graphicsCardBrand: TIDNameType;
-    graphicsCardName: string;
-    ramCapacity: string;
-    driveCapacity: string;
-    driveType: string;
-    operatingSystem: TIDNameType;
+    attributes: string;
     price: number;
     quantity: number;
 };
 
-type TLaptopItem = {
-    id: UUID;
-    productType: string;
-    processorBrand: TIDNameType;
-    processorName: string;
-    graphicsCardBrand: TIDNameType;
-    graphicsCardName: string;
-    ramCapacity: string;
-    driveCapacity: string;
-    driveType: string;
-    operatingSystem: TIDNameType;
-    price: number;
-    quantity: number;
-};
-
-type TShoppingCartList = (TPCItem | TLaptopItem)[];
+type TShoppingCartList = TCartItem[];
 
 type ShoppingCartContextType = {
     shoppingCartList: TShoppingCartList;
     shoppingListCount: number;
-    addToCart: (product: TPCItem) => void;
+    addToCart: (product: TCartItem) => void;
     deleteFromCart: (id: UUID) => void;
     clearCart: () => void;
     reduceProductQuantity: (id: UUID) => void;
@@ -81,7 +59,7 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const shoppingListCount = shoppingCartList.length;
 
-    const addToCart = (product: TPCItem | TLaptopItem) => {
+    const addToCart = (product: TCartItem) => {
         const productIndex = checkProductIndex(product.id);
 
         if (productIndex === -1) {

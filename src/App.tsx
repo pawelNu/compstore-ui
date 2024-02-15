@@ -5,7 +5,17 @@ import { Footer } from "./layout/Footer";
 import { ButtonWithIcon } from "./components/buttons/ButtonWithIcon";
 import { buttons } from "./config/buttonsConfig";
 import { useShoppingCart } from "./redux/ShoppingCartProvider";
-import { Pages } from "./components/Pages";
+import { Routes, Route } from "react-router-dom";
+import { links } from "./config/links";
+import { ProcessorBrandNew } from "./pages/Admin/ComboData/ProcessorBrandNew";
+import { ProcessorBrands } from "./pages/Admin/ComboData/ProcessorBrands";
+import { ProcessorBrandsEdit } from "./pages/Admin/ComboData/ProcessorBrandsEdit";
+import { MainPage } from "./pages/MainPage/MainPage";
+import { AddNewProductForm } from "./pages/Products/AddNewProductForm";
+import { PCDetails } from "./pages/Products/PC/PCDetails";
+import { PCEdit } from "./pages/Products/PC/PCEdit";
+import { PCs } from "./pages/Products/PC/PCs";
+import { ShoppingCart } from "./pages/ShoppingCart/ShoppingCart";
 
 export const App = () => {
     const { shoppingListCount } = useShoppingCart();
@@ -24,7 +34,30 @@ export const App = () => {
                 </div>
             </div>
             <CategoryBar />
-            <Pages />
+            <Routes>
+                <Route path={links.mainPage} element={<MainPage />} />
+                <Route path={links.shoppingCart} element={<ShoppingCart />} />
+                <Route path={links.pcs} element={<PCs />} />
+                <Route path={`${links.pcDetails}:id`} element={<PCDetails />} />
+                <Route path={`${links.pcEdit}:id`} element={<PCEdit />} />
+                <Route path={links.shoppingCart} element={<ShoppingCart />} />
+                <Route
+                    path={links.addNewProduct}
+                    element={<AddNewProductForm />}
+                />
+                <Route
+                    path={links.processorBrands}
+                    element={<ProcessorBrands />}
+                />
+                <Route
+                    path={`${links.processorBrandsEdit}:id`}
+                    element={<ProcessorBrandsEdit />}
+                />
+                <Route
+                    path={links.processorBrandsNew}
+                    element={<ProcessorBrandNew />}
+                />
+            </Routes>
             <Footer />
         </div>
     );

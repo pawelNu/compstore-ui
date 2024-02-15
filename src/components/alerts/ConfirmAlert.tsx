@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
 import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
 export type ConfirmAlertProp = {
     message: string;
@@ -55,5 +56,15 @@ export const renderAlert = (props: ConfirmAlertProp) => {
     const alertContainer = document.createElement("div");
     document.body.appendChild(alertContainer);
 
-    ReactDOM.render(<ConfirmAlert {...props} />, alertContainer);
+    const root = createRoot(alertContainer);
+
+    root.render(<ConfirmAlert {...props} />);
+
+    // Remove the alert after timeout if provided
+    if (props.timeout) {
+        setTimeout(() => {
+            root.unmount();
+            alertContainer.remove();
+        }, props.timeout + 1000); // Add a little extra time to ensure animation completes
+    }
 };
