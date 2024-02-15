@@ -10,12 +10,14 @@ import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
 import { buttons } from "../../../config/buttonsConfig";
 import { useShoppingCart } from "../../../redux/ShoppingCartProvider";
 import { UUID } from "crypto";
+import { addToCartHandler } from "./components/PCactions";
 
 export const PCDetails = () => {
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
     const [pc, setPc] = useState<TPCDetails>(initialPCDetails);
+    const { addToCart } = useShoppingCart();
 
     const { id } = useParams();
 
@@ -31,15 +33,8 @@ export const PCDetails = () => {
         }
     };
 
-    const { addToCart } = useShoppingCart();
-
     const handleAddToCart = async (id: UUID) => {
-        try {
-            const result = await axios.get(endpoints.pcs.byId + id);
-            addToCart(result.data);
-        } catch (e) {
-            console.log("file: PCDetails.tsx:   handleAddToCart   e:", e);
-        }
+        addToCartHandler(id, addToCart);
     };
 
     useEffect(() => {

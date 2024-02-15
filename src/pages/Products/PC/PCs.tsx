@@ -41,8 +41,8 @@ export const PCs = () => {
             ascendingFlag: null,
         },
     });
-
     const { addToCart } = useShoppingCart();
+    // clearCart();
 
     const handleAddToCart = async (id: UUID) => {
         addToCartHandler(id, addToCart);

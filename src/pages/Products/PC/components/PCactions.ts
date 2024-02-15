@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Dispatch, SetStateAction } from "react";
-import { TPCFilter, TPCSimple } from "../../../../types/PC/TPC";
+import { TPCDetails, TPCFilter, TPCSimple } from "../../../../types/PC/TPC";
 import { endpoints } from "../../../../config/links";
 import { UUID } from "crypto";
 import { TCartItem } from "../../../../redux/ShoppingCartProvider";
@@ -24,7 +24,7 @@ export const getPcsHandler = async (
         setPageNumber(pagingMetadata.pageNumber);
         setPageSize(pagingMetadata.pageSize);
     } catch (error: any) {
-        console.log("file: PCs.tsx  getPCs  error:", error);
+        console.log("file: PCactions.ts:27   error:", error);
     }
 };
 
@@ -34,12 +34,32 @@ export const addToCartHandler = async (
 ) => {
     try {
         const result = await axios.get(endpoints.pcs.byId + id);
-        console.log("file: PCs.tsx   handleAddToCart   result:", result.data);
-        addToCart(result.data);
+        const product = transformProduct(result.data);
+        addToCart(product);
     } catch (e) {
-        console.log("file: PCs.tsx   handleAddToCart   e:", e);
+        console.log("file: PCactions.ts:39   e:", e);
     }
 };
+
+function transformProduct(pc: TPCDetails): TCartItem {
+    let details: string[] = [
+        "PC",
+        `Processor: ${pc.processorName}`,
+        `Graphic Card: ${pc.graphicsCardName}`,
+        `RAM: ${pc.ramCapacity}`,
+        `Drive: ${pc.driveCapacity} ${pc.driveType}`,
+        `System: ${pc.operatingSystem.name}`,
+    ];
+
+    const transformedProduct: TCartItem = {
+        id: pc.id,
+        details: details,
+        price: pc.price,
+        quantity: 0,
+    };
+
+    return transformedProduct;
+}
 
 export const changePageHandler = (
     filter: TPCFilter,

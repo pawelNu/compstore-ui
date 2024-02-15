@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
 import { createContext, useContext } from "react";
-import { TIDNameType } from "../types/PC/TPC";
 import { UUID } from "crypto";
 import { renderAlert } from "../components/alerts/ConfirmAlert";
 import { alerts } from "../config/alertsConfig";
 
-// TODO change attributes to string
 export type TCartItem = {
     id: UUID;
-    attributes: string;
+    details: string[];
     price: number;
     quantity: number;
 };
@@ -45,6 +43,11 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
             const storedList = localStorage.getItem("shoppingCart");
             return storedList ? JSON.parse(storedList) : [];
         });
+
+    console.log(
+        "file: ShoppingCartProvider.tsx:43   shoppingCartList:",
+        shoppingCartList,
+    );
 
     useEffect(() => {
         localStorage.setItem("shoppingCart", JSON.stringify(shoppingCartList));
