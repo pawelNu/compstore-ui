@@ -1,13 +1,26 @@
 import { DeliveryAddressForm } from "./components/DeliveryAddressForm";
 import { DeliveryMethod } from "./components/DeliveryMethod";
 import { shoppingCartStyles } from "../../static/styles/ShoppingCart";
-import { links } from "../../config/links";
+import { endpoints, links } from "../../config/links";
 import { Button, Card, CardBody, CardHeader, ListGroup } from "react-bootstrap";
 import { useShoppingCart } from "../../redux/ShoppingCartProvider";
 import { Link } from "react-router-dom";
 import { formatPrice } from "../../components/util";
+import { UUID } from "crypto";
+import { useCallback, useEffect, useState } from "react";
+import axios from "axios";
+
+type TShoppingCartItem = {
+    id: UUID;
+    description: string;
+    price: number;
+    quantity: number;
+};
 
 export const ShoppingCart = () => {
+    const [shoppingList, setShoppingList] = useState<TShoppingCartItem[]>([]);
+    const [itemList, setItemList] = useState<string[]>([]);
+
     const {
         shoppingCartList,
         clearCart,
@@ -16,7 +29,7 @@ export const ShoppingCart = () => {
         deleteFromCart,
     } = useShoppingCart();
 
-    const countTotalPrice = shoppingCartList.reduce((total, product) => {
+    const countTotalPrice = shoppingList.reduce((total, product) => {
         const productTotal = product.price * product.quantity;
         return total + productTotal;
     }, 0);
@@ -26,12 +39,51 @@ export const ShoppingCart = () => {
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
+    const getShoppingList = useCallback(
+        async (itemList: string[]) => {
+            try {
+                const result = await axios.post<TShoppingCartItem[]>(
+                    endpoints.products.getByIds,
+                    itemList,
+                );
+
+                const updatedShoppingList = result.data.map((item) => {
+                    const correspondingQuantity = shoppingCartList.find(
+                        (quantityItem) => quantityItem.id === item.id,
+                    );
+                    return {
+                        ...item,
+                        quantity: correspondingQuantity
+                            ? correspondingQuantity.quantity
+                            : 0,
+                    };
+                });
+
+                setShoppingList(updatedShoppingList);
+            } catch (error: any) {
+                console.log(
+                    "file: ShoppingCart.tsx:   getShoppingList   error:",
+                    error,
+                );
+            }
+        },
+        [shoppingCartList],
+    );
+
+    useEffect(() => {
+        getShoppingList(itemList);
+    }, [getShoppingList, itemList, shoppingCartList]);
+
+    useEffect(() => {
+        setItemList(shoppingCartList.map((item) => item.id));
+    }, [shoppingCartList]);
+
     return (
         <div className="container p-2 mb-2">
             <Card>
                 <CardHeader as="h5">Shopping Cart</CardHeader>
                 <CardBody>
-                    {shoppingCartList.map((product) => (
+                    {shoppingList.map((product) => (
                         <Card key={product.id} className="mb-2">
                             <CardBody>
                                 <div className="d-flex">
@@ -60,7 +112,7 @@ export const ShoppingCart = () => {
                                                         shoppingCartStyles.component
                                                     }
                                                 >
-                                                    <div>
+                                                    {/* <div>
                                                         {product.details.map(
                                                             (detail, index) => (
                                                                 <div
@@ -70,6 +122,9 @@ export const ShoppingCart = () => {
                                                                 </div>
                                                             ),
                                                         )}
+                                                    </div> */}
+                                                    <div>
+                                                        {product.description}
                                                     </div>
                                                 </Link>
 

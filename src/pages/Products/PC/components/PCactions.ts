@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Dispatch, SetStateAction } from "react";
-import { TPCDetails, TPCFilter, TPCSimple } from "../../../../types/PC/TPC";
+import { TPCFilter, TPCSimple } from "../../../../types/PC/TPC";
 import { endpoints } from "../../../../config/links";
 import { UUID } from "crypto";
 import { TCartItem } from "../../../../redux/ShoppingCartProvider";
@@ -24,7 +24,7 @@ export const getPcsHandler = async (
         setPageNumber(pagingMetadata.pageNumber);
         setPageSize(pagingMetadata.pageSize);
     } catch (error: any) {
-        console.log("file: PCactions.ts:27   error:", error);
+        console.log("file: PCactions.ts   error:", error);
     }
 };
 
@@ -33,33 +33,44 @@ export const addToCartHandler = async (
     addToCart: (product: TCartItem) => void,
 ) => {
     try {
-        const result = await axios.get(endpoints.pcs.byId + id);
-        const product = transformProduct(result.data);
-        addToCart(product);
+        addToCart({ id: id, quantity: 0 });
     } catch (e) {
-        console.log("file: PCactions.ts:39   e:", e);
+        console.log("file: PCactions.ts   e:", e);
     }
 };
 
-function transformProduct(pc: TPCDetails): TCartItem {
-    let details: string[] = [
-        "PC",
-        `Processor: ${pc.processorName}`,
-        `Graphic Card: ${pc.graphicsCardName}`,
-        `RAM: ${pc.ramCapacity}`,
-        `Drive: ${pc.driveCapacity} ${pc.driveType}`,
-        `System: ${pc.operatingSystem.name}`,
-    ];
+// export const addToCartHandler = async (
+//     id: UUID,
+//     addToCart: (product: TCartItem) => void,
+// ) => {
+//     try {
+//         const result = await axios.get(endpoints.pcs.byId + id);
+//         const product = transformProduct(result.data);
+//         addToCart(product);
+//     } catch (e) {
+//         console.log("file: PCactions.ts:39   e:", e);
+//     }
+// };
 
-    const transformedProduct: TCartItem = {
-        id: pc.id,
-        details: details,
-        price: pc.price,
-        quantity: 0,
-    };
+// function transformProduct(pc: TPCDetails): TCartItem {
+//     let details: string[] = [
+//         "PC",
+//         `Processor: ${pc.processorName}`,
+//         `Graphic Card: ${pc.graphicsCardName}`,
+//         `RAM: ${pc.ramCapacity}`,
+//         `Drive: ${pc.driveCapacity} ${pc.driveType}`,
+//         `System: ${pc.operatingSystem.name}`,
+//     ];
 
-    return transformedProduct;
-}
+//     const transformedProduct: TCartItem = {
+//         id: pc.id,
+//         details: details,
+//         price: pc.price,
+//         quantity: 0,
+//     };
+
+//     return transformedProduct;
+// }
 
 export const changePageHandler = (
     filter: TPCFilter,

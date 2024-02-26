@@ -32,4 +32,7 @@ export const endpoints = {
         getAll: hostName + "/processor-brands",
         comboData: hostName + "/processor-brands/combo-data",
     },
+    products: {
+        getByIds: hostName + "/products",
+    },
 };

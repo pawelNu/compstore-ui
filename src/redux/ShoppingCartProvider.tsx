@@ -6,8 +6,6 @@ import { alerts } from "../config/alertsConfig";
 
 export type TCartItem = {
     id: UUID;
-    details: string[];
-    price: number;
     quantity: number;
 };
 
