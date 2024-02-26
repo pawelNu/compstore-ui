@@ -16,7 +16,9 @@ type TShoppingCartItem = {
     price: number;
     quantity: number;
 };
-
+// TODO handle endpoint orders
+// po tym gdy w momencie zostanie wykonany zakup zostanie wyświetlona lista dokonanych zakupów
+// i gdy użytkownik naciśnie OK potwierdzi że się zapoznał z tą listą następuje usunięcie zamówienia z tabeli
 export const ShoppingCart = () => {
     const [shoppingList, setShoppingList] = useState<TShoppingCartItem[]>([]);
     const [itemList, setItemList] = useState<string[]>([]);

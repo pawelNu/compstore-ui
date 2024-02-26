@@ -39,39 +39,6 @@ export const addToCartHandler = async (
     }
 };
 
-// export const addToCartHandler = async (
-//     id: UUID,
-//     addToCart: (product: TCartItem) => void,
-// ) => {
-//     try {
-//         const result = await axios.get(endpoints.pcs.byId + id);
-//         const product = transformProduct(result.data);
-//         addToCart(product);
-//     } catch (e) {
-//         console.log("file: PCactions.ts:39   e:", e);
-//     }
-// };
-
-// function transformProduct(pc: TPCDetails): TCartItem {
-//     let details: string[] = [
-//         "PC",
-//         `Processor: ${pc.processorName}`,
-//         `Graphic Card: ${pc.graphicsCardName}`,
-//         `RAM: ${pc.ramCapacity}`,
-//         `Drive: ${pc.driveCapacity} ${pc.driveType}`,
-//         `System: ${pc.operatingSystem.name}`,
-//     ];
-
-//     const transformedProduct: TCartItem = {
-//         id: pc.id,
-//         details: details,
-//         price: pc.price,
-//         quantity: 0,
-//     };
-
-//     return transformedProduct;
-// }
-
 export const changePageHandler = (
     filter: TPCFilter,
     setPageNumber: React.Dispatch<React.SetStateAction<number>>,
