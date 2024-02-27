@@ -1,9 +1,4 @@
-import { Button } from "react-bootstrap";
-// TODO create a form so that when selecting home delivery,
-// it displays the name, surname and address,
-// and when selecting InPost, it displays frogs so that
-// only the address of the premises or place can be entered
-export const DeliveryAddressForm = () => {
+export const DeliveryManOption = () => {
     return (
         <div className="card mb-2">
             <h5 className="card-header">Delivery address</h5>
@@ -83,12 +78,6 @@ export const DeliveryAddressForm = () => {
                                 id="inputZipCode"
                             />
                         </div>
-                    </div>
-                    <div className="d-flex justify-content-center">
-                        {/* TODO add a page informing about the number of products purchased and its price and confirming the purchase  */}
-                        <Button variant="outline-success" type="submit">
-                            Buy and pay
-                        </Button>
                     </div>
                 </form>
             </div>

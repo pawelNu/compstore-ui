@@ -1,4 +1,3 @@
-import { DeliveryAddressForm } from "./components/DeliveryAddressForm";
 import { DeliveryMethod } from "./components/DeliveryMethod";
 import { shoppingCartStyles } from "../../static/styles/ShoppingCart";
 import { endpoints, links } from "../../config/links";
@@ -73,18 +72,25 @@ export const ShoppingCart = () => {
     );
 
     useEffect(() => {
-        getShoppingList(itemList);
-    }, [getShoppingList, itemList, shoppingCartList]);
-
-    useEffect(() => {
         setItemList(shoppingCartList.map((item) => item.id));
     }, [shoppingCartList]);
+
+    useEffect(() => {
+        getShoppingList(itemList);
+    }, [getShoppingList, itemList, shoppingCartList]);
 
     return (
         <div className="container p-2 mb-2">
             <Card>
                 <CardHeader as="h5">Shopping Cart</CardHeader>
                 <CardBody>
+                    {shoppingList.length < 1 ? (
+                        <Card className="mb-2">
+                            <CardBody className="text-center">
+                                <h3>Shopping cart is empty...</h3>
+                            </CardBody>
+                        </Card>
+                    ) : null}
                     {shoppingList.map((product) => (
                         <Card key={product.id} className="mb-2">
                             <CardBody>
@@ -114,17 +120,6 @@ export const ShoppingCart = () => {
                                                         shoppingCartStyles.component
                                                     }
                                                 >
-                                                    {/* <div>
-                                                        {product.details.map(
-                                                            (detail, index) => (
-                                                                <div
-                                                                    key={index}
-                                                                >
-                                                                    {detail}
-                                                                </div>
-                                                            ),
-                                                        )}
-                                                    </div> */}
                                                     <div>
                                                         {product.description}
                                                     </div>
@@ -226,7 +221,12 @@ export const ShoppingCart = () => {
                     </Card>
 
                     <DeliveryMethod />
-                    <DeliveryAddressForm />
+                    <div className="d-flex justify-content-center mt-3">
+                        {/* TODO add a page informing about the number of products purchased and its price and confirming the purchase  */}
+                        <Button variant="success" type="submit">
+                            Buy and pay
+                        </Button>
+                    </div>
                 </CardBody>
                 <div className="d-flex justify-content-center mb-3">
                     <a
