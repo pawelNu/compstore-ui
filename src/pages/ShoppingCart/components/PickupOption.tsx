@@ -29,7 +29,11 @@ const shopData = [
 ];
 
 export const PickupOption = () => {
-    const [selectedShop, setSelectedShop] = useState("");
+    const [selectedShop, setSelectedShop] = useState<number | undefined>();
+    console.log(
+        "file: PickupOption.tsx:33   PickupOption   selectedShop:",
+        selectedShop,
+    );
     const [shopAddress, setShopAddress] = useState("");
     const [shopOpeningHours, setShopOpeningHours] = useState("");
 
@@ -39,7 +43,7 @@ export const PickupOption = () => {
             (shop) => shop.id === selectedShopId,
         );
         if (selectedShopData) {
-            setSelectedShop(selectedShopData.name);
+            setSelectedShop(selectedShopData.id);
             setShopAddress(selectedShopData.address);
             setShopOpeningHours(selectedShopData.openingHours);
         }
@@ -51,69 +55,67 @@ export const PickupOption = () => {
                 Pick up in store with online payment
             </h5>
             <div className="card-body">
-                <form>
-                    <div className="row mb-3">
-                        <label
-                            htmlFor="inputShop"
-                            className="col-sm-2 col-form-label"
+                <div className="row mb-3">
+                    <label
+                        htmlFor="inputShop"
+                        className="col-sm-2 col-form-label"
+                    >
+                        Select Shop
+                    </label>
+                    <div className="col-sm-10">
+                        <select
+                            className="form-select"
+                            id="inputShop"
+                            onChange={handleShopChange}
+                            value={selectedShop}
                         >
-                            Select Shop
-                        </label>
-                        <div className="col-sm-10">
-                            <select
-                                className="form-select"
-                                id="inputShop"
-                                onChange={handleShopChange}
-                                value={selectedShop}
-                            >
-                                <option value="">Select a shop</option>
-                                {shopData.map((shop) => (
-                                    <option key={shop.id} value={shop.id}>
-                                        {shop.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+                            <option value="">Select a shop</option>
+                            {shopData.map((shop) => (
+                                <option key={shop.id} value={shop.id}>
+                                    {shop.name}
+                                </option>
+                            ))}
+                        </select>
                     </div>
-                    {selectedShop && (
-                        <>
-                            <div className="row mb-3">
-                                <label
-                                    htmlFor="shopAddress"
-                                    className="col-sm-2 col-form-label"
-                                >
-                                    Address
-                                </label>
-                                <div className="col-sm-10">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="shopAddress"
-                                        value={shopAddress}
-                                        readOnly
-                                    />
-                                </div>
+                </div>
+                {selectedShop && (
+                    <>
+                        <div className="row mb-3">
+                            <label
+                                htmlFor="shopAddress"
+                                className="col-sm-2 col-form-label"
+                            >
+                                Address
+                            </label>
+                            <div className="col-sm-10">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="shopAddress"
+                                    value={shopAddress}
+                                    readOnly
+                                />
                             </div>
-                            <div className="row mb-3">
-                                <label
-                                    htmlFor="shopOpeningHours"
-                                    className="col-sm-2 col-form-label"
-                                >
-                                    Opening Hours
-                                </label>
-                                <div className="col-sm-10">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="shopOpeningHours"
-                                        value={shopOpeningHours}
-                                        readOnly
-                                    />
-                                </div>
+                        </div>
+                        <div className="row mb-3">
+                            <label
+                                htmlFor="shopOpeningHours"
+                                className="col-sm-2 col-form-label"
+                            >
+                                Opening Hours
+                            </label>
+                            <div className="col-sm-10">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="shopOpeningHours"
+                                    value={shopOpeningHours}
+                                    readOnly
+                                />
                             </div>
-                        </>
-                    )}
-                </form>
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     );
