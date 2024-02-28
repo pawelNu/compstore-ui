@@ -221,21 +221,23 @@ export const ShoppingCart = () => {
                     </Card>
 
                     <DeliveryMethod />
-                    <div className="d-flex justify-content-center mt-3">
-                        {/* TODO add a page informing about the number of products purchased and its price and confirming the purchase  */}
-                        <Button variant="success" type="submit">
-                            Buy and pay
-                        </Button>
-                    </div>
+                    {shoppingCartList.length > 0 && (
+                        <div className="d-flex justify-content-center mt-3">
+                            {/* TODO add a page informing about the number of products purchased and its price and confirming the purchase  */}
+                            <Button variant="success" type="submit">
+                                Buy and pay
+                            </Button>
+                        </div>
+                    )}
                 </CardBody>
                 <div className="d-flex justify-content-center mb-3">
-                    <a
+                    <Link
                         className="btn btn-outline-secondary"
-                        href={links.pcs}
+                        to={links.pcs}
                         role="button"
                     >
                         Back to shopping
-                    </a>
+                    </Link>
                 </div>
             </Card>
         </div>

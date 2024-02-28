@@ -139,6 +139,8 @@ export const PCs = () => {
                                             />
                                         </a>
                                     </div>
+                                    {/* TODO zrobić komponent z szczegółami produktu */}
+                                    {/* TODO będzie potrzebny mapper etykieta-wartość */}
                                     <div className="col-6">
                                         <div className="card-body">
                                             <p className="card-text">

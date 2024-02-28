@@ -77,6 +77,8 @@ export const PCDetails = () => {
                         </div>
                     </div>
                     <div>
+                        {/* TODO zrobić komponent ze szczegółami produktu */}
+                        {/* TODO będzie potrzebny mapper etykieta-wartość */}
                         <div className="card">
                             <h5 className="card-header">Product details</h5>
                             <div className="card-body">
