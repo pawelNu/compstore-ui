@@ -5,7 +5,7 @@ import { renderAlert } from "../components/alerts/ConfirmAlert";
 import { alerts } from "../config/alertsConfig";
 
 export type TCartItem = {
-    id: UUID;
+    product: UUID;
     quantity: number;
 };
 
@@ -53,7 +53,7 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const checkProductIndex = (id: UUID): number => {
         const productIndex = shoppingCartList.findIndex(
-            (item) => item.id === id,
+            (item) => item.product === id,
         );
         return productIndex;
     };
@@ -61,7 +61,7 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
     const shoppingListCount = shoppingCartList.length;
 
     const addToCart = (product: TCartItem) => {
-        const productIndex = checkProductIndex(product.id);
+        const productIndex = checkProductIndex(product.product);
 
         if (productIndex === -1) {
             setShoppingCartList((prevList) => [

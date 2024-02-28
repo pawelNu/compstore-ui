@@ -2,11 +2,11 @@ import { DeliveryMethod } from "./components/DeliveryMethod";
 import { shoppingCartStyles } from "../../static/styles/ShoppingCart";
 import { endpoints, links } from "../../config/links";
 import { Button, Card, CardBody, CardHeader, ListGroup } from "react-bootstrap";
-import { useShoppingCart } from "../../redux/ShoppingCartProvider";
-import { Link } from "react-router-dom";
+import { TCartItem, useShoppingCart } from "../../redux/ShoppingCartProvider";
+import { Link, useNavigate } from "react-router-dom";
 import { formatPrice } from "../../components/util";
 import { UUID } from "crypto";
-import { SetStateAction, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 
 type TShoppingCartItem = {
@@ -16,27 +16,42 @@ type TShoppingCartItem = {
     quantity: number;
 };
 
-type TIDQuantity = {
-    product: UUID;
-    quantity: number;
-};
-
 type TOrder = {
-    orderItems: TIDQuantity[];
+    orderItems: TCartItem[];
 };
 
-// TODO handle endpoint orders
-// po tym gdy w momencie zostanie wykonany zakup zostanie wyświetlona lista dokonanych zakupów
-// i gdy użytkownik naciśnie OK potwierdzi że się zapoznał z tą listą następuje usunięcie zamówienia z tabeli
+type TOrderResponse = {
+    id: UUID;
+    orderItems: [
+        {
+            product: {
+                id: UUID;
+                description: string;
+                price: number;
+            };
+            quantity: number;
+        },
+    ];
+    price: number;
+};
+
+// TODO po tym gdy w momencie zostanie wykonany zakup zostanie wyświetlona lista dokonanych zakupów -> tu będzie response z dodania zamówienia
+// TODO i gdy użytkownik naciśnie OK potwierdzi że się zapoznał z tą listą następuje usunięcie zamówienia z tabeli -> tu będzie usunięcie zamówienia
 export const ShoppingCart = () => {
     const [shoppingList, setShoppingList] = useState<TShoppingCartItem[]>([]);
     const [itemList, setItemList] = useState<string[]>([]);
     const [isSelectedDelivery, setIsSelectedDelivery] =
         useState<boolean>(false);
+    const [order, setOrder] = useState<TOrderResponse>();
+    const [error, setError] = useState<String>("");
 
     const handleDeliveryMethodChange = (isSelected: boolean) => {
         setIsSelectedDelivery(isSelected);
     };
+
+    let navigate = useNavigate();
+
+    console.log("file: ShoppingCart.tsx:52   ShoppingCart   order:", order);
 
     const {
         shoppingCartList,
@@ -60,13 +75,13 @@ export const ShoppingCart = () => {
         async (itemList: string[]) => {
             try {
                 const result = await axios.post<TShoppingCartItem[]>(
-                    endpoints.products.getByIds,
+                    endpoints.products.getAll,
                     itemList,
                 );
 
                 const updatedShoppingList = result.data.map((item) => {
                     const correspondingQuantity = shoppingCartList.find(
-                        (quantityItem) => quantityItem.id === item.id,
+                        (quantityItem) => quantityItem.product === item.id,
                     );
                     return {
                         ...item,
@@ -77,18 +92,49 @@ export const ShoppingCart = () => {
                 });
 
                 setShoppingList(updatedShoppingList);
-            } catch (error: any) {
+            } catch (e: any) {
                 console.log(
                     "file: ShoppingCart.tsx:   getShoppingList   error:",
-                    error,
+                    e,
                 );
             }
         },
         [shoppingCartList],
     );
 
+    const createOrder = async (e: React.MouseEvent) => {
+        e.preventDefault();
+
+        const orderItems: TOrder = {
+            orderItems: shoppingCartList,
+        };
+        console.log(
+            "file: ShoppingCart.tsx:94   createOrder   orderItems:",
+            orderItems,
+        );
+        try {
+            const result = await axios.post(
+                endpoints.orders.addNew,
+                orderItems,
+            );
+            console.log(
+                "file: ShoppingCart.tsx:136   onSubmit   result:",
+                result.data,
+            );
+            setOrder(result.data);
+            navigate(links.pcs);
+        } catch (e: any) {
+            console.log("file: ShoppingCart.tsx   onSubmit   e:", e);
+            if (e.response && e.response.data) {
+                setError(e.response.data.message.toString());
+            } else {
+                setError("An error occurred while crating the new order!");
+            }
+        }
+    };
+
     useEffect(() => {
-        setItemList(shoppingCartList.map((item) => item.id));
+        setItemList(shoppingCartList.map((item) => item.product));
     }, [shoppingCartList]);
 
     useEffect(() => {
@@ -243,7 +289,12 @@ export const ShoppingCart = () => {
                         isSelectedDelivery === true && (
                             <div className="d-flex justify-content-center mt-3">
                                 {/* TODO add a page informing about the number of products purchased and its price and confirming the purchase  */}
-                                <Button variant="success" type="submit">
+                                {/* TODO dodać do przycisku Buy and pay onClick on submit */}
+                                <Button
+                                    variant="success"
+                                    type="submit"
+                                    onClick={(e) => createOrder(e)}
+                                >
                                     Buy and pay
                                 </Button>
                             </div>

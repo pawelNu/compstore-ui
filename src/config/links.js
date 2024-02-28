@@ -33,6 +33,10 @@ export const endpoints = {
         comboData: hostName + "/processor-brands/combo-data",
     },
     products: {
-        getByIds: hostName + "/products",
+        getAll: hostName + "/products",
+    },
+    orders: {
+        addNew: hostName + "/orders",
+        byId: hostName + "/orders/",
     },
 };

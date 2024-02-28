@@ -33,7 +33,7 @@ export const addToCartHandler = async (
     addToCart: (product: TCartItem) => void,
 ) => {
     try {
-        addToCart({ id: id, quantity: 0 });
+        addToCart({ product: id, quantity: 0 });
     } catch (e) {
         console.log("file: PCactions.ts   e:", e);
     }
