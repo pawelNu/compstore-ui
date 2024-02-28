@@ -4,11 +4,18 @@ import { DeliveryManOption } from "./DeliveryManOption";
 import { PickupOption } from "./PickupOption";
 import { CollectionPointsOption } from "./CollectionPointsOption";
 
-export const DeliveryMethod = () => {
+type DeliveryMethodProps = {
+    onMethodChange: (isSelected: boolean) => void;
+};
+
+export const DeliveryMethod: React.FC<DeliveryMethodProps> = ({
+    onMethodChange,
+}) => {
     const [selectedMethod, setSelectedMethod] = useState("");
 
     const handleMethodChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedMethod(event.target.value);
+        onMethodChange(true);
     };
 
     const renderForm = () => {

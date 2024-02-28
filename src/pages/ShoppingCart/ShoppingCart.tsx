@@ -6,7 +6,7 @@ import { useShoppingCart } from "../../redux/ShoppingCartProvider";
 import { Link } from "react-router-dom";
 import { formatPrice } from "../../components/util";
 import { UUID } from "crypto";
-import { useCallback, useEffect, useState } from "react";
+import { SetStateAction, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 
 type TShoppingCartItem = {
@@ -15,12 +15,28 @@ type TShoppingCartItem = {
     price: number;
     quantity: number;
 };
+
+type TIDQuantity = {
+    product: UUID;
+    quantity: number;
+};
+
+type TOrder = {
+    orderItems: TIDQuantity[];
+};
+
 // TODO handle endpoint orders
 // po tym gdy w momencie zostanie wykonany zakup zostanie wyświetlona lista dokonanych zakupów
 // i gdy użytkownik naciśnie OK potwierdzi że się zapoznał z tą listą następuje usunięcie zamówienia z tabeli
 export const ShoppingCart = () => {
     const [shoppingList, setShoppingList] = useState<TShoppingCartItem[]>([]);
     const [itemList, setItemList] = useState<string[]>([]);
+    const [isSelectedDelivery, setIsSelectedDelivery] =
+        useState<boolean>(false);
+
+    const handleDeliveryMethodChange = (isSelected: boolean) => {
+        setIsSelectedDelivery(isSelected);
+    };
 
     const {
         shoppingCartList,
@@ -220,15 +236,18 @@ export const ShoppingCart = () => {
                         </CardBody>
                     </Card>
 
-                    <DeliveryMethod />
-                    {shoppingCartList.length > 0 && (
-                        <div className="d-flex justify-content-center mt-3">
-                            {/* TODO add a page informing about the number of products purchased and its price and confirming the purchase  */}
-                            <Button variant="success" type="submit">
-                                Buy and pay
-                            </Button>
-                        </div>
-                    )}
+                    <DeliveryMethod
+                        onMethodChange={handleDeliveryMethodChange}
+                    />
+                    {shoppingCartList.length > 0 &&
+                        isSelectedDelivery === true && (
+                            <div className="d-flex justify-content-center mt-3">
+                                {/* TODO add a page informing about the number of products purchased and its price and confirming the purchase  */}
+                                <Button variant="success" type="submit">
+                                    Buy and pay
+                                </Button>
+                            </div>
+                        )}
                 </CardBody>
                 <div className="d-flex justify-content-center mb-3">
                     <Link
