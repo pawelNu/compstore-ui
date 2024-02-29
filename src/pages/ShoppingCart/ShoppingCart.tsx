@@ -8,6 +8,7 @@ import { formatPrice } from "../../components/util";
 import { UUID } from "crypto";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
+import { OrderModal } from "./components/OrderModal";
 
 type TShoppingCartItem = {
     id: UUID;
@@ -20,7 +21,7 @@ type TOrder = {
     orderItems: TCartItem[];
 };
 
-type TOrderResponse = {
+export type TOrderResponse = {
     id: UUID;
     orderItems: [
         {
@@ -44,10 +45,10 @@ export const ShoppingCart = () => {
         useState<boolean>(false);
     const [order, setOrder] = useState<TOrderResponse>();
     const [error, setError] = useState<String>("");
-
     const handleDeliveryMethodChange = (isSelected: boolean) => {
         setIsSelectedDelivery(isSelected);
     };
+    const [showOrderModal, setShowOrderModal] = useState(false);
 
     let navigate = useNavigate();
 
@@ -67,6 +68,11 @@ export const ShoppingCart = () => {
     }, 0);
 
     const totalPrice = formatPrice(countTotalPrice);
+
+    const handleClose = () => {
+        setShowOrderModal(false);
+        setError("");
+    };
 
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
@@ -122,7 +128,8 @@ export const ShoppingCart = () => {
                 result.data,
             );
             setOrder(result.data);
-            navigate(links.pcs);
+            setShowOrderModal(true);
+            navigate(links.shoppingCart);
         } catch (e: any) {
             console.log("file: ShoppingCart.tsx   onSubmit   e:", e);
             if (e.response && e.response.data) {
@@ -264,13 +271,16 @@ export const ShoppingCart = () => {
                             </CardBody>
                         </Card>
                     ))}
-                    <Button
-                        variant="danger"
-                        className="mb-2"
-                        onClick={clearCart}
-                    >
-                        Clear shopping cart
-                    </Button>
+                    {shoppingList.length > 0 ? (
+                        <Button
+                            variant="danger"
+                            className="mb-2"
+                            onClick={clearCart}
+                        >
+                            Clear shopping cart
+                        </Button>
+                    ) : null}
+
                     <Card className="mb-2">
                         <CardBody>
                             <div
@@ -310,6 +320,14 @@ export const ShoppingCart = () => {
                     </Link>
                 </div>
             </Card>
+            <OrderModal
+                show={showOrderModal}
+                handleClose={handleClose}
+                handleOrderDelete={function (): void {
+                    throw new Error("Function not implemented.");
+                }}
+                response={order}
+            />
         </div>
     );
 };
