@@ -16,6 +16,8 @@ import { PCDetails } from "./pages/Products/PC/PCDetails";
 import { PCEdit } from "./pages/Products/PC/PCEdit";
 import { PCs } from "./pages/Products/PC/PCs";
 import { ShoppingCart } from "./pages/ShoppingCart/ShoppingCart";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const App = () => {
     const { shoppingListCount } = useShoppingCart();
@@ -59,6 +61,7 @@ export const App = () => {
                 />
             </Routes>
             <Footer />
+            <ToastContainer />
         </div>
     );
 };

@@ -9,8 +9,8 @@ import { UUID } from "crypto";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { OrderModal } from "./components/OrderModal";
-import { renderAlert } from "../../components/alerts/ConfirmAlert";
-import { alerts } from "../../config/alertsConfig";
+import { toast } from "react-toastify";
+import { toasts } from "../../config/toastsConfig";
 
 type TShoppingCartItem = {
     id: UUID;
@@ -38,8 +38,6 @@ export type TOrderResponse = {
     price: number;
 };
 
-// TODO po tym gdy w momencie zostanie wykonany zakup zostanie wyświetlona lista dokonanych zakupów -> tu będzie response z dodania zamówienia
-// TODO i gdy użytkownik naciśnie OK potwierdzi że się zapoznał z tą listą następuje usunięcie zamówienia z tabeli -> tu będzie usunięcie zamówienia
 export const ShoppingCart = () => {
     const [shoppingList, setShoppingList] = useState<TShoppingCartItem[]>([]);
     const [itemList, setItemList] = useState<string[]>([]);
@@ -73,9 +71,7 @@ export const ShoppingCart = () => {
 
     const handleClose = () => {
         setShowOrderModal(false);
-        // TODO alert o złożeniu zamówienia pojawia się pierwszy i zostaje przykryty alertem o usunięciu produktów z koszyka
-        // TODO sprawdzić czy da się zrobić tak aby alerty pojawiały się jeden pod drugim
-        renderAlert(alerts.addingOrder);
+        toast.success(toasts.addingOrder.msg, toasts.addingOrder.props);
         clearCart();
         setError("");
     };

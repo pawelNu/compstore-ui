@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { createContext, useContext } from "react";
 import { UUID } from "crypto";
-import { renderAlert } from "../components/alerts/ConfirmAlert";
-import { alerts } from "../config/alertsConfig";
+import { toast } from "react-toastify";
+import { toasts } from "../config/toastsConfig";
 
 export type TCartItem = {
     product: UUID;
@@ -68,12 +68,18 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
                 ...prevList,
                 { ...product, quantity: 1 },
             ]);
-            renderAlert(alerts.addToShoppingCart);
+            toast.success(
+                toasts.addToShoppingCart.msg,
+                toasts.addToShoppingCart.props,
+            );
         } else {
             const updatedList = [...shoppingCartList];
             updatedList[productIndex].quantity += 1;
             setShoppingCartList(updatedList);
-            renderAlert(alerts.addQuantityToShoppingCart);
+            toast.success(
+                toasts.addQuantityToShoppingCart.msg,
+                toasts.addQuantityToShoppingCart.props,
+            );
         }
     };
 
@@ -84,7 +90,10 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
             const updatedList = [...shoppingCartList];
             updatedList.splice(productIndex, 1);
             setShoppingCartList(updatedList);
-            renderAlert(alerts.deleteFromShoppingCart);
+            toast.success(
+                toasts.deleteFromShoppingCart.msg,
+                toasts.deleteFromShoppingCart.props,
+            );
         } else {
             console.log(
                 "Not found product in shopping cart! ",
@@ -118,7 +127,10 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const clearCart = () => {
         setShoppingCartList([]);
-        renderAlert(alerts.clearShoppingCart);
+        toast.success(
+            toasts.clearShoppingCart.msg,
+            toasts.clearShoppingCart.props,
+        );
     };
 
     return (

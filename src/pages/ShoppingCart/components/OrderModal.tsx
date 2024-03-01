@@ -45,7 +45,6 @@ export const OrderModal: React.FC<Props> = ({
                 <Button variant="danger" onClick={handleOrderDelete}>
                     Delete order
                 </Button>
-                {/* TODO dodać czyszczenie koszyka po tym jak klient naciśnie OK */}
                 <Button variant="secondary" onClick={handleClose}>
                     OK
                 </Button>
