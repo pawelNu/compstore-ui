@@ -5,6 +5,7 @@ type AllAlerts = {
     addQuantityToShoppingCart: ConfirmAlertProp;
     deleteFromShoppingCart: ConfirmAlertProp;
     clearShoppingCart: ConfirmAlertProp;
+    addingOrder: ConfirmAlertProp;
 };
 
 export const alerts: AllAlerts = {
@@ -23,5 +24,9 @@ export const alerts: AllAlerts = {
     clearShoppingCart: {
         message: "All products have been deleted from the cart!",
         variant: "success",
+    },
+    addingOrder: {
+        message: "Order was successfully created!",
+        variant: "info",
     },
 };

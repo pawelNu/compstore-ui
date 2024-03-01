@@ -9,6 +9,8 @@ import { UUID } from "crypto";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { OrderModal } from "./components/OrderModal";
+import { renderAlert } from "../../components/alerts/ConfirmAlert";
+import { alerts } from "../../config/alertsConfig";
 
 type TShoppingCartItem = {
     id: UUID;
@@ -71,6 +73,10 @@ export const ShoppingCart = () => {
 
     const handleClose = () => {
         setShowOrderModal(false);
+        // TODO alert o złożeniu zamówienia pojawia się pierwszy i zostaje przykryty alertem o usunięciu produktów z koszyka
+        // TODO sprawdzić czy da się zrobić tak aby alerty pojawiały się jeden pod drugim
+        renderAlert(alerts.addingOrder);
+        clearCart();
         setError("");
     };
 
