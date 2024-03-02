@@ -10,7 +10,10 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { OrderModal } from "./components/OrderModal";
 import { toast } from "react-toastify";
-import { toasts } from "../../components/toasts/toastsConfig";
+import {
+    defaultToastProps,
+    toasts,
+} from "../../components/toasts/toastsConfig";
 
 type TShoppingCartItem = {
     id: UUID;
@@ -71,7 +74,7 @@ export const ShoppingCart = () => {
 
     const handleClose = () => {
         setShowOrderModal(false);
-        toast.success(toasts.addingOrder.msg, toasts.addingOrder.props);
+        toast.success(toasts.addingOrder.msg, defaultToastProps);
         clearCart();
         setError("");
     };
@@ -84,6 +87,7 @@ export const ShoppingCart = () => {
                 await axios.delete(endpoints.orders.byId + id);
                 setShowOrderModal(false);
                 setOrder(undefined);
+                toast.info(toasts.deletingOrder.msg, defaultToastProps);
                 return { success: true };
             } catch (e: any) {
                 console.log("file: ShoppingCart.tsx:   ShoppingCart   e:", e);

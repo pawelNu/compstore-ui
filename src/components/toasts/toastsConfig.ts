@@ -4,7 +4,7 @@ import { links } from "../../config/links";
 
 type ToastProps = {
     msg: ToastContent;
-    props: {
+    props?: {
         position: "top-center";
         autoClose: number;
         hideProgressBar: true | false;
@@ -23,9 +23,10 @@ type AllToasts = {
     deleteFromShoppingCart: ToastProps;
     clearShoppingCart: ToastProps;
     addingOrder: ToastProps;
+    deletingOrder: ToastProps;
 };
 
-const defaultProps: ToastProps["props"] = {
+export const defaultToastProps: ToastProps["props"] = {
     position: "top-center",
     autoClose: 2000,
     hideProgressBar: false,
@@ -45,7 +46,6 @@ export const toasts: AllToasts = {
                 direction: "Shopping Cart",
                 link: links.shoppingCart,
             }),
-        props: defaultProps,
     },
     addQuantityToShoppingCart: {
         msg: () =>
@@ -54,18 +54,17 @@ export const toasts: AllToasts = {
                 direction: "Shopping Cart",
                 link: links.shoppingCart,
             }),
-        props: defaultProps,
     },
     deleteFromShoppingCart: {
         msg: "Deleted product from shopping cart",
-        props: defaultProps,
     },
     clearShoppingCart: {
         msg: "All products have been deleted from the cart!",
-        props: defaultProps,
     },
     addingOrder: {
         msg: "Order was successfully created!",
-        props: defaultProps,
+    },
+    deletingOrder: {
+        msg: "Order was successfully deleted!",
     },
 };
