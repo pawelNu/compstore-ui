@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { createContext, useContext } from "react";
 import { UUID } from "crypto";
 import { toast } from "react-toastify";
-import { toasts } from "../config/toastsConfig";
+import { toasts } from "../components/toasts/toastsConfig";
 
 export type TCartItem = {
     product: UUID;

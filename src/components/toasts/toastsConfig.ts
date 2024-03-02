@@ -1,7 +1,9 @@
-import { Bounce, Slide } from "react-toastify";
+import { Bounce, Slide, ToastContent } from "react-toastify";
+import { ToastWithLink } from "./ToastWithLink";
+import { links } from "../../config/links";
 
 type ToastProps = {
-    msg: string;
+    msg: ToastContent;
     props: {
         position: "top-center";
         autoClose: number;
@@ -37,11 +39,21 @@ const defaultProps: ToastProps["props"] = {
 
 export const toasts: AllToasts = {
     addToShoppingCart: {
-        msg: "Added product to shopping cart",
+        msg: () =>
+            ToastWithLink({
+                msg: "Added product to shopping cart ",
+                direction: "Shopping Cart",
+                link: links.shoppingCart,
+            }),
         props: defaultProps,
     },
     addQuantityToShoppingCart: {
-        msg: "Added product QUANTITY + 1 to shopping cart",
+        msg: () =>
+            ToastWithLink({
+                msg: "Added product QUANTITY + 1 to shopping cart ",
+                direction: "Shopping Cart",
+                link: links.shoppingCart,
+            }),
         props: defaultProps,
     },
     deleteFromShoppingCart: {

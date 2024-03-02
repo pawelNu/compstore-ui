@@ -10,7 +10,7 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { OrderModal } from "./components/OrderModal";
 import { toast } from "react-toastify";
-import { toasts } from "../../config/toastsConfig";
+import { toasts } from "../../components/toasts/toastsConfig";
 
 type TShoppingCartItem = {
     id: UUID;
@@ -301,7 +301,7 @@ export const ShoppingCart = () => {
                         isSelectedDelivery === true && (
                             <div className="d-flex justify-content-center mt-3">
                                 {/* TODO add a page informing about the number of products purchased and its price and confirming the purchase  */}
-                                {/* TODO dodać do przycisku Buy and pay onClick on submit */}
+                                {/* dodać do przycisku Buy and pay onClick on submit */}
                                 <Button
                                     variant="success"
                                     type="submit"

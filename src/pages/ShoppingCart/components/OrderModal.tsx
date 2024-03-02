@@ -1,11 +1,13 @@
 import { Button, Modal } from "react-bootstrap";
 import { TOrderResponse } from "../ShoppingCart";
+import { modalStyles } from "../../../static/styles/Modal";
 
 type Props = {
     show: boolean;
     handleClose: () => void;
     handleOrderDelete: () => void;
     response: TOrderResponse | undefined;
+    style?: React.CSSProperties;
 };
 
 export const OrderModal: React.FC<Props> = ({
@@ -13,13 +15,23 @@ export const OrderModal: React.FC<Props> = ({
     handleClose,
     handleOrderDelete,
     response,
+    style,
 }) => {
+    let modalStyle: React.CSSProperties = {};
+
+    // Ustawienie stylu na przekazane style lub domyślne
+    if (style) {
+        modalStyle = style;
+    } else {
+        modalStyle = modalStyles;
+    }
+
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
     return (
         // TODO add a page informing about the number of products purchased and its price and confirming the purchase
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} style={modalStyle}>
             <Modal.Header closeButton>
                 <Modal.Title>Order Confirmation</Modal.Title>
             </Modal.Header>

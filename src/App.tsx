@@ -3,7 +3,7 @@ import { Baner } from "./pages/MainPage/components/Baner";
 import { CategoryBar } from "./pages/MainPage/components/CategoryBar";
 import { Footer } from "./layout/Footer";
 import { ButtonWithIcon } from "./components/buttons/ButtonWithIcon";
-import { buttons } from "./config/buttonsConfig";
+import { buttons } from "./components/buttons/buttonsConfig";
 import { useShoppingCart } from "./redux/ShoppingCartProvider";
 import { Routes, Route } from "react-router-dom";
 import { links } from "./config/links";

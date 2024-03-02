@@ -14,7 +14,7 @@ import { Button } from "react-bootstrap";
 import { initialValuesFilter } from "./components/initialValues";
 import { endpoints, links } from "../../../config/links";
 import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
-import { buttons } from "../../../config/buttonsConfig";
+import { buttons } from "../../../components/buttons/buttonsConfig";
 
 type TPCFilterProps = {
     setFilter: (filterValues: any) => void;

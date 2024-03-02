@@ -9,7 +9,7 @@ import { endpoints, links } from "../../../config/links";
 import { ActionsButton } from "../../../components/buttons/ActionsButton";
 import axios from "axios";
 import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
-import { buttons } from "../../../config/buttonsConfig";
+import { buttons } from "../../../components/buttons/buttonsConfig";
 import { useShoppingCart } from "../../../redux/ShoppingCartProvider";
 import {
     addToCartHandler,

@@ -7,10 +7,10 @@ import { initialPCDetails } from "./components/initialValues";
 import { oneProductStyle } from "../../../static/styles/OneProductDetails.js";
 import { endpoints } from "../../../config/links.js";
 import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
-import { buttons } from "../../../config/buttonsConfig";
 import { useShoppingCart } from "../../../redux/ShoppingCartProvider";
 import { UUID } from "crypto";
 import { addToCartHandler } from "./components/PCactions";
+import { buttons } from "../../../components/buttons/buttonsConfig";
 
 export const PCDetails = () => {
     const imagePlaceholder =

@@ -1,9 +1,9 @@
-import { TButtons } from "../components/buttons/ButtonWithIcon";
-import { AddToCartIcon } from "../components/icons/addToCartIcon";
-import { CartIcon } from "../components/icons/cartIcon";
-import { FilterIcon } from "../components/icons/filterIcon";
-import { PlusIcon } from "../components/icons/plusIcon";
-import { links } from "./links";
+import { TButtons } from "./ButtonWithIcon";
+import { AddToCartIcon } from "../icons/addToCartIcon";
+import { CartIcon } from "../icons/cartIcon";
+import { FilterIcon } from "../icons/filterIcon";
+import { PlusIcon } from "../icons/plusIcon";
+import { links } from "../../config/links";
 
 type AllButtons = {
     addNewProcessorBrand: TButtons;
