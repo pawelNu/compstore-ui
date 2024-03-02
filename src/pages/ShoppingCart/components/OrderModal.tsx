@@ -1,11 +1,14 @@
 import { Button, Modal } from "react-bootstrap";
 import { TOrderResponse } from "../ShoppingCart";
 import { modalStyles } from "../../../static/styles/Modal";
+import { UUID } from "crypto";
 
 type Props = {
     show: boolean;
     handleClose: () => void;
-    handleOrderDelete: () => void;
+    handleOrderDelete: (
+        id: UUID | undefined,
+    ) => Promise<{ success: boolean; error?: string }>;
     response: TOrderResponse | undefined;
     style?: React.CSSProperties;
 };
@@ -37,7 +40,7 @@ export const OrderModal: React.FC<Props> = ({
             </Modal.Header>
             <Modal.Body>
                 {/* TODO zrobić łądniejsze podusumowanie produktów bo jest brzydkie */}
-                <div key={response?.id}></div>
+                <div key={response?.id}>{response?.id}</div>
                 <div>
                     {response?.orderItems.map((data, index) => (
                         <div key={index}>
@@ -53,8 +56,10 @@ export const OrderModal: React.FC<Props> = ({
                 {/* TODO poszukać info czy nie da się poszerzyć tego modala bo aktualnie jest trochę za wąski wg mnie */}
             </Modal.Body>
             <Modal.Footer>
-                {/* TODO zrobić order delete bo nie działa */}
-                <Button variant="danger" onClick={handleOrderDelete}>
+                <Button
+                    variant="danger"
+                    onClick={() => handleOrderDelete(response?.id)}
+                >
                     Delete order
                 </Button>
                 <Button variant="secondary" onClick={handleClose}>

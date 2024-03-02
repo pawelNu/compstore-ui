@@ -76,6 +76,24 @@ export const ShoppingCart = () => {
         setError("");
     };
 
+    const handleOrderDelete = async (
+        id: UUID | undefined,
+    ): Promise<{ success: boolean; error?: string }> => {
+        if (id !== undefined) {
+            try {
+                await axios.delete(endpoints.orders.byId + id);
+                setShowOrderModal(false);
+                setOrder(undefined);
+                return { success: true };
+            } catch (e: any) {
+                console.log("file: ShoppingCart.tsx:   ShoppingCart   e:", e);
+                return { success: false, error: e.response.data.message };
+            }
+        } else {
+            return { success: false, error: "ID is undefined" };
+        }
+    };
+
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
@@ -325,9 +343,7 @@ export const ShoppingCart = () => {
             <OrderModal
                 show={showOrderModal}
                 handleClose={handleClose}
-                handleOrderDelete={function (): void {
-                    throw new Error("Function not implemented.");
-                }}
+                handleOrderDelete={handleOrderDelete}
                 response={order}
             />
         </div>
