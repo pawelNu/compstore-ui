@@ -15,7 +15,7 @@ import {
     toasts,
 } from "../../components/toasts/toastsConfig";
 
-type TShoppingCartItem = {
+export type TShoppingCartItem = {
     id: UUID;
     description: string;
     price: number;
@@ -329,7 +329,7 @@ export const ShoppingCart = () => {
                                     type="submit"
                                     onClick={(e) => createOrder(e)}
                                 >
-                                    Buy and pay
+                                    Create order and pay
                                 </Button>
                             </div>
                         )}
