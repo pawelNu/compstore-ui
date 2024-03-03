@@ -30,10 +30,6 @@ const shopData = [
 
 export const PickupOption = () => {
     const [selectedShop, setSelectedShop] = useState<number | undefined>();
-    console.log(
-        "file: PickupOption.tsx:33   PickupOption   selectedShop:",
-        selectedShop,
-    );
     const [shopAddress, setShopAddress] = useState("");
     const [shopOpeningHours, setShopOpeningHours] = useState("");
 

@@ -123,7 +123,7 @@ export const PCNew: React.FC = () => {
                             name="processorName"
                             value={processorName}
                             onChange={onInputChange}
-                            placeholder="test"
+                            placeholder="Enter processor name"
                         />
                     </div>
                 </div>
@@ -170,7 +170,7 @@ export const PCNew: React.FC = () => {
                             name="graphicsCardName"
                             value={graphicsCardName}
                             onChange={onInputChange}
-                            placeholder="test"
+                            placeholder="Enter graphics card name"
                         />
                     </div>
                 </div>
@@ -287,7 +287,6 @@ export const PCNew: React.FC = () => {
                             name="price"
                             value={price}
                             onChange={onInputChange}
-                            placeholder="test"
                         />
                     </div>
                 </div>

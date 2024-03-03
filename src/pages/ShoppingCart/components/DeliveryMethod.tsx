@@ -3,18 +3,31 @@ import { deliveryMethods } from "../../../data/DeliveryMethodData";
 import { DeliveryManOption } from "./DeliveryManOption";
 import { PickupOption } from "./PickupOption";
 import { CollectionPointsOption } from "./CollectionPointsOption";
+import { TDeliveryMethod } from "../../../types/TDeliveryMethod";
+import {
+    Card,
+    CardBody,
+    CardHeader,
+    CardSubtitle,
+    CardTitle,
+} from "react-bootstrap";
 
 type DeliveryMethodProps = {
+    deliveryMethod: (method: TDeliveryMethod | undefined) => void;
+    selectedMethod: string | undefined;
     onMethodChange: (isSelected: boolean) => void;
 };
 
 export const DeliveryMethod: React.FC<DeliveryMethodProps> = ({
+    deliveryMethod,
+    selectedMethod,
     onMethodChange,
 }) => {
-    const [selectedMethod, setSelectedMethod] = useState("");
-
     const handleMethodChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedMethod(event.target.value);
+        const chosenMethod = deliveryMethods.find(
+            (method) => method.name === event.target.value,
+        );
+        deliveryMethod(chosenMethod);
         onMethodChange(true);
     };
 
@@ -33,9 +46,9 @@ export const DeliveryMethod: React.FC<DeliveryMethodProps> = ({
 
     return (
         <>
-            <div className="card mb-2">
-                <h5 className="card-header">Delivery method</h5>
-                <div className="card-body">
+            <Card className="mb-2">
+                <CardHeader as={"h5"}>Delivery method</CardHeader>
+                <CardBody className="card-body">
                     {deliveryMethods.map((data, index) => (
                         <div key={index} className="mb-2">
                             <div className="form-check d-flex align-items-center">
@@ -51,25 +64,23 @@ export const DeliveryMethod: React.FC<DeliveryMethodProps> = ({
                                     htmlFor={`deliveryMethod${index}`}
                                     className="form-check-label ms-2 w-100"
                                 >
-                                    <div className="card">
-                                        <div className="card-body">
-                                            <h5 className="card-title">
-                                                {data.name}
-                                            </h5>
-                                            <h6 className="card-subtitle mb-2 text-muted">
+                                    <Card>
+                                        <CardBody>
+                                            <CardTitle>{data.name}</CardTitle>
+                                            <CardSubtitle className="mb-2 text-muted">
                                                 {data.info}
-                                            </h6>
-                                            <h6 className="card-subtitle mb-2 text-muted">
+                                            </CardSubtitle>
+                                            <CardSubtitle className="mb-2 text-muted">
                                                 {data.price}
-                                            </h6>
-                                        </div>
-                                    </div>
+                                            </CardSubtitle>
+                                        </CardBody>
+                                    </Card>
                                 </label>
                             </div>
                         </div>
                     ))}
-                </div>
-            </div>
+                </CardBody>
+            </Card>
             {renderForm()}
         </>
     );

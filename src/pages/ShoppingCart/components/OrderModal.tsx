@@ -1,4 +1,13 @@
-import { Button, Card, CardBody, ListGroup, Modal } from "react-bootstrap";
+import {
+    Button,
+    Card,
+    CardBody,
+    CardHeader,
+    CardSubtitle,
+    CardTitle,
+    ListGroup,
+    Modal,
+} from "react-bootstrap";
 import { TOrderResponse } from "../ShoppingCart";
 import { UUID } from "crypto";
 import { Link } from "react-router-dom";
@@ -6,6 +15,7 @@ import { links } from "../../../config/links";
 import { shoppingCartStyles } from "../../../static/styles/ShoppingCart";
 import { formatPrice } from "../../../components/util";
 import "./OrderModal.css";
+import { TDeliveryMethod } from "../../../types/TDeliveryMethod";
 
 type Props = {
     show: boolean;
@@ -14,6 +24,7 @@ type Props = {
         id: UUID | undefined,
     ) => Promise<{ success: boolean; error?: string }>;
     response: TOrderResponse | undefined;
+    delivery: TDeliveryMethod | undefined;
 };
 
 export const OrderModal: React.FC<Props> = ({
@@ -21,6 +32,7 @@ export const OrderModal: React.FC<Props> = ({
     handleClose,
     handleOrderDelete,
     response,
+    delivery,
 }) => {
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
@@ -106,6 +118,7 @@ export const OrderModal: React.FC<Props> = ({
                         </Card>
                     ))}
                 </CardBody>
+
                 <Card className="mb-2">
                     <CardBody>
                         <div
@@ -116,7 +129,21 @@ export const OrderModal: React.FC<Props> = ({
                         </div>
                     </CardBody>
                 </Card>
-                {/* TODO dodać sposób dostawy bo jeszcze nie ma go na modalu */}
+
+                <Card>
+                    <CardHeader as={"h5"}>Delivery Method</CardHeader>
+                    <CardBody>
+                        <CardTitle>{delivery?.name}</CardTitle>
+                        <CardSubtitle className="mb-2 text-muted">
+                            {delivery?.info}
+                        </CardSubtitle>
+                        <CardSubtitle className="mb-2 text-muted">
+                            {delivery?.price}
+                        </CardSubtitle>
+                    </CardBody>
+                </Card>
+
+                {/* TODO dodać adres dostawy bo nie ma go jeszcze na modalu */}
             </Modal.Body>
             <Modal.Footer>
                 <Button

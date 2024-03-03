@@ -14,6 +14,7 @@ import {
     defaultToastProps,
     toasts,
 } from "../../components/toasts/toastsConfig";
+import { TDeliveryMethod } from "../../types/TDeliveryMethod";
 
 export type TShoppingCartItem = {
     id: UUID;
@@ -48,14 +49,23 @@ export const ShoppingCart = () => {
         useState<boolean>(false);
     const [order, setOrder] = useState<TOrderResponse>();
     const [error, setError] = useState<String>("");
+    const [showOrderModal, setShowOrderModal] = useState(false);
+    const [deliveryMethod, setDeliveryMethod] = useState<TDeliveryMethod>();
+    console.log(
+        "file: ShoppingCart.tsx:54   ShoppingCart   deliveryMethod:",
+        deliveryMethod,
+    );
+    // const [deliveryData, setDeliveryData] = useState(new Map<string, string>());
+
     const handleDeliveryMethodChange = (isSelected: boolean) => {
         setIsSelectedDelivery(isSelected);
     };
-    const [showOrderModal, setShowOrderModal] = useState(false);
+
+    const handleDeliveryMethod = (method: TDeliveryMethod | undefined) => {
+        setDeliveryMethod(method);
+    };
 
     let navigate = useNavigate();
-
-    console.log("file: ShoppingCart.tsx:52   ShoppingCart   order:", order);
 
     const {
         shoppingCartList,
@@ -318,12 +328,13 @@ export const ShoppingCart = () => {
 
                     <DeliveryMethod
                         onMethodChange={handleDeliveryMethodChange}
+                        deliveryMethod={handleDeliveryMethod}
+                        selectedMethod={deliveryMethod?.name}
                     />
                     {shoppingCartList.length > 0 &&
                         isSelectedDelivery === true && (
                             <div className="d-flex justify-content-center mt-3">
-                                {/* TODO add a page informing about the number of products purchased and its price and confirming the purchase  */}
-                                {/* dodać do przycisku Buy and pay onClick on submit */}
+                                {/* TODO zrobić tak aby przycisk Create order and pay pojawiał się dopiero po wypełnieniu danych adresowych */}
                                 <Button
                                     variant="success"
                                     type="submit"
@@ -349,6 +360,7 @@ export const ShoppingCart = () => {
                 handleClose={handleClose}
                 handleOrderDelete={handleOrderDelete}
                 response={order}
+                delivery={deliveryMethod}
             />
         </div>
     );
