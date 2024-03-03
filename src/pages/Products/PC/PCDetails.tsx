@@ -11,6 +11,8 @@ import { useShoppingCart } from "../../../redux/ShoppingCartProvider";
 import { UUID } from "crypto";
 import { addToCartHandler } from "./components/PCactions";
 import { buttons } from "../../../components/buttons/buttonsConfig";
+import { Card, CardBody, CardHeader } from "react-bootstrap";
+import { ProductDetails } from "../../../components/product/ProductDetails";
 
 export const PCDetails = () => {
     const imagePlaceholder =
@@ -31,6 +33,14 @@ export const PCDetails = () => {
                 e,
             );
         }
+    };
+
+    const pcDetailsMap: { [key: string]: string } = {
+        Processor: pc.processorName,
+        GPU: pc.graphicsCardName,
+        RAM: pc.ramCapacity,
+        "Storage drive": `${pc.driveType} ${pc.driveCapacity}`,
+        "Operating system": pc.operatingSystem.name,
     };
 
     const handleAddToCart = async (id: UUID) => {
@@ -76,35 +86,10 @@ export const PCDetails = () => {
                             </div>
                         </div>
                     </div>
-                    <div>
-                        {/* TODO zrobić komponent ze szczegółami produktu */}
-                        {/* TODO będzie potrzebny mapper etykieta-wartość */}
-                        <div className="card">
-                            <h5 className="card-header">Product details</h5>
-                            <div className="card-body">
-                                <p className="card-text">
-                                    <b>Processor: </b>
-                                    {pc.processorName}
-                                </p>
-                                <p className="card-text">
-                                    <b>GPU: </b>
-                                    {pc.graphicsCardName}
-                                </p>
-                                <p className="card-text">
-                                    <b>RAM: </b>
-                                    {pc.ramCapacity}
-                                </p>
-                                <p className="card-text">
-                                    <b>Storage drive: </b>
-                                    {pc.driveType} {pc.driveCapacity}
-                                </p>
-                                <p className="card-text">
-                                    <b>Operating system: </b>
-                                    {pc.operatingSystem.name}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    <ProductDetails
+                        header="Product Details"
+                        detailsMap={pcDetailsMap}
+                    />
                 </div>
             </div>
         </div>

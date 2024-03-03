@@ -340,7 +340,7 @@ export const ShoppingCart = () => {
                                     type="submit"
                                     onClick={(e) => createOrder(e)}
                                 >
-                                    Create order and pay
+                                    Place the order and pay
                                 </Button>
                             </div>
                         )}

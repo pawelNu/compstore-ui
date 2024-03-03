@@ -18,6 +18,7 @@ import {
     sortingHandler,
 } from "./components/PCactions";
 import { useUser } from "../../../redux/UserProvider";
+import { ProductDetails } from "../../../components/product/ProductDetails";
 
 export const PCs = () => {
     const { userRole } = useUser();
@@ -139,23 +140,14 @@ export const PCs = () => {
                                             />
                                         </a>
                                     </div>
-                                    {/* TODO zrobić komponent z szczegółami produktu */}
-                                    {/* TODO będzie potrzebny mapper etykieta-wartość */}
                                     <div className="col-6">
-                                        <div className="card-body">
-                                            <p className="card-text">
-                                                <b>Processor: </b>
-                                                {pc.processorName}
-                                            </p>
-                                            <p className="card-text">
-                                                <b>GPU: </b>
-                                                {pc.graphicsCardName}
-                                            </p>
-                                            <p className="card-text">
-                                                <b>RAM: </b>
-                                                {pc.ramCapacity}
-                                            </p>
-                                        </div>
+                                        <ProductDetails
+                                            detailsMap={{
+                                                Processor: pc.processorName,
+                                                GPU: pc.graphicsCardName,
+                                                RAM: pc.ramCapacity,
+                                            }}
+                                        />
                                     </div>
                                     <div className="col-3">
                                         <div style={productStyles.priceTag}>
