@@ -23,8 +23,8 @@ export const getPcsHandler = async (
         setPagesCount(pagingMetadata.pagesCount);
         setPageNumber(pagingMetadata.pageNumber);
         setPageSize(pagingMetadata.pageSize);
-    } catch (error: any) {
-        console.log("file: PCactions.ts   error:", error);
+    } catch (e: any) {
+        console.log("file: PCactions.ts   error:", e);
     }
 };
 

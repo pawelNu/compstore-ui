@@ -40,11 +40,10 @@ export const PCNew: React.FC = () => {
         try {
             await axios.post(endpoints.pcs.addNew, pc);
             navigate(links.pcs);
-            console.log("file: NewPC.tsx  onSubmit  pc:", pc);
-        } catch (error: any) {
-            console.log("file: NewPC.tsx  onSubmit  error:", error);
-            if (error.response && error.response.data) {
-                setError(error.response.data.message.toString());
+        } catch (e: any) {
+            console.log("file: NewPC.tsx  onSubmit  error:", e);
+            if (e.response && e.response.data) {
+                setError(e.response.data.message.toString());
             } else {
                 setError("An error occurred while crating the new PC!");
             }

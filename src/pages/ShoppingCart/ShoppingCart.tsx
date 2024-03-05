@@ -133,18 +133,11 @@ export const ShoppingCart = () => {
         const orderItems: TOrder = {
             orderItems: shoppingCartList,
         };
-        console.log(
-            "file: ShoppingCart.tsx:94   createOrder   orderItems:",
-            orderItems,
-        );
+
         try {
             const result = await axios.post(
                 endpoints.orders.addNew,
                 orderItems,
-            );
-            console.log(
-                "file: ShoppingCart.tsx:136   onSubmit   result:",
-                result.data,
             );
             setOrder(result.data);
             setShowOrderModal(true);

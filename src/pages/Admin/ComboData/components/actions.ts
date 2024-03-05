@@ -9,7 +9,7 @@ export const getProcessorBrandsComboData = async (
     try {
         const result = await axios.get(endpoints.processorBrands.getAll);
         setProcessorBrands(result.data);
-    } catch (error: any) {
-        console.log("file: actions.ts   error:", error);
+    } catch (e: any) {
+        console.log("file: actions.ts   error:", e);
     }
 };

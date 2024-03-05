@@ -18,7 +18,6 @@ export const ActionsButton: React.FC<Props> = ({
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [error, setError] = useState<string>("");
-    console.log("file: ActionsButton.tsx   error:", error);
 
     const handleClose = () => {
         setShowDeleteModal(false);

@@ -1,4 +1,9 @@
 import { ChangeEvent, useState } from "react";
+import { Card, CardBody, CardHeader } from "react-bootstrap";
+import {
+    TDeliveryMethodDetails,
+    useShoppingCart,
+} from "../../../redux/ShoppingCartProvider";
 
 type TShop = {
     id: number;
@@ -7,7 +12,7 @@ type TShop = {
     openingHours: string;
 };
 
-const shopData = [
+const shopData: TShop[] = [
     {
         id: 1,
         name: "Shop 1",
@@ -28,10 +33,16 @@ const shopData = [
     },
 ];
 
+const initialFormData: TDeliveryMethodDetails = {
+    Name: "",
+    Address: "",
+    "Opening Hours": "",
+};
+
 export const PickupOption = () => {
     const [selectedShop, setSelectedShop] = useState<number | undefined>();
-    const [shopAddress, setShopAddress] = useState("");
-    const [shopOpeningHours, setShopOpeningHours] = useState("");
+    const { deliveryDetails = initialFormData, setUpDeliveryDetails } =
+        useShoppingCart();
 
     const handleShopChange = (event: ChangeEvent<HTMLSelectElement>) => {
         const selectedShopId = parseInt(event.target.value);
@@ -40,17 +51,21 @@ export const PickupOption = () => {
         );
         if (selectedShopData) {
             setSelectedShop(selectedShopData.id);
-            setShopAddress(selectedShopData.address);
-            setShopOpeningHours(selectedShopData.openingHours);
+            setUpDeliveryDetails({
+                ...deliveryDetails,
+                Name: selectedShopData.name,
+                Address: selectedShopData.address,
+                "Opening Hours": selectedShopData.openingHours,
+            });
         }
     };
 
     return (
-        <div className="card mb-2">
-            <h5 className="card-header">
+        <Card className="mb-2">
+            <CardHeader as={"h5"}>
                 Pick up in store with online payment
-            </h5>
-            <div className="card-body">
+            </CardHeader>
+            <CardBody>
                 <div className="row mb-3">
                     <label
                         htmlFor="inputShop"
@@ -88,7 +103,7 @@ export const PickupOption = () => {
                                     type="text"
                                     className="form-control"
                                     id="shopAddress"
-                                    value={shopAddress}
+                                    value={deliveryDetails.Address}
                                     readOnly
                                 />
                             </div>
@@ -105,14 +120,14 @@ export const PickupOption = () => {
                                     type="text"
                                     className="form-control"
                                     id="shopOpeningHours"
-                                    value={shopOpeningHours}
+                                    value={deliveryDetails["Opening Hours"]}
                                     readOnly
                                 />
                             </div>
                         </div>
                     </>
                 )}
-            </div>
-        </div>
+            </CardBody>
+        </Card>
     );
 };

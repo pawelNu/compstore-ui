@@ -27,9 +27,9 @@ export const ProcessorBrandNew = () => {
         try {
             await axios.post(endpoints.processorBrands.getAll, brand);
             navigate(links.processorBrands);
-        } catch (error: any) {
-            if (error.response && error.response.data) {
-                setError(error.response.data.message.toString());
+        } catch (e: any) {
+            if (e.response && e.response.data) {
+                setError(e.response.data.message.toString());
             } else {
                 setError(
                     "An error occurred while crating the new processor brand!",

@@ -1,4 +1,8 @@
 import React, { useState, ChangeEvent } from "react";
+import {
+    TDeliveryMethodDetails,
+    useShoppingCart,
+} from "../../../redux/ShoppingCartProvider";
 
 type TParcelMachine = {
     id: number;
@@ -24,11 +28,17 @@ const parcelMachineData: TParcelMachine[] = [
     },
 ];
 
+const initialFormData: TDeliveryMethodDetails = {
+    Name: "",
+    Address: "",
+};
+
 export const CollectionPointsOption = () => {
     const [selectedParcelMachine, setSelectedParcelMachine] = useState<
         number | undefined
     >();
-    const [parcelMachineAddress, setParcelMachineAddress] = useState("");
+    const { deliveryDetails = initialFormData, setUpDeliveryDetails } =
+        useShoppingCart();
 
     const handleParcelMachineChange = (
         event: ChangeEvent<HTMLSelectElement>,
@@ -40,7 +50,11 @@ export const CollectionPointsOption = () => {
             );
         if (selectedParcelMachineData) {
             setSelectedParcelMachine(selectedParcelMachineData.id);
-            setParcelMachineAddress(selectedParcelMachineData.address);
+            setUpDeliveryDetails({
+                ...deliveryDetails,
+                Name: selectedParcelMachineData.name,
+                Address: selectedParcelMachineData.address,
+            });
         }
     };
 
@@ -90,7 +104,7 @@ export const CollectionPointsOption = () => {
                                     type="text"
                                     className="form-control"
                                     id="parcelMachineAddress"
-                                    value={parcelMachineAddress}
+                                    value={deliveryDetails.Address}
                                     readOnly
                                 />
                             </div>

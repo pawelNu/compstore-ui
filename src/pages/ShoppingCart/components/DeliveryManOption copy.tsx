@@ -8,10 +8,6 @@ export const DeliveryManOption = () => {
         city: "",
         zipCode: "",
     });
-    console.log(
-        "file: DeliveryManOption.tsx   DeliveryManOption   formData:",
-        formData,
-    );
 
     const handleChange = (e: { target: { id: any; value: any } }) => {
         const { id, value } = e.target;

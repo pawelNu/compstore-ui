@@ -52,20 +52,6 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
     const [deliveryMethod, setDeliveryMethod] = useState<TDeliveryMethod>();
     const [deliveryDetails, setDeliveryDetails] =
         useState<TDeliveryMethodDetails>();
-    console.log(
-        "file: ShoppingCartProvider.tsx:54   deliveryDetails:",
-        deliveryDetails,
-    );
-
-    console.log(
-        "file: ShoppingCartProvider.tsx:51   deliveryMethod:",
-        deliveryMethod,
-    );
-
-    console.log(
-        "file: ShoppingCartProvider.tsx:43   shoppingCartList:",
-        shoppingCartList,
-    );
 
     useEffect(() => {
         localStorage.setItem("shoppingCart", JSON.stringify(shoppingCartList));

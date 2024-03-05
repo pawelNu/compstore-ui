@@ -162,7 +162,6 @@ export const OrderModal: React.FC<Props> = ({
                     </CardBody>
                 </Card>
 
-                {/* TODO dodać adres dostawy bo nie ma go jeszcze na modalu */}
             </Modal.Body>
             <Modal.Footer>
                 <Button
