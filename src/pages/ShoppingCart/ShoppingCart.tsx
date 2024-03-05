@@ -47,7 +47,6 @@ export const ShoppingCart = () => {
     const [order, setOrder] = useState<TOrderResponse>();
     const [error, setError] = useState<String>("");
     const [showOrderModal, setShowOrderModal] = useState(false);
-    const { deliveryMethod } = useShoppingCart();
 
     let navigate = useNavigate();
 
@@ -57,6 +56,8 @@ export const ShoppingCart = () => {
         reduceProductQuantity,
         increaseProductQuantity,
         deleteFromCart,
+        deliveryMethod,
+        deliveryDetails,
     } = useShoppingCart();
 
     const countTotalPrice = shoppingList.reduce((total, product) => {
@@ -341,6 +342,7 @@ export const ShoppingCart = () => {
                 handleOrderDelete={handleOrderDelete}
                 response={order}
                 delivery={deliveryMethod}
+                deliveryDetails={deliveryDetails}
             />
         </div>
     );

@@ -16,6 +16,7 @@ import { shoppingCartStyles } from "../../../static/styles/ShoppingCart";
 import { formatPrice } from "../../../components/util";
 import "./OrderModal.css";
 import { TDeliveryMethod } from "./DeliveryMethod";
+import { TDeliveryMethodDetails } from "../../../redux/ShoppingCartProvider";
 
 type Props = {
     show: boolean;
@@ -25,6 +26,7 @@ type Props = {
     ) => Promise<{ success: boolean; error?: string }>;
     response: TOrderResponse | undefined;
     delivery: TDeliveryMethod | undefined;
+    deliveryDetails: TDeliveryMethodDetails | undefined;
 };
 
 export const OrderModal: React.FC<Props> = ({
@@ -33,6 +35,7 @@ export const OrderModal: React.FC<Props> = ({
     handleOrderDelete,
     response,
     delivery,
+    deliveryDetails,
 }) => {
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
@@ -130,7 +133,7 @@ export const OrderModal: React.FC<Props> = ({
                     </CardBody>
                 </Card>
 
-                <Card>
+                <Card className="mb-2">
                     <CardHeader as={"h5"}>Delivery Method</CardHeader>
                     <CardBody>
                         <CardTitle>{delivery?.name}</CardTitle>
@@ -140,6 +143,22 @@ export const OrderModal: React.FC<Props> = ({
                         <CardSubtitle className="mb-2 text-muted">
                             {delivery?.price}
                         </CardSubtitle>
+                    </CardBody>
+                </Card>
+
+                <Card>
+                    <CardHeader as={"h5"}>Delivery Details</CardHeader>
+                    <CardBody>
+                        {Object.entries(deliveryDetails || {}).map(
+                            ([key, value]) => (
+                                <CardSubtitle
+                                    key={key}
+                                    className="mb-2 text-muted"
+                                >
+                                    {key}: {value}
+                                </CardSubtitle>
+                            ),
+                        )}
                     </CardBody>
                 </Card>
 

@@ -1,6 +1,9 @@
-import { useState } from "react";
+import {
+    TDeliveryMethodDetails,
+    useShoppingCart,
+} from "../../../redux/ShoppingCartProvider";
 
-const initialFormData: { [key: string]: string } = {
+const initialFormData: TDeliveryMethodDetails = {
     "First Name": "",
     "Last Name": "",
     Email: "",
@@ -9,15 +12,12 @@ const initialFormData: { [key: string]: string } = {
 };
 
 export const DeliveryManOption = () => {
-    const [formData, setFormData] = useState(initialFormData);
-    console.log(
-        "file: DeliveryManOption.tsx   DeliveryManOption   formData:",
-        formData,
-    );
+    const { deliveryDetails = initialFormData, setUpDeliveryDetails } =
+        useShoppingCart();
 
     const handleChange = (e: { target: { id: any; value: any } }) => {
         const { id, value } = e.target;
-        setFormData({ ...formData, [id]: value });
+        setUpDeliveryDetails({ ...deliveryDetails, [id]: value });
     };
 
     return (
@@ -27,7 +27,7 @@ export const DeliveryManOption = () => {
                 {Object.keys(initialFormData).map((key, index) => (
                     <div className="row mb-3" key={index}>
                         <label
-                            htmlFor={`input${key}`}
+                            htmlFor={key}
                             className="col-sm-2 col-form-label"
                         >
                             {key}
@@ -37,8 +37,9 @@ export const DeliveryManOption = () => {
                                 type="text"
                                 className="form-control"
                                 id={key}
-                                value={formData[key]}
+                                value={deliveryDetails[key]}
                                 onChange={handleChange}
+                                autoComplete="true"
                             />
                         </div>
                     </div>

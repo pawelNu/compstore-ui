@@ -24,6 +24,8 @@ type ShoppingCartContextType = {
     increaseProductQuantity: (id: UUID) => void;
     deliveryMethod: TDeliveryMethod | undefined;
     chooseDeliveryMethod: (method: TDeliveryMethod | undefined) => void;
+    deliveryDetails: TDeliveryMethodDetails | undefined;
+    setUpDeliveryDetails: (details: TDeliveryMethodDetails | undefined) => void;
 };
 
 const ShoppingCartContext = createContext<ShoppingCartContextType | null>(null);
@@ -48,6 +50,13 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
         },
     );
     const [deliveryMethod, setDeliveryMethod] = useState<TDeliveryMethod>();
+    const [deliveryDetails, setDeliveryDetails] =
+        useState<TDeliveryMethodDetails>();
+    console.log(
+        "file: ShoppingCartProvider.tsx:54   deliveryDetails:",
+        deliveryDetails,
+    );
+
     console.log(
         "file: ShoppingCartProvider.tsx:51   deliveryMethod:",
         deliveryMethod,
@@ -139,6 +148,12 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
         setDeliveryMethod(method);
     };
 
+    const setUpDeliveryDetails = (
+        details: TDeliveryMethodDetails | undefined,
+    ) => {
+        setDeliveryDetails(details);
+    };
+
     return (
         <ShoppingCartContext.Provider
             value={{
@@ -151,6 +166,8 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
                 increaseProductQuantity,
                 deliveryMethod,
                 chooseDeliveryMethod,
+                deliveryDetails,
+                setUpDeliveryDetails,
             }}
         >
             {children}
