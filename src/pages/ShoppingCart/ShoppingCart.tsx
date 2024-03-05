@@ -306,9 +306,9 @@ export const ShoppingCart = () => {
 
                     <DeliveryMethod />
                     {shoppingCartList.length > 0 &&
-                        deliveryMethod?.name !== undefined && (
+                        deliveryMethod?.name !== undefined &&
+                        deliveryDetails !== undefined && (
                             <div className="d-flex justify-content-center mt-3">
-                                {/* TODO zrobić tak aby przycisk Create order and pay pojawiał się dopiero po wypełnieniu danych adresowych */}
                                 <Button
                                     variant="success"
                                     type="submit"

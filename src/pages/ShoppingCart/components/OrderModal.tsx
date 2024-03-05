@@ -161,7 +161,6 @@ export const OrderModal: React.FC<Props> = ({
                         )}
                     </CardBody>
                 </Card>
-
             </Modal.Body>
             <Modal.Footer>
                 <Button
