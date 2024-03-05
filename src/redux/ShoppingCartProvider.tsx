@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { createContext, useContext } from "react";
 import { UUID } from "crypto";
 import { toast } from "react-toastify";
 import { defaultToastProps, toasts } from "../components/toasts/toastsConfig";
+import { TDeliveryMethod } from "../pages/ShoppingCart/components/DeliveryMethod";
 
 export type TCartItem = {
     product: UUID;
@@ -10,6 +11,8 @@ export type TCartItem = {
 };
 
 type TShoppingCartList = TCartItem[];
+
+export type TDeliveryMethodDetails = { [key: string]: string };
 
 type ShoppingCartContextType = {
     shoppingCartList: TShoppingCartList;
@@ -19,6 +22,8 @@ type ShoppingCartContextType = {
     clearCart: () => void;
     reduceProductQuantity: (id: UUID) => void;
     increaseProductQuantity: (id: UUID) => void;
+    deliveryMethod: TDeliveryMethod | undefined;
+    chooseDeliveryMethod: (method: TDeliveryMethod | undefined) => void;
 };
 
 const ShoppingCartContext = createContext<ShoppingCartContextType | null>(null);
@@ -36,11 +41,17 @@ export const useShoppingCart = (): ShoppingCartContextType => {
 export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
     children,
 }) => {
-    const [shoppingCartList, setShoppingCartList] =
-        React.useState<TShoppingCartList>(() => {
+    const [shoppingCartList, setShoppingCartList] = useState<TShoppingCartList>(
+        () => {
             const storedList = localStorage.getItem("shoppingCart");
             return storedList ? JSON.parse(storedList) : [];
-        });
+        },
+    );
+    const [deliveryMethod, setDeliveryMethod] = useState<TDeliveryMethod>();
+    console.log(
+        "file: ShoppingCartProvider.tsx:51   deliveryMethod:",
+        deliveryMethod,
+    );
 
     console.log(
         "file: ShoppingCartProvider.tsx:43   shoppingCartList:",
@@ -124,6 +135,10 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
         toast.success(toasts.clearShoppingCart.msg, defaultToastProps);
     };
 
+    const chooseDeliveryMethod = (method: TDeliveryMethod | undefined) => {
+        setDeliveryMethod(method);
+    };
+
     return (
         <ShoppingCartContext.Provider
             value={{
@@ -134,6 +149,8 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
                 clearCart,
                 reduceProductQuantity,
                 increaseProductQuantity,
+                deliveryMethod,
+                chooseDeliveryMethod,
             }}
         >
             {children}

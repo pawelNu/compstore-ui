@@ -15,7 +15,7 @@ import { links } from "../../../config/links";
 import { shoppingCartStyles } from "../../../static/styles/ShoppingCart";
 import { formatPrice } from "../../../components/util";
 import "./OrderModal.css";
-import { TDeliveryMethod } from "../../../types/TDeliveryMethod";
+import { TDeliveryMethod } from "./DeliveryMethod";
 
 type Props = {
     show: boolean;

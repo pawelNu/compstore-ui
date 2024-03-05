@@ -1,9 +1,7 @@
-import { useState } from "react";
 import { deliveryMethods } from "../../../data/DeliveryMethodData";
 import { DeliveryManOption } from "./DeliveryManOption";
 import { PickupOption } from "./PickupOption";
 import { CollectionPointsOption } from "./CollectionPointsOption";
-import { TDeliveryMethod } from "../../../types/TDeliveryMethod";
 import {
     Card,
     CardBody,
@@ -11,28 +9,26 @@ import {
     CardSubtitle,
     CardTitle,
 } from "react-bootstrap";
+import { useShoppingCart } from "../../../redux/ShoppingCartProvider";
 
-type DeliveryMethodProps = {
-    deliveryMethod: (method: TDeliveryMethod | undefined) => void;
-    selectedMethod: string | undefined;
-    onMethodChange: (isSelected: boolean) => void;
+export type TDeliveryMethod = {
+    name: string;
+    info: string;
+    price: string;
 };
 
-export const DeliveryMethod: React.FC<DeliveryMethodProps> = ({
-    deliveryMethod,
-    selectedMethod,
-    onMethodChange,
-}) => {
+export const DeliveryMethod = () => {
+    const { deliveryMethod, chooseDeliveryMethod } = useShoppingCart();
+
     const handleMethodChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const chosenMethod = deliveryMethods.find(
             (method) => method.name === event.target.value,
         );
-        deliveryMethod(chosenMethod);
-        onMethodChange(true);
+        chooseDeliveryMethod(chosenMethod);
     };
 
     const renderForm = () => {
-        switch (selectedMethod) {
+        switch (deliveryMethod?.name) {
             case "Delivery man":
                 return <DeliveryManOption />;
             case "Pick up in store with online payment":

@@ -1,4 +1,4 @@
-import { DeliveryMethod } from "./components/DeliveryMethod";
+import { DeliveryMethod, TDeliveryMethod } from "./components/DeliveryMethod";
 import { shoppingCartStyles } from "../../static/styles/ShoppingCart";
 import { endpoints, links } from "../../config/links";
 import { Button, Card, CardBody, CardHeader, ListGroup } from "react-bootstrap";
@@ -14,7 +14,6 @@ import {
     defaultToastProps,
     toasts,
 } from "../../components/toasts/toastsConfig";
-import { TDeliveryMethod } from "../../types/TDeliveryMethod";
 
 export type TShoppingCartItem = {
     id: UUID;
@@ -45,25 +44,10 @@ export type TOrderResponse = {
 export const ShoppingCart = () => {
     const [shoppingList, setShoppingList] = useState<TShoppingCartItem[]>([]);
     const [itemList, setItemList] = useState<string[]>([]);
-    const [isSelectedDelivery, setIsSelectedDelivery] =
-        useState<boolean>(false);
     const [order, setOrder] = useState<TOrderResponse>();
     const [error, setError] = useState<String>("");
     const [showOrderModal, setShowOrderModal] = useState(false);
-    const [deliveryMethod, setDeliveryMethod] = useState<TDeliveryMethod>();
-    console.log(
-        "file: ShoppingCart.tsx:54   ShoppingCart   deliveryMethod:",
-        deliveryMethod,
-    );
-    // const [deliveryData, setDeliveryData] = useState(new Map<string, string>());
-
-    const handleDeliveryMethodChange = (isSelected: boolean) => {
-        setIsSelectedDelivery(isSelected);
-    };
-
-    const handleDeliveryMethod = (method: TDeliveryMethod | undefined) => {
-        setDeliveryMethod(method);
-    };
+    const { deliveryMethod } = useShoppingCart();
 
     let navigate = useNavigate();
 
@@ -326,13 +310,9 @@ export const ShoppingCart = () => {
                         </CardBody>
                     </Card>
 
-                    <DeliveryMethod
-                        onMethodChange={handleDeliveryMethodChange}
-                        deliveryMethod={handleDeliveryMethod}
-                        selectedMethod={deliveryMethod?.name}
-                    />
+                    <DeliveryMethod />
                     {shoppingCartList.length > 0 &&
-                        isSelectedDelivery === true && (
+                        deliveryMethod?.name !== undefined && (
                             <div className="d-flex justify-content-center mt-3">
                                 {/* TODO zrobić tak aby przycisk Create order and pay pojawiał się dopiero po wypełnieniu danych adresowych */}
                                 <Button
