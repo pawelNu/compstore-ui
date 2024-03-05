@@ -19,6 +19,7 @@ import {
 } from "./components/PCactions";
 import { useUser } from "../../../redux/UserProvider";
 import { ProductDetails } from "../../../components/product/ProductDetails";
+import { Card, CardHeader } from "react-bootstrap";
 
 export const PCs = () => {
     const { userRole } = useUser();
@@ -116,16 +117,18 @@ export const PCs = () => {
                 <div className="container col-10 p-2">
                     {pcs.map((pc) => (
                         <div key={pc.id} className="mb-2">
-                            <div className="card">
+                            <Card>
                                 <a
                                     style={productStyles.headerLink}
                                     href={links.pcDetails + pc.id}
                                 >
-                                    <h5 className="card-header">
-                                        PC - {pc.processorName} -{" "}
-                                        {pc.graphicsCardName} - {pc.ramCapacity}{" "}
-                                        RAM
-                                    </h5>
+                                    <CardHeader as={"h5"}>
+                                        {[
+                                            pc.processorName,
+                                            pc.graphicsCardName,
+                                            pc.ramCapacity,
+                                        ].join(" - ")}
+                                    </CardHeader>
                                 </a>
                                 <div className="row g-0">
                                     <div className="col-3">
@@ -170,7 +173,7 @@ export const PCs = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </Card>
                         </div>
                     ))}
                 </div>
