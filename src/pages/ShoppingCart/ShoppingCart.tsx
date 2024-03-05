@@ -71,6 +71,7 @@ export const ShoppingCart = () => {
         setShowOrderModal(false);
         toast.success(toasts.addingOrder.msg, defaultToastProps);
         clearCart();
+        navigate(links.mainPage);
         setError("");
     };
 
