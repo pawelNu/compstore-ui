@@ -1,4 +1,4 @@
-import { DeliveryMethod, TDeliveryMethod } from "./components/DeliveryMethod";
+import { DeliveryMethod } from "./components/DeliveryMethod";
 import { shoppingCartStyles } from "../../static/styles/ShoppingCart";
 import { endpoints, links } from "../../config/links";
 import { Button, Card, CardBody, CardHeader, ListGroup } from "react-bootstrap";

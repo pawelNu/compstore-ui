@@ -18,12 +18,14 @@ export type TDeliveryMethod = {
 };
 
 export const DeliveryMethod = () => {
-    const { deliveryMethod, chooseDeliveryMethod } = useShoppingCart();
+    const { deliveryMethod, chooseDeliveryMethod, setUpDeliveryDetails } =
+        useShoppingCart();
 
     const handleMethodChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const chosenMethod = deliveryMethods.find(
             (method) => method.name === event.target.value,
         );
+        setUpDeliveryDetails(undefined);
         chooseDeliveryMethod(chosenMethod);
     };
 

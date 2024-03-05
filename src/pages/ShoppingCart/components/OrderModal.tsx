@@ -128,7 +128,12 @@ export const OrderModal: React.FC<Props> = ({
                             className="me-3"
                             style={shoppingCartStyles.priceTag}
                         >
-                            Total: $ {response?.price}
+                            Total: ${" "}
+                            {formatPrice(
+                                response?.price === undefined
+                                    ? 0
+                                    : response?.price,
+                            )}
                         </div>
                     </CardBody>
                 </Card>
