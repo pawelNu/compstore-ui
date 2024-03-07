@@ -65,10 +65,6 @@ export const PCEdit: React.FC = () => {
             operatingSystem: values.operatingSystem.id,
             price: values.price,
         };
-        console.log(
-            "file: PCEdit_new.tsx:71   onSubmit   updatedPc:",
-            updatedPc,
-        );
 
         try {
             await axios.put(endpoints.pcs.byId + id, updatedPc);

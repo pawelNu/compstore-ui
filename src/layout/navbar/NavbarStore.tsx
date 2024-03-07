@@ -4,19 +4,14 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { navbarStyles } from "../../static/styles/Navbar";
 import { navbarElements } from "./navbarConfig";
 import { SideCanvas } from "../sidebar/components/SideCanvas";
+import { useUser } from "../../redux/UserProvider";
 
-type TNavbarProps = {
-    onUserRoleChange: (role: string) => void;
-    userRole: string;
-};
-
-export const NavbarStore: React.FC<TNavbarProps> = ({ onUserRoleChange }) => {
-    const [userRole, setUserRole] = useState("Customer");
+export const NavbarStore = () => {
+    const { userRole, userRoleChange } = useUser();
     const [showSideCanvas, setShowSideCanvas] = useState(false);
 
     const handleUserRoleChange = (role: string) => {
-        setUserRole(role);
-        onUserRoleChange(role);
+        userRoleChange(role);
     };
 
     const handleAdminPanelClick = () => {

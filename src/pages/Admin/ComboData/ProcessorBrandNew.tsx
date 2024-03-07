@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { endpoints, links } from "../../config/links";
 import axios from "axios";
 import { Card } from "react-bootstrap";
 import {
     TPBComboData,
     TProcessorBrandNew,
-} from "../../types/ComboData/TProcessorBrands";
+} from "../../../types/ComboData/TProcessorBrands";
+import { endpoints, links } from "../../../config/links";
 
 export const ProcessorBrandNew = () => {
     let navigate = useNavigate();
@@ -27,9 +27,9 @@ export const ProcessorBrandNew = () => {
         try {
             await axios.post(endpoints.processorBrands.getAll, brand);
             navigate(links.processorBrands);
-        } catch (error: any) {
-            if (error.response && error.response.data) {
-                setError(error.response.data.message.toString());
+        } catch (e: any) {
+            if (e.response && e.response.data) {
+                setError(e.response.data.message.toString());
             } else {
                 setError(
                     "An error occurred while crating the new processor brand!",

@@ -2,6 +2,8 @@ import axios from "axios";
 import { Dispatch, SetStateAction } from "react";
 import { TPCFilter, TPCSimple } from "../../../../types/PC/TPC";
 import { endpoints } from "../../../../config/links";
+import { UUID } from "crypto";
+import { TCartItem } from "../../../../redux/ShoppingCartProvider";
 
 export const getPcsHandler = async (
     filter: TPCFilter,
@@ -21,8 +23,19 @@ export const getPcsHandler = async (
         setPagesCount(pagingMetadata.pagesCount);
         setPageNumber(pagingMetadata.pageNumber);
         setPageSize(pagingMetadata.pageSize);
-    } catch (error: any) {
-        console.log("file: PCs.tsx  getPCs  error:", error);
+    } catch (e: any) {
+        console.log("file: PCactions.ts   error:", e);
+    }
+};
+
+export const addToCartHandler = async (
+    id: UUID,
+    addToCart: (product: TCartItem) => void,
+) => {
+    try {
+        addToCart({ product: id, quantity: 0 });
+    } catch (e) {
+        console.log("file: PCactions.ts   e:", e);
     }
 };
 
