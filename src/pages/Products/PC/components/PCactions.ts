@@ -1,8 +1,9 @@
-import { UUID } from "crypto";
-import hostName from "../../../../config/config";
 import axios from "axios";
 import { Dispatch, SetStateAction } from "react";
 import { TPCFilter, TPCSimple } from "../../../../types/PC/TPC";
+import { endpoints } from "../../../../config/links";
+import { UUID } from "crypto";
+import { TCartItem } from "../../../../redux/ShoppingCartProvider";
 
 export const getPcsHandler = async (
     filter: TPCFilter,
@@ -11,9 +12,8 @@ export const getPcsHandler = async (
     setPageNumber: Dispatch<SetStateAction<number>>,
     setPageSize: Dispatch<SetStateAction<number>>,
 ) => {
-    const url = `${hostName}/pcs/search`;
     try {
-        const result = await axios.post(url, filter);
+        const result = await axios.post(endpoints.pcs.getAll, filter);
         setPCs(result.data.pcs);
         const pagingMetadata: {
             pagesCount: number;
@@ -23,20 +23,19 @@ export const getPcsHandler = async (
         setPagesCount(pagingMetadata.pagesCount);
         setPageNumber(pagingMetadata.pageNumber);
         setPageSize(pagingMetadata.pageSize);
-    } catch (error: any) {
-        console.log("file: PCs.tsx  getPCs  error:", error);
+    } catch (e: any) {
+        console.log("file: PCactions.ts   error:", e);
     }
 };
 
-export const deletePcHandler = async (
+export const addToCartHandler = async (
     id: UUID,
-    setPCs: React.Dispatch<React.SetStateAction<TPCSimple[]>>,
+    addToCart: (product: TCartItem) => void,
 ) => {
     try {
-        await axios.delete(`${hostName}/pcs/${id}`);
-        setPCs((prevPcs) => prevPcs.filter((pc) => pc.id !== id));
+        addToCart({ product: id, quantity: 0 });
     } catch (e) {
-        console.log("Error deleting pc -> file: PCs.tsx  deletePc  e:", e);
+        console.log("file: PCactions.ts   e:", e);
     }
 };
 

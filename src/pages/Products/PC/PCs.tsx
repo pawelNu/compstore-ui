@@ -1,20 +1,28 @@
-import { PCActionsButton } from "./components/PCActionsButton";
 import { useCallback, useEffect, useState } from "react";
 import { UUID } from "crypto";
-import {
-    changePageHandler,
-    deletePcHandler,
-    getPcsHandler,
-    sortingHandler,
-} from "./components/PCHandlers";
-import { TPCsProps, TPCSimple, TPCFilter } from "../../../types/PC/TPC";
-import { AddToCartButton } from "../../../components/buttons/AddToCartButton";
+import { TPCSimple, TPCFilter } from "../../../types/PC/TPC";
 import { SortingButton } from "../../../components/buttons/SortingButton";
 import { PaginationComponent } from "../../../components/pagination/PaginationComponent";
 import { PCFilter } from "./PCFilter";
 import { productStyles } from "../../../static/styles/Products";
+import { endpoints, links } from "../../../config/links";
+import { ActionsButton } from "../../../components/buttons/ActionsButton";
+import axios from "axios";
+import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
+import { buttons } from "../../../components/buttons/buttonsConfig";
+import { useShoppingCart } from "../../../redux/ShoppingCartProvider";
+import {
+    addToCartHandler,
+    changePageHandler,
+    getPcsHandler,
+    sortingHandler,
+} from "./components/PCactions";
+import { useUser } from "../../../redux/UserProvider";
+import { ProductDetails } from "../../../components/product/ProductDetails";
+import { Card, CardHeader } from "react-bootstrap";
 
-export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
+export const PCs = () => {
+    const { userRole } = useUser();
     const [pcs, setPCs] = useState<TPCSimple[]>([]);
     const [pageNumber, setPageNumber] = useState<number>(0);
     const [pageSize, setPageSize] = useState<number>(10);
@@ -35,6 +43,11 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
             ascendingFlag: null,
         },
     });
+    const { addToCart } = useShoppingCart();
+
+    const handleAddToCart = async (id: UUID) => {
+        addToCartHandler(id, addToCart);
+    };
 
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
@@ -49,8 +62,17 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
         );
     }, [filter, setPCs, setPagesCount, setPageNumber, setPageSize]);
 
-    const deletePc = async (id: UUID) => {
-        await deletePcHandler(id, setPCs);
+    const deletePc = async (
+        id: UUID,
+    ): Promise<{ success: boolean; error?: string }> => {
+        try {
+            await axios.delete(endpoints.pcs.byId + id);
+            setPCs((prevPcs) => prevPcs.filter((pc) => pc.id !== id));
+            return { success: true };
+        } catch (e: any) {
+            console.log("file: PCs.tsx   e:", e);
+            return { success: false, error: e.response.data.message };
+        }
     };
 
     useEffect(() => {
@@ -95,20 +117,22 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                 <div className="container col-10 p-2">
                     {pcs.map((pc) => (
                         <div key={pc.id} className="mb-2">
-                            <div className="card">
+                            <Card>
                                 <a
                                     style={productStyles.headerLink}
-                                    href={"pcs/" + pc.id}
+                                    href={links.pcDetails + pc.id}
                                 >
-                                    <h5 className="card-header">
-                                        PC - {pc.processorName} -{" "}
-                                        {pc.graphicsCardName} - {pc.ramCapacity}{" "}
-                                        RAM
-                                    </h5>
+                                    <CardHeader as={"h5"}>
+                                        {[
+                                            pc.processorName,
+                                            pc.graphicsCardName,
+                                            pc.ramCapacity,
+                                        ].join(" - ")}
+                                    </CardHeader>
                                 </a>
                                 <div className="row g-0">
                                     <div className="col-3">
-                                        <a href={"pcs/" + pc.id}>
+                                        <a href={links.pcDetails + pc.id}>
                                             <img
                                                 src={imagePlaceholder}
                                                 className="img-fluid rounded-start"
@@ -120,40 +144,36 @@ export const PCs: React.FC<TPCsProps> = ({ userRole }) => {
                                         </a>
                                     </div>
                                     <div className="col-6">
-                                        <div className="card-body">
-                                            <p className="card-text">
-                                                <b>Processor: </b>
-                                                {pc.processorName}
-                                            </p>
-                                            <p className="card-text">
-                                                <b>GPU: </b>
-                                                {pc.graphicsCardName}
-                                            </p>
-                                            <p className="card-text">
-                                                <b>RAM: </b>
-                                                {pc.ramCapacity}
-                                            </p>
-                                        </div>
+                                        <ProductDetails
+                                            detailsMap={{
+                                                Processor: pc.processorName,
+                                                GPU: pc.graphicsCardName,
+                                                RAM: pc.ramCapacity,
+                                            }}
+                                        />
                                     </div>
                                     <div className="col-3">
-                                        <div
-                                            style={productStyles.priceTag}
-                                            // style={{textAlign: "left"}}
-                                        >
+                                        <div style={productStyles.priceTag}>
                                             <div className="card-body">
                                                 <div>$ {pc.price}</div>
                                             </div>
-                                            <AddToCartButton />
+                                            <ButtonWithIcon
+                                                config={buttons.addToCart}
+                                                onClick={() =>
+                                                    handleAddToCart(pc.id)
+                                                }
+                                            />
                                             {userRole !== "Customer" && (
-                                                <PCActionsButton
-                                                    deletePc={deletePc}
+                                                <ActionsButton
                                                     id={pc.id}
+                                                    editLink={links.pcEdit}
+                                                    deleteItem={deletePc}
                                                 />
                                             )}
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </Card>
                         </div>
                     ))}
                 </div>

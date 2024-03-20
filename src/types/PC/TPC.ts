@@ -88,7 +88,3 @@ export type TPCPageRequest = {
     priceTo: number | string;
     pagingAndSortingRequest: TPagingAndSortingRequest;
 };
-
-export type TPCsProps = {
-    userRole: string;
-};
