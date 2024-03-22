@@ -24,6 +24,7 @@ type AllToasts = {
     clearShoppingCart: ToastProps;
     addingOrder: ToastProps;
     deletingOrder: ToastProps;
+    addingNewProduct: ToastProps;
 };
 
 export const defaultToastProps: ToastProps["props"] = {
@@ -66,5 +67,8 @@ export const toasts: AllToasts = {
     },
     deletingOrder: {
         msg: "Order was successfully deleted!",
+    },
+    addingNewProduct: {
+        msg: "Added new product!",
     },
 };

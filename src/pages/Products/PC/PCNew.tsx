@@ -3,6 +3,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TPCComboData, TPCNew } from "../../../types/PC/TPC";
 import { endpoints, links } from "../../../config/links";
+import { toast } from "react-toastify";
+import {
+    defaultToastProps,
+    toasts,
+} from "../../../components/toasts/toastsConfig";
 
 export const PCNew: React.FC = () => {
     let navigate = useNavigate();
@@ -21,6 +26,8 @@ export const PCNew: React.FC = () => {
     });
 
     const [error, setError] = useState<String>("");
+    const [errors, setErrors] = useState<Record<string, string>>({});
+    console.log("file: PCNew.tsx:25   errors:", errors);
 
     const {
         processorBrand,
@@ -36,14 +43,20 @@ export const PCNew: React.FC = () => {
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setErrors({});
 
         try {
-            await axios.post(endpoints.pcs.addNew, pc);
-            navigate(links.pcs);
+            const response = await axios.post(endpoints.pcs.addNew, pc);
+            navigate(links.pcDetails + response.data.id);
+            toast.success(toasts.addingNewProduct.msg, defaultToastProps);
         } catch (e: any) {
             console.log("file: NewPC.tsx  onSubmit  error:", e);
-            if (e.response && e.response.data) {
-                setError(e.response.data.message.toString());
+            if (e.response.data) {
+                const newErrors: Record<string, string> = {};
+                e.response.data.violations.forEach((violation: any) => {
+                    newErrors[violation.field] = violation.message;
+                });
+                setErrors(newErrors);
             } else {
                 setError("An error occurred while crating the new PC!");
             }
@@ -58,8 +71,6 @@ export const PCNew: React.FC = () => {
         if (name === "price") {
             if (/^\d*\.?\d{0,2}$/.test(value) || value === "") {
                 setPc({ ...pc, [e.target.name]: e.target.value });
-            } else {
-                setError("Price can have a maximum of two decimal places!");
             }
         } else {
             setPc({ ...pc, [e.target.name]: e.target.value });
@@ -104,6 +115,13 @@ export const PCNew: React.FC = () => {
                                 </option>
                             ))}
                         </select>
+                        <div>
+                            {errors.processorBrand && (
+                                <p className="text-danger">
+                                    {errors.processorBrand}
+                                </p>
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -124,6 +142,13 @@ export const PCNew: React.FC = () => {
                             onChange={onInputChange}
                             placeholder="Enter processor name"
                         />
+                        <div>
+                            {errors.processorName && (
+                                <p className="text-danger">
+                                    {errors.processorName}
+                                </p>
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -151,6 +176,13 @@ export const PCNew: React.FC = () => {
                                 ),
                             )}
                         </select>
+                        <div>
+                            {errors.graphicsCardBrand && (
+                                <p className="text-danger">
+                                    {errors.graphicsCardBrand}
+                                </p>
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -171,6 +203,13 @@ export const PCNew: React.FC = () => {
                             onChange={onInputChange}
                             placeholder="Enter graphics card name"
                         />
+                        <div>
+                            {errors.graphicsCardName && (
+                                <p className="text-danger">
+                                    {errors.graphicsCardName}
+                                </p>
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -196,6 +235,13 @@ export const PCNew: React.FC = () => {
                                 </option>
                             ))}
                         </select>
+                        <div>
+                            {errors.ramCapacity && (
+                                <p className="text-danger">
+                                    {errors.ramCapacity}
+                                </p>
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -221,6 +267,13 @@ export const PCNew: React.FC = () => {
                                 </option>
                             ))}
                         </select>
+                        <div>
+                            {errors.driveCapacity && (
+                                <p className="text-danger">
+                                    {errors.driveCapacity}
+                                </p>
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -246,6 +299,13 @@ export const PCNew: React.FC = () => {
                                 </option>
                             ))}
                         </select>
+                        <div>
+                            {errors.driveType && (
+                                <p className="text-danger">
+                                    {errors.driveType}
+                                </p>
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -271,6 +331,13 @@ export const PCNew: React.FC = () => {
                                 </option>
                             ))}
                         </select>
+                        <div>
+                            {errors.operatingSystem && (
+                                <p className="text-danger">
+                                    {errors.operatingSystem}
+                                </p>
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -287,6 +354,11 @@ export const PCNew: React.FC = () => {
                             value={price}
                             onChange={onInputChange}
                         />
+                        <div>
+                            {errors.price && (
+                                <p className="text-danger">{errors.price}</p>
+                            )}
+                        </div>
                     </div>
                 </div>
                 <div className="d-flex flex-column align-items-center">

@@ -74,7 +74,7 @@ export type TPCFilter = {
 type TPagingAndSortingRequest = {
     pageNumber: number;
     pageSize: number;
-    ascendingFlag: boolean | null;
+    ascendingFlag: boolean;
 };
 
 export type TPCPageRequest = {

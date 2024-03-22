@@ -34,6 +34,6 @@ export const initialValuesFilter: TPCPageRequest = {
     pagingAndSortingRequest: {
         pageNumber: 0,
         pageSize: 10,
-        ascendingFlag: null,
+        ascendingFlag: true,
     },
 };
