@@ -11,15 +11,13 @@ import axios from "axios";
 import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
 import { buttons } from "../../../components/buttons/buttonsConfig";
 import { useShoppingCart } from "../../../redux/ShoppingCartProvider";
-import {
-    addToCartHandler,
-    changePageHandler,
-    getPcsHandler,
-    sortingHandler,
-} from "./components/PCactions";
+import { addToCartHandler } from "./components/PCActions";
 import { useUser } from "../../../redux/UserProvider";
 import { ProductDetails } from "../../../components/product/ProductDetails";
 import { Card, CardHeader } from "react-bootstrap";
+import { pagePaginationStyles } from "../../../static/styles/PagePagination";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 export const PCs = () => {
     const { userRole } = useUser();
@@ -27,7 +25,7 @@ export const PCs = () => {
     const [pageNumber, setPageNumber] = useState<number>(0);
     const [pageSize, setPageSize] = useState<number>(10);
     const [pagesCount, setPagesCount] = useState<number>(0);
-    const [ascendingFlag, setAscendingFlag] = useState<boolean | null>(null);
+    const [ascendingFlag, setAscendingFlag] = useState<boolean>(true);
     const [filter, setFilter] = useState<TPCFilter>({
         processorBrands: [],
         graphicsCardBrands: [],
@@ -40,7 +38,7 @@ export const PCs = () => {
         pagingAndSortingRequest: {
             pageNumber: pageNumber,
             pageSize: pageSize,
-            ascendingFlag: null,
+            ascendingFlag: true,
         },
     });
     const { addToCart } = useShoppingCart();
@@ -53,13 +51,31 @@ export const PCs = () => {
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
     const getPCs = useCallback(async () => {
-        await getPcsHandler(
-            filter,
-            setPCs,
-            setPagesCount,
-            setPageNumber,
-            setPageSize,
-        );
+        try {
+            const result = await axios.post(endpoints.pcs.getAll, filter);
+            setPCs(result.data.pcs);
+            const pagingMetadata: {
+                pagesCount: number;
+                pageNumber: number;
+                pageSize: number;
+            } = result.data.pagingAndSortingMetadata;
+            setPagesCount(pagingMetadata.pagesCount);
+            setPageNumber(pagingMetadata.pageNumber);
+            setPageSize(pagingMetadata.pageSize);
+        } catch (e: any) {
+            console.log("file: PCs.tsx   getPCs   e:", e);
+            const error = e.response.data.violations
+                .map(
+                    (violation: { field: string; message: string }) =>
+                        `${violation.field}: ${violation.message}`,
+                )
+                .join(", ");
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error during searching PC!\n" + error,
+            });
+        }
     }, [filter, setPCs, setPagesCount, setPageNumber, setPageSize]);
 
     const deletePc = async (
@@ -80,24 +96,42 @@ export const PCs = () => {
     }, [getPCs]);
 
     const handleChangePage = (pageNumber: number, pageSize: number) => {
-        changePageHandler(
-            filter,
-            setPageNumber,
-            setPageSize,
-            setFilter,
-            pageNumber,
-            pageSize,
-        );
+        setPageNumber(pageNumber);
+        setPageSize(pageSize);
+
+        const updatedFilter = {
+            ...filter,
+            pagingAndSortingRequest: {
+                ...filter.pagingAndSortingRequest,
+                pageNumber,
+                pageSize,
+            },
+        };
+
+        setFilter(updatedFilter);
     };
 
-    const handleChangeSorting = (ascendingFlag: boolean | null) => {
-        sortingHandler(filter, setAscendingFlag, setFilter, ascendingFlag);
+    const handleChangeSorting = (ascendingFlag: boolean) => {
+        setAscendingFlag(ascendingFlag);
+
+        const updatedFilter = {
+            ...filter,
+            pagingAndSortingRequest: {
+                ...filter.pagingAndSortingRequest,
+                ascendingFlag,
+            },
+        };
+
+        setFilter(updatedFilter);
     };
 
     return (
         <div className="p-2 mt-2">
             <div className="container d-flex justify-content-center">
-                <div className="container-fluid px-0">
+                <div
+                    className="container"
+                    style={pagePaginationStyles.topPaginationDiv}
+                >
                     <PaginationComponent
                         pagesCount={pagesCount}
                         pageNumber={pageNumber}

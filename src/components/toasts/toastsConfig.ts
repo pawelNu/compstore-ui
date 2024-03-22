@@ -6,12 +6,12 @@ type ToastProps = {
     msg: ToastContent;
     props?: {
         position: "top-center";
-        autoClose: number;
-        hideProgressBar: true | false;
-        closeOnClick: true | false;
-        pauseOnHover: true | false;
-        draggable: true | false;
-        progress: undefined;
+        autoClose: number | false;
+        hideProgressBar?: true | false;
+        closeOnClick?: true | false;
+        pauseOnHover?: true | false;
+        draggable?: true | false;
+        progress?: undefined;
         theme: "light" | "dark" | "colored";
         transition: typeof Bounce | typeof Slide;
     };

@@ -3,7 +3,7 @@ import { oneProductStyle } from "../../static/styles/OneProductDetails";
 import { ButtonWithIcon } from "../buttons/ButtonWithIcon";
 import { useShoppingCart } from "../../redux/ShoppingCartProvider";
 import { UUID } from "crypto";
-import { addToCartHandler } from "../../pages/Products/PC/components/PCactions";
+import { addToCartHandler } from "../../pages/Products/PC/components/PCActions";
 import { buttons } from "../buttons/buttonsConfig";
 import { Card, CardBody, CardHeader } from "react-bootstrap";
 import { ProductDetails } from "./ProductDetails";
