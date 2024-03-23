@@ -1,14 +1,14 @@
 import { UUID } from "crypto";
 
 export type TPCNew = {
-    processorBrand: UUID;
+    processorBrand: UUID | undefined;
     processorName: string;
-    graphicsCardBrand: UUID;
+    graphicsCardBrand: UUID | undefined;
     graphicsCardName: string;
     ramCapacity: string;
     driveCapacity: string;
     driveType: string;
-    operatingSystem: UUID;
+    operatingSystem: UUID | undefined;
     price: number;
 };
 

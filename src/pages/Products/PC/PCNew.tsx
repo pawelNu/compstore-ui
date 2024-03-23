@@ -8,20 +8,21 @@ import {
     defaultToastProps,
     toasts,
 } from "../../../components/toasts/toastsConfig";
+import Swal from "sweetalert2";
 
 export const PCNew: React.FC = () => {
     let navigate = useNavigate();
 
     const [comboData, setComboData] = useState<TPCComboData>();
     const [pc, setPc] = useState<TPCNew>({
-        processorBrand: "string-string-string-string-string",
+        processorBrand: undefined,
         processorName: "",
-        graphicsCardBrand: "string-string-string-string-string",
+        graphicsCardBrand: undefined,
         graphicsCardName: "",
         ramCapacity: "",
         driveCapacity: "",
         driveType: "",
-        operatingSystem: "string-string-string-string-string",
+        operatingSystem: undefined,
         price: 0,
     });
 
@@ -48,16 +49,26 @@ export const PCNew: React.FC = () => {
         try {
             const response = await axios.post(endpoints.pcs.addNew, pc);
             navigate(links.pcDetails + response.data.id);
-            toast.success(toasts.addingNewProduct.msg, defaultToastProps);
+            toast.success(toasts.createNewProduct.msg, defaultToastProps);
         } catch (e: any) {
             console.log("file: NewPC.tsx  onSubmit  error:", e);
-            if (e.response.data) {
+            if (e.response.data.violations) {
                 const newErrors: Record<string, string> = {};
                 e.response.data.violations.forEach((violation: any) => {
                     newErrors[violation.field] = violation.message;
                 });
                 setErrors(newErrors);
+            } else if (e.response.data) {
+                const error = e.response.data;
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    html: `Error during adding new PC!<br/>
+                    <b>Message:</b> ${error.detail}<br/>
+                    <b>Status:</b> ${error.status} ${error.title}`,
+                });
             } else {
+                console.log("file: PCNew.tsx:  onSubmit  else");
                 setError("An error occurred while crating the new PC!");
             }
         }
