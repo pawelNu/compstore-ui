@@ -16,7 +16,8 @@ type Props = {
     imagePlaceholder: string;
     productDetailsMap: TDetailsMap;
 };
-
+// TODO pomyśleć czy nie lepiej dodać loading spinner tutaj a nie w PCDetails
+// TODO bo tu będzie uniwersalne
 export const ProductDetailsComponent: React.FC<Props> = ({ data, imagePlaceholder, productDetailsMap }) => {
     const { addToCart } = useShoppingCart();
 

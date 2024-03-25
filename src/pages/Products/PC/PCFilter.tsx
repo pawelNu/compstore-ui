@@ -10,11 +10,12 @@ import { FilterButtonSection } from "./components/FilterButtonSection";
 import { FilterGroup } from "./components/FilterGroup";
 import { FilterCard } from "./components/FilterCard";
 import { TPCComboData, TPCPageRequest } from "../../../types/PC/TPC";
-import { Button, Spinner } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { initialValuesFilter } from "./components/initialValues";
 import { endpoints, links } from "../../../config/links";
 import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
 import { buttons } from "../../../components/buttons/buttonsConfig";
+import { Loading } from "../../../components/spinner/Loading";
 
 type TPCFilterProps = {
     setFilter: (filterValues: any) => void;
@@ -35,12 +36,7 @@ export const PCFilter: React.FC<TPCFilterProps> = ({ setFilter }) => {
             const result = await axios.get(endpoints.pcs.comboData);
             const comboData: TPCComboData = result.data;
             setComboData(comboData);
-            // setLoading(false);
-
-            setTimeout(() => {
-                setComboData(comboData);
-                setLoading(false);
-            }, 5000);
+            setLoading(false);
         } catch (e) {
             console.log("Error fetching combo data:", e);
         }
@@ -54,10 +50,7 @@ export const PCFilter: React.FC<TPCFilterProps> = ({ setFilter }) => {
         <>
             <FilterCard style={filterPCStyles.card}>
                 {loading ? (
-                    <div className="d-flex align-items-center">
-                        <Spinner animation="border" role="status" />
-                        <h2 className="m-0 ms-2">Loading...</h2>
-                    </div>
+                    <Loading />
                 ) : (
                     <Formik initialValues={initValues} onSubmit={onSubmit}>
                         <Form>

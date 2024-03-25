@@ -15,6 +15,7 @@ export const PCDetails = () => {
 
     const { id } = useParams();
 
+    // TODO dodać loading spinner
     const getPc = async (id: string | undefined) => {
         try {
             const result = await axios.get(endpoints.pcs.byId + id);

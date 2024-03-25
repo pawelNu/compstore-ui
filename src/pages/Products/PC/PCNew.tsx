@@ -85,6 +85,7 @@ export const PCNew: React.FC = () => {
         }
     };
 
+    // TODO dodać loading spinner
     const getComboData = async () => {
         try {
             const result = await axios.get(endpoints.pcs.comboData);

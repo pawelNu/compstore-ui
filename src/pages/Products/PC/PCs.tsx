@@ -17,6 +17,7 @@ import { ProductDetails } from "../../../components/product/ProductDetails";
 import { Card, CardHeader } from "react-bootstrap";
 import { pagePaginationStyles } from "../../../static/styles/PagePagination";
 import Swal from "sweetalert2";
+import { Loading } from "../../../components/spinner/Loading";
 
 export const PCs = () => {
     const { userRole } = useUser();
@@ -40,6 +41,7 @@ export const PCs = () => {
             ascendingFlag: true,
         },
     });
+    const [loading, setLoading] = useState(true);
     const { addToCart } = useShoppingCart();
 
     const handleAddToCart = async (id: UUID) => {
@@ -49,7 +51,6 @@ export const PCs = () => {
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
-    // TODO dodać loading div przed załadowaniem danych
     const getPCs = useCallback(async () => {
         try {
             const result = await axios.post(endpoints.pcs.getAll, filter);
@@ -62,6 +63,7 @@ export const PCs = () => {
             setPagesCount(pagingMetadata.pagesCount);
             setPageNumber(pagingMetadata.pageNumber);
             setPageSize(pagingMetadata.pageSize);
+            setLoading(false);
         } catch (e: any) {
             console.log("file: PCs.tsx   getPCs   e:", e);
             const error = e.response.data.violations
@@ -135,61 +137,67 @@ export const PCs = () => {
                     <SortingButton ascendingFlag={ascendingFlag} onChangeSorting={handleChangeSorting} />
                 </div>
             </div>
-            <div className="container d-flex justify-content-between pt-2">
-                <PCFilter setFilter={setFilter} />
-                <div className="container col-10 p-2">
-                    {pcs.map((pc) => (
-                        <div key={pc.id} className="mb-2">
-                            <Card>
-                                <a style={productStyles.headerLink} href={links.pcDetails + pc.id}>
-                                    <CardHeader as={"h5"}>
-                                        {[pc.processorName, pc.graphicsCardName, pc.ramCapacity].join(" - ")}
-                                    </CardHeader>
-                                </a>
-                                <div className="row g-0">
-                                    <div className="col-3">
-                                        <a href={links.pcDetails + pc.id}>
-                                            <img
-                                                src={imagePlaceholder}
-                                                className="img-fluid rounded-start"
-                                                style={productStyles.productImage}
-                                                alt="Product"
-                                            />
-                                        </a>
-                                    </div>
-                                    <div className="col-6">
-                                        <ProductDetails
-                                            detailsMap={{
-                                                Processor: pc.processorName,
-                                                GPU: pc.graphicsCardName,
-                                                RAM: pc.ramCapacity,
-                                            }}
-                                        />
-                                    </div>
-                                    <div className="col-3">
-                                        <div style={productStyles.priceTag}>
-                                            <div className="card-body">
-                                                <div>$ {pc.price}</div>
-                                            </div>
-                                            <ButtonWithIcon
-                                                config={buttons.addToCart}
-                                                onClick={() => handleAddToCart(pc.id)}
-                                            />
-                                            {userRole !== "Customer" && (
-                                                <ActionsButton
-                                                    id={pc.id}
-                                                    editLink={links.pcEdit}
-                                                    deleteItem={deletePc}
+
+            {loading ? (
+                <Loading />
+            ) : (
+                <div className="container d-flex justify-content-between pt-2">
+                    <PCFilter setFilter={setFilter} />
+                    <div className="container col-10 p-2">
+                        {pcs.map((pc) => (
+                            <div key={pc.id} className="mb-2">
+                                <Card>
+                                    <a style={productStyles.headerLink} href={links.pcDetails + pc.id}>
+                                        <CardHeader as={"h5"}>
+                                            {[pc.processorName, pc.graphicsCardName, pc.ramCapacity].join(" - ")}
+                                        </CardHeader>
+                                    </a>
+                                    <div className="row g-0">
+                                        <div className="col-3">
+                                            <a href={links.pcDetails + pc.id}>
+                                                <img
+                                                    src={imagePlaceholder}
+                                                    className="img-fluid rounded-start"
+                                                    style={productStyles.productImage}
+                                                    alt="Product"
                                                 />
-                                            )}
+                                            </a>
+                                        </div>
+                                        <div className="col-6">
+                                            <ProductDetails
+                                                detailsMap={{
+                                                    Processor: pc.processorName,
+                                                    GPU: pc.graphicsCardName,
+                                                    RAM: pc.ramCapacity,
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="col-3">
+                                            <div style={productStyles.priceTag}>
+                                                <div className="card-body">
+                                                    <div>$ {pc.price}</div>
+                                                </div>
+                                                <ButtonWithIcon
+                                                    config={buttons.addToCart}
+                                                    onClick={() => handleAddToCart(pc.id)}
+                                                />
+                                                {userRole !== "Customer" && (
+                                                    <ActionsButton
+                                                        id={pc.id}
+                                                        editLink={links.pcEdit}
+                                                        deleteItem={deletePc}
+                                                    />
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </Card>
-                        </div>
-                    ))}
+                                </Card>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div>
+            )}
+
             <PaginationComponent
                 pagesCount={pagesCount}
                 pageNumber={pageNumber}
