@@ -43,6 +43,7 @@ export const PCFilter: React.FC<TPCFilterProps> = ({ setFilter }) => {
         getComboData();
     }, [getComboData]);
 
+    // TODO add loading spiner
     return (
         <>
             <FilterCard style={filterPCStyles.card}>
@@ -50,70 +51,39 @@ export const PCFilter: React.FC<TPCFilterProps> = ({ setFilter }) => {
                     <Form>
                         <FilterGroup title="Filters:">
                             <FilterSection title="Processor brands">
-                                <CheckboxIDName
-                                    name="processorBrands"
-                                    options={comboData?.processorBrands}
-                                />
+                                <CheckboxIDName name="processorBrands" options={comboData?.processorBrands} />
                             </FilterSection>
 
                             <FilterSection title="Graphics card brands">
-                                <CheckboxIDName
-                                    name="graphicsCardBrands"
-                                    options={comboData?.graphicsCardBrands}
-                                />
+                                <CheckboxIDName name="graphicsCardBrands" options={comboData?.graphicsCardBrands} />
                             </FilterSection>
 
                             <FilterSection title="RAM Capacity">
-                                <CheckboxName
-                                    name="ramCapacities"
-                                    options={comboData?.ramCapacities}
-                                />
+                                <CheckboxName name="ramCapacities" options={comboData?.ramCapacities} />
                             </FilterSection>
 
                             <FilterSection title="Drive Capacity">
-                                <CheckboxName
-                                    name="driveCapacities"
-                                    options={comboData?.driveCapacities}
-                                />
+                                <CheckboxName name="driveCapacities" options={comboData?.driveCapacities} />
                             </FilterSection>
 
                             <FilterSection title="Drive Types">
-                                <CheckboxName
-                                    name="driveTypes"
-                                    options={comboData?.driveTypes}
-                                />
+                                <CheckboxName name="driveTypes" options={comboData?.driveTypes} />
                             </FilterSection>
 
                             <FilterSection title="Operating Systems">
-                                <CheckboxIDName
-                                    name="operatingSystems"
-                                    options={comboData?.operatingSystems}
-                                />
+                                <CheckboxIDName name="operatingSystems" options={comboData?.operatingSystems} />
                             </FilterSection>
 
                             <FilterSection title="Price">
-                                <InputField
-                                    label="From"
-                                    id="priceFrom"
-                                    name="priceFrom"
-                                    type="number"
-                                />
-                                <InputField
-                                    label="To"
-                                    id="priceTo"
-                                    name="priceTo"
-                                    type="number"
-                                />
+                                <InputField label="From" id="priceFrom" name="priceFrom" type="number" />
+                                <InputField label="To" id="priceTo" name="priceTo" type="number" />
                             </FilterSection>
 
                             <FilterButtonSection>
                                 <ButtonWithIcon config={buttons.filterPC} />
                             </FilterButtonSection>
                             <FilterButtonSection>
-                                <Button
-                                    href={links.pcs}
-                                    variant="outline-danger"
-                                >
+                                <Button href={links.pcs} variant="outline-danger">
                                     Clear filters
                                 </Button>
                             </FilterButtonSection>

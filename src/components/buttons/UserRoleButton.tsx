@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { TUserRoleButtonProps } from "../../types/TUserRoleButtonProps";
 
-export const UserRoleButton: React.FC<TUserRoleButtonProps> = ({
-    onUserRoleChange,
-}) => {
+export const UserRoleButton: React.FC<TUserRoleButtonProps> = ({ onUserRoleChange }) => {
     const handleOptionClick = (option: string) => {
         setOption(option);
         onUserRoleChange(option);
@@ -17,24 +15,17 @@ export const UserRoleButton: React.FC<TUserRoleButtonProps> = ({
                 type="button"
                 className="btn btn-outline-secondary dropdown-toggle"
                 data-bs-toggle="dropdown"
-                aria-expanded="false"
-            >
+                aria-expanded="false">
                 {option}
             </button>
             <ul className="dropdown-menu">
                 <li>
-                    <button
-                        className="dropdown-item"
-                        onClick={() => handleOptionClick("Customer")}
-                    >
+                    <button className="dropdown-item" onClick={() => handleOptionClick("Customer")}>
                         Customer
                     </button>
                 </li>
                 <li>
-                    <button
-                        className="dropdown-item"
-                        onClick={() => handleOptionClick("Worker")}
-                    >
+                    <button className="dropdown-item" onClick={() => handleOptionClick("Worker")}>
                         Worker
                     </button>
                 </li>

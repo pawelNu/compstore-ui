@@ -32,10 +32,7 @@ export const AddNewProductForm = () => {
                 <h5 className="card-header">Add new product</h5>
                 <div className="card-body">
                     <div className="row mb-3">
-                        <label
-                            htmlFor="productCategory"
-                            className="col-sm-2 col-form-label"
-                        >
+                        <label htmlFor="productCategory" className="col-sm-2 col-form-label">
                             Choose product category:
                         </label>
                         <div className="col-sm-10">
@@ -43,11 +40,8 @@ export const AddNewProductForm = () => {
                                 className="form-select col-sm-10"
                                 name="productCategory"
                                 value={selectedCategory}
-                                onChange={changeCategory}
-                            >
-                                <option value="">
-                                    Choose product category
-                                </option>
+                                onChange={changeCategory}>
+                                <option value="">Choose product category</option>
                                 <option value="pc">PC</option>
                                 <option value="laptop">Laptop</option>
                                 <option value="smartphone">Smartphone</option>

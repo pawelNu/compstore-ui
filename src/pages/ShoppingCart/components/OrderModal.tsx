@@ -1,13 +1,4 @@
-import {
-    Button,
-    Card,
-    CardBody,
-    CardHeader,
-    CardSubtitle,
-    CardTitle,
-    ListGroup,
-    Modal,
-} from "react-bootstrap";
+import { Button, Card, CardBody, CardHeader, CardSubtitle, CardTitle, ListGroup, Modal } from "react-bootstrap";
 import { TOrderResponse } from "../ShoppingCart";
 import { UUID } from "crypto";
 import { Link } from "react-router-dom";
@@ -21,9 +12,7 @@ import { TDeliveryMethodDetails } from "../../../redux/ShoppingCartProvider";
 type Props = {
     show: boolean;
     handleClose: () => void;
-    handleOrderDelete: (
-        id: UUID | undefined,
-    ) => Promise<{ success: boolean; error?: string }>;
+    handleOrderDelete: (id: UUID | undefined) => Promise<{ success: boolean; error?: string }>;
     response: TOrderResponse | undefined;
     delivery: TDeliveryMethod | undefined;
     deliveryDetails: TDeliveryMethodDetails | undefined;
@@ -52,18 +41,11 @@ export const OrderModal: React.FC<Props> = ({
                             <CardBody>
                                 <div className="d-flex">
                                     <div>
-                                        <Link
-                                            to={
-                                                links.pcDetails +
-                                                data.product.id
-                                            }
-                                        >
+                                        <Link to={links.pcDetails + data.product.id}>
                                             <img
                                                 src={imagePlaceholder}
                                                 className="img-fluid rounded-start"
-                                                style={
-                                                    shoppingCartStyles.productImage
-                                                }
+                                                style={shoppingCartStyles.productImage}
                                                 alt="Product"
                                             />
                                         </Link>
@@ -72,46 +54,20 @@ export const OrderModal: React.FC<Props> = ({
                                         <ListGroup.Item>
                                             <div className="d-flex justify-content-between align-items-end">
                                                 <Link
-                                                    to={
-                                                        links.pcDetails +
-                                                        data.product.id
-                                                    }
+                                                    to={links.pcDetails + data.product.id}
                                                     className="me-2"
-                                                    style={
-                                                        shoppingCartStyles.component
-                                                    }
-                                                >
-                                                    <div>
-                                                        {
-                                                            data.product
-                                                                .description
-                                                        }
-                                                    </div>
+                                                    style={shoppingCartStyles.component}>
+                                                    <div>{data.product.description}</div>
                                                 </Link>
                                             </div>
                                         </ListGroup.Item>
                                         <ListGroup.Item>
                                             <div>
-                                                <div
-                                                    style={
-                                                        shoppingCartStyles.quantityAndPrice
-                                                    }
-                                                >
-                                                    {data.quantity} x ${" "}
-                                                    {formatPrice(
-                                                        data.product.price,
-                                                    )}
+                                                <div style={shoppingCartStyles.quantityAndPrice}>
+                                                    {data.quantity} x $ {formatPrice(data.product.price)}
                                                 </div>
-                                                <div
-                                                    style={
-                                                        shoppingCartStyles.priceTag
-                                                    }
-                                                >
-                                                    ${" "}
-                                                    {formatPrice(
-                                                        data.product.price *
-                                                            data.quantity,
-                                                    )}
+                                                <div style={shoppingCartStyles.priceTag}>
+                                                    $ {formatPrice(data.product.price * data.quantity)}
                                                 </div>
                                             </div>
                                         </ListGroup.Item>
@@ -124,16 +80,8 @@ export const OrderModal: React.FC<Props> = ({
 
                 <Card className="mb-2">
                     <CardBody>
-                        <div
-                            className="me-3"
-                            style={shoppingCartStyles.priceTag}
-                        >
-                            Total: ${" "}
-                            {formatPrice(
-                                response?.price === undefined
-                                    ? 0
-                                    : response?.price,
-                            )}
+                        <div className="me-3" style={shoppingCartStyles.priceTag}>
+                            Total: $ {formatPrice(response?.price === undefined ? 0 : response?.price)}
                         </div>
                     </CardBody>
                 </Card>
@@ -142,36 +90,24 @@ export const OrderModal: React.FC<Props> = ({
                     <CardHeader as={"h5"}>Delivery Method</CardHeader>
                     <CardBody>
                         <CardTitle>{delivery?.name}</CardTitle>
-                        <CardSubtitle className="mb-2 text-muted">
-                            {delivery?.info}
-                        </CardSubtitle>
-                        <CardSubtitle className="mb-2 text-muted">
-                            {delivery?.price}
-                        </CardSubtitle>
+                        <CardSubtitle className="mb-2 text-muted">{delivery?.info}</CardSubtitle>
+                        <CardSubtitle className="mb-2 text-muted">{delivery?.price}</CardSubtitle>
                     </CardBody>
                 </Card>
 
                 <Card>
                     <CardHeader as={"h5"}>Delivery Details</CardHeader>
                     <CardBody>
-                        {Object.entries(deliveryDetails || {}).map(
-                            ([key, value]) => (
-                                <CardSubtitle
-                                    key={key}
-                                    className="mb-2 text-muted"
-                                >
-                                    {key}: {value}
-                                </CardSubtitle>
-                            ),
-                        )}
+                        {Object.entries(deliveryDetails || {}).map(([key, value]) => (
+                            <CardSubtitle key={key} className="mb-2 text-muted">
+                                {key}: {value}
+                            </CardSubtitle>
+                        ))}
                     </CardBody>
                 </Card>
             </Modal.Body>
             <Modal.Footer>
-                <Button
-                    variant="danger"
-                    onClick={() => handleOrderDelete(response?.id)}
-                >
+                <Button variant="danger" onClick={() => handleOrderDelete(response?.id)}>
                     Delete order
                 </Button>
                 <Button variant="secondary" onClick={handleClose}>

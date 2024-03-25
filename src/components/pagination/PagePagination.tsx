@@ -8,12 +8,7 @@ export type TPagePagination = {
     onChangePage: (pageNumber: number, pageSize: number) => void;
 };
 
-export const PagePagination: React.FC<TPagePagination> = ({
-    pagesCount,
-    pageNumber,
-    pageSize,
-    onChangePage,
-}) => {
+export const PagePagination: React.FC<TPagePagination> = ({ pagesCount, pageNumber, pageSize, onChangePage }) => {
     return (
         <Pagination style={pagePaginationStyles.pagination}>
             <Pagination.First
@@ -29,25 +24,16 @@ export const PagePagination: React.FC<TPagePagination> = ({
             />
 
             <Dropdown style={pagePaginationStyles.dropMargin}>
-                <Dropdown.Toggle
-                    variant="outline-primary"
-                    id="page-size"
-                    style={pagePaginationStyles.dropQuadrature}
-                >
+                <Dropdown.Toggle variant="outline-primary" id="page-size" style={pagePaginationStyles.dropQuadrature}>
                     Page: {pageNumber + 1}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu style={pagePaginationStyles.limitDropdown}>
-                    {Array.from({ length: pagesCount }, (_, i) => i + 1).map(
-                        (page) => (
-                            <Dropdown.Item
-                                key={page}
-                                onClick={() => onChangePage(page - 1, pageSize)}
-                            >
-                                Page {page}
-                            </Dropdown.Item>
-                        ),
-                    )}
+                    {Array.from({ length: pagesCount }, (_, i) => i + 1).map((page) => (
+                        <Dropdown.Item key={page} onClick={() => onChangePage(page - 1, pageSize)}>
+                            Page {page}
+                        </Dropdown.Item>
+                    ))}
                 </Dropdown.Menu>
             </Dropdown>
 

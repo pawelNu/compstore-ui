@@ -2,10 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Card } from "react-bootstrap";
-import {
-    TPBComboData,
-    TProcessorBrandNew,
-} from "../../../types/ComboData/TProcessorBrands";
+import { TPBComboData, TProcessorBrandNew } from "../../../types/ComboData/TProcessorBrands";
 import { endpoints, links } from "../../../config/links";
 
 export const ProcessorBrandNew = () => {
@@ -31,16 +28,12 @@ export const ProcessorBrandNew = () => {
             if (e.response && e.response.data) {
                 setError(e.response.data.message.toString());
             } else {
-                setError(
-                    "An error occurred while crating the new processor brand!",
-                );
+                setError("An error occurred while crating the new processor brand!");
             }
         }
     };
 
-    const onInputChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    ) => {
+    const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setBrand({ ...brand, [e.target.name]: e.target.value });
     };
 
@@ -65,10 +58,7 @@ export const ProcessorBrandNew = () => {
                     <Card.Body>
                         <form onSubmit={(e) => onSubmit(e)}>
                             <div className="row mb-3">
-                                <label
-                                    htmlFor="name"
-                                    className="col-sm-2 col-form-label"
-                                >
+                                <label htmlFor="name" className="col-sm-2 col-form-label">
                                     Processor Brand Name
                                 </label>
                                 <div className="col-sm-10">
@@ -85,10 +75,7 @@ export const ProcessorBrandNew = () => {
                             </div>
 
                             <div className="row mb-3">
-                                <label
-                                    htmlFor="processorBrandDeviceType"
-                                    className="col-sm-2 col-form-label"
-                                >
+                                <label htmlFor="processorBrandDeviceType" className="col-sm-2 col-form-label">
                                     Processor Brand Device Type
                                 </label>
                                 <div className="col-sm-10">
@@ -97,42 +84,24 @@ export const ProcessorBrandNew = () => {
                                         id="processorBrandDeviceType"
                                         name="processorBrandDeviceType"
                                         value={processorBrandDeviceType}
-                                        onChange={onInputChange}
-                                    >
-                                        <option value="">
-                                            Choose Brand Device Type
-                                        </option>
-                                        {comboData?.processorBrandDeviceTypes.map(
-                                            (data, index) => (
-                                                <option
-                                                    key={index}
-                                                    value={data}
-                                                >
-                                                    {data}
-                                                </option>
-                                            ),
-                                        )}
+                                        onChange={onInputChange}>
+                                        <option value="">Choose Brand Device Type</option>
+                                        {comboData?.processorBrandDeviceTypes.map((data, index) => (
+                                            <option key={index} value={data}>
+                                                {data}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>
 
                             <div className="d-flex flex-column align-items-center">
-                                <div>
-                                    {error && (
-                                        <p className="text-danger">{error}</p>
-                                    )}
-                                </div>
+                                <div>{error && <p className="text-danger">{error}</p>}</div>
                                 <div className="d-flex justify-content-center">
-                                    <button
-                                        type="submit"
-                                        className="btn btn-outline-primary"
-                                    >
+                                    <button type="submit" className="btn btn-outline-primary">
                                         Add processor brand
                                     </button>
-                                    <a
-                                        href={links.processorBrands}
-                                        className="btn btn-outline-danger mx-2"
-                                    >
+                                    <a href={links.processorBrands} className="btn btn-outline-danger mx-2">
                                         Cancel
                                     </a>
                                 </div>

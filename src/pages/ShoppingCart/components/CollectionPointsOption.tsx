@@ -1,8 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
-import {
-    TDeliveryMethodDetails,
-    useShoppingCart,
-} from "../../../redux/ShoppingCartProvider";
+import { TDeliveryMethodDetails, useShoppingCart } from "../../../redux/ShoppingCartProvider";
 
 type TParcelMachine = {
     id: number;
@@ -34,20 +31,14 @@ const initialFormData: TDeliveryMethodDetails = {
 };
 
 export const CollectionPointsOption = () => {
-    const [selectedParcelMachine, setSelectedParcelMachine] = useState<
-        number | undefined
-    >();
-    const { deliveryDetails = initialFormData, setUpDeliveryDetails } =
-        useShoppingCart();
+    const [selectedParcelMachine, setSelectedParcelMachine] = useState<number | undefined>();
+    const { deliveryDetails = initialFormData, setUpDeliveryDetails } = useShoppingCart();
 
-    const handleParcelMachineChange = (
-        event: ChangeEvent<HTMLSelectElement>,
-    ) => {
+    const handleParcelMachineChange = (event: ChangeEvent<HTMLSelectElement>) => {
         const selectedParcelMachineId = parseInt(event.target.value);
-        const selectedParcelMachineData: TParcelMachine | undefined =
-            parcelMachineData.find(
-                (parcelMachine) => parcelMachine.id === selectedParcelMachineId,
-            );
+        const selectedParcelMachineData: TParcelMachine | undefined = parcelMachineData.find(
+            (parcelMachine) => parcelMachine.id === selectedParcelMachineId,
+        );
         if (selectedParcelMachineData) {
             setSelectedParcelMachine(selectedParcelMachineData.id);
             setUpDeliveryDetails({
@@ -60,15 +51,10 @@ export const CollectionPointsOption = () => {
 
     return (
         <div className="card mb-2">
-            <h5 className="card-header">
-                Collection points and parcel machines
-            </h5>
+            <h5 className="card-header">Collection points and parcel machines</h5>
             <div className="card-body">
                 <div className="row mb-3">
-                    <label
-                        htmlFor="inputParcelMachine"
-                        className="col-sm-2 col-form-label"
-                    >
+                    <label htmlFor="inputParcelMachine" className="col-sm-2 col-form-label">
                         Select Parcel Machine
                     </label>
                     <div className="col-sm-10">
@@ -76,14 +62,10 @@ export const CollectionPointsOption = () => {
                             className="form-select"
                             id="inputParcelMachine"
                             onChange={handleParcelMachineChange}
-                            value={selectedParcelMachine}
-                        >
+                            value={selectedParcelMachine}>
                             <option value="">Select a parcel machine</option>
                             {parcelMachineData.map((parcelMachine) => (
-                                <option
-                                    key={parcelMachine.id}
-                                    value={parcelMachine.id}
-                                >
+                                <option key={parcelMachine.id} value={parcelMachine.id}>
                                     {parcelMachine.name}
                                 </option>
                             ))}
@@ -93,10 +75,7 @@ export const CollectionPointsOption = () => {
                 {selectedParcelMachine && (
                     <>
                         <div className="row mb-3">
-                            <label
-                                htmlFor="parcelMachineAddress"
-                                className="col-sm-2 col-form-label"
-                            >
+                            <label htmlFor="parcelMachineAddress" className="col-sm-2 col-form-label">
                                 Address
                             </label>
                             <div className="col-sm-10">

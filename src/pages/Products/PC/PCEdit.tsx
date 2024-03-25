@@ -4,34 +4,15 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { endpoints, links } from "../../../config/links";
-import {
-    defaultToastProps,
-    toasts,
-} from "../../../components/toasts/toastsConfig";
-import { TPCComboData, TPCDetails, TPCUpdated } from "../../../types/PC/TPC";
-import { initialPCDetails, initialPCUpdate } from "./components/initialValues";
+import { defaultToastProps, toasts } from "../../../components/toasts/toastsConfig";
+import { TPCComboData } from "../../../types/PC/TPC";
+import * as Yup from "yup";
 
 export const PCEdit: React.FC = () => {
     const navigate = useNavigate();
     const { id } = useParams();
-    const [pc, setPc] = useState<TPCDetails>(initialPCDetails);
-    console.log("file: PCEdit.tsx:15   pc:", pc);
-    const [updatedPc, setUpdatedPc] = useState<TPCUpdated>(initialPCUpdate);
-    console.log("file: PCEdit.tsx:17   updatedPc:", updatedPc);
     const [comboData, setComboData] = useState<TPCComboData>();
     const [error, setError] = useState<string>("");
-
-    // const {
-    //     processorBrand,
-    //     processorName,
-    //     graphicsCardBrand,
-    //     graphicsCardName,
-    //     ramCapacity,
-    //     driveCapacity,
-    //     driveType,
-    //     operatingSystem,
-    //     price,
-    // } = pc;
 
     const formik = useFormik({
         initialValues: {
@@ -43,23 +24,36 @@ export const PCEdit: React.FC = () => {
             driveCapacity: "",
             driveType: "",
             operatingSystem: "",
-            price: "",
+            price: 0,
         },
+
+        validationSchema: Yup.object().shape({
+            processorBrand: Yup.string().required("Processor brand is required"),
+            processorName: Yup.string().required("Processor name is required"),
+            graphicsCardBrand: Yup.string().required("Graphic card brand is required"),
+            graphicsCardName: Yup.string().required("Graphic card name is required"),
+            ramCapacity: Yup.string().required("Ram capacity is required"),
+            driveCapacity: Yup.string().required("Drive capacity is required"),
+            driveType: Yup.string().required("Drive type is required"),
+            operatingSystem: Yup.string().required("Operating system is required"),
+            price: Yup.number()
+                .typeError("Price must be a number")
+                .required("Price is required")
+                .positive("Price must be positive")
+                .max(999999.99, "Price must be less than 999 999.99")
+                .test("is-decimal", "Price must have no more than two decimal places", (value) => {
+                    const regex = /^\d+(\.\d{1,2})?$/;
+                    return regex.test(value ? value.toString() : "");
+                }),
+        }),
 
         onSubmit: async (values, { setSubmitting }) => {
             try {
-                const response = await axios.put(
-                    endpoints.pcs.byId + id,
-                    values,
-                );
+                const response = await axios.put(endpoints.pcs.byId + id, values);
                 navigate(links.pcDetails + response.data.id);
                 toast.success(toasts.updateProduct.msg, defaultToastProps);
             } catch (error: any) {
-                if (
-                    error.response &&
-                    error.response.data &&
-                    error.response.data.violations
-                ) {
+                if (error.response && error.response.data && error.response.data.violations) {
                     const newErrors: Record<string, string> = {};
                     error.response.data.violations.forEach((violation: any) => {
                         newErrors[violation.field] = violation.message;
@@ -78,7 +72,6 @@ export const PCEdit: React.FC = () => {
         try {
             const result = await axios.get(endpoints.pcs.byId + id);
             const pc = result.data;
-            setPc(pc);
             formik.setValues({
                 processorBrand: pc.processorBrand.id,
                 processorName: pc.processorName,
@@ -90,8 +83,13 @@ export const PCEdit: React.FC = () => {
                 operatingSystem: pc.operatingSystem.id,
                 price: pc.price,
             });
-        } catch (e) {
-            console.log("file: PCEdit.tsx:  getPc  error:", e);
+        } catch (error: any) {
+            if (error.response && error.response.status === 404) {
+                setError("PC not found");
+            } else {
+                setError("An error occurred while fetching PC data");
+            }
+            console.error("Error fetching PC data:", error);
         }
     };
 
@@ -116,10 +114,7 @@ export const PCEdit: React.FC = () => {
                 <div className="card-body">
                     <form onSubmit={formik.handleSubmit}>
                         <div className="row mb-3">
-                            <label
-                                htmlFor="processorBrand"
-                                className="col-sm-2 col-form-label"
-                            >
+                            <label htmlFor="processorBrand" className="col-sm-2 col-form-label">
                                 Processor Brand
                             </label>
                             <div className="col-sm-10">
@@ -128,34 +123,24 @@ export const PCEdit: React.FC = () => {
                                     id="processorBrand"
                                     name="processorBrand"
                                     value={formik.values.processorBrand}
-                                    onChange={formik.handleChange}
-                                >
-                                    <option value="">
-                                        Choose Processor Brand
-                                    </option>
-                                    {comboData?.processorBrands.map(
-                                        (data, index) => (
-                                            <option key={index} value={data.id}>
-                                                {data.name}
-                                            </option>
-                                        ),
-                                    )}
+                                    onChange={formik.handleChange}>
+                                    <option value="">Choose Processor Brand</option>
+                                    {comboData?.processorBrands.map((data, index) => (
+                                        <option key={index} value={data.id}>
+                                            {data.name}
+                                        </option>
+                                    ))}
                                 </select>
                                 <div>
                                     {formik.errors.processorBrand && (
-                                        <p className="text-danger">
-                                            {formik.errors.processorBrand}
-                                        </p>
+                                        <p className="text-danger">{formik.errors.processorBrand}</p>
                                     )}
                                 </div>
                             </div>
                         </div>
 
                         <div className="row mb-3">
-                            <label
-                                htmlFor="processorName"
-                                className="col-sm-2 col-form-label"
-                            >
+                            <label htmlFor="processorName" className="col-sm-2 col-form-label">
                                 Processor Name
                             </label>
                             <div className="col-sm-10">
@@ -170,34 +155,191 @@ export const PCEdit: React.FC = () => {
                                 />
                                 <div>
                                     {formik.errors.processorName && (
-                                        <p className="text-danger">
-                                            {formik.errors.processorName}
-                                        </p>
+                                        <p className="text-danger">{formik.errors.processorName}</p>
                                     )}
                                 </div>
                             </div>
                         </div>
 
                         {/* TODO przenieść resztę pól */}
-                        {/* z C:\Users\pawel.nurzynski\Desktop\Folder\projects\compstore\ui\src\pages\Products\PC\PCEdit copy.tsx */}
+
+                        <div className="row mb-3">
+                            <label htmlFor="graphicsCardBrand" className="col-sm-2 col-form-label">
+                                Graphics Card Brand
+                            </label>
+                            <div className="col-sm-10">
+                                <select
+                                    className="form-select col-sm-10"
+                                    id="graphicsCardBrand"
+                                    name="graphicsCardBrand"
+                                    value={formik.values.graphicsCardBrand}
+                                    onChange={formik.handleChange}>
+                                    <option value="">Choose Graphics Card Brand</option>
+                                    {comboData?.graphicsCardBrands.map((data, index) => (
+                                        <option key={index} value={data.id}>
+                                            {data.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <div>
+                                    {formik.errors.graphicsCardBrand && (
+                                        <p className="text-danger">{formik.errors.graphicsCardBrand}</p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="row mb-3">
+                            <label htmlFor="graphicsCardName" className="col-sm-2 col-form-label">
+                                Graphics Card Name
+                            </label>
+                            <div className="col-sm-10">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="graphicsCardName"
+                                    name="graphicsCardName"
+                                    value={formik.values.graphicsCardName}
+                                    onChange={formik.handleChange}
+                                    placeholder="test"
+                                />
+                                <div>
+                                    {formik.errors.graphicsCardName && (
+                                        <p className="text-danger">{formik.errors.graphicsCardName}</p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="row mb-3">
+                            <label htmlFor="ramCapacity" className="col-sm-2 col-form-label">
+                                RAM GB Capacity
+                            </label>
+                            <div className="col-sm-10">
+                                <select
+                                    className="form-select col-sm-10"
+                                    id="ramCapacity"
+                                    name="ramCapacity"
+                                    value={formik.values.ramCapacity}
+                                    onChange={formik.handleChange}>
+                                    <option value="">Choose RAM Capacity</option>
+                                    {comboData?.ramCapacities.map((data, index) => (
+                                        <option key={index} value={data}>
+                                            {data}
+                                        </option>
+                                    ))}
+                                </select>
+                                <div>
+                                    {formik.errors.ramCapacity && (
+                                        <p className="text-danger">{formik.errors.ramCapacity}</p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="row mb-3">
+                            <label htmlFor="driveCapacity" className="col-sm-2 col-form-label">
+                                Drive GB Capacity
+                            </label>
+                            <div className="col-sm-10">
+                                <select
+                                    className="form-select col-sm-10"
+                                    id="driveCapacity"
+                                    name="driveCapacity"
+                                    value={formik.values.driveCapacity}
+                                    onChange={formik.handleChange}>
+                                    <option value="">Choose Drive Capacity</option>
+                                    {comboData?.driveCapacities.map((data, index) => (
+                                        <option key={index} value={data}>
+                                            {data}
+                                        </option>
+                                    ))}
+                                </select>
+                                <div>
+                                    {formik.errors.driveCapacity && (
+                                        <p className="text-danger">{formik.errors.driveCapacity}</p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="row mb-3">
+                            <label htmlFor="driveType" className="col-sm-2 col-form-label">
+                                Drive Type
+                            </label>
+                            <div className="col-sm-10">
+                                <select
+                                    className="form-select col-sm-10"
+                                    id="driveType"
+                                    name="driveType"
+                                    value={formik.values.driveType}
+                                    onChange={formik.handleChange}>
+                                    <option value="">Choose Drive Type</option>
+                                    {comboData?.driveTypes.map((data, index) => (
+                                        <option key={index} value={data}>
+                                            {data}
+                                        </option>
+                                    ))}
+                                </select>
+                                <div>
+                                    {formik.errors.driveType && (
+                                        <p className="text-danger">{formik.errors.driveType}</p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="row mb-3">
+                            <label htmlFor="operatingSystem" className="col-sm-2 col-form-label">
+                                Operating System
+                            </label>
+                            <div className="col-sm-10">
+                                <select
+                                    className="form-select col-sm-10"
+                                    id="operatingSystem"
+                                    name="operatingSystem"
+                                    value={formik.values.operatingSystem}
+                                    onChange={formik.handleChange}>
+                                    <option value="">Choose Operating System</option>
+                                    {comboData?.operatingSystems.map((data, index) => (
+                                        <option key={index} value={data.id}>
+                                            {data.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <div>
+                                    {formik.errors.operatingSystem && (
+                                        <p className="text-danger">{formik.errors.operatingSystem}</p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="row mb-3">
+                            <label htmlFor="price" className="col-sm-2 col-form-label">
+                                Price
+                            </label>
+                            <div className="col-sm-10">
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="price"
+                                    name="price"
+                                    value={formik.values.price}
+                                    onChange={formik.handleChange}
+                                    placeholder="test"
+                                />
+                                <div>{formik.errors.price && <p className="text-danger">{formik.errors.price}</p>}</div>
+                            </div>
+                        </div>
 
                         <div className="d-flex flex-column align-items-center">
-                            <div>
-                                {error && (
-                                    <p className="text-danger">{error}</p>
-                                )}
-                            </div>
+                            <div>{error && <p className="text-danger">{error}</p>}</div>
                             <div className="d-flex justify-content-center">
-                                <button
-                                    type="submit"
-                                    className="btn btn-outline-primary"
-                                >
+                                <button type="submit" className="btn btn-outline-primary">
                                     Save
                                 </button>
-                                <a
-                                    href={links.mainPage}
-                                    className="btn btn-outline-danger mx-2"
-                                >
+                                <a href={links.mainPage} className="btn btn-outline-danger mx-2">
                                     Cancel
                                 </a>
                             </div>

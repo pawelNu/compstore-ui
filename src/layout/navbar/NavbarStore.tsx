@@ -30,11 +30,7 @@ export const NavbarStore = () => {
                             </Nav.Link>
                         ))}
                         {userRole !== "Customer" && (
-                            <Nav.Link
-                                type="button"
-                                active
-                                onClick={handleAdminPanelClick}
-                            >
+                            <Nav.Link type="button" active onClick={handleAdminPanelClick}>
                                 Admin panel
                             </Nav.Link>
                         )}
@@ -42,10 +38,7 @@ export const NavbarStore = () => {
                 </Navbar.Collapse>
                 <UserRoleButton onUserRoleChange={handleUserRoleChange} />
             </Container>
-            <SideCanvas
-                show={showSideCanvas}
-                onClose={() => setShowSideCanvas(false)}
-            />
+            <SideCanvas show={showSideCanvas} onClose={() => setShowSideCanvas(false)} />
         </Navbar>
     );
 };

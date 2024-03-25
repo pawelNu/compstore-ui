@@ -1,9 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { Card, CardBody, CardHeader } from "react-bootstrap";
-import {
-    TDeliveryMethodDetails,
-    useShoppingCart,
-} from "../../../redux/ShoppingCartProvider";
+import { TDeliveryMethodDetails, useShoppingCart } from "../../../redux/ShoppingCartProvider";
 
 type TShop = {
     id: number;
@@ -41,14 +38,11 @@ const initialFormData: TDeliveryMethodDetails = {
 
 export const PickupOption = () => {
     const [selectedShop, setSelectedShop] = useState<number | undefined>();
-    const { deliveryDetails = initialFormData, setUpDeliveryDetails } =
-        useShoppingCart();
+    const { deliveryDetails = initialFormData, setUpDeliveryDetails } = useShoppingCart();
 
     const handleShopChange = (event: ChangeEvent<HTMLSelectElement>) => {
         const selectedShopId = parseInt(event.target.value);
-        const selectedShopData: TShop | undefined = shopData.find(
-            (shop) => shop.id === selectedShopId,
-        );
+        const selectedShopData: TShop | undefined = shopData.find((shop) => shop.id === selectedShopId);
         if (selectedShopData) {
             setSelectedShop(selectedShopData.id);
             setUpDeliveryDetails({
@@ -62,24 +56,14 @@ export const PickupOption = () => {
 
     return (
         <Card className="mb-2">
-            <CardHeader as={"h5"}>
-                Pick up in store with online payment
-            </CardHeader>
+            <CardHeader as={"h5"}>Pick up in store with online payment</CardHeader>
             <CardBody>
                 <div className="row mb-3">
-                    <label
-                        htmlFor="inputShop"
-                        className="col-sm-2 col-form-label"
-                    >
+                    <label htmlFor="inputShop" className="col-sm-2 col-form-label">
                         Select Shop
                     </label>
                     <div className="col-sm-10">
-                        <select
-                            className="form-select"
-                            id="inputShop"
-                            onChange={handleShopChange}
-                            value={selectedShop}
-                        >
+                        <select className="form-select" id="inputShop" onChange={handleShopChange} value={selectedShop}>
                             <option value="">Select a shop</option>
                             {shopData.map((shop) => (
                                 <option key={shop.id} value={shop.id}>
@@ -92,10 +76,7 @@ export const PickupOption = () => {
                 {selectedShop && (
                     <>
                         <div className="row mb-3">
-                            <label
-                                htmlFor="shopAddress"
-                                className="col-sm-2 col-form-label"
-                            >
+                            <label htmlFor="shopAddress" className="col-sm-2 col-form-label">
                                 Address
                             </label>
                             <div className="col-sm-10">
@@ -109,10 +90,7 @@ export const PickupOption = () => {
                             </div>
                         </div>
                         <div className="row mb-3">
-                            <label
-                                htmlFor="shopOpeningHours"
-                                className="col-sm-2 col-form-label"
-                            >
+                            <label htmlFor="shopOpeningHours" className="col-sm-2 col-form-label">
                                 Opening Hours
                             </label>
                             <div className="col-sm-10">

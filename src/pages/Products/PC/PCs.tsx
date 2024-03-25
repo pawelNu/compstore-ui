@@ -65,10 +65,7 @@ export const PCs = () => {
         } catch (e: any) {
             console.log("file: PCs.tsx   getPCs   e:", e);
             const error = e.response.data.violations
-                .map(
-                    (violation: { field: string; message: string }) =>
-                        `${violation.field}: ${violation.message}`,
-                )
+                .map((violation: { field: string; message: string }) => `${violation.field}: ${violation.message}`)
                 .join(", ");
             Swal.fire({
                 icon: "error",
@@ -78,9 +75,7 @@ export const PCs = () => {
         }
     }, [filter, setPCs, setPagesCount, setPageNumber, setPageSize]);
 
-    const deletePc = async (
-        id: UUID,
-    ): Promise<{ success: boolean; error?: string }> => {
+    const deletePc = async (id: UUID): Promise<{ success: boolean; error?: string }> => {
         try {
             await axios.delete(endpoints.pcs.byId + id);
             setPCs((prevPcs) => prevPcs.filter((pc) => pc.id !== id));
@@ -128,10 +123,7 @@ export const PCs = () => {
     return (
         <div className="p-2 mt-2">
             <div className="container d-flex justify-content-center">
-                <div
-                    className="container"
-                    style={pagePaginationStyles.topPaginationDiv}
-                >
+                <div className="container" style={pagePaginationStyles.topPaginationDiv}>
                     <PaginationComponent
                         pagesCount={pagesCount}
                         pageNumber={pageNumber}
@@ -140,10 +132,7 @@ export const PCs = () => {
                     />
                 </div>
                 <div className="me-2">
-                    <SortingButton
-                        ascendingFlag={ascendingFlag}
-                        onChangeSorting={handleChangeSorting}
-                    />
+                    <SortingButton ascendingFlag={ascendingFlag} onChangeSorting={handleChangeSorting} />
                 </div>
             </div>
             <div className="container d-flex justify-content-between pt-2">
@@ -152,16 +141,9 @@ export const PCs = () => {
                     {pcs.map((pc) => (
                         <div key={pc.id} className="mb-2">
                             <Card>
-                                <a
-                                    style={productStyles.headerLink}
-                                    href={links.pcDetails + pc.id}
-                                >
+                                <a style={productStyles.headerLink} href={links.pcDetails + pc.id}>
                                     <CardHeader as={"h5"}>
-                                        {[
-                                            pc.processorName,
-                                            pc.graphicsCardName,
-                                            pc.ramCapacity,
-                                        ].join(" - ")}
+                                        {[pc.processorName, pc.graphicsCardName, pc.ramCapacity].join(" - ")}
                                     </CardHeader>
                                 </a>
                                 <div className="row g-0">
@@ -170,9 +152,7 @@ export const PCs = () => {
                                             <img
                                                 src={imagePlaceholder}
                                                 className="img-fluid rounded-start"
-                                                style={
-                                                    productStyles.productImage
-                                                }
+                                                style={productStyles.productImage}
                                                 alt="Product"
                                             />
                                         </a>
@@ -193,9 +173,7 @@ export const PCs = () => {
                                             </div>
                                             <ButtonWithIcon
                                                 config={buttons.addToCart}
-                                                onClick={() =>
-                                                    handleAddToCart(pc.id)
-                                                }
+                                                onClick={() => handleAddToCart(pc.id)}
                                             />
                                             {userRole !== "Customer" && (
                                                 <ActionsButton

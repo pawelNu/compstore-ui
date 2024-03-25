@@ -1,8 +1,4 @@
-import {
-    TPCDetails,
-    TPCPageRequest,
-    TPCUpdated,
-} from "../../../../types/PC/TPC";
+import { TPCDetails, TPCPageRequest, TPCUpdated } from "../../../../types/PC/TPC";
 
 export const initialPCDetails: TPCDetails = {
     id: "string-string-string-string-string",

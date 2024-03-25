@@ -17,11 +17,7 @@ type Props = {
     productDetailsMap: TDetailsMap;
 };
 
-export const ProductDetailsComponent: React.FC<Props> = ({
-    data,
-    imagePlaceholder,
-    productDetailsMap,
-}) => {
+export const ProductDetailsComponent: React.FC<Props> = ({ data, imagePlaceholder, productDetailsMap }) => {
     const { addToCart } = useShoppingCart();
 
     const handleAddToCart = async (id: UUID) => {
@@ -31,9 +27,7 @@ export const ProductDetailsComponent: React.FC<Props> = ({
     return (
         <div className="container p-2 mb-2">
             <Card key={data.id}>
-                <CardHeader as={"h5"}>
-                    {Object.values(productDetailsMap).join(" - ")}
-                </CardHeader>
+                <CardHeader as={"h5"}>{Object.values(productDetailsMap).join(" - ")}</CardHeader>
                 <CardBody className="card-body">
                     <div className="row mb-3">
                         <div className="col-md-4">
@@ -47,25 +41,18 @@ export const ProductDetailsComponent: React.FC<Props> = ({
                         <div className="col-md-8">
                             <div className="card">
                                 <div className="card-body d-flex flex-column align-items-center">
-                                    <div style={oneProductStyle.priceTag}>
-                                        $ {data.price}
-                                    </div>
+                                    <div style={oneProductStyle.priceTag}>$ {data.price}</div>
                                     <div className="mt-3">
                                         <ButtonWithIcon
                                             config={buttons.addToCart}
-                                            onClick={() =>
-                                                handleAddToCart(data.id)
-                                            }
+                                            onClick={() => handleAddToCart(data.id)}
                                         />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <ProductDetails
-                        header="Product Details"
-                        detailsMap={productDetailsMap}
-                    />
+                    <ProductDetails header="Product Details" detailsMap={productDetailsMap} />
                 </CardBody>
             </Card>
         </div>

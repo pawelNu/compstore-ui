@@ -79,9 +79,7 @@ export const PCEdit: React.FC = () => {
         }
     };
 
-    const onInputChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    ) => {
+    const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         console.log("PCEdit.tsx onInputChange:", e.target.name, e.target.value);
         setPc({ ...pc, [e.target.name]: e.target.value });
     };
@@ -105,11 +103,7 @@ export const PCEdit: React.FC = () => {
             <div className="card">
                 <h5 className="card-header">Edit PC</h5>
                 <div className="card-body">
-                    <Formik
-                        initialValues={pc}
-                        validationSchema={validationSchema}
-                        onSubmit={onSubmit}
-                    >
+                    <Formik initialValues={pc} validationSchema={validationSchema} onSubmit={onSubmit}>
                         <Form>
                             <FormField
                                 label={labels.processorBrand.label}
@@ -191,24 +185,13 @@ export const PCEdit: React.FC = () => {
 
                             <div className="d-flex flex-column align-items-center">
                                 <div>
-                                    <ErrorMessage
-                                        name="error"
-                                        component="p"
-                                        className="text-danger"
-                                    />
+                                    <ErrorMessage name="error" component="p" className="text-danger" />
                                 </div>
                                 <div className="d-flex justify-content-center">
-                                    <Button
-                                        type="submit"
-                                        variant="outline-primary"
-                                    >
+                                    <Button type="submit" variant="outline-primary">
                                         Save
                                     </Button>
-                                    <Link
-                                        type="button"
-                                        to={links.pcs}
-                                        className="btn btn-outline-danger mx-2"
-                                    >
+                                    <Link type="button" to={links.pcs} className="btn btn-outline-danger mx-2">
                                         Cancel
                                     </Link>
                                 </div>

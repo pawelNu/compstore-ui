@@ -6,10 +6,7 @@ type ProductDetailsProps = {
     detailsMap: { [key: string]: string | number };
 };
 
-export const ProductDetails: React.FC<ProductDetailsProps> = ({
-    header,
-    detailsMap,
-}) => {
+export const ProductDetails: React.FC<ProductDetailsProps> = ({ header, detailsMap }) => {
     const cardContent = (
         <>
             {header && <CardHeader as={"h5"}>{header}</CardHeader>}
