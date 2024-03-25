@@ -93,6 +93,7 @@ export const PCEdit: React.FC = () => {
         }
     };
 
+    // TODO dodać loading div to combo data
     const getComboData = async () => {
         try {
             const result = await axios.get(endpoints.pcs.comboData);
@@ -102,6 +103,8 @@ export const PCEdit: React.FC = () => {
         }
     };
 
+    // TODO pomyśleć jak to poprawić
+    // React Hook useEffect has a missing dependency: 'getPc'. Either include it or remove the dependency array.
     useEffect(() => {
         getComboData();
         getPc(id);
@@ -160,8 +163,6 @@ export const PCEdit: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-
-                        {/* TODO przenieść resztę pól */}
 
                         <div className="row mb-3">
                             <label htmlFor="graphicsCardBrand" className="col-sm-2 col-form-label">

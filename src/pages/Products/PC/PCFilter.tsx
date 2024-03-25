@@ -10,7 +10,7 @@ import { FilterButtonSection } from "./components/FilterButtonSection";
 import { FilterGroup } from "./components/FilterGroup";
 import { FilterCard } from "./components/FilterCard";
 import { TPCComboData, TPCPageRequest } from "../../../types/PC/TPC";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { initialValuesFilter } from "./components/initialValues";
 import { endpoints, links } from "../../../config/links";
 import { ButtonWithIcon } from "../../../components/buttons/ButtonWithIcon";
@@ -22,6 +22,7 @@ type TPCFilterProps = {
 
 export const PCFilter: React.FC<TPCFilterProps> = ({ setFilter }) => {
     const [comboData, setComboData] = useState<TPCComboData | null>(null);
+    const [loading, setLoading] = useState(true);
 
     const initValues: TPCPageRequest = initialValuesFilter;
 
@@ -34,6 +35,12 @@ export const PCFilter: React.FC<TPCFilterProps> = ({ setFilter }) => {
             const result = await axios.get(endpoints.pcs.comboData);
             const comboData: TPCComboData = result.data;
             setComboData(comboData);
+            // setLoading(false);
+
+            setTimeout(() => {
+                setComboData(comboData);
+                setLoading(false);
+            }, 5000);
         } catch (e) {
             console.log("Error fetching combo data:", e);
         }
@@ -43,53 +50,59 @@ export const PCFilter: React.FC<TPCFilterProps> = ({ setFilter }) => {
         getComboData();
     }, [getComboData]);
 
-    // TODO add loading spiner
     return (
         <>
             <FilterCard style={filterPCStyles.card}>
-                <Formik initialValues={initValues} onSubmit={onSubmit}>
-                    <Form>
-                        <FilterGroup title="Filters:">
-                            <FilterSection title="Processor brands">
-                                <CheckboxIDName name="processorBrands" options={comboData?.processorBrands} />
-                            </FilterSection>
+                {loading ? (
+                    <div className="d-flex align-items-center">
+                        <Spinner animation="border" role="status" />
+                        <h2 className="m-0 ms-2">Loading...</h2>
+                    </div>
+                ) : (
+                    <Formik initialValues={initValues} onSubmit={onSubmit}>
+                        <Form>
+                            <FilterGroup title="Filters:">
+                                <FilterSection title="Processor brands">
+                                    <CheckboxIDName name="processorBrands" options={comboData?.processorBrands} />
+                                </FilterSection>
 
-                            <FilterSection title="Graphics card brands">
-                                <CheckboxIDName name="graphicsCardBrands" options={comboData?.graphicsCardBrands} />
-                            </FilterSection>
+                                <FilterSection title="Graphics card brands">
+                                    <CheckboxIDName name="graphicsCardBrands" options={comboData?.graphicsCardBrands} />
+                                </FilterSection>
 
-                            <FilterSection title="RAM Capacity">
-                                <CheckboxName name="ramCapacities" options={comboData?.ramCapacities} />
-                            </FilterSection>
+                                <FilterSection title="RAM Capacity">
+                                    <CheckboxName name="ramCapacities" options={comboData?.ramCapacities} />
+                                </FilterSection>
 
-                            <FilterSection title="Drive Capacity">
-                                <CheckboxName name="driveCapacities" options={comboData?.driveCapacities} />
-                            </FilterSection>
+                                <FilterSection title="Drive Capacity">
+                                    <CheckboxName name="driveCapacities" options={comboData?.driveCapacities} />
+                                </FilterSection>
 
-                            <FilterSection title="Drive Types">
-                                <CheckboxName name="driveTypes" options={comboData?.driveTypes} />
-                            </FilterSection>
+                                <FilterSection title="Drive Types">
+                                    <CheckboxName name="driveTypes" options={comboData?.driveTypes} />
+                                </FilterSection>
 
-                            <FilterSection title="Operating Systems">
-                                <CheckboxIDName name="operatingSystems" options={comboData?.operatingSystems} />
-                            </FilterSection>
+                                <FilterSection title="Operating Systems">
+                                    <CheckboxIDName name="operatingSystems" options={comboData?.operatingSystems} />
+                                </FilterSection>
 
-                            <FilterSection title="Price">
-                                <InputField label="From" id="priceFrom" name="priceFrom" type="number" />
-                                <InputField label="To" id="priceTo" name="priceTo" type="number" />
-                            </FilterSection>
+                                <FilterSection title="Price">
+                                    <InputField label="From" id="priceFrom" name="priceFrom" type="number" />
+                                    <InputField label="To" id="priceTo" name="priceTo" type="number" />
+                                </FilterSection>
 
-                            <FilterButtonSection>
-                                <ButtonWithIcon config={buttons.filterPC} />
-                            </FilterButtonSection>
-                            <FilterButtonSection>
-                                <Button href={links.pcs} variant="outline-danger">
-                                    Clear filters
-                                </Button>
-                            </FilterButtonSection>
-                        </FilterGroup>
-                    </Form>
-                </Formik>
+                                <FilterButtonSection>
+                                    <ButtonWithIcon config={buttons.filterPC} />
+                                </FilterButtonSection>
+                                <FilterButtonSection>
+                                    <Button href={links.pcs} variant="outline-danger">
+                                        Clear filters
+                                    </Button>
+                                </FilterButtonSection>
+                            </FilterGroup>
+                        </Form>
+                    </Formik>
+                )}
             </FilterCard>
         </>
     );

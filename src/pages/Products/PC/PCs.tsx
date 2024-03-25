@@ -16,7 +16,6 @@ import { useUser } from "../../../redux/UserProvider";
 import { ProductDetails } from "../../../components/product/ProductDetails";
 import { Card, CardHeader } from "react-bootstrap";
 import { pagePaginationStyles } from "../../../static/styles/PagePagination";
-import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 export const PCs = () => {
@@ -50,6 +49,7 @@ export const PCs = () => {
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
+    // TODO dodać loading div przed załadowaniem danych
     const getPCs = useCallback(async () => {
         try {
             const result = await axios.post(endpoints.pcs.getAll, filter);

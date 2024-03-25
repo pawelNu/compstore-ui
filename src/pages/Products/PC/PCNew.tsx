@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import { defaultToastProps, toasts } from "../../../components/toasts/toastsConfig";
 import Swal from "sweetalert2";
 
+// TODO przepisać formularz na taki z użyciem formik na wzór src\pages\Products\PC\PCEdit.tsx
+
 export const PCNew: React.FC = () => {
     let navigate = useNavigate();
 
