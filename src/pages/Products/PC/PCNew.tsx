@@ -1,90 +1,86 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TPCComboData, TPCNew } from "../../../types/PC/TPC";
+import { TPCComboData } from "../../../types/PC/TPC";
 import { endpoints, links } from "../../../config/links";
 import { toast } from "react-toastify";
 import { defaultToastProps, toasts } from "../../../components/toasts/toastsConfig";
 import Swal from "sweetalert2";
 import { Loading } from "../../../components/spinner/Loading";
-
-// TODO przepisać formularz na taki z użyciem formik na wzór src\pages\Products\PC\PCEdit.tsx
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 export const PCNew: React.FC = () => {
     let navigate = useNavigate();
-
     const [comboData, setComboData] = useState<TPCComboData>();
-    const [pc, setPc] = useState<TPCNew>({
-        processorBrand: undefined,
-        processorName: "",
-        graphicsCardBrand: undefined,
-        graphicsCardName: "",
-        ramCapacity: "",
-        driveCapacity: "",
-        driveType: "",
-        operatingSystem: undefined,
-        price: 0,
-    });
-
     const [error, setError] = useState<String>("");
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [loading, setLoading] = useState(true);
 
-    const {
-        processorBrand,
-        processorName,
-        graphicsCardBrand,
-        graphicsCardName,
-        ramCapacity,
-        driveCapacity,
-        driveType,
-        operatingSystem,
-        price,
-    } = pc;
+    const formik = useFormik({
+        initialValues: {
+            processorBrand: "",
+            processorName: "",
+            graphicsCardBrand: "",
+            graphicsCardName: "",
+            ramCapacity: "",
+            driveCapacity: "",
+            driveType: "",
+            operatingSystem: "",
+            price: 0,
+        },
 
-    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setErrors({});
+        validationSchema: Yup.object().shape({
+            processorBrand: Yup.string().required("Processor brand is required"),
+            processorName: Yup.string().required("Processor name is required"),
+            graphicsCardBrand: Yup.string().required("Graphic card brand is required"),
+            graphicsCardName: Yup.string().required("Graphic card name is required"),
+            ramCapacity: Yup.string().required("Ram capacity is required"),
+            driveCapacity: Yup.string().required("Drive capacity is required"),
+            driveType: Yup.string().required("Drive type is required"),
+            operatingSystem: Yup.string().required("Operating system is required"),
+            price: Yup.number()
+                .typeError("Price must be a number")
+                .required("Price is required")
+                .positive("Price must be positive")
+                .max(999999.99, "Price must be less than 999 999.99")
+                .test("is-decimal", "Price must have no more than two decimal places", (value) => {
+                    const regex = /^\d+(\.\d{1,2})?$/;
+                    return regex.test(value ? value.toString() : "");
+                }),
+        }),
 
-        try {
-            const response = await axios.post(endpoints.pcs.addNew, pc);
-            navigate(links.pcDetails + response.data.id);
-            toast.success(toasts.createNewProduct.msg, defaultToastProps);
-        } catch (e: any) {
-            console.log("file: NewPC.tsx  onSubmit  error:", e);
-            if (e.response.data.violations) {
-                const newErrors: Record<string, string> = {};
-                e.response.data.violations.forEach((violation: any) => {
-                    newErrors[violation.field] = violation.message;
-                });
-                setErrors(newErrors);
-            } else if (e.response.data) {
-                const error = e.response.data;
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    html: `Error during adding new PC!<br/>
+        onSubmit: async (values, { setSubmitting }) => {
+            try {
+                const response = await axios.post(endpoints.pcs.addNew, values);
+                navigate(links.pcDetails + response.data.id);
+                toast.success(toasts.createNewProduct.msg, defaultToastProps);
+            } catch (e: any) {
+                console.log("file: NewPC.tsx  onSubmit  error:", e);
+                if (e.response.data.violations) {
+                    const newErrors: Record<string, string> = {};
+                    e.response.data.violations.forEach((violation: any) => {
+                        newErrors[violation.field] = violation.message;
+                    });
+                    setErrors(newErrors);
+                } else if (e.response.data) {
+                    const error = e.response.data;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        html: `Error during adding new PC!<br/>
                     <b>Message:</b> ${error.detail}<br/>
                     <b>Status:</b> ${error.status} ${error.title}`,
-                });
-            } else {
-                console.log("file: PCNew.tsx:  onSubmit  else");
-                setError("An error occurred while crating the new PC!");
+                    });
+                } else {
+                    console.log("file: PCNew.tsx:  onSubmit  else");
+                    setError("An error occurred while crating the new PC!");
+                }
+            } finally {
+                setSubmitting(false);
             }
-        }
-    };
-
-    const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-
-        if (name === "price") {
-            if (/^\d*\.?\d{0,2}$/.test(value) || value === "") {
-                setPc({ ...pc, [e.target.name]: e.target.value });
-            }
-        } else {
-            setPc({ ...pc, [e.target.name]: e.target.value });
-        }
-    };
+        },
+    });
 
     const getComboData = async () => {
         try {
@@ -105,7 +101,7 @@ export const PCNew: React.FC = () => {
             {loading ? (
                 <Loading />
             ) : (
-                <form onSubmit={(e) => onSubmit(e)}>
+                <form onSubmit={formik.handleSubmit}>
                     <div className="row mb-3">
                         <label htmlFor="processorBrand" className="col-sm-2 col-form-label">
                             Processor Brand
@@ -115,8 +111,8 @@ export const PCNew: React.FC = () => {
                                 className="form-select col-sm-10"
                                 id="processorBrand"
                                 name="processorBrand"
-                                value={processorBrand}
-                                onChange={onInputChange}>
+                                value={formik.values.processorBrand}
+                                onChange={formik.handleChange}>
                                 <option value="">Choose Processor Brand</option>
                                 {comboData?.processorBrands.map((data, index) => (
                                     <option key={index} value={data.id}>
@@ -124,7 +120,11 @@ export const PCNew: React.FC = () => {
                                     </option>
                                 ))}
                             </select>
-                            <div>{errors.processorBrand && <p className="text-danger">{errors.processorBrand}</p>}</div>
+                            <div>
+                                {formik.errors.processorBrand && (
+                                    <p className="text-danger">{formik.errors.processorBrand}</p>
+                                )}
+                            </div>
                         </div>
                     </div>
 
@@ -138,11 +138,15 @@ export const PCNew: React.FC = () => {
                                 className="form-control"
                                 id="processorName"
                                 name="processorName"
-                                value={processorName}
-                                onChange={onInputChange}
+                                value={formik.values.processorName}
+                                onChange={formik.handleChange}
                                 placeholder="Enter processor name"
                             />
-                            <div>{errors.processorName && <p className="text-danger">{errors.processorName}</p>}</div>
+                            <div>
+                                {formik.errors.processorName && (
+                                    <p className="text-danger">{formik.errors.processorName}</p>
+                                )}
+                            </div>
                         </div>
                     </div>
 
@@ -155,8 +159,8 @@ export const PCNew: React.FC = () => {
                                 className="form-select col-sm-10"
                                 id="graphicsCardBrand"
                                 name="graphicsCardBrand"
-                                value={graphicsCardBrand}
-                                onChange={onInputChange}>
+                                value={formik.values.graphicsCardBrand}
+                                onChange={formik.handleChange}>
                                 <option value="">Choose Graphics Card Brand</option>
                                 {comboData?.graphicsCardBrands.map((data, index) => (
                                     <option key={index} value={data.id}>
@@ -165,7 +169,9 @@ export const PCNew: React.FC = () => {
                                 ))}
                             </select>
                             <div>
-                                {errors.graphicsCardBrand && <p className="text-danger">{errors.graphicsCardBrand}</p>}
+                                {formik.errors.graphicsCardBrand && (
+                                    <p className="text-danger">{formik.errors.graphicsCardBrand}</p>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -180,12 +186,14 @@ export const PCNew: React.FC = () => {
                                 className="form-control"
                                 id="graphicsCardName"
                                 name="graphicsCardName"
-                                value={graphicsCardName}
-                                onChange={onInputChange}
+                                value={formik.values.graphicsCardName}
+                                onChange={formik.handleChange}
                                 placeholder="Enter graphics card name"
                             />
                             <div>
-                                {errors.graphicsCardName && <p className="text-danger">{errors.graphicsCardName}</p>}
+                                {formik.errors.graphicsCardName && (
+                                    <p className="text-danger">{formik.errors.graphicsCardName}</p>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -199,8 +207,8 @@ export const PCNew: React.FC = () => {
                                 className="form-select col-sm-10"
                                 id="ramCapacity"
                                 name="ramCapacity"
-                                value={ramCapacity}
-                                onChange={onInputChange}>
+                                value={formik.values.ramCapacity}
+                                onChange={formik.handleChange}>
                                 <option value="">Choose RAM Capacity</option>
                                 {comboData?.ramCapacities.map((data, index) => (
                                     <option key={index} value={data}>
@@ -208,7 +216,11 @@ export const PCNew: React.FC = () => {
                                     </option>
                                 ))}
                             </select>
-                            <div>{errors.ramCapacity && <p className="text-danger">{errors.ramCapacity}</p>}</div>
+                            <div>
+                                {formik.errors.ramCapacity && (
+                                    <p className="text-danger">{formik.errors.ramCapacity}</p>
+                                )}
+                            </div>
                         </div>
                     </div>
 
@@ -221,8 +233,8 @@ export const PCNew: React.FC = () => {
                                 className="form-select col-sm-10"
                                 id="driveCapacity"
                                 name="driveCapacity"
-                                value={driveCapacity}
-                                onChange={onInputChange}>
+                                value={formik.values.driveCapacity}
+                                onChange={formik.handleChange}>
                                 <option value="">Choose Drive Capacity</option>
                                 {comboData?.driveCapacities.map((data, index) => (
                                     <option key={index} value={data}>
@@ -230,7 +242,11 @@ export const PCNew: React.FC = () => {
                                     </option>
                                 ))}
                             </select>
-                            <div>{errors.driveCapacity && <p className="text-danger">{errors.driveCapacity}</p>}</div>
+                            <div>
+                                {formik.errors.driveCapacity && (
+                                    <p className="text-danger">{formik.errors.driveCapacity}</p>
+                                )}
+                            </div>
                         </div>
                     </div>
 
@@ -243,8 +259,8 @@ export const PCNew: React.FC = () => {
                                 className="form-select col-sm-10"
                                 id="driveType"
                                 name="driveType"
-                                value={driveType}
-                                onChange={onInputChange}>
+                                value={formik.values.driveType}
+                                onChange={formik.handleChange}>
                                 <option value="">Choose Drive Type</option>
                                 {comboData?.driveTypes.map((data, index) => (
                                     <option key={index} value={data}>
@@ -252,7 +268,9 @@ export const PCNew: React.FC = () => {
                                     </option>
                                 ))}
                             </select>
-                            <div>{errors.driveType && <p className="text-danger">{errors.driveType}</p>}</div>
+                            <div>
+                                {formik.errors.driveType && <p className="text-danger">{formik.errors.driveType}</p>}
+                            </div>
                         </div>
                     </div>
 
@@ -265,8 +283,8 @@ export const PCNew: React.FC = () => {
                                 className="form-select col-sm-10"
                                 id="operatingSystem"
                                 name="operatingSystem"
-                                value={operatingSystem}
-                                onChange={onInputChange}>
+                                value={formik.values.operatingSystem}
+                                onChange={formik.handleChange}>
                                 <option value="">Choose Operating System</option>
                                 {comboData?.operatingSystems.map((data, index) => (
                                     <option key={index} value={data.id}>
@@ -275,7 +293,9 @@ export const PCNew: React.FC = () => {
                                 ))}
                             </select>
                             <div>
-                                {errors.operatingSystem && <p className="text-danger">{errors.operatingSystem}</p>}
+                                {formik.errors.operatingSystem && (
+                                    <p className="text-danger">{formik.errors.operatingSystem}</p>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -290,14 +310,16 @@ export const PCNew: React.FC = () => {
                                 className="form-control"
                                 id="price"
                                 name="price"
-                                value={price}
-                                onChange={onInputChange}
+                                value={formik.values.price}
+                                onChange={formik.handleChange}
                             />
-                            <div>{errors.price && <p className="text-danger">{errors.price}</p>}</div>
+                            <div>{formik.errors.price && <p className="text-danger">{formik.errors.price}</p>}</div>
                         </div>
                     </div>
+
                     <div className="d-flex flex-column align-items-center">
                         <div>{error && <p className="text-danger">{error}</p>}</div>
+                        <div>{errors && <p className="text-danger">{errors.toString()}</p>}</div>
                         <div className="d-flex justify-content-center">
                             <button type="submit" className="btn btn-outline-primary">
                                 Add product
