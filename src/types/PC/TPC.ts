@@ -1,17 +1,5 @@
 import { UUID } from "crypto";
 
-export type TPCNew = {
-    processorBrand: UUID | undefined;
-    processorName: string;
-    graphicsCardBrand: UUID | undefined;
-    graphicsCardName: string;
-    ramCapacity: string;
-    driveCapacity: string;
-    driveType: string;
-    operatingSystem: UUID | undefined;
-    price: number;
-};
-
 export type TPCDetails = {
     id: UUID;
     processorBrand: TIDNameType;
@@ -25,7 +13,7 @@ export type TPCDetails = {
     price: number;
 };
 
-export type TPCUpdated = {
+export type TPCNewOrUpdated = {
     processorBrand: UUID | string;
     processorName: string;
     graphicsCardBrand: UUID | string;

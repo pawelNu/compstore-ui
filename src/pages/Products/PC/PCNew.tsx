@@ -8,48 +8,17 @@ import { defaultToastProps, toasts } from "../../../components/toasts/toastsConf
 import Swal from "sweetalert2";
 import { Loading } from "../../../components/spinner/Loading";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import { initialValues, validationSchema } from "./components/FormProps";
 
 export const PCNew: React.FC = () => {
     let navigate = useNavigate();
     const [comboData, setComboData] = useState<TPCComboData>();
     const [error, setError] = useState<String>("");
-    const [errors, setErrors] = useState<Record<string, string>>({});
     const [loading, setLoading] = useState(true);
 
     const formik = useFormik({
-        initialValues: {
-            processorBrand: "",
-            processorName: "",
-            graphicsCardBrand: "",
-            graphicsCardName: "",
-            ramCapacity: "",
-            driveCapacity: "",
-            driveType: "",
-            operatingSystem: "",
-            price: 0,
-        },
-
-        validationSchema: Yup.object().shape({
-            processorBrand: Yup.string().required("Processor brand is required"),
-            processorName: Yup.string().required("Processor name is required"),
-            graphicsCardBrand: Yup.string().required("Graphic card brand is required"),
-            graphicsCardName: Yup.string().required("Graphic card name is required"),
-            ramCapacity: Yup.string().required("Ram capacity is required"),
-            driveCapacity: Yup.string().required("Drive capacity is required"),
-            driveType: Yup.string().required("Drive type is required"),
-            operatingSystem: Yup.string().required("Operating system is required"),
-            price: Yup.number()
-                .typeError("Price must be a number")
-                .required("Price is required")
-                .positive("Price must be positive")
-                .max(999999.99, "Price must be less than 999 999.99")
-                .test("is-decimal", "Price must have no more than two decimal places", (value) => {
-                    const regex = /^\d+(\.\d{1,2})?$/;
-                    return regex.test(value ? value.toString() : "");
-                }),
-        }),
-
+        initialValues: initialValues,
+        validationSchema: validationSchema,
         onSubmit: async (values, { setSubmitting }) => {
             try {
                 const response = await axios.post(endpoints.pcs.addNew, values);
@@ -57,12 +26,12 @@ export const PCNew: React.FC = () => {
                 toast.success(toasts.createNewProduct.msg, defaultToastProps);
             } catch (e: any) {
                 console.log("file: NewPC.tsx  onSubmit  error:", e);
-                if (e.response.data.violations) {
+                if (e.response && e.response.data && e.response.data.violations) {
                     const newErrors: Record<string, string> = {};
                     e.response.data.violations.forEach((violation: any) => {
                         newErrors[violation.field] = violation.message;
                     });
-                    setErrors(newErrors);
+                    formik.setErrors(newErrors);
                 } else if (e.response.data) {
                     const error = e.response.data;
                     Swal.fire({
@@ -319,7 +288,6 @@ export const PCNew: React.FC = () => {
 
                     <div className="d-flex flex-column align-items-center">
                         <div>{error && <p className="text-danger">{error}</p>}</div>
-                        <div>{errors && <p className="text-danger">{errors.toString()}</p>}</div>
                         <div className="d-flex justify-content-center">
                             <button type="submit" className="btn btn-outline-primary">
                                 Add product
