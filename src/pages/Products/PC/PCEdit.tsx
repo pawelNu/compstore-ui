@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { endpoints, links } from "../../../config/links";
 import { defaultToastProps, toasts } from "../../../components/toasts/toastsConfig";
-import { TPCComboData } from "../../../types/PC/TPC";
+import { TPCComboData, TPCUpdated } from "../../../types/PC/TPC";
 import * as Yup from "yup";
 import { Loading } from "../../../components/spinner/Loading";
+
+type SetSubmittingFunction = {
+    setSubmitting: (isSubmitting: boolean) => void;
+};
 
 export const PCEdit: React.FC = () => {
     const navigate = useNavigate();
@@ -16,61 +20,65 @@ export const PCEdit: React.FC = () => {
     const [error, setError] = useState<string>("");
     const [loading, setLoading] = useState(true);
 
-    const formik = useFormik({
-        initialValues: {
-            processorBrand: "",
-            processorName: "",
-            graphicsCardBrand: "",
-            graphicsCardName: "",
-            ramCapacity: "",
-            driveCapacity: "",
-            driveType: "",
-            operatingSystem: "",
-            price: 0,
-        },
+    const initialValues: TPCUpdated = {
+        processorBrand: "",
+        processorName: "",
+        graphicsCardBrand: "",
+        graphicsCardName: "",
+        ramCapacity: "",
+        driveCapacity: "",
+        driveType: "",
+        operatingSystem: "",
+        price: 0,
+    };
 
-        validationSchema: Yup.object().shape({
-            processorBrand: Yup.string().required("Processor brand is required"),
-            processorName: Yup.string().required("Processor name is required"),
-            graphicsCardBrand: Yup.string().required("Graphic card brand is required"),
-            graphicsCardName: Yup.string().required("Graphic card name is required"),
-            ramCapacity: Yup.string().required("Ram capacity is required"),
-            driveCapacity: Yup.string().required("Drive capacity is required"),
-            driveType: Yup.string().required("Drive type is required"),
-            operatingSystem: Yup.string().required("Operating system is required"),
-            price: Yup.number()
-                .typeError("Price must be a number")
-                .required("Price is required")
-                .positive("Price must be positive")
-                .max(999999.99, "Price must be less than 999 999.99")
-                .test("is-decimal", "Price must have no more than two decimal places", (value) => {
-                    const regex = /^\d+(\.\d{1,2})?$/;
-                    return regex.test(value ? value.toString() : "");
-                }),
-        }),
-
-        onSubmit: async (values, { setSubmitting }) => {
-            try {
-                const response = await axios.put(endpoints.pcs.byId + id, values);
-                navigate(links.pcDetails + response.data.id);
-                toast.success(toasts.updateProduct.msg, defaultToastProps);
-            } catch (error: any) {
-                if (error.response && error.response.data && error.response.data.violations) {
-                    const newErrors: Record<string, string> = {};
-                    error.response.data.violations.forEach((violation: any) => {
-                        newErrors[violation.field] = violation.message;
-                    });
-                    formik.setErrors(newErrors);
-                } else {
-                    setError("An error occurred while updating the pc!");
-                }
-            } finally {
-                setSubmitting(false);
-            }
-        },
+    const validationSchema = Yup.object().shape({
+        processorBrand: Yup.string().required("Processor brand is required"),
+        processorName: Yup.string().required("Processor name is required"),
+        graphicsCardBrand: Yup.string().required("Graphic card brand is required"),
+        graphicsCardName: Yup.string().required("Graphic card name is required"),
+        ramCapacity: Yup.string().required("Ram capacity is required"),
+        driveCapacity: Yup.string().required("Drive capacity is required"),
+        driveType: Yup.string().required("Drive type is required"),
+        operatingSystem: Yup.string().required("Operating system is required"),
+        price: Yup.number()
+            .typeError("Price must be a number")
+            .required("Price is required")
+            .positive("Price must be positive")
+            .max(999999.99, "Price must be less than 999 999.99")
+            .test("is-decimal", "Price must have no more than two decimal places", (value) => {
+                const regex = /^\d+(\.\d{1,2})?$/;
+                return regex.test(value ? value.toString() : "");
+            }),
     });
 
-    const getPc = async (id: string | undefined) => {
+    const handleSubmit = async (values: TPCUpdated, { setSubmitting }: SetSubmittingFunction) => {
+        try {
+            const response = await axios.put(endpoints.pcs.byId + id, values);
+            navigate(links.pcDetails + response.data.id);
+            toast.success(toasts.updateProduct.msg, defaultToastProps);
+        } catch (error: any) {
+            if (error.response && error.response.data && error.response.data.violations) {
+                const newErrors: Record<string, string> = {};
+                error.response.data.violations.forEach((violation: any) => {
+                    newErrors[violation.field] = violation.message;
+                });
+                formik.setErrors(newErrors);
+            } else {
+                setError("An error occurred while updating the pc!");
+            }
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    const formik = useFormik({
+        initialValues: initialValues,
+        validationSchema: validationSchema,
+        onSubmit: handleSubmit,
+    });
+
+    const getPc = useCallback(async (id: string | undefined) => {
         try {
             const result = await axios.get(endpoints.pcs.byId + id);
             const pc = result.data;
@@ -94,7 +102,7 @@ export const PCEdit: React.FC = () => {
             }
             console.error("Error fetching PC data:", error);
         }
-    };
+    }, []);
 
     const getComboData = async () => {
         try {
@@ -105,12 +113,10 @@ export const PCEdit: React.FC = () => {
         }
     };
 
-    // TODO pomyśleć jak to poprawić
-    // React Hook useEffect has a missing dependency: 'getPc'. Either include it or remove the dependency array.
     useEffect(() => {
         getComboData();
         getPc(id);
-    }, [id]);
+    }, [getPc, id]);
 
     return (
         <>

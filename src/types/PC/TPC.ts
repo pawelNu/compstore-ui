@@ -26,14 +26,14 @@ export type TPCDetails = {
 };
 
 export type TPCUpdated = {
-    processorBrand: UUID;
+    processorBrand: UUID | string;
     processorName: string;
-    graphicsCardBrand: UUID;
+    graphicsCardBrand: UUID | string;
     graphicsCardName: string;
     ramCapacity: string;
     driveCapacity: string;
     driveType: string;
-    operatingSystem: UUID;
+    operatingSystem: UUID | string;
     price: number;
 };
 

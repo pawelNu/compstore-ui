@@ -38,6 +38,7 @@ export const AddNewProductForm = () => {
                         <div className="col-sm-10">
                             <select
                                 className="form-select col-sm-10"
+                                id="productCategory"
                                 name="productCategory"
                                 value={selectedCategory}
                                 onChange={changeCategory}>
