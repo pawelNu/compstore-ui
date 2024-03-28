@@ -19,10 +19,7 @@ export const DeliveryManOption = () => {
             <h5 className="card-header">Delivery address</h5>
             <div className="card-body">
                 <div className="row mb-3">
-                    <label
-                        htmlFor="inputFirstName"
-                        className="col-sm-2 col-form-label"
-                    >
+                    <label htmlFor="inputFirstName" className="col-sm-2 col-form-label">
                         First Name
                     </label>
                     <div className="col-sm-10">
@@ -36,10 +33,7 @@ export const DeliveryManOption = () => {
                     </div>
                 </div>
                 <div className="row mb-3">
-                    <label
-                        htmlFor="inputLastName"
-                        className="col-sm-2 col-form-label"
-                    >
+                    <label htmlFor="inputLastName" className="col-sm-2 col-form-label">
                         Last Name
                     </label>
                     <div className="col-sm-10">
@@ -53,10 +47,7 @@ export const DeliveryManOption = () => {
                     </div>
                 </div>
                 <div className="row mb-3">
-                    <label
-                        htmlFor="inputEmail3"
-                        className="col-sm-2 col-form-label"
-                    >
+                    <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">
                         Email
                     </label>
                     <div className="col-sm-10">
@@ -70,10 +61,7 @@ export const DeliveryManOption = () => {
                     </div>
                 </div>
                 <div className="row mb-3">
-                    <label
-                        htmlFor="inputCity"
-                        className="col-sm-2 col-form-label"
-                    >
+                    <label htmlFor="inputCity" className="col-sm-2 col-form-label">
                         City
                     </label>
                     <div className="col-sm-10">
@@ -87,10 +75,7 @@ export const DeliveryManOption = () => {
                     </div>
                 </div>
                 <div className="row mb-3">
-                    <label
-                        htmlFor="inputZipCode"
-                        className="col-sm-2 col-form-label"
-                    >
+                    <label htmlFor="inputZipCode" className="col-sm-2 col-form-label">
                         ZipCode
                     </label>
                     <div className="col-sm-10">

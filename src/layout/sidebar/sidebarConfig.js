@@ -1,10 +1,12 @@
+import { links } from "../../config/links";
+
 export const sidebarElements = [
     {
         header: "Products",
         subMenu: [
             {
                 name: "Add new product",
-                link: "/add-new-product",
+                link: links.addNewProduct,
             },
         ],
     },
@@ -13,7 +15,7 @@ export const sidebarElements = [
         subMenu: [
             {
                 name: "Show processor brands",
-                link: "/processor-brands",
+                link: links.processorBrands,
             },
         ],
     },

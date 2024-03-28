@@ -43,22 +43,10 @@ export const App = () => {
                 <Route path={`${links.pcDetails}:id`} element={<PCDetails />} />
                 <Route path={`${links.pcEdit}:id`} element={<PCEdit />} />
                 <Route path={links.shoppingCart} element={<ShoppingCart />} />
-                <Route
-                    path={links.addNewProduct}
-                    element={<AddNewProductForm />}
-                />
-                <Route
-                    path={links.processorBrands}
-                    element={<ProcessorBrands />}
-                />
-                <Route
-                    path={`${links.processorBrandsEdit}:id`}
-                    element={<ProcessorBrandsEdit />}
-                />
-                <Route
-                    path={links.processorBrandsNew}
-                    element={<ProcessorBrandNew />}
-                />
+                <Route path={links.addNewProduct} element={<AddNewProductForm />} />
+                <Route path={links.processorBrands} element={<ProcessorBrands />} />
+                <Route path={`${links.processorBrandsEdit}:id`} element={<ProcessorBrandsEdit />} />
+                <Route path={links.processorBrandsNew} element={<ProcessorBrandNew />} />
             </Routes>
             <Footer />
             <ToastContainer />

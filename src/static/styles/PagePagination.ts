@@ -15,4 +15,7 @@ export const pagePaginationStyles = {
         maxHeight: "200px",
         overflowY: "auto" as const,
     },
+    topPaginationDiv: {
+        marginLeft: 250,
+    },
 };

@@ -1,4 +1,4 @@
 export type TSortingButton = {
-    ascendingFlag: boolean | null;
-    onChangeSorting: (ascendingFlag: boolean | null) => void;
+    ascendingFlag: boolean;
+    onChangeSorting: (ascendingFlag: boolean) => void;
 };

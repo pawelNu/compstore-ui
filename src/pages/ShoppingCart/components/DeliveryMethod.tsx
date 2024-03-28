@@ -2,13 +2,7 @@ import { deliveryMethods } from "../../../data/DeliveryMethodData";
 import { DeliveryManOption } from "./DeliveryManOption";
 import { PickupOption } from "./PickupOption";
 import { CollectionPointsOption } from "./CollectionPointsOption";
-import {
-    Card,
-    CardBody,
-    CardHeader,
-    CardSubtitle,
-    CardTitle,
-} from "react-bootstrap";
+import { Card, CardBody, CardHeader, CardSubtitle, CardTitle } from "react-bootstrap";
 import { useShoppingCart } from "../../../redux/ShoppingCartProvider";
 
 export type TDeliveryMethod = {
@@ -18,13 +12,10 @@ export type TDeliveryMethod = {
 };
 
 export const DeliveryMethod = () => {
-    const { deliveryMethod, chooseDeliveryMethod, setUpDeliveryDetails } =
-        useShoppingCart();
+    const { deliveryMethod, chooseDeliveryMethod, setUpDeliveryDetails } = useShoppingCart();
 
     const handleMethodChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const chosenMethod = deliveryMethods.find(
-            (method) => method.name === event.target.value,
-        );
+        const chosenMethod = deliveryMethods.find((method) => method.name === event.target.value);
         setUpDeliveryDetails(undefined);
         chooseDeliveryMethod(chosenMethod);
     };
@@ -58,19 +49,12 @@ export const DeliveryMethod = () => {
                                     value={data.name}
                                     onChange={handleMethodChange}
                                 />
-                                <label
-                                    htmlFor={`deliveryMethod${index}`}
-                                    className="form-check-label ms-2 w-100"
-                                >
+                                <label htmlFor={`deliveryMethod${index}`} className="form-check-label ms-2 w-100">
                                     <Card>
                                         <CardBody>
                                             <CardTitle>{data.name}</CardTitle>
-                                            <CardSubtitle className="mb-2 text-muted">
-                                                {data.info}
-                                            </CardSubtitle>
-                                            <CardSubtitle className="mb-2 text-muted">
-                                                {data.price}
-                                            </CardSubtitle>
+                                            <CardSubtitle className="mb-2 text-muted">{data.info}</CardSubtitle>
+                                            <CardSubtitle className="mb-2 text-muted">{data.price}</CardSubtitle>
                                         </CardBody>
                                     </Card>
                                 </label>

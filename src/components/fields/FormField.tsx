@@ -12,22 +12,13 @@ type TFormFieldProps = {
     options?: TIDNameType[] | string[];
 };
 
-export const FormField: React.FC<TFormFieldProps> = ({
-    label,
-    fieldType,
-    id,
-    name,
-    value,
-    options,
-}) => {
+export const FormField: React.FC<TFormFieldProps> = ({ label, fieldType, id, name, value, options }) => {
     const { values, setFieldValue } = useFormikContext<{
         [key: string]: string | number | UUID;
     }>();
     value = values[name];
 
-    const handleInputChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    ) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFieldValue(name, e.target.value);
     };
 
@@ -44,16 +35,10 @@ export const FormField: React.FC<TFormFieldProps> = ({
                         id={id}
                         name={name}
                         value={value}
-                        onChange={handleInputChange}
-                    >
+                        onChange={handleInputChange}>
                         <option value="">{`Choose ${label}`}</option>
                         {options?.map((data, index) => (
-                            <option
-                                key={index}
-                                value={
-                                    typeof data === "string" ? data : data.id
-                                }
-                            >
+                            <option key={index} value={typeof data === "string" ? data : data.id}>
                                 {typeof data === "string" ? data : data.name}
                             </option>
                         ))}
@@ -68,11 +53,7 @@ export const FormField: React.FC<TFormFieldProps> = ({
                         onChange={handleInputChange}
                     />
                 )}
-                <ErrorMessage
-                    name={name}
-                    component="div"
-                    className="text-danger"
-                />
+                <ErrorMessage name={name} component="div" className="text-danger" />
             </div>
         </div>
     );

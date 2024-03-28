@@ -1,10 +1,4 @@
-import React, {
-    createContext,
-    useState,
-    useContext,
-    FC,
-    ReactNode,
-} from "react";
+import React, { createContext, useState, useContext, FC, ReactNode } from "react";
 
 type UserContextType = {
     userRole: string;
@@ -28,9 +22,5 @@ export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
         setUserRole(role);
     };
 
-    return (
-        <UserContext.Provider value={{ userRole, userRoleChange }}>
-            {children}
-        </UserContext.Provider>
-    );
+    return <UserContext.Provider value={{ userRole, userRoleChange }}>{children}</UserContext.Provider>;
 };

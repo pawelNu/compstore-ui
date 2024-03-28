@@ -20,18 +20,14 @@ export const CategoryBar = () => {
                         data-bs-target="#categoryBar"
                         aria-controls="categoryBar"
                         aria-expanded="false"
-                        aria-label="Toggle navigation"
-                    >
+                        aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="categoryBar">
                         <ul className="navbar-nav">
                             {categories.map((category, index) => (
                                 <li key={index} className="nav-item">
-                                    <a
-                                        className="nav-link active text-red"
-                                        href={category.link}
-                                    >
+                                    <a className="nav-link active text-red" href={category.link}>
                                         {category.name}
                                     </a>
                                 </li>

@@ -1,8 +1,5 @@
 import { useState } from "react";
-import {
-    TDeliveryMethodDetails,
-    useShoppingCart,
-} from "../../../redux/ShoppingCartProvider";
+import { TDeliveryMethodDetails, useShoppingCart } from "../../../redux/ShoppingCartProvider";
 
 const initialFormData: TDeliveryMethodDetails = {
     "First Name": "",
@@ -13,8 +10,7 @@ const initialFormData: TDeliveryMethodDetails = {
 };
 
 export const DeliveryManOption = () => {
-    const { deliveryDetails = initialFormData, setUpDeliveryDetails } =
-        useShoppingCart();
+    const { deliveryDetails = initialFormData, setUpDeliveryDetails } = useShoppingCart();
 
     const handleChange = (e: { target: { id: any; value: any } }) => {
         const { id, value } = e.target;
@@ -27,10 +23,7 @@ export const DeliveryManOption = () => {
             <div className="card-body">
                 {Object.keys(initialFormData).map((key, index) => (
                     <div className="row mb-3" key={index}>
-                        <label
-                            htmlFor={key}
-                            className="col-sm-2 col-form-label"
-                        >
+                        <label htmlFor={key} className="col-sm-2 col-form-label">
                             {key}
                         </label>
                         <div className="col-sm-10">

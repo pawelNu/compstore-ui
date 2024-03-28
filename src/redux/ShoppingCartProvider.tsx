@@ -33,34 +33,25 @@ const ShoppingCartContext = createContext<ShoppingCartContextType | null>(null);
 export const useShoppingCart = (): ShoppingCartContextType => {
     const context = useContext(ShoppingCartContext);
     if (!context) {
-        throw new Error(
-            "useShoppingCart must be used within a ShoppingCartProvider ",
-        );
+        throw new Error("useShoppingCart must be used within a ShoppingCartProvider ");
     }
     return context;
 };
 
-export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
-    children,
-}) => {
-    const [shoppingCartList, setShoppingCartList] = useState<TShoppingCartList>(
-        () => {
-            const storedList = localStorage.getItem("shoppingCart");
-            return storedList ? JSON.parse(storedList) : [];
-        },
-    );
+export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const [shoppingCartList, setShoppingCartList] = useState<TShoppingCartList>(() => {
+        const storedList = localStorage.getItem("shoppingCart");
+        return storedList ? JSON.parse(storedList) : [];
+    });
     const [deliveryMethod, setDeliveryMethod] = useState<TDeliveryMethod>();
-    const [deliveryDetails, setDeliveryDetails] =
-        useState<TDeliveryMethodDetails>();
+    const [deliveryDetails, setDeliveryDetails] = useState<TDeliveryMethodDetails>();
 
     useEffect(() => {
         localStorage.setItem("shoppingCart", JSON.stringify(shoppingCartList));
     }, [shoppingCartList]);
 
     const checkProductIndex = (id: UUID): number => {
-        const productIndex = shoppingCartList.findIndex(
-            (item) => item.product === id,
-        );
+        const productIndex = shoppingCartList.findIndex((item) => item.product === id);
         return productIndex;
     };
 
@@ -70,19 +61,13 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
         const productIndex = checkProductIndex(product.product);
 
         if (productIndex === -1) {
-            setShoppingCartList((prevList) => [
-                ...prevList,
-                { ...product, quantity: 1 },
-            ]);
+            setShoppingCartList((prevList) => [...prevList, { ...product, quantity: 1 }]);
             toast.success(toasts.addToShoppingCart.msg, defaultToastProps);
         } else {
             const updatedList = [...shoppingCartList];
             updatedList[productIndex].quantity += 1;
             setShoppingCartList(updatedList);
-            toast.success(
-                toasts.addQuantityToShoppingCart.msg,
-                defaultToastProps,
-            );
+            toast.success(toasts.addQuantityToShoppingCart.msg, defaultToastProps);
         }
     };
 
@@ -95,10 +80,7 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
             setShoppingCartList(updatedList);
             toast.success(toasts.deleteFromShoppingCart.msg, defaultToastProps);
         } else {
-            console.log(
-                "Not found product in shopping cart! ",
-                shoppingCartList[productIndex],
-            );
+            console.log("Not found product in shopping cart! ", shoppingCartList[productIndex]);
         }
     };
 
@@ -107,10 +89,7 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
 
         if (productIndex !== -1) {
             const updatedList = [...shoppingCartList];
-            updatedList[productIndex].quantity = Math.max(
-                0,
-                updatedList[productIndex].quantity + 1 * directionChange,
-            );
+            updatedList[productIndex].quantity = Math.max(0, updatedList[productIndex].quantity + 1 * directionChange);
             setShoppingCartList(updatedList);
         }
     };
@@ -134,9 +113,7 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
         setDeliveryMethod(method);
     };
 
-    const setUpDeliveryDetails = (
-        details: TDeliveryMethodDetails | undefined,
-    ) => {
+    const setUpDeliveryDetails = (details: TDeliveryMethodDetails | undefined) => {
         setDeliveryDetails(details);
     };
 
@@ -154,8 +131,7 @@ export const ShoppingCartProvider: React.FC<{ children: React.ReactNode }> = ({
                 chooseDeliveryMethod,
                 deliveryDetails,
                 setUpDeliveryDetails,
-            }}
-        >
+            }}>
             {children}
         </ShoppingCartContext.Provider>
     );

@@ -7,11 +7,7 @@ type Props = {
     handleConfirmDelete: () => void;
 };
 
-export const ConfirmDeleteModal: React.FC<Props> = ({
-    show,
-    handleClose,
-    handleConfirmDelete,
-}) => {
+export const ConfirmDeleteModal: React.FC<Props> = ({ show, handleClose, handleConfirmDelete }) => {
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>

@@ -10,10 +10,7 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { OrderModal } from "./components/OrderModal";
 import { toast } from "react-toastify";
-import {
-    defaultToastProps,
-    toasts,
-} from "../../components/toasts/toastsConfig";
+import { defaultToastProps, toasts } from "../../components/toasts/toastsConfig";
 
 export type TShoppingCartItem = {
     id: UUID;
@@ -75,9 +72,7 @@ export const ShoppingCart = () => {
         setError("");
     };
 
-    const handleOrderDelete = async (
-        id: UUID | undefined,
-    ): Promise<{ success: boolean; error?: string }> => {
+    const handleOrderDelete = async (id: UUID | undefined): Promise<{ success: boolean; error?: string }> => {
         if (id !== undefined) {
             try {
                 await axios.delete(endpoints.orders.byId + id);
@@ -100,10 +95,7 @@ export const ShoppingCart = () => {
     const getShoppingList = useCallback(
         async (itemList: string[]) => {
             try {
-                const result = await axios.post<TShoppingCartItem[]>(
-                    endpoints.products.getAll,
-                    itemList,
-                );
+                const result = await axios.post<TShoppingCartItem[]>(endpoints.products.getAll, itemList);
 
                 const updatedShoppingList = result.data.map((item) => {
                     const correspondingQuantity = shoppingCartList.find(
@@ -111,18 +103,13 @@ export const ShoppingCart = () => {
                     );
                     return {
                         ...item,
-                        quantity: correspondingQuantity
-                            ? correspondingQuantity.quantity
-                            : 0,
+                        quantity: correspondingQuantity ? correspondingQuantity.quantity : 0,
                     };
                 });
 
                 setShoppingList(updatedShoppingList);
             } catch (e: any) {
-                console.log(
-                    "file: ShoppingCart.tsx:   getShoppingList   error:",
-                    e,
-                );
+                console.log("file: ShoppingCart.tsx:   getShoppingList   error:", e);
             }
         },
         [shoppingCartList],
@@ -136,10 +123,7 @@ export const ShoppingCart = () => {
         };
 
         try {
-            const result = await axios.post(
-                endpoints.orders.addNew,
-                orderItems,
-            );
+            const result = await axios.post(endpoints.orders.addNew, orderItems);
             setOrder(result.data);
             setShowOrderModal(true);
             navigate(links.shoppingCart);
@@ -182,9 +166,7 @@ export const ShoppingCart = () => {
                                             <img
                                                 src={imagePlaceholder}
                                                 className="img-fluid rounded-start"
-                                                style={
-                                                    shoppingCartStyles.productImage
-                                                }
+                                                style={shoppingCartStyles.productImage}
                                                 alt="Product"
                                             />
                                         </Link>
@@ -193,64 +175,32 @@ export const ShoppingCart = () => {
                                         <ListGroup.Item>
                                             <div className="d-flex justify-content-between align-items-end">
                                                 <Link
-                                                    to={
-                                                        links.pcDetails +
-                                                        product.id
-                                                    }
+                                                    to={links.pcDetails + product.id}
                                                     className="me-2"
-                                                    style={
-                                                        shoppingCartStyles.component
-                                                    }
-                                                >
-                                                    <div>
-                                                        {product.description}
-                                                    </div>
+                                                    style={shoppingCartStyles.component}>
+                                                    <div>{product.description}</div>
                                                 </Link>
 
                                                 <div className="d-flex">
-                                                    <Button
-                                                        variant="danger"
-                                                        onClick={() =>
-                                                            deleteFromCart(
-                                                                product.id,
-                                                            )
-                                                        }
-                                                    >
+                                                    <Button variant="danger" onClick={() => deleteFromCart(product.id)}>
                                                         Delete
                                                     </Button>
                                                     <div className="col-1 vr mx-2"></div>
                                                     <Button
                                                         variant="primary"
-                                                        style={
-                                                            shoppingCartStyles.btnText
-                                                        }
-                                                        onClick={() =>
-                                                            reduceProductQuantity(
-                                                                product.id,
-                                                            )
-                                                        }
-                                                    >
+                                                        style={shoppingCartStyles.btnText}
+                                                        onClick={() => reduceProductQuantity(product.id)}>
                                                         -
                                                     </Button>
                                                     <div
                                                         className="d-flex justify-content-center align-items-center border border-primary rounded-3 mx-1"
-                                                        style={
-                                                            shoppingCartStyles.quantity
-                                                        }
-                                                    >
+                                                        style={shoppingCartStyles.quantity}>
                                                         {product.quantity}
                                                     </div>
                                                     <Button
                                                         variant="primary"
-                                                        style={
-                                                            shoppingCartStyles.btnText
-                                                        }
-                                                        onClick={() =>
-                                                            increaseProductQuantity(
-                                                                product.id,
-                                                            )
-                                                        }
-                                                    >
+                                                        style={shoppingCartStyles.btnText}
+                                                        onClick={() => increaseProductQuantity(product.id)}>
                                                         +
                                                     </Button>
                                                 </div>
@@ -258,24 +208,11 @@ export const ShoppingCart = () => {
                                         </ListGroup.Item>
                                         <ListGroup.Item>
                                             <div>
-                                                <div
-                                                    style={
-                                                        shoppingCartStyles.quantityAndPrice
-                                                    }
-                                                >
-                                                    {product.quantity} x ${" "}
-                                                    {formatPrice(product.price)}
+                                                <div style={shoppingCartStyles.quantityAndPrice}>
+                                                    {product.quantity} x $ {formatPrice(product.price)}
                                                 </div>
-                                                <div
-                                                    style={
-                                                        shoppingCartStyles.priceTag
-                                                    }
-                                                >
-                                                    ${" "}
-                                                    {formatPrice(
-                                                        product.price *
-                                                            product.quantity,
-                                                    )}
+                                                <div style={shoppingCartStyles.priceTag}>
+                                                    $ {formatPrice(product.price * product.quantity)}
                                                 </div>
                                             </div>
                                         </ListGroup.Item>
@@ -285,21 +222,14 @@ export const ShoppingCart = () => {
                         </Card>
                     ))}
                     {shoppingList.length > 0 ? (
-                        <Button
-                            variant="danger"
-                            className="mb-2"
-                            onClick={clearCart}
-                        >
+                        <Button variant="danger" className="mb-2" onClick={clearCart}>
                             Clear shopping cart
                         </Button>
                     ) : null}
 
                     <Card className="mb-2">
                         <CardBody>
-                            <div
-                                className="me-3"
-                                style={shoppingCartStyles.priceTag}
-                            >
+                            <div className="me-3" style={shoppingCartStyles.priceTag}>
                                 Total: $ {totalPrice}
                             </div>
                         </CardBody>
@@ -310,22 +240,14 @@ export const ShoppingCart = () => {
                         deliveryMethod?.name !== undefined &&
                         deliveryDetails !== undefined && (
                             <div className="d-flex justify-content-center mt-3">
-                                <Button
-                                    variant="success"
-                                    type="submit"
-                                    onClick={(e) => createOrder(e)}
-                                >
+                                <Button variant="success" type="submit" onClick={(e) => createOrder(e)}>
                                     Place the order and pay
                                 </Button>
                             </div>
                         )}
                 </CardBody>
                 <div className="d-flex justify-content-center mb-3">
-                    <Link
-                        className="btn btn-outline-secondary"
-                        to={links.pcs}
-                        role="button"
-                    >
+                    <Link className="btn btn-outline-secondary" to={links.pcs} role="button">
                         Back to shopping
                     </Link>
                 </div>

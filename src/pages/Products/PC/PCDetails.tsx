@@ -5,10 +5,7 @@ import { useParams } from "react-router-dom";
 import { TPCDetails } from "../../../types/PC/TPC";
 import { initialPCDetails } from "./components/initialValues";
 import { endpoints } from "../../../config/links.js";
-import {
-    ProductDetailsComponent,
-    TDetailsMap,
-} from "../../../components/product/ProductDetailsComponent";
+import { ProductDetailsComponent, TDetailsMap } from "../../../components/product/ProductDetailsComponent";
 
 export const PCDetails = () => {
     const imagePlaceholder =
@@ -23,10 +20,7 @@ export const PCDetails = () => {
             const result = await axios.get(endpoints.pcs.byId + id);
             setPc(result.data);
         } catch (e) {
-            console.log(
-                "Error getting pc -> file: PCDetails.tsx  getPc  e:",
-                e,
-            );
+            console.log("Error getting pc -> file: PCDetails.tsx  getPc  e:", e);
         }
     };
 
@@ -42,11 +36,5 @@ export const PCDetails = () => {
         getPc(id);
     }, [id]);
 
-    return (
-        <ProductDetailsComponent
-            data={pc}
-            imagePlaceholder={imagePlaceholder}
-            productDetailsMap={pcDetailsMap}
-        />
-    );
+    return <ProductDetailsComponent data={pc} imagePlaceholder={imagePlaceholder} productDetailsMap={pcDetailsMap} />;
 };

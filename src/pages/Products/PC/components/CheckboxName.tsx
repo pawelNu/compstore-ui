@@ -6,10 +6,7 @@ type TCheckboxNameProps = {
     options?: string[] | null;
 };
 
-export const CheckboxName: React.FC<TCheckboxNameProps> = ({
-    name,
-    options,
-}) => {
+export const CheckboxName: React.FC<TCheckboxNameProps> = ({ name, options }) => {
     const { setFieldValue } = useFormikContext();
     const [field] = useField<string[]>(name);
 
@@ -33,10 +30,7 @@ export const CheckboxName: React.FC<TCheckboxNameProps> = ({
                         value={option}
                         id={`${option.replace(" ", "")}-${name}`}
                     />
-                    <label
-                        className="form-check-label"
-                        htmlFor={`${option.replace(" ", "")}-${name}`}
-                    >
+                    <label className="form-check-label" htmlFor={`${option.replace(" ", "")}-${name}`}>
                         {option}
                     </label>
                 </div>

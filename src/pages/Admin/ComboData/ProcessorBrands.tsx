@@ -10,22 +10,16 @@ import { endpoints, links } from "../../../config/links";
 import { TProcessorBrands } from "../../../types/ComboData/TProcessorBrands";
 
 export const ProcessorBrands = () => {
-    const [processorBrands, setProcessorBrands] = useState<TProcessorBrands[]>(
-        [],
-    );
+    const [processorBrands, setProcessorBrands] = useState<TProcessorBrands[]>([]);
 
     const getData = useCallback(async () => {
         await getProcessorBrandsComboData(setProcessorBrands);
     }, []);
 
-    const deleteBrand = async (
-        id: UUID,
-    ): Promise<{ success: boolean; error?: string }> => {
+    const deleteBrand = async (id: UUID): Promise<{ success: boolean; error?: string }> => {
         try {
             await axios.delete(endpoints.processorBrands.byId + id);
-            setProcessorBrands((prevPBs) =>
-                prevPBs.filter((pb) => pb.id !== id),
-            );
+            setProcessorBrands((prevPBs) => prevPBs.filter((pb) => pb.id !== id));
             return { success: true };
         } catch (e: any) {
             console.log("file: actions.ts   e:", e);
