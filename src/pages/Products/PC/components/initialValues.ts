@@ -1,4 +1,4 @@
-import { TPCDetails, TPCPageRequest } from "../../../../types/PC/TPC";
+import { TPCDetails, TPCPageRequest, TPCNewOrUpdated } from "../../../../types/PC/TPC";
 
 export const initialPCDetails: TPCDetails = {
     id: "string-string-string-string-string",
@@ -22,6 +22,18 @@ export const initialPCDetails: TPCDetails = {
     price: 0,
 };
 
+export const initialPCUpdate: TPCNewOrUpdated = {
+    processorBrand: "string-string-string-string-string",
+    processorName: "",
+    graphicsCardBrand: "string-string-string-string-string",
+    graphicsCardName: "",
+    ramCapacity: "",
+    driveCapacity: "",
+    driveType: "",
+    operatingSystem: "string-string-string-string-string",
+    price: 0,
+};
+
 export const initialValuesFilter: TPCPageRequest = {
     processorBrands: [],
     graphicsCardBrands: [],
@@ -34,6 +46,6 @@ export const initialValuesFilter: TPCPageRequest = {
     pagingAndSortingRequest: {
         pageNumber: 0,
         pageSize: 10,
-        ascendingFlag: null,
+        ascendingFlag: true,
     },
 };

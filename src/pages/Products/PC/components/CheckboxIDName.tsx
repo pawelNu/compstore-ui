@@ -7,10 +7,7 @@ type TCheckboxIDNameProps = {
     options?: TIDNameType[] | null;
 };
 
-export const CheckboxIDName: React.FC<TCheckboxIDNameProps> = ({
-    name,
-    options,
-}) => {
+export const CheckboxIDName: React.FC<TCheckboxIDNameProps> = ({ name, options }) => {
     const { setFieldValue } = useFormikContext();
     const [field] = useField<string[]>(name);
 
@@ -34,10 +31,7 @@ export const CheckboxIDName: React.FC<TCheckboxIDNameProps> = ({
                         type="checkbox"
                         value={option.id}
                     />
-                    <label
-                        className="form-check-label"
-                        htmlFor={`${option.name}-${name}`}
-                    >
+                    <label className="form-check-label" htmlFor={`${option.name}-${name}`}>
                         {option.name}
                     </label>
                 </div>

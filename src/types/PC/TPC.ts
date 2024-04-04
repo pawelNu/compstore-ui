@@ -1,17 +1,5 @@
 import { UUID } from "crypto";
 
-export type TPCNew = {
-    processorBrand: UUID;
-    processorName: string;
-    graphicsCardBrand: UUID;
-    graphicsCardName: string;
-    ramCapacity: string;
-    driveCapacity: string;
-    driveType: string;
-    operatingSystem: UUID;
-    price: number;
-};
-
 export type TPCDetails = {
     id: UUID;
     processorBrand: TIDNameType;
@@ -25,15 +13,15 @@ export type TPCDetails = {
     price: number;
 };
 
-export type TPCUpdated = {
-    processorBrand: UUID;
+export type TPCNewOrUpdated = {
+    processorBrand: UUID | string;
     processorName: string;
-    graphicsCardBrand: UUID;
+    graphicsCardBrand: UUID | string;
     graphicsCardName: string;
     ramCapacity: string;
     driveCapacity: string;
     driveType: string;
-    operatingSystem: UUID;
+    operatingSystem: UUID | string;
     price: number;
 };
 
@@ -74,7 +62,7 @@ export type TPCFilter = {
 type TPagingAndSortingRequest = {
     pageNumber: number;
     pageSize: number;
-    ascendingFlag: boolean | null;
+    ascendingFlag: boolean;
 };
 
 export type TPCPageRequest = {

@@ -10,11 +10,7 @@ export const SidebarStore = () => {
                     <Accordion.Body>
                         <ListGroup>
                             {item.subMenu.map((subItem, index) => (
-                                <ListGroup.Item
-                                    action
-                                    key={index}
-                                    href={subItem.link}
-                                >
+                                <ListGroup.Item action key={index} href={subItem.link}>
                                     {subItem.name}
                                 </ListGroup.Item>
                             ))}

@@ -8,12 +8,7 @@ interface CustomInputProps {
     type?: string;
 }
 
-export const InputField: React.FC<CustomInputProps> = ({
-    label,
-    id,
-    name,
-    type = "text",
-}) => {
+export const InputField: React.FC<CustomInputProps> = ({ label, id, name, type = "text" }) => {
     const [, meta] = useField(name);
 
     return (
@@ -25,15 +20,11 @@ export const InputField: React.FC<CustomInputProps> = ({
                             {...field}
                             id={id}
                             type={type}
-                            className={`form-control ${
-                                meta.touched && meta.error ? "is-invalid" : ""
-                            }`}
+                            className={`form-control ${meta.touched && meta.error ? "is-invalid" : ""}`}
                             placeholder={label}
                         />
                         <label htmlFor={id}>{label}</label>
-                        {meta.touched && meta.error ? (
-                            <div className="invalid-feedback">{meta.error}</div>
-                        ) : null}
+                        {meta.touched && meta.error ? <div className="invalid-feedback">{meta.error}</div> : null}
                     </>
                 )}
             </Field>

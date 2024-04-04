@@ -19,8 +19,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 2499,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3",
         quantity: 1,
     },
     {
@@ -41,8 +40,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 7699,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/027f31ca-9213-4209-adec-88b8c141ee77",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/027f31ca-9213-4209-adec-88b8c141ee77",
         quantity: 1,
     },
     {
@@ -63,8 +61,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 2899,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/fc0e3f3b-b8a2-4921-a4ef-3bd3efeb2bf0",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/fc0e3f3b-b8a2-4921-a4ef-3bd3efeb2bf0",
         quantity: 1,
     },
     {
@@ -85,8 +82,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 3199,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/f93d8dd2-551f-4513-bf8c-ea86dd3d1190",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/f93d8dd2-551f-4513-bf8c-ea86dd3d1190",
         quantity: 1,
     },
     {
@@ -107,8 +103,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 4799,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/8fdbcf84-8c99-4897-9542-632b08497226",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/8fdbcf84-8c99-4897-9542-632b08497226",
         quantity: 1,
     },
     {
@@ -129,8 +124,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 3599,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/027f31ca-9213-4209-adec-88b8c141ee77",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/027f31ca-9213-4209-adec-88b8c141ee77",
         quantity: 1,
     },
     {
@@ -151,8 +145,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 1999,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3",
         quantity: 1,
     },
     {
@@ -173,8 +166,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 1569,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/fc0e3f3b-b8a2-4921-a4ef-3bd3efeb2bf0",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/fc0e3f3b-b8a2-4921-a4ef-3bd3efeb2bf0",
         quantity: 1,
     },
     {
@@ -195,8 +187,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 4499,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/f93d8dd2-551f-4513-bf8c-ea86dd3d1190",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/f93d8dd2-551f-4513-bf8c-ea86dd3d1190",
         quantity: 1,
     },
     {
@@ -217,8 +208,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 2599,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/8fdbcf84-8c99-4897-9542-632b08497226",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/8fdbcf84-8c99-4897-9542-632b08497226",
         quantity: 1,
     },
     {
@@ -239,8 +229,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 3899,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/027f31ca-9213-4209-adec-88b8c141ee77",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/027f31ca-9213-4209-adec-88b8c141ee77",
         quantity: 1,
     },
     {
@@ -261,8 +250,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 5799,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3",
         quantity: 1,
     },
     {
@@ -283,8 +271,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 6499,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/fc0e3f3b-b8a2-4921-a4ef-3bd3efeb2bf0",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/fc0e3f3b-b8a2-4921-a4ef-3bd3efeb2bf0",
         quantity: 1,
     },
     {
@@ -305,8 +292,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 1699,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/f93d8dd2-551f-4513-bf8c-ea86dd3d1190",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/f93d8dd2-551f-4513-bf8c-ea86dd3d1190",
         quantity: 1,
     },
     {
@@ -327,8 +313,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 2999,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/8fdbcf84-8c99-4897-9542-632b08497226",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/8fdbcf84-8c99-4897-9542-632b08497226",
         quantity: 1,
     },
     {
@@ -349,8 +334,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 5899,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/027f31ca-9213-4209-adec-88b8c141ee77",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/027f31ca-9213-4209-adec-88b8c141ee77",
         quantity: 1,
     },
     {
@@ -371,8 +355,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 3299,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3",
         quantity: 1,
     },
     {
@@ -393,8 +376,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 8999,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/fc0e3f3b-b8a2-4921-a4ef-3bd3efeb2bf0",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/fc0e3f3b-b8a2-4921-a4ef-3bd3efeb2bf0",
         quantity: 1,
     },
     {
@@ -415,8 +397,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 2499,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/f93d8dd2-551f-4513-bf8c-ea86dd3d1190",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/f93d8dd2-551f-4513-bf8c-ea86dd3d1190",
         quantity: 1,
     },
     {
@@ -437,8 +418,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 4599,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/8fdbcf84-8c99-4897-9542-632b08497226",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/8fdbcf84-8c99-4897-9542-632b08497226",
         quantity: 1,
     },
     {
@@ -459,8 +439,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 6699,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/027f31ca-9213-4209-adec-88b8c141ee77",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/027f31ca-9213-4209-adec-88b8c141ee77",
         quantity: 1,
     },
     {
@@ -481,8 +460,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 3999,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3",
         quantity: 1,
     },
     {
@@ -503,8 +481,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 1599,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/fc0e3f3b-b8a2-4921-a4ef-3bd3efeb2bf0",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/fc0e3f3b-b8a2-4921-a4ef-3bd3efeb2bf0",
         quantity: 1,
     },
     {
@@ -525,8 +502,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 4999,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/f93d8dd2-551f-4513-bf8c-ea86dd3d1190",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/f93d8dd2-551f-4513-bf8c-ea86dd3d1190",
         quantity: 1,
     },
     {
@@ -547,8 +523,7 @@ export const productsPC: TProduct[] = [
             },
         ],
         price: 2299,
-        productImage:
-            "https://github.com/pawelNu/compstore-ui/assets/93542936/8fdbcf84-8c99-4897-9542-632b08497226",
+        productImage: "https://github.com/pawelNu/compstore-ui/assets/93542936/8fdbcf84-8c99-4897-9542-632b08497226",
         quantity: 1,
     },
 ];

@@ -1,18 +1,20 @@
+import { links } from "./../../config/links";
+
 export const navbarElements = [
     {
         name: "Promotions and more",
-        link: "/",
+        link: links.mainPage,
     },
     {
         name: "Loan installment",
-        link: "/",
+        link: links.mainPage,
     },
     {
         name: "Returns and complaints",
-        link: "/",
+        link: links.mainPage,
     },
     {
         name: "Contact",
-        link: "/",
+        link: links.mainPage,
     },
 ];

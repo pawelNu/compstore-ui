@@ -10,11 +10,7 @@ type Props = {
     deleteItem: (id: UUID) => Promise<{ success: boolean; error?: string }>;
 };
 
-export const ActionsButton: React.FC<Props> = ({
-    id,
-    editLink,
-    deleteItem,
-}) => {
+export const ActionsButton: React.FC<Props> = ({ id, editLink, deleteItem }) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [error, setError] = useState<string>("");
@@ -34,9 +30,7 @@ export const ActionsButton: React.FC<Props> = ({
                 setShowDeleteModal(false);
                 setShowErrorModal(true);
             } else {
-                setError(
-                    "Unknown error: file: ActionsButton.tsx:   confirmDelete   confirmDelete",
-                );
+                setError("Unknown error: file: ActionsButton.tsx:   confirmDelete   confirmDelete");
                 setShowDeleteModal(false);
                 setShowErrorModal(true);
             }
@@ -47,33 +41,16 @@ export const ActionsButton: React.FC<Props> = ({
 
     return (
         <div className="ms-3">
-            <DropdownButton
-                id="actions-dropdown"
-                variant="secondary"
-                title="Actions"
-            >
+            <DropdownButton id="actions-dropdown" variant="secondary" title="Actions">
                 <Dropdown.Item href={editLink + id}>Edit</Dropdown.Item>
-                <Dropdown.Item
-                    className="bg-danger text-white"
-                    onClick={handleShow}
-                >
+                <Dropdown.Item className="bg-danger text-white" onClick={handleShow}>
                     Delete
                 </Dropdown.Item>
             </DropdownButton>
 
-            <ConfirmDeleteModal
-                show={showDeleteModal}
-                handleClose={handleClose}
-                handleConfirmDelete={confirmDelete}
-            />
+            <ConfirmDeleteModal show={showDeleteModal} handleClose={handleClose} handleConfirmDelete={confirmDelete} />
 
-            {error && (
-                <InfoModal
-                    message={error}
-                    show={showErrorModal}
-                    handleClose={handleClose}
-                />
-            )}
+            {error && <InfoModal message={error} show={showErrorModal} handleClose={handleClose} />}
         </div>
     );
 };

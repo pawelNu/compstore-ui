@@ -2,10 +2,7 @@ import { Dropdown } from "react-bootstrap";
 import { TSortingButton } from "../../types/TSortingButton";
 import { arrowUp, arrowDown } from "../../config/symbols";
 
-export const SortingButton: React.FC<TSortingButton> = ({
-    ascendingFlag,
-    onChangeSorting,
-}) => {
+export const SortingButton: React.FC<TSortingButton> = ({ ascendingFlag, onChangeSorting }) => {
     const sortingConfig = new Map([
         ["ascending", true],
         ["descending", false],
@@ -29,10 +26,7 @@ export const SortingButton: React.FC<TSortingButton> = ({
 
             <Dropdown.Menu>
                 {Array.from(sortingConfig.entries()).map(([key, value]) => (
-                    <Dropdown.Item
-                        key={key}
-                        onClick={() => onChangeSorting(value)}
-                    >
+                    <Dropdown.Item key={key} onClick={() => onChangeSorting(value)}>
                         {value === true ? arrowUp : arrowDown} Price {key}
                     </Dropdown.Item>
                 ))}

@@ -6,11 +6,7 @@ type ToastWithLinkProps = {
     link: string;
 };
 
-export const ToastWithLink: React.FC<ToastWithLinkProps> = ({
-    msg,
-    direction,
-    link,
-}) => {
+export const ToastWithLink: React.FC<ToastWithLinkProps> = ({ msg, direction, link }) => {
     return (
         <div>
             {msg}

@@ -7,10 +7,7 @@ export type TPageSize = {
     onChangePage: (pageNumber: number, pageSize: number) => void;
 };
 
-export const PageSizeButton: React.FC<TPageSize> = ({
-    pageSize,
-    onChangePage,
-}) => {
+export const PageSizeButton: React.FC<TPageSize> = ({ pageSize, onChangePage }) => {
     const pageSizes = [10, 25, 50];
     return (
         <Dropdown style={pagePaginationStyles.pageSize}>
@@ -20,10 +17,7 @@ export const PageSizeButton: React.FC<TPageSize> = ({
 
             <Dropdown.Menu>
                 {pageSizes.map((size, index) => (
-                    <Dropdown.Item
-                        key={index}
-                        onClick={() => onChangePage(0, size)}
-                    >
+                    <Dropdown.Item key={index} onClick={() => onChangePage(0, size)}>
                         {size}
                     </Dropdown.Item>
                 ))}
