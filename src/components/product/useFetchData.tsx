@@ -22,7 +22,7 @@ export const useFetchData = <T,>(endpoint: string, initialFilter: any) => {
     const fetchData = useCallback(async () => {
         try {
             const result = await axios.get(endpoint);
-            console.log("file: useFetchData.tsx:20   fetchData   result:", result.data)
+            console.log("file: useFetchData.tsx:20   fetchData   result:", result.data);
             setData(result.data);
             setLoading(false);
         } catch (e: any) {

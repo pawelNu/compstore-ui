@@ -19,7 +19,7 @@ export const SimpleProductCard = <T,>({
 }) => {
     const { data, loading, error, setFilter } = useFetchData<{ items: T[]; pagingAndSortingMetadata: PagingMetadata }>(
         endpoint,
-        initialFilter
+        initialFilter,
     );
 
     if (loading) return <Loading />;
@@ -27,11 +27,7 @@ export const SimpleProductCard = <T,>({
 
     return (
         <div>
-            <div>
-                {data?.items.map((item: T, index: number) => (
-                    <ItemComponent key={index} {...item} />
-                ))}
-            </div>
+            <div>{data?.items.map((item: T, index: number) => <ItemComponent key={index} {...item} />)}</div>
             {/* <PaginationComponent
                 currentPage={data?.pagingAndSortingMetadata.pageNumber ?? 0}
                 totalPages={data?.pagingAndSortingMetadata.pagesCount ?? 1}

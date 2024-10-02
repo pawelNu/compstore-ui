@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface PCItemProps {
     id: string;
@@ -8,7 +8,12 @@ interface PCItemProps {
     price: number;
 }
 
-export const SimpleProductCardDetails: React.FC<PCItemProps> = ({ processorName, graphicsCardName, ramCapacity, price }) => {
+export const SimpleProductCardDetails: React.FC<PCItemProps> = ({
+    processorName,
+    graphicsCardName,
+    ramCapacity,
+    price,
+}) => {
     return (
         <div>
             <h3>{processorName}</h3>

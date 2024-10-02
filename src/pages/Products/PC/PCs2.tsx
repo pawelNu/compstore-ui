@@ -1,6 +1,6 @@
-import { endpoints } from '../../../config/links';
-import { SimpleProductCard } from '../../../components/product/SimpleProductCard';
-import { SimpleProductCardDetails } from '../../../components/product/SimpleProductCardDetails';
+import { endpoints } from "../../../config/links";
+import { SimpleProductCard } from "../../../components/product/SimpleProductCard";
+import { SimpleProductCardDetails } from "../../../components/product/SimpleProductCardDetails";
 
 const initialFilter = {
     processorBrands: [],
