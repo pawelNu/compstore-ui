@@ -18,6 +18,8 @@ import { PCs } from "./pages/Products/PC/PCs";
 import { ShoppingCart } from "./pages/ShoppingCart/ShoppingCart";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { PCs2 } from "./pages/Products/PC/PCs2";
+import { FetchDataTestComponent } from "./components/product/FetchDataTestComponent";
 
 export const App = () => {
     const { shoppingListCount } = useShoppingCart();
@@ -39,7 +41,9 @@ export const App = () => {
             <Routes>
                 <Route path={links.mainPage} element={<MainPage />} />
                 <Route path={links.shoppingCart} element={<ShoppingCart />} />
-                <Route path={links.pcs} element={<PCs />} />
+                {/* <Route path={links.pcs} element={<PCs />} /> */}
+                {/* <Route path={links.pcs} element={<PCs2 />} /> */}
+                <Route path={links.pcs} element={<FetchDataTestComponent />} />
                 <Route path={`${links.pcDetails}:id`} element={<PCDetails />} />
                 <Route path={`${links.pcEdit}:id`} element={<PCEdit />} />
                 <Route path={links.shoppingCart} element={<ShoppingCart />} />
