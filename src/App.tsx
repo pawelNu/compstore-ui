@@ -18,7 +18,6 @@ import { PCs } from "./pages/Products/PC/PCs";
 import { ShoppingCart } from "./pages/ShoppingCart/ShoppingCart";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { PCs2 } from "./pages/Products/PC/PCs2";
 import { FetchDataTestComponent } from "./components/product/FetchDataTestComponent";
 
 export const App = () => {
@@ -42,7 +41,7 @@ export const App = () => {
                 <Route path={links.mainPage} element={<MainPage />} />
                 <Route path={links.shoppingCart} element={<ShoppingCart />} />
                 {/* <Route path={links.pcs} element={<PCs />} /> */}
-                {/* <Route path={links.pcs} element={<PCs2 />} /> */}
+                {/* TODO pomyśleć jak to zrobić aby tu była konfiguracja routingu dla wszystkich kategorii*/}
                 <Route path={links.pcs} element={<FetchDataTestComponent />} />
                 <Route path={`${links.pcDetails}:id`} element={<PCDetails />} />
                 <Route path={`${links.pcEdit}:id`} element={<PCEdit />} />
