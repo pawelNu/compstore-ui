@@ -40,9 +40,9 @@ export const App = () => {
             <Routes>
                 <Route path={links.mainPage} element={<MainPage />} />
                 <Route path={links.shoppingCart} element={<ShoppingCart />} />
-                {/* <Route path={links.pcs} element={<PCs />} /> */}
+                <Route path={links.pcs} element={<PCs />} />
                 {/* TODO pomyśleć jak to zrobić aby tu była konfiguracja routingu dla wszystkich kategorii*/}
-                <Route path={links.pcs} element={<FetchDataTestComponent />} />
+                <Route path={links.laptops} element={<FetchDataTestComponent />} />
                 <Route path={`${links.pcDetails}:id`} element={<PCDetails />} />
                 <Route path={`${links.pcEdit}:id`} element={<PCEdit />} />
                 <Route path={links.shoppingCart} element={<ShoppingCart />} />

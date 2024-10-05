@@ -3,6 +3,7 @@ import hostName from "./config";
 export const links = {
     mainPage: "/",
     pcs: "/pcs",
+    laptops: "/laptops",
     pcDetails: "/pcs/",
     pcEdit: "/pcs/edit/",
     shoppingCart: "/shopping-cart",
