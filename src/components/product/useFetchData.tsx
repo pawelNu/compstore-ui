@@ -3,17 +3,15 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 type FetchResult = {
-    data: any | null; // Dane zwracane przez API
-    loading: boolean; // Stan ładowania
-    error: string | null; // Ewentualny komunikat błędu
-    setFilter: React.Dispatch<any>; // Funkcja do ustawiania filtrów
+    data: any | null;
+    loading: boolean;
+    error: string | null;
+    setFilter: React.Dispatch<any>;
 };
 
 // TODO problemem pierwszym jest jak zrobić hook do pobierania danych
 // TODO czy zrobić każdy oddzielnie (chyba najlepsza opcja)
 // TODO czy zrobić jeden z pod funkcjami
-
-// TODO sprawdzić jak to działa z endpointami z compstore czyli axios.post
 
 export const useFetchData = <T,>(endpoint: string, initialFilter: any): FetchResult => {
     const [data, setData] = useState<T | null>(null);

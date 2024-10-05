@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardBody, CardHeader, CardText } from "react-bootstrap";
+import { MappedItem } from "./SimpleProductCard";
 
 type ProductDetailsProps = {
     header?: string;
@@ -17,6 +18,31 @@ export const ProductDetails: React.FC<ProductDetailsProps> = ({ header, detailsM
                         {value}
                     </CardText>
                 ))}
+            </CardBody>
+        </>
+    );
+
+    return <>{header ? <Card>{cardContent}</Card> : cardContent}</>;
+};
+
+type ProductDetailsProps2 = {
+    header?: string;
+    itemDetailsList: MappedItem[];
+};
+
+export const ProductDetails2: React.FC<ProductDetailsProps2> = ({ header, itemDetailsList: array }) => {
+    const cardContent = (
+        <>
+            {header && <CardHeader as={"h5"}>{header}</CardHeader>}
+            <CardBody>
+                {array.map((item, index) =>
+                    item.param !== "id" && item.param !== "Price" ? (
+                        <CardText key={index}>
+                            <b>{item.param}: </b>
+                            {item.value}
+                        </CardText>
+                    ) : null,
+                )}
             </CardBody>
         </>
     );
