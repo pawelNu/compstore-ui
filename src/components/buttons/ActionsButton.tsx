@@ -5,9 +5,9 @@ import { ConfirmDeleteModal } from "../modals/ConfirmDeleteModal";
 import { InfoModal } from "../modals/ErrorModal";
 
 type Props = {
-    id: UUID;
+    id: UUID | undefined;
     editLink: string;
-    deleteItem: (id: UUID) => Promise<{ success: boolean; error?: string }>;
+    deleteItem: (id: UUID | undefined) => Promise<{ success: boolean; error?: string }>;
 };
 
 export const ActionsButton: React.FC<Props> = ({ id, editLink, deleteItem }) => {

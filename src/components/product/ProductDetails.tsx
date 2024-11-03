@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardBody, CardHeader, CardText } from "react-bootstrap";
-import { MappedItem } from "./SimpleProductCard";
+import { MappedProperty } from "./SimpleProductCardList";
 
 type ProductDetailsProps = {
     header?: string;
@@ -27,7 +27,7 @@ export const ProductDetails: React.FC<ProductDetailsProps> = ({ header, detailsM
 
 type ProductDetailsProps2 = {
     header?: string;
-    itemDetailsList: MappedItem[];
+    itemDetailsList: MappedProperty[];
 };
 
 export const ProductDetails2: React.FC<ProductDetailsProps2> = ({ header, itemDetailsList: array }) => {

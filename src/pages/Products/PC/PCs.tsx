@@ -77,7 +77,7 @@ export const PCs = () => {
         }
     }, [filter, setPCs, setPagesCount, setPageNumber, setPageSize]);
 
-    const deletePc = async (id: UUID): Promise<{ success: boolean; error?: string }> => {
+    const deletePc = async (id: UUID | undefined): Promise<{ success: boolean; error?: string }> => {
         try {
             await axios.delete(endpoints.pcs.byId + id);
             setPCs((prevPcs) => prevPcs.filter((pc) => pc.id !== id));

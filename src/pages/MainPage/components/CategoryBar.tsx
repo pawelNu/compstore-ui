@@ -1,12 +1,14 @@
+import { links } from "../../../config/links.js";
 import "../../../static/styles/CategoryBar.js";
 import { categoryBarStyles } from "../../../static/styles/CategoryBar.js";
 
 export const CategoryBar = () => {
     const categories: { name: string; link: string }[] = [
-        { name: "PCs", link: "/pcs" },
-        { name: "Laptops", link: "/laptops" },
-        { name: "Smartphones", link: "/smartphones" },
-        { name: "TVs", link: "/tvs" },
+        { name: "PCs", link: links.pcs },
+        { name: "PCs2", link: links.pcs2 },
+        { name: "Laptops", link: links.laptops },
+        { name: "Smartphones", link: links.smartphones },
+        { name: "TVs", link: links.tvs },
     ];
 
     return (

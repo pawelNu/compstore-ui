@@ -3,13 +3,18 @@ import { Loading } from "../spinner/Loading";
 import { useFetchData } from "./useFetchData";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 import { productStyles } from "../../static/styles/Products";
-import { links } from "../../config/links";
+import { endpoints, links } from "../../config/links";
 import { ProductDetails, ProductDetails2 } from "./ProductDetails";
 import { ButtonWithIcon } from "../buttons/ButtonWithIcon";
 import { buttons } from "../buttons/buttonsConfig";
 import { ActionsButton } from "../buttons/ActionsButton";
 import { useUser } from "../../redux/UserProvider";
 import { UUID } from "crypto";
+import { addToCartHandler } from "../../pages/Products/PC/components/PCActions";
+import { useShoppingCart } from "../../redux/ShoppingCartProvider";
+import axios from "axios";
+import { useCallback, useEffect, useState } from "react";
+import { isUUID, mapToItems, removeItemByIdFromList } from "./utils";
 
 type PagingMetadata = {
     pageNumber: number;
@@ -21,25 +26,27 @@ type PagingMetadata = {
 type Props = {
     endpoint: string;
     initialFilter: any;
-    responseKey: string;
-    ItemComponent: React.ComponentType<any>;
+    productType: string;
 };
 
-export type MappedItem = {
+export type MappedProperty = {
     param: string;
-    value: string | number;
+    value: string | number | UUID;
 };
 
-export const SimpleProductCard = ({ endpoint, initialFilter, responseKey, ItemComponent }: Props) => {
+export type MappedItem = MappedProperty[];
+
+export const SimpleProductCardList = ({ endpoint, initialFilter, productType: responseKey }: Props) => {
+    const [items, setItems] = useState<MappedItem[]>([]);
     const { userRole } = useUser();
+    const { addToCart } = useShoppingCart();
+
     console.log("file: SimpleProductCard.tsx:27   SimpleProductCard   responseKey:", responseKey);
     const { data, loading, error, setFilter } = useFetchData(endpoint, initialFilter);
     const imagePlaceholder =
         "https://github.com/pawelNu/compstore-ui/assets/93542936/8196ca80-ef1b-4b67-a7bd-b56c7b7f23e3";
 
     console.log("file: SimpleProductCard.tsx:27   data:", data);
-
-    const items = Array.isArray(data?.[responseKey]) ? data[responseKey] : [];
 
     const keyMapping: { [key: string]: string } = {
         // processorBrand: "Processor Brand",
@@ -54,54 +61,52 @@ export const SimpleProductCard = ({ endpoint, initialFilter, responseKey, ItemCo
         // Możesz dodać więcej pól w przyszłości
     };
 
-    // const mapToItems = (itemsArray: any[]): MappedItem[][] => {
-    //     return itemsArray.map((item) => {
-    //         return Object.keys(item).map((key) => ({
-    //             param: key,
-    //             value: (item as any)[key],
-    //         }));
-    //     });
-    // };
-
-    const mapToItems = (itemsArray: any[]): MappedItem[][] => {
-        return itemsArray.map((item) => {
-            return Object.keys(item).map((key) => {
-                const newKey = keyMapping[key] || key;
-                return {
-                    param: newKey,
-                    value: (item as any)[key],
-                };
-            });
-        });
+    const getItemsArray = () => {
+        const itemsArray = Array.isArray(data?.[responseKey]) ? data[responseKey] : [];
+        const itemList = mapToItems(itemsArray, keyMapping);
+        setItems(itemList);
     };
 
-    const itemList = mapToItems(items);
-    console.log("file: SimpleProductCard.tsx:36   itemsMapped:", itemList);
+    useEffect(() => {
+        getItemsArray();
+    }, [data, responseKey]);
+
+    console.log("items: ", items);
 
     if (loading) return <Loading />;
 
     if (error) return <div>{error}</div>;
 
-    function deletePc(id: UUID): Promise<{ success: boolean; error?: string | undefined }> {
-        throw new Error("Function not implemented.");
-    }
-
-    function handleAddToCart(id: any): void {
-        throw new Error("Function not implemented.");
-    }
-
-    const findId = (itemDetailsList: MappedItem[]) => {
-        const id = itemDetailsList.find((item) => item.param === "id");
-
-        if (id) {
-            return id.value;
-        } else {
-            console.warn("Not found Id for object: " + itemDetailsList);
-            return "Not found Id";
+    const deletePc = async (id: UUID | undefined): Promise<{ success: boolean; error?: string }> => {
+        try {
+            await axios.delete(endpoints.pcs.byId + id);
+            setItems(removeItemByIdFromList(items, id));
+            return { success: true };
+        } catch (e: any) {
+            console.error("Error during deleting pc: ", e);
+            return { success: false, error: e.response.data.message };
         }
     };
 
-    const getName = (itemDetailsList: MappedItem[]) => {
+    const handleAddToCart = async (id: UUID | undefined) => {
+        if (isUUID(id)) {
+            addToCartHandler(id, addToCart);
+        } else {
+            console.error("Product id not found");
+        }
+    };
+
+    const findId = (itemDetailsList: MappedItem): UUID | undefined => {
+        const id = itemDetailsList.find((item) => item.param === "id");
+        if (id?.value && isUUID(id.value)) {
+            return id.value;
+        } else {
+            console.warn("Not found Id for object: " + itemDetailsList);
+            return undefined;
+        }
+    };
+
+    const getName = (itemDetailsList: MappedItem) => {
         const filteredParams = itemDetailsList.filter(
             (item) => item.param === "Processor" || item.param === "GPU" || item.param === "RAM",
         );
@@ -118,7 +123,7 @@ export const SimpleProductCard = ({ endpoint, initialFilter, responseKey, ItemCo
         }
     };
 
-    const getPrice = (itemDetailsList: MappedItem[]) => {
+    const getPrice = (itemDetailsList: MappedItem) => {
         const priceItem = itemDetailsList.find((item) => item.param === "Price");
 
         if (priceItem) {
@@ -132,7 +137,7 @@ export const SimpleProductCard = ({ endpoint, initialFilter, responseKey, ItemCo
     return (
         <div>
             <div className="container col-10 p-2">
-                {itemList.map((itemDetailsList, index) => {
+                {items.map((itemDetailsList, index) => {
                     let itemId = findId(itemDetailsList);
                     return (
                         <div key={index} className="mb-2">
@@ -161,13 +166,15 @@ export const SimpleProductCard = ({ endpoint, initialFilter, responseKey, ItemCo
                                             </div>
                                             <ButtonWithIcon
                                                 config={buttons.addToCart}
-                                                // TODO dodać obsługę onClick={() => handleAddToCart(item.id)}
-                                                // onClick={() => handleAddToCart(item.id)}
+                                                onClick={() => handleAddToCart(itemId)}
                                             />
-                                            {/* TODO naprawić zmiany z userRole */}
-                                            {/* {userRole !== "Customer" && (
-                                            <ActionsButton id={item.id} editLink={links.pcEdit} deleteItem={deletePc} />
-                                        )} */}
+                                            {userRole !== "Customer" && (
+                                                <ActionsButton
+                                                    id={itemId}
+                                                    editLink={links.pcEdit}
+                                                    deleteItem={deletePc}
+                                                />
+                                            )}
                                         </div>
                                     </div>
                                 </div>

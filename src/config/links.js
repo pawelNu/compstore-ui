@@ -3,7 +3,10 @@ import hostName from "./config";
 export const links = {
     mainPage: "/",
     pcs: "/pcs",
+    pcs2: "/pcs2",
     laptops: "/laptops",
+    smartphones: "/smartphones",
+    tvs: "/tvs",
     pcDetails: "/pcs/",
     pcEdit: "/pcs/edit/",
     shoppingCart: "/shopping-cart",
@@ -11,13 +14,6 @@ export const links = {
     processorBrands: "/processor-brands",
     processorBrandsEdit: "/processor-brands/edit/",
     processorBrandsNew: "/processor-brands/new",
-};
-
-export const links2 = {
-    mainPage: "/",
-    shoppingCart: "shopping-cart",
-    pcs: "pcs",
-    processorBrands: "processor-brands",
 };
 
 export const endpoints = {

@@ -16,7 +16,7 @@ export const ProcessorBrands = () => {
         await getProcessorBrandsComboData(setProcessorBrands);
     }, []);
 
-    const deleteBrand = async (id: UUID): Promise<{ success: boolean; error?: string }> => {
+    const deleteBrand = async (id: UUID | undefined): Promise<{ success: boolean; error?: string }> => {
         try {
             await axios.delete(endpoints.processorBrands.byId + id);
             setProcessorBrands((prevPBs) => prevPBs.filter((pb) => pb.id !== id));
