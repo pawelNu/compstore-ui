@@ -46,6 +46,8 @@ export const App = () => {
                 <Route path={`${links.pcDetails}:id`} 
                 
                 
+                
+                
                 element={<PCDetails />} />
                 <Route path={`${links.pcEdit}:id`} element={<PCEdit />} />
                 <Route path={links.shoppingCart} element={<ShoppingCart />} />
