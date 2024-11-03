@@ -44,6 +44,8 @@ export const App = () => {
                 {/* TODO pomyśleć jak to zrobić aby tu była konfiguracja routingu dla wszystkich kategorii*/}
                 <Route path={links.pcs2} element={<ProductsList />} />
                 <Route path={`${links.pcDetails}:id`} 
+                
+                
                 element={<PCDetails />} />
                 <Route path={`${links.pcEdit}:id`} element={<PCEdit />} />
                 <Route path={links.shoppingCart} element={<ShoppingCart />} />
